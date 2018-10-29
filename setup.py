@@ -27,7 +27,7 @@ setup(
     include_package_data=True,
     setup_requires=['pytest-runner'],
     dependency_links= [
-        'https://github.com/EBI-Metagenomics/emg-backlog-schema/tarball/master'
+        'https://github.com/EBI-Metagenomics/emg-backlog-schema/tarball/master#egg=emg-backlog-schema-0.3.10'
     ]
     # tests_require=test_requirements,
     # test_suite="tests",

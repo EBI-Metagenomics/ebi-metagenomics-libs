@@ -1,4 +1,4 @@
 Django==1.11.13
 ruamel-yaml~=0.15
 requests==2.19
-emg-backlog-schema
+emg-backlog-schema~=0.3.10
