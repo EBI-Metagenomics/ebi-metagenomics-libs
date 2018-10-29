@@ -1,5 +1,7 @@
 from datetime import datetime
 import os
+import logging
+
 
 import django.db
 from django.core.exceptions import ObjectDoesNotExist
@@ -9,7 +11,6 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'db.settings'
 django.setup()
 
 from backlog.models import Study, Run, AssemblyJob, Assembler, AssemblyJobStatus, RunAssemblyJob
-
 
 class MgnifyHandler:
     def __init__(self, database):
@@ -26,7 +27,6 @@ class MgnifyHandler:
         return s
 
     def create_run_obj(self, study, run):
-        print(run)
         r = Run(study=study,
                 primary_accession=run['run_accession'],
                 base_count=run['base_count'],
@@ -52,11 +52,11 @@ class MgnifyHandler:
     def is_run_in_backlog(self, run_accession):
         return Run.objects.using(self.database).filter(primary_accession=run_accession)[0]
 
-    def save_study(self, ena_handler, args):
+    def save_study(self, ena_handler, secondary_study_accession):
         try:
-            return self.is_study_in_backlog(args.study)
+            return self.is_study_in_backlog(secondary_study_accession)
         except IndexError:
-            study = ena_handler.get_study(args.study)
+            study = ena_handler.get_study(secondary_study_accession)
             return self.create_study_obj(study)
 
     def save_run(self, study, run):
@@ -65,48 +65,58 @@ class MgnifyHandler:
         except IndexError:
             return self.create_run_obj(study, run)
 
-    def is_assembly_job_in_backlog(self, primary_accession, args):
-        if args.ignore_version:
+    def is_assembly_job_in_backlog(self, primary_accession, assembler_name, assembler_version=None):
+        if not assembler_version:
             jobs = AssemblyJob.objects.using(self.database).filter(runs__primary_accession=primary_accession,
-                                                                   assembler__name=args.assembler)
+                                                                   assembler__name=assembler_name)
         else:
             jobs = AssemblyJob.objects.using(self.database).filter(runs__primary_accession=primary_accession,
-                                                                   assembler__name=args.assembler,
-                                                                   assembler__version=args.assembler_version)
+                                                                   assembler__name=assembler_name,
+                                                                   assembler__version=assembler_version)
         return jobs[0] if len(jobs) > 0 else None
 
-    def create_assembly_job(self, run, total_size, args, status):
+    def create_assembly_job(self, run, total_size, assembler_name, assembler_version, status, priority=0):
         try:
-            assembler = Assembler.objects.using(self.database).get(name=args.assembler, version=args.assembler_version)
+            assembler = Assembler.objects.using(self.database).get(name=assembler_name, version=assembler_version)
         except ObjectDoesNotExist:
-            assembler = Assembler(name=args.assembler, version=args.assembler_version).save(using=self.database)
+            assembler = Assembler(name=assembler_name, version=assembler_version).save(using=self.database)
             assembler = assembler.save()
 
-        job = AssemblyJob(assembler=assembler, status=status, input_size=total_size)
+        job = AssemblyJob(assembler=assembler, status=status, input_size=total_size, priority=priority)
         job.save(using=self.database)
         RunAssemblyJob(assembly_job=job, run=run).save(using=self.database)
         return job
 
-    def save_assembly_job_running(self, run, total_size, args):
-        job = self.is_assembly_job_in_backlog(run.primary_accession, args)
-        status = AssemblyJobStatus.objects.using(self.database).get(description='running')
+    def save_assembly_job(self, run, total_size, assembler_name, assembler_version, status, priority=0):
+        job = self.is_assembly_job_in_backlog(run.primary_accession, assembler_name, assembler_version)
         if job:
             job.status = status
+            job.priority = max(priority, job.priority)
             job.save()
         else:
-            job = self.create_assembly_job(run, total_size, args, status)
+            logging.info('Creating new assembly job for run {}'.format(run.primary_accession))
+            job = self.create_assembly_job(run, total_size, assembler_name, assembler_version, status, priority)
         return job
 
-    def store_entries(self, ena_handler, runs, args):
-        study = self.save_study(ena_handler, args)
-        for run in runs:
-            run_obj = self.save_run(study, run)
-            total_size = get_raw_data_size(run)
-            self.save_assembly_job_running(run_obj, total_size, args)
+    def set_assemblyjobs_running(self, ena_handler, secondary_study_accession, run, assembler_name, assembler_version):
+        study = self.save_study(ena_handler, secondary_study_accession)
+        run_obj = self.save_run(study, run)
+        status = AssemblyJobStatus.objects.using(self.database).get(description='running')
+        self.save_assembly_job(run_obj, run['raw_data_size'], assembler_name, assembler_version, status)
+
+    def set_assembly_job_pending(self, ena_handler, secondary_study_accession, run, assembler_name, assembler_version, priority):
+        if not assembler_version:
+            assembler_version =  self.get_latest_assembler_version(assembler_name)
+        study = self.save_study(ena_handler, secondary_study_accession)
+        run_obj = self.save_run(study, run)
+        status = AssemblyJobStatus.objects.using(self.database).get(description='pending')
+        self.save_assembly_job(run_obj, run['raw_data_size'], assembler_name, assembler_version, status, priority)
 
     def filter_active_runs(self, runs, args):
         return list(filter(lambda r: not self.is_assembly_job_in_backlog(r['run_accession'], args), runs))
 
+    def get_latest_assembler_version(self, assembler_name):
+        return Assembler.objects.using(self.database).filter(name=assembler_name).order_by('-version')[0].version
 
 def sanitise_string(text):
     return ''.join([i if ord(i) < 128 else ' ' for i in text])
@@ -118,7 +128,3 @@ def get_date(data, field):
     except (ValueError, KeyError):
         date = datetime.now().date()
     return date
-
-
-def get_raw_data_size(run):
-    return sum([os.path.getsize(f['location'].strip('file:')) for f in run['raw_reads']])
