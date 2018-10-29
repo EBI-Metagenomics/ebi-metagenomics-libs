@@ -83,41 +83,51 @@ class EnaApiHandler:
         runs = json.loads(response.text)
         if filter_runs:
             runs = list(filter(run_filter, runs))
+        for run in runs:
+            run['raw_data_size'] = get_run_raw_size(run)
+            for int_param in ('read_count', 'base_count'):
+                run[int_param] = int(run[int_param])
         return runs
-
-    def fetch_data(self, study, run_accessions):
-        try:
-            logging.info('Fetching runs...')
-            runs = self.get_study_runs(study)
-            if run_accessions:
-                filter_runs = run_accessions.split(',')
-                runs = list(filter(lambda x: x['run_accession'] in filter_runs, runs))
-        except IndexError:
-            print('No study accession specified')
-            sys.exit(1)
-
-        for r in runs:
-            r['download_job'] = []
-            r['raw_reads'] = convert_file_locations(r['fastq_ftp'])
-            r['read_count'] = int(r['read_count'])
-            r['base_count'] = int(r['base_count'])
-            del r['fastq_ftp']
-            # TODO remove section if CWL support for ftp is fixed.
-            for f in r['raw_reads']:
-                dest = os.path.join(os.getcwd(), f['location'].split('/')[-1])
-                r['download_job'].append((f['location'], dest))
-                f['location'] = 'file://' + dest
-
-        return runs
+        #
+        # def fetch_study_runs(self, study, run_accessions):
+        #     try:
+        #         logging.info('Fetching runs...')
+        #         runs = self.get_study_runs(study)
+        #         if run_accessions:
+        #             filter_runs = run_accessions.split(',')
+        #             runs = list(filter(lambda x: x['run_accession'] in filter_runs, runs))
+        #     except IndexError:
+        #         print('No study accession specified')
+        #         sys.exit(1)
+        #
+        #     for r in runs:
+        #         r['download_job'] = []
+        #         r['raw_reads'] = convert_file_locations(r['fastq_ftp'])
+        #         r['read_count'] = int(r['read_count'])
+        #         r['base_count'] = int(r['base_count'])
+        #         del r['fastq_ftp']
+        #         # TODO remove section if CWL support for ftp is fixed.
+        #         for f in r['raw_reads']:
+        #             dest = os.path.join(os.getcwd(), f['location'].split('/')[-1])
+        #             r['download_job'].append((f['location'], dest))
+        #             f['location'] = 'file://' + dest
+        #
+        #     return runs
 
 
 def flatten(l):
     return [item for sublist in l for item in sublist]
 
 
+def get_run_raw_size(run):
+    urls = run['fastq_ftp'].split(';')
+    return sum([int(requests.head('http://' + url).headers['content-length']) for url in urls])
+
+
 def download_runs(runs):
-    downloads = flatten([r['download_job'] for r in runs])
-    results = ThreadPool(8).imap_unordered(fetch_url, downloads)
+    urls = flatten(r['fastq_ftp'].split(';') for r in runs)
+    download_jobs = [(url, os.path.basename(url)) for url in urls]
+    results = ThreadPool(8).imap_unordered(fetch_url, download_jobs)
 
     for path in results:
         logging.info('Downloaded file: {}'.format(path))
