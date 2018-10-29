@@ -133,15 +133,13 @@ def download_runs(runs):
         logging.info('Downloaded file: {}'.format(path))
 
 
-def convert_file_locations(file_list):
-    return list(map(lambda f: {"class": "File", "location": "http://" + f}, file_list.split(';')))
-
-
 FNULL = open(os.devnull, 'w')
 
 
 def fetch_url(entry):
     uri, path = entry
+    if 'ftp://' not in uri and 'http://' not in uri and 'https://' not in uri:
+        uri = 'http://' + uri
     if not os.path.exists(path):
         r = requests.get(uri, stream=True)
         if r.status_code == 200:
