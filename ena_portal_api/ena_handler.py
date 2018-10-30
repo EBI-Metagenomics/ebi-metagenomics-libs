@@ -70,7 +70,24 @@ class EnaApiHandler:
             raise IndexError('Could not find study {} in ENA.'.format(study_sec_acc))
         return study
 
-    def get_study_runs(self, study_sec_acc, filter_runs=True):
+    def get_runs(self, run_accession):
+        data = get_default_params()
+        data['result'] = 'read_run'
+        data['fields'] = 'secondary_study_accession,run_accession,library_source,library_strategy,' \
+                         'library_layout,fastq_ftp,base_count,read_count,instrument_platform,instrument_model',
+        data['query'] = 'run_accession=\"{}\"'.format(run_accession)
+        response = self.post_request(data)
+        if str(response.status_code)[0] != '2':
+            raise ValueError('Could not retrieve runs with accession %s.', run_accession)
+
+        runs = json.loads(response.text)
+        for run in runs:
+            run['raw_data_size'] = get_run_raw_size(run)
+            for int_param in ('read_count', 'base_count'):
+                run[int_param] = int(run[int_param])
+        return runs
+
+    def get_study_runs(self, study_sec_acc, filter_assembly_runs=True):
         data = get_default_params()
         data['result'] = 'read_run'
         data['fields'] = 'secondary_study_accession,run_accession,library_source,library_strategy,' \
@@ -81,7 +98,7 @@ class EnaApiHandler:
             raise ValueError('Could not retrieve runs for study %s.', study_sec_acc)
 
         runs = json.loads(response.text)
-        if filter_runs:
+        if filter_assembly_runs:
             runs = list(filter(run_filter, runs))
         for run in runs:
             run['raw_data_size'] = get_run_raw_size(run)
