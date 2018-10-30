@@ -2,7 +2,6 @@ from datetime import datetime
 import os
 import logging
 
-
 import django.db
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -10,7 +9,8 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'db.settings'
 
 django.setup()
 
-from backlog.models import Study, Run, AssemblyJob, Assembler, AssemblyJobStatus, RunAssemblyJob
+from backlog.models import Study, Run, AssemblyJob, Assembler, AssemblyJobStatus, RunAssemblyJob, Biome
+
 
 class MgnifyHandler:
     def __init__(self, database):
@@ -39,6 +39,8 @@ class MgnifyHandler:
                 ena_last_update=get_date(run, 'last_updated'),
                 biome_validated=False
                 )
+        biome = Biome.objects.using(self.database).get(lineage=run['lineage'])
+        r.biome = biome
         r.clean_fields()
         r.save(using=self.database)
         return r
@@ -91,7 +93,7 @@ class MgnifyHandler:
         job = self.is_assembly_job_in_backlog(run.primary_accession, assembler_name, assembler_version)
         if job:
             job.status = status
-            job.priority = max(priority, job.priority)
+            job.priority = max(priority, job.priority or 0)
             job.save()
         else:
             logging.info('Creating new assembly job for run {}'.format(run.primary_accession))
@@ -104,9 +106,10 @@ class MgnifyHandler:
         status = AssemblyJobStatus.objects.using(self.database).get(description='running')
         self.save_assembly_job(run_obj, run['raw_data_size'], assembler_name, assembler_version, status)
 
-    def set_assembly_job_pending(self, ena_handler, secondary_study_accession, run, assembler_name, assembler_version, priority):
+    def set_assembly_job_pending(self, ena_handler, secondary_study_accession, run, assembler_name, assembler_version,
+                                 priority):
         if not assembler_version:
-            assembler_version =  self.get_latest_assembler_version(assembler_name)
+            assembler_version = self.get_latest_assembler_version(assembler_name)
         study = self.save_study(ena_handler, secondary_study_accession)
         run_obj = self.save_run(study, run)
         status = AssemblyJobStatus.objects.using(self.database).get(description='pending')
@@ -117,6 +120,13 @@ class MgnifyHandler:
 
     def get_latest_assembler_version(self, assembler_name):
         return Assembler.objects.using(self.database).filter(name=assembler_name).order_by('-version')[0].version
+
+    def get_pending_assembly_jobs(self):
+        return AssemblyJob.objects.using(self.database).filter(status=1).order_by('-priority')
+
+    def is_valid_lineage(self, lineage):
+        return len(Biome.objects.using(self.database).filter(lineage=lineage)) > 0
+
 
 def sanitise_string(text):
     return ''.join([i if ord(i) < 128 else ' ' for i in text])
