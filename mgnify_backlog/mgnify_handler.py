@@ -4,12 +4,14 @@ import logging
 
 import django.db
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Max
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'db.settings'
 
 django.setup()
 
-from backlog.models import Study, Run, AssemblyJob, Assembler, AssemblyJobStatus, RunAssemblyJob, Biome
+from backlog.models import Study, Run, AssemblyJob, Assembler, AssemblyJobStatus, RunAssemblyJob, Biome, User, Pipeline, \
+    UserRequest, AnnotationJobStatus, Assembly, AnnotationJob, AssemblyAnnotationJob, RunAnnotationJob
 
 
 class MgnifyHandler:
@@ -49,22 +51,26 @@ class MgnifyHandler:
     #     return Run.objects.using(database).filter()
 
     def is_study_in_backlog(self, secondary_study_accession):
-        return Study.objects.using(self.database).filter(secondary_accession=secondary_study_accession)[0]
+        return Study.objects.using(self.database).get(secondary_accession=secondary_study_accession)
 
     def is_run_in_backlog(self, run_accession):
-        return Run.objects.using(self.database).filter(primary_accession=run_accession)[0]
+        return Run.objects.using(self.database).get(primary_accession=run_accession)
 
-    def save_study(self, ena_handler, secondary_study_accession):
+    def get_or_save_study(self, ena_handler, secondary_study_accession):
         try:
             return self.is_study_in_backlog(secondary_study_accession)
-        except IndexError:
+        except ObjectDoesNotExist:
             study = ena_handler.get_study(secondary_study_accession)
             return self.create_study_obj(study)
 
-    def save_run(self, study, run):
+    def get_or_save_run(self, study, run, lineage):
         try:
             return self.is_run_in_backlog(run['run_accession'])
-        except IndexError:
+        except ObjectDoesNotExist:
+            if not lineage and not run['lineage']:
+                raise ValueError('Lineage not provided, cannot create new run')
+            else:
+                run['lineage'] = lineage
             return self.create_run_obj(study, run)
 
     def is_assembly_job_in_backlog(self, primary_accession, assembler_name, assembler_version=None):
@@ -76,6 +82,41 @@ class MgnifyHandler:
                                                                    assembler__name=assembler_name,
                                                                    assembler__version=assembler_version)
         return jobs[0] if len(jobs) > 0 else None
+
+    def get_user(self, webin_id):
+        return User.objects.using(self.database).get(webin_id=webin_id)
+
+    def create_user(self, webin_id, email, first_name, surname, registered=False, consent_given=False):
+        user = User(webin_id=webin_id, email_address=email, first_name=first_name, surname=surname,
+                    registered=registered, consent_given=consent_given)
+        user.save(using=self.database)
+        return user
+
+    def create_user_request(self, user, priority, rt_ticket):
+        request = UserRequest(webin_id=user, priority=priority, rt_ticket=rt_ticket)
+        request.save(using=self.database)
+        return request
+
+    def get_user_request(self, rt_ticket):
+        return UserRequest.objects.using(self.database).get(rt_ticket=rt_ticket)
+
+    def get_latest_pipeline(self):
+        return Pipeline.objects.using(self.database).order_by('-version').first()
+
+    def create_annotation_job(self, request, assembly_or_run, priority):
+        latest_pipeline = self.get_latest_pipeline()
+        status = AnnotationJobStatus.objects.using(self.database).get(description='SCHEDULED')
+        job = AnnotationJob(request=request, pipeline=latest_pipeline, priority=priority)
+        job.exec_status_id = status.id
+        job.save(using=self.database)
+
+        if type(assembly_or_run) is Run:
+            help(RunAnnotationJob)
+            run_annotation_job = RunAnnotationJob(run=assembly_or_run, annotation_job=job)
+            run_annotation_job.save(using=self.database)
+        elif type(assembly_or_run) is Assembly:
+            assembly_annotation_job = AssemblyAnnotationJob(assembly=assembly_or_run, annotation_job=job)
+            assembly_annotation_job.save(using=self.database)
 
     def create_assembly_job(self, run, total_size, assembler_name, assembler_version, status, priority=0):
         try:
@@ -101,8 +142,8 @@ class MgnifyHandler:
         return job
 
     def set_assemblyjobs_running(self, ena_handler, secondary_study_accession, run, assembler_name, assembler_version):
-        study = self.save_study(ena_handler, secondary_study_accession)
-        run_obj = self.save_run(study, run)
+        study = self.get_or_save_study(ena_handler, secondary_study_accession)
+        run_obj = self.get_or_save_run(study, run)
         status = AssemblyJobStatus.objects.using(self.database).get(description='running')
         self.save_assembly_job(run_obj, run['raw_data_size'], assembler_name, assembler_version, status)
 
@@ -110,8 +151,8 @@ class MgnifyHandler:
                                  priority):
         if not assembler_version:
             assembler_version = self.get_latest_assembler_version(assembler_name)
-        study = self.save_study(ena_handler, secondary_study_accession)
-        run_obj = self.save_run(study, run)
+        study = self.get_or_save_study(ena_handler, secondary_study_accession)
+        run_obj = self.get_or_save_run(study, run)
         status = AssemblyJobStatus.objects.using(self.database).get(description='pending')
         self.save_assembly_job(run_obj, run['raw_data_size'], assembler_name, assembler_version, status, priority)
 
@@ -126,6 +167,12 @@ class MgnifyHandler:
 
     def is_valid_lineage(self, lineage):
         return len(Biome.objects.using(self.database).filter(lineage=lineage)) > 0
+
+    # Get a list of runs in study which have been annotated with latest pipeline
+    def get_up_to_date_annotation_jobs(self, study_accession):
+        latest_pipeline = self.get_latest_pipeline()
+        return Run.objects.using(self.database).filter(study__secondary_accession=study_accession,
+                                                       annotationjob__pipeline=latest_pipeline)
 
 
 def sanitise_string(text):

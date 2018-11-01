@@ -36,15 +36,10 @@ def run_filter(d):
 class EnaApiHandler:
     url = ENA_API_URL
 
-    def __init__(self, config_file=None):
-        config = []
-        if config_file:
-            with open(config_file, 'r') as f:
-                config = yaml.safe_load(f)
-
+    def __init__(self):
         self.url = "https://www.ebi.ac.uk/ena/portal/api/search"
-        if 'USER' in config and 'PASSWORD' in config:
-            self.auth = (config['USER'], config['PASSWORD'])
+        if 'ENA_API_USER' in os.environ and 'ENA_API_PASSWORD' in os.environ:
+            self.auth = (os.environ['ENA_API_USER'], os.environ['ENA_API_PASSWORD'])
         else:
             self.auth = None
 
@@ -55,19 +50,23 @@ class EnaApiHandler:
             response = requests.post(self.url, data=data, **get_default_connection_headers())
         return response
 
-    def get_study(self, study_sec_acc):
+    # Supports ENA primary and secondary study accessions
+    def get_study(self, study_acc):
         data = get_default_params()
         data['result'] = 'study'
         data['fields'] = 'study_accession,secondary_study_accession,study_description,study_name,study_title,' \
                          'center_name,broker_name,last_updated,first_public'
-        data['query'] = 'secondary_study_accession=\"{}\"'.format(study_sec_acc)
+        if study_acc[0:2] in ('ERP', 'SRP', 'DRP'):
+            data['query'] = 'study_accession=\"{}\"'.format(study_acc)
+        else:
+            data['query'] = 'secondary_study_accession=\"{}\"'.format(study_acc)
         response = self.post_request(data)
         if str(response.status_code)[0] != '2':
-            raise ValueError('Could not retrieve runs for study %s.', study_sec_acc)
+            raise ValueError('Could not retrieve runs for study %s.', study_acc)
         try:
             study = json.loads(response.text)[0]
         except IndexError:
-            raise IndexError('Could not find study {} in ENA.'.format(study_sec_acc))
+            raise IndexError('Could not find study {} in ENA.'.format(study_acc))
         return study
 
     def get_runs(self, run_accession):
@@ -87,7 +86,7 @@ class EnaApiHandler:
                 run[int_param] = int(run[int_param])
         return runs
 
-    def get_study_runs(self, study_sec_acc, filter_assembly_runs=True):
+    def get_study_runs(self, study_sec_acc, filter_assembly_runs=True, private=False):
         data = get_default_params()
         data['result'] = 'read_run'
         data['fields'] = 'secondary_study_accession,run_accession,library_source,library_strategy,' \
@@ -101,7 +100,11 @@ class EnaApiHandler:
         if filter_assembly_runs:
             runs = list(filter(run_filter, runs))
         for run in runs:
-            run['raw_data_size'] = get_run_raw_size(run)
+            if private:
+                run['raw_data_size'] = None
+            else:
+                run['raw_data_size'] = self.get_run_raw_size(run)
+
             for int_param in ('read_count', 'base_count'):
                 run[int_param] = int(run[int_param])
         return runs
@@ -131,14 +134,13 @@ class EnaApiHandler:
         #
         #     return runs
 
+    def get_run_raw_size(self, run):
+        urls = run['fastq_ftp'].split(';')
+        return sum([int(requests.head('http://' + url, auth=self.auth).headers['content-length']) for url in urls])
+
 
 def flatten(l):
     return [item for sublist in l for item in sublist]
-
-
-def get_run_raw_size(run):
-    urls = run['fastq_ftp'].split(';')
-    return sum([int(requests.head('http://' + url).headers['content-length']) for url in urls])
 
 
 def download_runs(runs):
