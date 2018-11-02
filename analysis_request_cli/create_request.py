@@ -1,3 +1,19 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Copyright 2017 EMBL - European Bioinformatics Institute
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import argparse
 import sys
 import os
@@ -30,7 +46,7 @@ def parse_args(args):
     return parser.parse_args(args)
 
 
-# Get secondary accession of study from EMG schema
+# Get secondary accession of study from MGnify API
 def get_study(webin_id, mgys):
     password = os.environ['MGNIFY_API_PASSWORD']
     with requests.Session() as s:
@@ -63,7 +79,7 @@ def filter_duplicate_runs(annotated_runs, study_runs):
 
 def main(argv=None):
     args = parse_args(argv)
-    mh = mgnify_handler.MgnifyHandler('dev' if args.dev else 'default')  # TODO change else condition to prod
+    mh = mgnify_handler.MgnifyHandler('dev' if args.dev else 'prod')
     ena = ena_handler.EnaApiHandler()
     try:
         user = mh.get_user(args.webinID)
@@ -92,21 +108,16 @@ def main(argv=None):
         logging.info('Created study {}'.format(study_accession))
 
     runs = ena.get_study_runs(study.secondary_accession, False, args.private)
-    # annotated_runs = mh.get_up_to_date_annotation_jobs(study_accession)
-    # runs = filter_duplicate_runs(annotated_runs, runs)
+    annotated_runs = mh.get_up_to_date_annotation_jobs(study_accession)
+    runs = filter_duplicate_runs(annotated_runs, runs)
     if not len(runs):
         logging.warning('No runs or assemblies left to annotate in this study.')
         sys.exit(0)
-
-
 
     for i, run in enumerate(runs):
         run = mh.get_or_save_run(study, run, args.lineage)
         mh.create_annotation_job(request, run, args.priority)
         logging.info('Created annotationJob for run {}'.format(run.primary_accession))
-        # Import all runs from study
-        # Filter which runs have been analysed with latest pipeline
-        # If any exist; create request object
 
 
 if __name__ == '__main__':
