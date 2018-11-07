@@ -24,7 +24,7 @@ import os
 import logging
 from multiprocessing.pool import ThreadPool
 
-ENA_API_URL = "https://www.ebi.ac.uk/ena/portal/api/search"
+ENA_API_URL = os.environ.get('ENA_API_URL', "https://www.ebi.ac.uk/ena/portal/api/search")
 
 logging.basicConfig(level=logging.INFO)
 
@@ -71,13 +71,17 @@ class EnaApiHandler:
         data = get_default_params()
         data['result'] = 'study'
         data['fields'] = 'study_accession,secondary_study_accession,study_description,study_name,study_title,' \
-                         'tax_id,scientific_name,center_name,broker_name,last_updated,first_public,status_id'
-        if study_acc[0:2] in ('ERP', 'SRP', 'DRP'):
-            data['query'] = 'study_accession=\"{}\"'.format(study_acc)
-        else:
+                         'tax_id,scientific_name,center_name,broker_name,last_updated,first_public,status_id' \
+                         'center_name,broker_name,last_updated,first_public'
+
+        if study_acc[0:3] in ('ERP', 'SRP', 'DRP'):
             data['query'] = 'secondary_study_accession=\"{}\"'.format(study_acc)
+        else:
+            data['query'] = 'study_accession=\"{}\"'.format(study_acc)
         response = self.post_request(data)
         if str(response.status_code)[0] != '2':
+            logging.error('Error retrieving study {}, response code: {}'.format(study_acc, response.status_code))
+            logging.error('Response: {}'.format(response))
             raise ValueError('Could not retrieve runs for study %s.', study_acc)
         try:
             study = json.loads(response.text)[0]
@@ -93,6 +97,8 @@ class EnaApiHandler:
         data['query'] = 'run_accession=\"{}\"'.format(run_accession)
         response = self.post_request(data)
         if str(response.status_code)[0] != '2':
+            logging.error('Error retrieving run {}, response code: {}'.format(run_accession, response.status_code))
+            logging.error('Response: {}'.format(response))
             raise ValueError('Could not retrieve runs with accession %s.', run_accession)
 
         runs = json.loads(response.text)
@@ -110,6 +116,9 @@ class EnaApiHandler:
         data['query'] = 'secondary_study_accession=\"{}\"'.format(study_sec_acc)
         response = self.post_request(data)
         if str(response.status_code)[0] != '2':
+            logging.error(
+                'Error retrieving study runs {}, response code: {}'.format(study_sec_acc, response.status_code))
+            logging.error('Response: {}'.format(response))
             raise ValueError('Could not retrieve runs for study %s.', study_sec_acc)
 
         runs = json.loads(response.text)
@@ -127,31 +136,6 @@ class EnaApiHandler:
             for int_param in ('read_count', 'base_count'):
                 run[int_param] = int(run[int_param])
         return runs
-        #
-        # def fetch_study_runs(self, study, run_accessions):
-        #     try:
-        #         logging.info('Fetching runs...')
-        #         runs = self.get_study_runs(study)
-        #         if run_accessions:
-        #             filter_runs = run_accessions.split(',')
-        #             runs = list(filter(lambda x: x['run_accession'] in filter_runs, runs))
-        #     except IndexError:
-        #         print('No study accession specified')
-        #         sys.exit(1)
-        #
-        #     for r in runs:
-        #         r['download_job'] = []
-        #         r['raw_reads'] = convert_file_locations(r['fastq_ftp'])
-        #         r['read_count'] = int(r['read_count'])
-        #         r['base_count'] = int(r['base_count'])
-        #         del r['fastq_ftp']
-        #         # TODO remove section if CWL support for ftp is fixed.
-        #         for f in r['raw_reads']:
-        #             dest = os.path.join(os.getcwd(), f['location'].split('/')[-1])
-        #             r['download_job'].append((f['location'], dest))
-        #             f['location'] = 'file://' + dest
-        #
-        #     return runs
 
     def get_run_raw_size(self, run):
         urls = run['fastq_ftp'].split(';')
