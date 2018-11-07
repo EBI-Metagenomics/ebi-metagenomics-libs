@@ -97,7 +97,7 @@ def filter_duplicate_runs(annotated_runs, study_runs):
 
 def main(argv=None):
     args = parse_args(argv)
-    mh = mgnify_handler.MgnifyHandler('dev' if args.dev else 'default')
+    mh = mgnify_handler.MgnifyHandler('dev' if args.dev else 'prod')
     ena = ena_handler.EnaApiHandler()
     try:
         user = mh.get_user(args.webinID)
@@ -139,6 +139,7 @@ def main(argv=None):
 
     secondary_accession = study.secondary_accession
 
+    logging.info('Fetching study runs...')
     runs = ena.get_study_runs(secondary_accession, False, args.private)
     annotated_runs = mh.get_up_to_date_annotation_jobs(secondary_accession)
     runs = filter_duplicate_runs(annotated_runs, runs)
