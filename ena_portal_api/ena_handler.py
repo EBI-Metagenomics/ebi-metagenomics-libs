@@ -71,8 +71,7 @@ class EnaApiHandler:
         data = get_default_params()
         data['result'] = 'study'
         data['fields'] = 'study_accession,secondary_study_accession,study_description,study_name,study_title,' \
-                         'tax_id,scientific_name,center_name,broker_name,last_updated,first_public,status_id' \
-                         'center_name,broker_name,last_updated,first_public'
+                         'tax_id,scientific_name,center_name,last_updated,first_public,last_updated'
 
         if study_acc[0:3] in ('ERP', 'SRP', 'DRP'):
             data['query'] = 'secondary_study_accession=\"{}\"'.format(study_acc)
@@ -81,7 +80,7 @@ class EnaApiHandler:
         response = self.post_request(data)
         if str(response.status_code)[0] != '2':
             logging.error('Error retrieving study {}, response code: {}'.format(study_acc, response.status_code))
-            logging.error('Response: {}'.format(response))
+            logging.error('Response: {}'.format(response.text))
             raise ValueError('Could not retrieve runs for study %s.', study_acc)
         try:
             study = json.loads(response.text)[0]
@@ -98,7 +97,7 @@ class EnaApiHandler:
         response = self.post_request(data)
         if str(response.status_code)[0] != '2':
             logging.error('Error retrieving run {}, response code: {}'.format(run_accession, response.status_code))
-            logging.error('Response: {}'.format(response))
+            logging.error('Response: {}'.format(response.text))
             raise ValueError('Could not retrieve runs with accession %s.', run_accession)
 
         runs = json.loads(response.text)
@@ -111,14 +110,14 @@ class EnaApiHandler:
     def get_study_runs(self, study_sec_acc, filter_assembly_runs=True, private=False, filter_accessions=None):
         data = get_default_params()
         data['result'] = 'read_run'
-        data['fields'] = 'secondary_study_accession,run_accession,library_source,library_strategy,' \
+        data['fields'] = 'study_accession,secondary_study_accession,run_accession,library_source,library_strategy,' \
                          'library_layout,fastq_ftp,base_count,read_count,instrument_platform,instrument_model,secondary_sample_accession',
         data['query'] = 'secondary_study_accession=\"{}\"'.format(study_sec_acc)
         response = self.post_request(data)
         if str(response.status_code)[0] != '2':
             logging.error(
                 'Error retrieving study runs {}, response code: {}'.format(study_sec_acc, response.status_code))
-            logging.error('Response: {}'.format(response))
+            logging.error('Response: {}'.format(response.text))
             raise ValueError('Could not retrieve runs for study %s.', study_sec_acc)
 
         runs = json.loads(response.text)
