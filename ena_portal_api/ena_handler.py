@@ -71,7 +71,7 @@ class EnaApiHandler:
         data = get_default_params()
         data['result'] = 'study'
         data['fields'] = 'study_accession,secondary_study_accession,study_description,study_name,study_title,' \
-                         'center_name,broker_name,last_updated,first_public'
+                         'tax_id,scientific_name,center_name,broker_name,last_updated,first_public,status_id'
         if study_acc[0:2] in ('ERP', 'SRP', 'DRP'):
             data['query'] = 'study_accession=\"{}\"'.format(study_acc)
         else:
