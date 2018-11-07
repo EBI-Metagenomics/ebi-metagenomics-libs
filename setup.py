@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 import os
 
-version = "0.1.0"
+version = "0.1.1"
 
 _base = os.path.dirname(os.path.abspath(__file__))
 _requirements = os.path.join(_base, 'requirements.txt')
@@ -27,7 +27,7 @@ setup(
     include_package_data=True,
     setup_requires=['pytest-runner'],
     dependency_links=[
-        'https://github.com/EBI-Metagenomics/emg-backlog-schema/tarball/master#egg=emg-backlog-schema-0.3.10'
+        'https://github.com/EBI-Metagenomics/emg-backlog-schema/tarball/master#egg=emg-backlog-schema-0.4.0'
     ],
     entry_points={
         'console_scripts': [

@@ -85,7 +85,7 @@ class EnaApiHandler:
             raise IndexError('Could not find study {} in ENA.'.format(study_acc))
         return study
 
-    def get_runs(self, run_accession):
+    def get_run(self, run_accession):
         data = get_default_params()
         data['result'] = 'read_run'
         data['fields'] = 'secondary_study_accession,run_accession,library_source,library_strategy,' \
@@ -102,7 +102,7 @@ class EnaApiHandler:
                 run[int_param] = int(run[int_param])
         return runs
 
-    def get_study_runs(self, study_sec_acc, filter_assembly_runs=True, private=False):
+    def get_study_runs(self, study_sec_acc, filter_assembly_runs=True, private=False, filter_accessions=None):
         data = get_default_params()
         data['result'] = 'read_run'
         data['fields'] = 'secondary_study_accession,run_accession,library_source,library_strategy,' \
@@ -115,12 +115,15 @@ class EnaApiHandler:
         runs = json.loads(response.text)
         if filter_assembly_runs:
             runs = list(filter(run_filter, runs))
+
+        if filter_accessions:
+            runs = list(filter(lambda r: r['run_accession'] in filter_accessions, runs))
+
         for run in runs:
             if private:
                 run['raw_data_size'] = None
             else:
                 run['raw_data_size'] = self.get_run_raw_size(run)
-
             for int_param in ('read_count', 'base_count'):
                 run[int_param] = int(run[int_param])
         return runs
