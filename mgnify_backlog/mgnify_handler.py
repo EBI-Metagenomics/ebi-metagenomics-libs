@@ -56,7 +56,8 @@ class MgnifyHandler:
                 library_source=sanitise_string(run['library_source']),
                 ena_last_update=get_date(run, 'last_updated'),
                 compressed_data_size=run['raw_data_size'] if 'raw_data_size' in run else 0,
-                sample_primary_accession=run['secondary_sample_accession'] if 'secondary_sample_accession' in run else None,
+                sample_primary_accession=run[
+                    'secondary_sample_accession'] if 'secondary_sample_accession' in run else None,
                 biome_validated=False
                 )
         biome = Biome.objects.using(self.database).get(lineage=run['lineage'])
@@ -68,24 +69,27 @@ class MgnifyHandler:
     # def get_assemblies(database, secondary_study_accession, run_accessions, assembler, version):
     #     return Run.objects.using(database).filter()
 
-    def is_study_in_backlog(self, secondary_study_accession):
+    def get_backlog_study(self, primary_accession):
+        return Study.objects.using(self.database).get(primary_accession=primary_accession)
+
+    def get_backlog_secondary_study(self, secondary_study_accession):
         return Study.objects.using(self.database).get(secondary_accession=secondary_study_accession)
 
-    def is_run_in_backlog(self, run_accession):
+    def get_backlog_run(self, run_accession):
         return Run.objects.using(self.database).get(primary_accession=run_accession)
 
     def get_or_save_study(self, ena_handler, secondary_study_accession):
         try:
-            return self.is_study_in_backlog(secondary_study_accession)
+            return self.get_backlog_study(secondary_study_accession)
         except ObjectDoesNotExist:
             study = ena_handler.get_study(secondary_study_accession)
             return self.create_study_obj(study)
 
     def get_or_save_run(self, study, run, lineage):
         try:
-            return self.is_run_in_backlog(run['run_accession'])
+            return self.get_backlog_run(run['run_accession'])
         except ObjectDoesNotExist:
-            if not lineage and not run['lineage']:
+            if not lineage and not 'lineage' in run:
                 raise ValueError('Lineage not provided, cannot create new run')
             else:
                 run['lineage'] = lineage

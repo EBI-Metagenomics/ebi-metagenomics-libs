@@ -29,9 +29,12 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 
-API_URL = 'https://www.ebi.ac.uk/metagenomics/api/v1/'
-LOGIN_URL = 'https://www.ebi.ac.uk/metagenomics/api/http-auth/login/'
-LOGIN_FORM = 'https://www.ebi.ac.uk/metagenomics/api/http-auth/login_form'
+API_DATA_URL = os.environ.get('MGNIFY_API_URL', 'https://www.ebi.ac.uk/metagenomics/api/v1/')
+
+API_PASSWORD = os.environ['MGNIFY_API_PASSWORD']
+
+LOGIN_URL = os.environ.get('MGNIFY_API_LOGIN_URL', 'https://www.ebi.ac.uk/metagenomics/api/http-auth/login/')
+LOGIN_FORM = os.environ.get('MGNIFY_API_LOGIN_FORM', 'https://www.ebi.ac.uk/metagenomics/api/http-auth/login_form')
 
 
 def parse_args(args):
@@ -46,23 +49,38 @@ def parse_args(args):
     return parser.parse_args(args)
 
 
-# Get secondary accession of study from MGnify API
-def get_study(webin_id, mgys):
-    password = os.environ['MGNIFY_API_PASSWORD']
+def authenticate_session(session, webin_id):
+    get_csrftoken = session.get(LOGIN_FORM).headers
+    if 'csrftoken' in session.cookies:
+        # Django 1.6 and up
+        csrftoken = session.cookies['csrftoken']
+    else:
+        # older versions
+        csrftoken = session.cookies['csrf']
+
+    session.headers.update({'referer': 'https://www.ebi.ac.uk'})
+    login_data = {'username': webin_id, 'password': API_PASSWORD, 'csrfmiddlewaretoken': csrftoken}
+    login = session.post(LOGIN_URL, data=login_data)
+
+
+def get_user_details(webin_id):
     with requests.Session() as s:
-        get_csrftoken = s.get(LOGIN_FORM).headers
-        if 'csrftoken' in s.cookies:
-            # Django 1.6 and up
-            csrftoken = s.cookies['csrftoken']
-        else:
-            # older versions
-            csrftoken = s.cookies['csrf']
+        authenticate_session(s, webin_id)
+        req = s.get(os.path.join(API_DATA_URL, 'utils', 'myaccounts'), auth=HTTPBasicAuth(webin_id, API_PASSWORD))
+        user = json.loads(req.text)
+        try:
+            return user['data'][0]['attributes']
+        except KeyError:
+            logging.error(user)
+            raise EnvironmentError('API response to study query was not valid (try again)')
 
-        s.headers.update({'referer': 'https://www.ebi.ac.uk'})
-        login_data = {'username': webin_id, 'password': password, 'csrfmiddlewaretoken': csrftoken}
-        login = s.post(LOGIN_URL, data=login_data)
 
-        req = s.get(os.path.join(API_URL, 'studies', mgys), auth=HTTPBasicAuth(webin_id, password))
+# Get secondary accession of study from MGnify API
+def get_study_secondary_accession(webin_id, mgys):
+    with requests.Session() as s:
+        authenticate_session(s, webin_id)
+
+        req = s.get(os.path.join(API_DATA_URL, 'studies', mgys), auth=HTTPBasicAuth(webin_id, API_PASSWORD))
         study = json.loads(req.text)
         try:
             return study['data']['attributes']['secondary-accession']
@@ -79,13 +97,14 @@ def filter_duplicate_runs(annotated_runs, study_runs):
 
 def main(argv=None):
     args = parse_args(argv)
-    mh = mgnify_handler.MgnifyHandler('dev' if args.dev else 'prod')
+    mh = mgnify_handler.MgnifyHandler('dev' if args.dev else 'default')
     ena = ena_handler.EnaApiHandler()
     try:
         user = mh.get_user(args.webinID)
     except ObjectDoesNotExist:
         logging.warning('User {} not in db, creating user.'.format(args.webinID))
-        user = mh.create_user(webin_id=args.webinID, email='unknown@unknown.com', first_name='first', surname='last',
+        user_details = get_user_details(args.webinID)
+        user = mh.create_user(webin_id=args.webinID, email=user_details['email-address'], first_name=user_details['first-name'], surname=user_details['surname'],
                               registered=True, consent_given=True)
         logging.info('Created user {}'.format(args.webinID))
 
@@ -95,20 +114,33 @@ def main(argv=None):
     except ObjectDoesNotExist:
         request = mh.create_user_request(user, args.priority, args.RTticket)
 
+    # Handle MGnify accessions
     if 'MGYS' in args.study:
-        study_accession = get_study(args.webinID, args.study)
+        try:
+            accession = get_study_secondary_accession(args.webinID, args.study)
+        except EnvironmentError:
+            raise ValueError('Study with accession {} does not exist in MGnify'.format(args.study))
+    # Handle ENA accessions
     else:
-        study_accession = args.study
+        accession = args.study
 
     try:
-        study = mh.is_study_in_backlog(study_accession)
+        if accession[0:3] in ('ERP', 'SRP', 'DRP'):
+            study = mh.get_backlog_secondary_study(accession)
+        else:
+            study = mh.get_backlog_study(accession)
     except ObjectDoesNotExist:
-        study_data = ena.get_study(study_accession)
-        study = mh.create_study_obj(study_data)
-        logging.info('Created study {}'.format(study_accession))
+        try:
+            study_data = ena.get_study(accession)
+            study = mh.create_study_obj(study_data)
+        except json.decoder.JSONDecodeError as e:
+            raise e('Could not get study {} from ena.'.format(accession))
+        logging.info('Created study {}'.format(accession))
 
-    runs = ena.get_study_runs(study.secondary_accession, False, args.private)
-    annotated_runs = mh.get_up_to_date_annotation_jobs(study_accession)
+    secondary_accession = study.secondary_accession
+
+    runs = ena.get_study_runs(secondary_accession, False, args.private)
+    annotated_runs = mh.get_up_to_date_annotation_jobs(secondary_accession)
     runs = filter_duplicate_runs(annotated_runs, runs)
     if not len(runs):
         logging.warning('No runs or assemblies left to annotate in this study.')
