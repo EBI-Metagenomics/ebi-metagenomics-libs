@@ -6,9 +6,14 @@ python:
 
 before_install:
   - pip install 'pytest==3.7.4'
-  
+
+
 install:
   - pip install -U --process-dependency-links .
 
 script:
   - python setup.py test
+
+after_success:
+  - pip install codacy-coverage
+  - python-codacy-coverage -r coverage.xml
