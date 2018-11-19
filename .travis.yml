@@ -4,9 +4,11 @@ python:
   - "3.5"
   - "3.6"
 
+before_install:
+  - pip install 'pytest==3.7.4'
+  
 install:
-  - pip install -r requirements.txt
+  - pip install -U --process-dependency-links .
 
 script:
-  - pip install -U .
   - python setup.py test

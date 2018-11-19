@@ -19,13 +19,13 @@ if "test" in sys.argv:
     with open(_requirements_test) as f:
         test_requirements = f.read().splitlines()
 
-
 setup(
     name="emg_libs",
     version=version,
     packages=find_packages(),
     install_requires=install_requirements,
     include_package_data=True,
+    install_requirementss=['emg-backlog-schema==0.4.0'],
     dependency_links=[
         'https://github.com/EBI-Metagenomics/emg-backlog-schema/tarball/master#egg=emg-backlog-schema-0.4.0'
     ],
