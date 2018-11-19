@@ -128,6 +128,7 @@ class TestEnaHandler(object):
             ena.get_study_runs('SRP125161')
 
     def test_download_runs(self, tmpdir):
+        tmpdir = tmpdir.strpath
         current_dir = os.getcwd()
         os.chdir(tmpdir)
         run = {'fastq_ftp': 'ftp.sra.ebi.ac.uk/vol1/fastq/ERR866/ERR866589/ERR866589_1.fastq.gz;'
