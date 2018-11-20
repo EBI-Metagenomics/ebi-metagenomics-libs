@@ -4,12 +4,15 @@ python:
   - "3.5"
   - "3.6"
 
-before_install:
-  - pip install 'pytest==3.7.4'
-
+env:
+  - BACKLOG_CONFIG=$TRAVIS_BUILD_DIR/travis/config.yaml
 
 install:
+  - pip install 'pytest==3.7.4'
   - pip install -U --process-dependency-links .
+
+  - mysql -e 'CREATE DATABASE emg_backlog_2;'
+  - embacklog migrate --database=default
 
 script:
   - python setup.py test
