@@ -305,70 +305,70 @@ class TestBacklogHandler(object):
         assert isinstance(related_assemblies[0].assembly, Assembly)
         assert related_assemblies[0].assembly.pk == assembly.pk
 
-    # def test_save_assembly_job_should_create_new_job(self):
-    #     study = mgnify.create_study_obj(study_data)
-    #     run = mgnify.create_run_obj(study, run_data)
-    #     status = AssemblyJobStatus(description='pending')
-    #     status.save()
-    #
-    #     job = mgnify.save_assembly_job(run, 1, 'metaspades', '3.12.0', status, 3)
-    #     jobs = AssemblyJob.objects.all()
-    #     assert len(jobs) == 1
-    #     inserted_job = jobs[0]
-    #     assert inserted_job.pk == job.pk
-    #     assert inserted_job.input_size == 1
-    #     assert inserted_job.assembler.name == 'metaspades'
-    #     assert inserted_job.assembler.version == '3.12.0'
-    #     assert inserted_job.status.pk == status.pk
-    #     assert inserted_job.priority == 3
-    #
-    # def test_save_assembly_job_should_update_job(self):
-    #     study = mgnify.create_study_obj(study_data)
-    #     run = mgnify.create_run_obj(study, run_data)
-    #
-    #     assembler = Assembler(name='metaspades', version='3.12.0')
-    #     assembler.save()
-    #     status = AssemblyJobStatus(description='pending')
-    #     status.save()
-    #     status2 = AssemblyJobStatus(description='running')
-    #     status2.save()
-    #
-    #     assert len(AssemblyJob.objects.all()) == 0
-    #     assembly_job = AssemblyJob(input_size=0, assembler=assembler, status=status, priority=0)
-    #     assembly_job.save()
-    #     RunAssemblyJob(run=run, assembly_job=assembly_job).save()
-    #
-    #     new_priority = 1
-    #     mgnify.save_assembly_job(run, 0, assembler.name, assembler.version, status2, new_priority)
-    #
-    #     assert len(RunAssemblyJob.objects.all()) == 1
-    #     assembly_jobs = AssemblyJob.objects.all()
-    #     assert len(assembly_jobs) == 1
-    #     updated_assembly_job = assembly_jobs[0]
-    #     assert updated_assembly_job.pk == assembly_job.pk
-    #     assert updated_assembly_job.status.pk == status2.pk
-    #     assert updated_assembly_job.priority == new_priority
-    #
-    # def test_set_assemblyjobs_running_should_update_existing_assembly_job(self):
-    #     ena = ena_handler.EnaApiHandler()
-    #     study = mgnify.create_study_obj(study_data)
-    #     run = mgnify.create_run_obj(study, run_data)
-    #
-    #     status = AssemblyJobStatus(description='pending')
-    #     status.save()
-    #
-    #     AssemblyJobStatus(description='running').save()
-    #
-    #     assembler_name = 'metaspades'
-    #     assembler_version = '3.11.1'
-    #     inserted_assembly_job = mgnify.create_assembly_job(run, '0', assembler_name, assembler_version, status)
-    #
-    #     assert len(AssemblyJob.objects.all()) == 1
-    #     mgnify.set_assembly_job_running(ena, study.secondary_accession, run_data, assembler_name,
-    #                                     assembler_version)
-    #
-    #     assembly_jobs = AssemblyJob.objects.all()
-    #     assert len(assembly_jobs) == 1
-    #     assembly_job = assembly_jobs[0]
-    #     assert assembly_job.pk == inserted_assembly_job.pk
-    #     assert assembly_job.status.description == 'running'
+    def test_save_assembly_job_should_create_new_job(self):
+        study = mgnify.create_study_obj(study_data)
+        run = mgnify.create_run_obj(study, run_data)
+        status = AssemblyJobStatus(description='pending')
+        status.save()
+
+        job = mgnify.save_assembly_job(run, 1, 'metaspades', '3.12.0', status, 3)
+        jobs = AssemblyJob.objects.all()
+        assert len(jobs) == 1
+        inserted_job = jobs[0]
+        assert inserted_job.pk == job.pk
+        assert inserted_job.input_size == 1
+        assert inserted_job.assembler.name == 'metaspades'
+        assert inserted_job.assembler.version == '3.12.0'
+        assert inserted_job.status.pk == status.pk
+        assert inserted_job.priority == 3
+
+    def test_save_assembly_job_should_update_job(self):
+        study = mgnify.create_study_obj(study_data)
+        run = mgnify.create_run_obj(study, run_data)
+
+        assembler = Assembler(name='metaspades', version='3.12.0')
+        assembler.save()
+        status = AssemblyJobStatus(description='pending')
+        status.save()
+        status2 = AssemblyJobStatus(description='running')
+        status2.save()
+
+        assert len(AssemblyJob.objects.all()) == 0
+        assembly_job = AssemblyJob(input_size=0, assembler=assembler, status=status, priority=0)
+        assembly_job.save()
+        RunAssemblyJob(run=run, assembly_job=assembly_job).save()
+
+        new_priority = 1
+        mgnify.save_assembly_job(run, 0, assembler.name, assembler.version, status2, new_priority)
+
+        assert len(RunAssemblyJob.objects.all()) == 1
+        assembly_jobs = AssemblyJob.objects.all()
+        assert len(assembly_jobs) == 1
+        updated_assembly_job = assembly_jobs[0]
+        assert updated_assembly_job.pk == assembly_job.pk
+        assert updated_assembly_job.status.pk == status2.pk
+        assert updated_assembly_job.priority == new_priority
+
+    def test_set_assemblyjobs_running_should_update_existing_assembly_job(self):
+        ena = ena_handler.EnaApiHandler()
+        study = mgnify.create_study_obj(study_data)
+        run = mgnify.create_run_obj(study, run_data)
+
+        status = AssemblyJobStatus(description='pending')
+        status.save()
+
+        AssemblyJobStatus(description='running').save()
+
+        assembler_name = 'metaspades'
+        assembler_version = '3.11.1'
+        inserted_assembly_job = mgnify.create_assembly_job(run, '0', assembler_name, assembler_version, status)
+
+        assert len(AssemblyJob.objects.all()) == 1
+        mgnify.set_assembly_job_running(ena, study.secondary_accession, run_data, assembler_name,
+                                        assembler_version)
+
+        assembly_jobs = AssemblyJob.objects.all()
+        assert len(assembly_jobs) == 1
+        assembly_job = assembly_jobs[0]
+        assert assembly_job.pk == inserted_assembly_job.pk
+        assert assembly_job.status.description == 'running'

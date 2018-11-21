@@ -148,56 +148,56 @@ class MgnifyHandler:
             assembly_annotation_job.save(using=self.database)
         return job
 
-    # def create_assembly_job(self, run, total_size, assembler_name, assembler_version, status, priority=0):
-    #     try:
-    #         assembler = Assembler.objects.using(self.database).get(name=assembler_name, version=assembler_version)
-    #     except ObjectDoesNotExist:
-    #         assembler = Assembler(name=assembler_name, version=assembler_version)
-    #         assembler.save(using=self.database)
-    #
-    #     job = AssemblyJob(assembler=assembler, status=status, input_size=total_size, priority=priority)
-    #     job.save(using=self.database)
-    #     RunAssemblyJob(assembly_job=job, run=run).save(using=self.database)
-    #     return job
-    #
-    # def save_assembly_job(self, run, total_size, assembler_name, assembler_version, status, priority=0):
-    #     job = self.is_assembly_job_in_backlog(run.primary_accession, assembler_name, assembler_version)
-    #     if job:
-    #         job.status = status
-    #         job.priority = max(priority, job.priority or 0)
-    #         job.save()
-    #     else:
-    #         logging.info('Creating new assembly job for run {}'.format(run.primary_accession))
-    #         job = self.create_assembly_job(run, total_size, assembler_name, assembler_version, status, priority)
-    #     return job
-    #
-    # def set_assembly_job_running(self, ena_handler, secondary_study_accession, run, assembler_name, assembler_version, lineage=None):
-    #     study = self.get_or_save_study(ena_handler, secondary_study_accession)
-    #     run_obj = self.get_or_save_run(study, run, lineage)
-    #     status = AssemblyJobStatus.objects.using(self.database).get(description='running')
-    #     self.save_assembly_job(run_obj, run['raw_data_size'], assembler_name, assembler_version, status)
-    #
-    # def set_assembly_job_pending(self, ena_handler, secondary_study_accession, run, assembler_name, assembler_version,
-    #                              priority):
-    #     if not assembler_version:
-    #         assembler_version = self.get_latest_assembler_version(assembler_name)
-    #     study = self.get_or_save_study(ena_handler, secondary_study_accession)
-    #     run_obj = self.get_or_save_run(study, run)
-    #     status = AssemblyJobStatus.objects.using(self.database).get(description='pending')
-    #     self.save_assembly_job(run_obj, run['raw_data_size'], assembler_name, assembler_version, status, priority)
-    #
-    # def filter_active_runs(self, runs, args):
-    #     return list(filter(lambda r: not self.is_assembly_job_in_backlog(r['run_accession'], args), runs))
-    #
-    # def get_latest_assembler_version(self, assembler_name):
-    #     return Assembler.objects.using(self.database).filter(name=assembler_name).order_by('-version')[0].version
-    #
-    # def get_pending_assembly_jobs(self):
-    #     return AssemblyJob.objects.using(self.database).filter(status=1).order_by('-priority')
-    #
-    # def is_valid_lineage(self, lineage):
-    #     return len(Biome.objects.using(self.database).filter(lineage=lineage)) > 0
-    #
+    def create_assembly_job(self, run, total_size, assembler_name, assembler_version, status, priority=0):
+        try:
+            assembler = Assembler.objects.using(self.database).get(name=assembler_name, version=assembler_version)
+        except ObjectDoesNotExist:
+            assembler = Assembler(name=assembler_name, version=assembler_version)
+            assembler.save(using=self.database)
+
+        job = AssemblyJob(assembler=assembler, status=status, input_size=total_size, priority=priority)
+        job.save(using=self.database)
+        RunAssemblyJob(assembly_job=job, run=run).save(using=self.database)
+        return job
+
+    def save_assembly_job(self, run, total_size, assembler_name, assembler_version, status, priority=0):
+        job = self.is_assembly_job_in_backlog(run.primary_accession, assembler_name, assembler_version)
+        if job:
+            job.status = status
+            job.priority = max(priority, job.priority or 0)
+            job.save()
+        else:
+            logging.info('Creating new assembly job for run {}'.format(run.primary_accession))
+            job = self.create_assembly_job(run, total_size, assembler_name, assembler_version, status, priority)
+        return job
+
+    def set_assembly_job_running(self, ena_handler, secondary_study_accession, run, assembler_name, assembler_version, lineage=None):
+        study = self.get_or_save_study(ena_handler, secondary_study_accession)
+        run_obj = self.get_or_save_run(study, run, lineage)
+        status = AssemblyJobStatus.objects.using(self.database).get(description='running')
+        self.save_assembly_job(run_obj, run['raw_data_size'], assembler_name, assembler_version, status)
+
+    def set_assembly_job_pending(self, ena_handler, secondary_study_accession, run, assembler_name, assembler_version,
+                                 priority):
+        if not assembler_version:
+            assembler_version = self.get_latest_assembler_version(assembler_name)
+        study = self.get_or_save_study(ena_handler, secondary_study_accession)
+        run_obj = self.get_or_save_run(study, run)
+        status = AssemblyJobStatus.objects.using(self.database).get(description='pending')
+        self.save_assembly_job(run_obj, run['raw_data_size'], assembler_name, assembler_version, status, priority)
+
+    def filter_active_runs(self, runs, args):
+        return list(filter(lambda r: not self.is_assembly_job_in_backlog(r['run_accession'], args), runs))
+
+    def get_latest_assembler_version(self, assembler_name):
+        return Assembler.objects.using(self.database).filter(name=assembler_name).order_by('-version')[0].version
+
+    def get_pending_assembly_jobs(self):
+        return AssemblyJob.objects.using(self.database).filter(status=1).order_by('-priority')
+
+    def is_valid_lineage(self, lineage):
+        return len(Biome.objects.using(self.database).filter(lineage=lineage)) > 0
+
     # Get a list of runs in study which have been annotated with latest pipeline
     def get_up_to_date_annotation_jobs(self, study_accession):
         latest_pipeline = self.get_latest_pipeline()
