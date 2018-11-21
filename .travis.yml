@@ -12,7 +12,7 @@ install:
   - pip install -U --process-dependency-links .
 
   - mysql -e 'CREATE DATABASE emg_backlog_2;'
-  - embacklog migrate --database=default
+  - emgbacklog migrate --database=default
 
 script:
   - python setup.py test
