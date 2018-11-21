@@ -3,8 +3,6 @@ import os
 
 from ena_portal_api import ena_handler
 
-from unittest.mock import MagicMock
-
 
 class MockResponse:
     def __init__(self, status_code, data=None, text=None):

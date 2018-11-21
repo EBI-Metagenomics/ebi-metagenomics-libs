@@ -26,7 +26,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'backlog_cli.settings'
 
 django.setup()
 
-from backlog.models import Study, Run, AssemblyJob, Assembler, AssemblyJobStatus, RunAssemblyJob, Biome, User, Pipeline, \
+from backlog.models import Study, Run, AssemblyJob, RunAssembly, Assembler, AssemblyJobStatus, RunAssemblyJob, Biome, User, Pipeline, \
     UserRequest, AnnotationJobStatus, Assembly, AnnotationJob, AssemblyAnnotationJob, RunAnnotationJob
 
 
@@ -65,6 +65,14 @@ class MgnifyHandler:
         r.clean_fields()
         r.save(using=self.database)
         return r
+
+    def create_assembly_obj(self, study, assembly_data):
+        assembly = Assembly(study=study, primary_accession=assembly_data['primary_accession'])
+        assembly.save(using=self.database)
+        if 'related_runs' in assembly_data:
+            for run in assembly_data['related_runs']:
+                RunAssembly(run=run, assembly=assembly).save()
+        return assembly
 
     # def get_assemblies(database, secondary_study_accession, run_accessions, assembler, version):
     #     return Run.objects.using(database).filter()
@@ -138,13 +146,14 @@ class MgnifyHandler:
         elif type(assembly_or_run) is Assembly:
             assembly_annotation_job = AssemblyAnnotationJob(assembly=assembly_or_run, annotation_job=job)
             assembly_annotation_job.save(using=self.database)
+        return job
 
     def create_assembly_job(self, run, total_size, assembler_name, assembler_version, status, priority=0):
         try:
             assembler = Assembler.objects.using(self.database).get(name=assembler_name, version=assembler_version)
         except ObjectDoesNotExist:
-            assembler = Assembler(name=assembler_name, version=assembler_version).save(using=self.database)
-            assembler = assembler.save()
+            assembler = Assembler(name=assembler_name, version=assembler_version)
+            assembler.save(using=self.database)
 
         job = AssemblyJob(assembler=assembler, status=status, input_size=total_size, priority=priority)
         job.save(using=self.database)
