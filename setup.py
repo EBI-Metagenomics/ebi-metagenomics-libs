@@ -25,9 +25,9 @@ setup(
     packages=find_packages(),
     install_requires=install_requirements,
     include_package_data=True,
-    install_requirementss=['emg-backlog-schema==0.4.0'],
+    install_requirementss=['emg-backlog-schema>=0.4.1'],
     dependency_links=[
-        'https://github.com/EBI-Metagenomics/emg-backlog-schema/tarball/master#egg=emg-backlog-schema-0.4.0'
+        'https://github.com/EBI-Metagenomics/emg-backlog-schema/tarball/master#egg=emg-backlog-schema-0.4.1'
     ],
     entry_points={
         'console_scripts': [
