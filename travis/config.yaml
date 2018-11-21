@@ -1,5 +1,9 @@
-ENGINE: 'django.db.backends.mysql'
-NAME: 'emg_backlog_2'
-USER: 'travis'
-HOST: localhost
-PORT: 3306
+backlog:
+  databases:
+    default:
+      ENGINE: 'django.db.backends.mysql'
+      NAME: 'emg_backlog_2'
+      USER: 'travis'
+      HOST: localhost
+      PORT: 3306
+      DB: 'emg_backlog_2'
