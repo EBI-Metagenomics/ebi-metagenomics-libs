@@ -16,10 +16,6 @@
 
 import argparse
 import sys
-import os
-import requests
-from requests.auth import HTTPBasicAuth
-import json
 
 from mgnify_backlog import mgnify_handler
 from django.core.exceptions import ObjectDoesNotExist
@@ -36,7 +32,6 @@ def parse_args(args):
     parser.add_argument('--private', action='store_true')
     parser.add_argument('--failed_runs', )
     return parser.parse_args(args)
-
 
 
 def main(argv=None):
