@@ -124,7 +124,7 @@ class MgnifyHandler:
         return user
 
     def create_user_request(self, user, priority, rt_ticket):
-        request = UserRequest(webin_id=user, priority=priority, rt_ticket=rt_ticket)
+        request = UserRequest(user=user, priority=priority, rt_ticket=rt_ticket)
         request.save(using=self.database)
         return request
 

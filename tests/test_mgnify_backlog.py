@@ -7,7 +7,7 @@ from ena_portal_api import ena_handler
 from backlog.models import Study, Run, RunAssembly, AssemblyJob, Assembler, AssemblyJobStatus, RunAssemblyJob, \
     User, Pipeline, UserRequest, Assembly, AnnotationJob
 
-from tests.util import clean_db
+from tests.util import clean_db, study_data, run_data, assembly_data, user_data
 
 
 class MockResponse:
@@ -19,39 +19,6 @@ class MockResponse:
     def json(self):
         return self.data
 
-
-study_data = {
-    'study_accession': 'PRJEB1787',
-    'secondary_study_accession': 'ERP001736',
-    'study_title': 'Shotgun Sequencing of Tara Oceans DNA samples corresponding to size fractions for  prokaryotes.',
-    'first_public': '2018-05-05',
-    'last_updated': '2018-05-05'
-}
-
-run_data = {
-    'run_accession': 'ERR164407',
-    'base_count': 160808514,
-    'read_count': 282806,
-    'instrument_platform': 'LS454',
-    'instrument_model': '454 GS FLX Titanium',
-    'library_strategy': 'WGS',
-    'library_layout': 'SINGLE',
-    'library_source': 'METAGENOMIC',
-    'last_updated': '2018-11-21',
-    'lineage': 'root:Environmental:Aquatic:Marine',
-    'raw_data_size': 12345
-}
-
-assembly_data = {
-    'primary_accession': 'ERR12345_test'
-}
-
-user_data = {
-    'webin_id': 'Webin-460',
-    'email_address': 'test@test.com',
-    'first_name': 'John',
-    'surname': 'Doe'
-}
 
 mgnify = mgnify_handler.MgnifyHandler('default')
 
@@ -229,14 +196,14 @@ class TestBacklogHandler(object):
         requests = UserRequest.objects.all()
         assert len(requests) == 1
         request = requests[0]
-        assert request.webin_id == user
+        assert request.user.pk == user.pk
         assert request.priority == 0
         assert request.rt_ticket == 1
 
     def test_get_user_request_should_return_inserted_request(self):
         user = mgnify.create_user(user_data['webin_id'], user_data['email_address'], user_data['first_name'],
                                   user_data['surname'])
-        inserted_request = UserRequest(webin_id=user, rt_ticket=1234, priority=1)
+        inserted_request = UserRequest(user=user, rt_ticket=1234, priority=1)
         inserted_request.save()
         retrieved_request = mgnify.get_user_request(1234)
         assert retrieved_request.pk == inserted_request.pk
@@ -254,7 +221,7 @@ class TestBacklogHandler(object):
 
         user = User(**user_data)
         user.save()
-        request = UserRequest(webin_id=user, rt_ticket=1234, priority=1)
+        request = UserRequest(user=user, rt_ticket=1234, priority=1)
         request.save()
 
         inserted_annotation_job = mgnify.create_annotation_job(request, run, 1)
@@ -275,7 +242,7 @@ class TestBacklogHandler(object):
 
         user = User(**user_data)
         user.save()
-        request = UserRequest(webin_id=user, rt_ticket=1234, priority=1)
+        request = UserRequest(user=user, rt_ticket=1234, priority=1)
         request.save()
 
         inserted_annotation_job = mgnify.create_annotation_job(request, assembly, 1)

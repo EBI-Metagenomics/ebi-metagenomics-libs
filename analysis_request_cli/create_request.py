@@ -69,7 +69,7 @@ def authenticate_session(session, webin_id):
 
 def get_user_details(webin_id):
     with requests.Session() as s:
-        try_count = 0
+        try_count = 1
         while True:
             s = authenticate_session(s, webin_id)
             req = s.get(os.path.join(API_DATA_URL, 'utils', 'myaccounts'), auth=HTTPBasicAuth(webin_id, API_PASSWORD))
@@ -83,7 +83,7 @@ def get_user_details(webin_id):
                     try_count += 1
                     continue
                 logging.error(user)
-                raise ValueError('API response to user details query was not valid (try again)')
+                raise ValueError('Could not retrieve user details.')
 
 
 # Get secondary accession of study from MGnify API
@@ -97,7 +97,11 @@ def get_study_secondary_accession(webin_id, mgys):
             return study['data']['attributes']['secondary-accession']
         except KeyError as e:
             logging.error(study)
-            raise ValueError('API response to study query was not valid (try again)')
+            if study['errors'][0]['status'] == '404':
+                msg = 'Study {} does not exist in db'.format(mgys)
+            else:
+                msg = 'API response to study query was not valid (try again)'
+            raise ValueError(msg)
 
 
 # Remove runs from set if they were already analysed with latest pipeline
@@ -128,10 +132,7 @@ def main(argv=None):
 
     # Handle MGnify accessions
     if 'MGYS' in args.study:
-        try:
-            accession = get_study_secondary_accession(args.webinID, args.study)
-        except EnvironmentError:
-            raise ValueError('Study with accession {} does not exist in MGnify'.format(args.study))
+        accession = get_study_secondary_accession(args.webinID, args.study)
     # Handle ENA accessions
     else:
         accession = args.study
@@ -160,13 +161,7 @@ def main(argv=None):
         sys.exit(0)
 
     for i, run in enumerate(runs):
-        try:
-            run = mh.get_or_save_run(ena, study, run, args.lineage)
-        except TypeError as e:
-            logging.error(
-                'Lineage is required for runs which are not already tagged in the db, could not save run {}'.format(
-                    run))
-            continue
+        run = mh.get_or_save_run(ena, study, run, args.lineage)
         mh.create_annotation_job(request, run, args.priority)
         logging.info('Created annotationJob for run {}'.format(run.primary_accession))
 

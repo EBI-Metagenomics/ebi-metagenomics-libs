@@ -6,7 +6,7 @@ from mgnify_backlog import mgnify_handler
 from backlog.models import Study, Run, RunAssembly, AssemblyJob, Assembler, AssemblyJobStatus, RunAssemblyJob, \
     User, Pipeline, UserRequest, Assembly, AnnotationJob
 
-from tests.util import clean_db
+from tests.util import clean_db, study_data
 
 
 class TestRequestCLI(object):
@@ -28,12 +28,16 @@ class TestRequestCLI(object):
 
     def test_get_user_details_should_raise_exception_on_invalid_webin_account(self):
         with pytest.raises(ValueError):
-            creq.get_user_details('Webin_INVALID')
+            creq.get_user_details('Webin-0000')
 
     def test_main_should_create_full_request(self):
         Pipeline(version=4.1).save()
         secondary_accession = 'SRP077065'
-        creq.main([secondary_accession, 'Webin-460', '1', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
+        webin_id = 'Webin-460'
+        rt_ticket = 1
+        creq.main(
+            [secondary_accession, webin_id, str(rt_ticket), '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
+
         studies = Study.objects.all()
         assert len(studies) == 1
         assert studies[0].secondary_accession == secondary_accession
@@ -49,3 +53,47 @@ class TestRequestCLI(object):
         for job in annotation_jobs:
             assert job.pipeline.version == 4.1
             assert job.runannotationjob_set.first().run.primary_accession in run_accessions
+
+        requests = UserRequest.objects.all()
+        assert len(requests) == 1
+        assert requests[0].priority == 0
+        assert requests[0].rt_ticket == rt_ticket
+        assert requests[0].user.webin_id == webin_id
+
+    def test_main_should_not_create_duplicate_request(self):
+        Pipeline(version=4.1).save()
+        secondary_accession = 'SRP077065'
+        creq.main([secondary_accession, 'Webin-460', '1', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
+        with pytest.raises(SystemExit):
+            creq.main(
+                [secondary_accession, 'Webin-460', '1', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
+        # Check runs were inserted and linked to correct study
+        assert len(Run.objects.all()) == 2
+        assert len(AnnotationJob.objects.all()) == 2
+        assert len(UserRequest.objects.all()) == 1
+
+    def test_main_should_create_request_with_mgys_accession(self):
+        Pipeline(version=4.1).save()
+        mgys_accession = 'MGYS00003133'
+        creq.main([mgys_accession, 'Webin-460', '1', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
+        # Check runs were inserted and linked to correct study
+        assert len(Run.objects.all()) == 14
+        assert len(AnnotationJob.objects.all()) == 14
+        assert len(UserRequest.objects.all()) == 1
+
+    def test_main_should_create_request_with_primary_accession(self):
+        Pipeline(version=4.1).save()
+        primary_accession = 'PRJNA262656'
+        creq.main([primary_accession, 'Webin-460', '1', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
+        # Check runs were inserted and linked to correct study
+        assert len(Run.objects.all()) == 14
+        assert len(AnnotationJob.objects.all()) == 14
+        assert len(UserRequest.objects.all()) == 1
+
+    def test_main_should_raise_exception_if_mgys_accession_is_invalid(self):
+        with pytest.raises(ValueError) as e:
+            creq.main(['MGYS_INVALID', 'Webin-460', '1', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
+
+    def test_main_should_require_lineage_to_insert_run(self):
+        with pytest.raises(ValueError) as e:
+            creq.main(['SRP077065', 'Webin-460', '1', '--db', 'default'])
