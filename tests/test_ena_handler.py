@@ -22,8 +22,10 @@ class TestEnaHandler(object):
         assert ena.auth == auth
 
     def test_authentication_not_set(self):
-        if os.environ['ENA_API_USER']: del os.environ['ENA_API_USER']
-        if os.environ['ENA_API_PASSWORD']: del os.environ['ENA_API_PASSWORD']
+        if os.environ['ENA_API_USER']:
+            del os.environ['ENA_API_USER']
+        if os.environ['ENA_API_PASSWORD']:
+            del os.environ['ENA_API_PASSWORD']
         ena = ena_handler.EnaApiHandler()
         assert ena.auth is None
 

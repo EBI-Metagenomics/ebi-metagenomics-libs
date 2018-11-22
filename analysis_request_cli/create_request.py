@@ -27,7 +27,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 import logging
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARN)
 
 API_DATA_URL = os.environ.get('MGNIFY_API_URL', 'https://www.ebi.ac.uk/metagenomics/api/v1/')
 
@@ -35,6 +35,8 @@ API_PASSWORD = os.environ['MGNIFY_API_PASSWORD']
 
 LOGIN_URL = os.environ.get('MGNIFY_API_LOGIN_URL', 'https://www.ebi.ac.uk/metagenomics/api/http-auth/login/')
 LOGIN_FORM = os.environ.get('MGNIFY_API_LOGIN_FORM', 'https://www.ebi.ac.uk/metagenomics/api/http-auth/login_form')
+
+MAX_RETRIES = 3
 
 
 def parse_args(args):
@@ -67,13 +69,19 @@ def authenticate_session(session, webin_id):
 def get_user_details(webin_id):
     with requests.Session() as s:
         s = authenticate_session(s, webin_id)
-        req = s.get(os.path.join(API_DATA_URL, 'utils', 'myaccounts'), auth=HTTPBasicAuth(webin_id, API_PASSWORD))
-        user = json.loads(req.text)
-        try:
-            return user['data'][0]['attributes']
-        except KeyError:
-            logging.error(user)
-            raise ValueError('API response to user details query was not valid (try again)')
+        try_count = 0
+        while True:
+            req = s.get(os.path.join(API_DATA_URL, 'utils', 'myaccounts'), auth=HTTPBasicAuth(webin_id, API_PASSWORD))
+            user = json.loads(req.text)
+            try:
+                return user['data'][0]['attributes']
+            except KeyError:
+                if user['errors'][0]['status'] == '401' and try_count <= MAX_RETRIES:
+                    logging.warning('Could not fetch user details, retrying ({}/{})'.format(try_count, MAX_RETRIES))
+                    try_count += 1
+                    continue
+                logging.error(user)
+                raise ValueError('API response to user details query was not valid (try again)')
 
 
 # Get secondary accession of study from MGnify API
@@ -153,7 +161,9 @@ def main(argv=None):
         try:
             run = mh.get_or_save_run(ena, study, run, args.lineage)
         except TypeError as e:
-            logging.error('Lineage is required for runs which are not already tagged in the db, could not save run {}'.format(run))
+            logging.error(
+                'Lineage is required for runs which are not already tagged in the db, could not save run {}'.format(
+                    run))
             continue
         mh.create_annotation_job(request, run, args.priority)
         logging.info('Created annotationJob for run {}'.format(run.primary_accession))
