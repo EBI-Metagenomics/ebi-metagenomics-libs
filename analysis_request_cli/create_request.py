@@ -26,6 +26,7 @@ from ena_portal_api import ena_handler
 from django.core.exceptions import ObjectDoesNotExist
 
 import logging
+import time
 
 logging.basicConfig(level=logging.WARN)
 
@@ -36,7 +37,7 @@ API_PASSWORD = os.environ['MGNIFY_API_PASSWORD']
 LOGIN_URL = os.environ.get('MGNIFY_API_LOGIN_URL', 'https://www.ebi.ac.uk/metagenomics/api/http-auth/login/')
 LOGIN_FORM = os.environ.get('MGNIFY_API_LOGIN_FORM', 'https://www.ebi.ac.uk/metagenomics/api/http-auth/login_form')
 
-MAX_RETRIES = 3
+MAX_RETRIES = 5
 
 
 def parse_args(args):
@@ -68,15 +69,16 @@ def authenticate_session(session, webin_id):
 
 def get_user_details(webin_id):
     with requests.Session() as s:
-        s = authenticate_session(s, webin_id)
         try_count = 0
         while True:
+            s = authenticate_session(s, webin_id)
             req = s.get(os.path.join(API_DATA_URL, 'utils', 'myaccounts'), auth=HTTPBasicAuth(webin_id, API_PASSWORD))
             user = json.loads(req.text)
             try:
                 return user['data'][0]['attributes']
             except KeyError:
                 if user['errors'][0]['status'] == '401' and try_count <= MAX_RETRIES:
+                    time.sleep(1)
                     logging.warning('Could not fetch user details, retrying ({}/{})'.format(try_count, MAX_RETRIES))
                     try_count += 1
                     continue
@@ -87,7 +89,7 @@ def get_user_details(webin_id):
 # Get secondary accession of study from MGnify API
 def get_study_secondary_accession(webin_id, mgys):
     with requests.Session() as s:
-        authenticate_session(s, webin_id)
+        s = authenticate_session(s, webin_id)
 
         req = s.get(os.path.join(API_DATA_URL, 'studies', mgys), auth=HTTPBasicAuth(webin_id, API_PASSWORD))
         study = json.loads(req.text)

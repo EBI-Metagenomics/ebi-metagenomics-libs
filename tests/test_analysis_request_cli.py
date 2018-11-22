@@ -32,7 +32,7 @@ class TestRequestCLI(object):
 
     def test_main_should_create_full_request(self):
         Pipeline(version=4.1).save()
-        secondary_accession = 'DRP000303'
+        secondary_accession = 'SRP077065'
         creq.main([secondary_accession, 'Webin-460', '1', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
         studies = Study.objects.all()
         assert len(studies) == 1
