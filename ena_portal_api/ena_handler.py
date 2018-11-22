@@ -16,9 +16,7 @@
 
 from __future__ import print_function
 
-import sys
 import requests
-from ruamel import yaml
 import json
 import os
 import logging

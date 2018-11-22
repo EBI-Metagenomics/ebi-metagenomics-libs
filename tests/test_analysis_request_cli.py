@@ -2,11 +2,10 @@ import analysis_request_cli.create_request as creq
 
 import pytest
 
-from mgnify_backlog import mgnify_handler
-from backlog.models import Study, Run, RunAssembly, AssemblyJob, Assembler, AssemblyJobStatus, RunAssemblyJob, \
-    User, Pipeline, UserRequest, Assembly, AnnotationJob
+from backlog.models import Study, Run, AssemblyJob, Assembler, AssemblyJobStatus, \
+    Pipeline, UserRequest, AnnotationJob
 
-from tests.util import clean_db, study_data
+from tests.util import clean_db
 
 
 class TestRequestCLI(object):
@@ -66,10 +65,12 @@ class TestRequestCLI(object):
     def test_main_should_not_create_duplicate_annotation_request(self):
         Pipeline(version=4.1).save()
         secondary_accession = 'SRP077065'
-        creq.main([secondary_accession, 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
+        creq.main([secondary_accession, 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage',
+                   'root:Host-Associated:Human'])
         with pytest.raises(SystemExit):
             creq.main(
-                [secondary_accession, 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
+                [secondary_accession, 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage',
+                 'root:Host-Associated:Human'])
         # Check runs were inserted and linked to correct study
         assert len(Run.objects.all()) == 2
         assert len(AnnotationJob.objects.all()) == 2
@@ -78,7 +79,8 @@ class TestRequestCLI(object):
     def test_main_should_create_annotation_request_with_mgys_accession(self):
         Pipeline(version=4.1).save()
         mgys_accession = 'MGYS00003133'
-        creq.main([mgys_accession, 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
+        creq.main([mgys_accession, 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage',
+                   'root:Host-Associated:Human'])
         # Check runs were inserted and linked to correct study
         assert len(Run.objects.all()) == 14
         assert len(AnnotationJob.objects.all()) == 14
@@ -87,18 +89,20 @@ class TestRequestCLI(object):
     def test_main_should_create_annotation_request_with_primary_accession(self):
         Pipeline(version=4.1).save()
         primary_accession = 'PRJNA262656'
-        creq.main([primary_accession, 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
+        creq.main([primary_accession, 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage',
+                   'root:Host-Associated:Human'])
         # Check runs were inserted and linked to correct study
         assert len(Run.objects.all()) == 14
         assert len(AnnotationJob.objects.all()) == 14
         assert len(UserRequest.objects.all()) == 1
 
     def test_main_should_raise_exception_if_mgys_accession_is_invalid(self):
-        with pytest.raises(ValueError) as e:
-            creq.main(['MGYS_INVALID', 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
+        with pytest.raises(ValueError):
+            creq.main(['MGYS_INVALID', 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage',
+                       'root:Host-Associated:Human'])
 
     def test_main_should_require_lineage_to_insert_run(self):
-        with pytest.raises(ValueError) as e:
+        with pytest.raises(ValueError):
             creq.main(['SRP077065', 'Webin-460', '1', '--annotate', '--db', 'default'])
 
     def test_main_should_create_assembly_job(self):

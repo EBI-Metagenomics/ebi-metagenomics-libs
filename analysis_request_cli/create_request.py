@@ -94,7 +94,7 @@ def get_study_secondary_accession(webin_id, mgys):
         study = json.loads(req.text)
         try:
             return study['data']['attributes']['secondary-accession']
-        except KeyError as e:
+        except KeyError:
             logging.error(study)
             if study['errors'][0]['status'] == '404':
                 msg = 'Study {} does not exist in db'.format(mgys)
@@ -149,7 +149,7 @@ def main(argv=None):
             study_data = ena.get_study(accession)
             study = mh.create_study_obj(study_data)
         except json.decoder.JSONDecodeError as e:
-            raise e('Could not get study {} from ena.'.format(accession))
+            raise('Could not get study {} from ena.'.format(accession))
         logging.info('Created study {}'.format(accession))
 
     secondary_accession = study.secondary_accession
@@ -162,7 +162,7 @@ def main(argv=None):
         logging.warning('No runs or assemblies left to annotate in this study.')
         sys.exit(1)
 
-    for i, run in enumerate(runs):
+    for run in runs:
         run = mh.get_or_save_run(ena, study, run, args.lineage)
         if args.annotate:
             mh.create_annotation_job(request, run, args.priority)
