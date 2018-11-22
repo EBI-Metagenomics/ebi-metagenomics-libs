@@ -9,26 +9,26 @@ from backlog.models import Study, Run, RunAssembly, AssemblyJob, Assembler, Asse
 from tests.util import clean_db
 
 
-class TestRequestCLI(object):
-    def setup_method(self, method):
-        clean_db()
-
-    def taredown_method(self, method):
-        clean_db()
-
-    def test_get_secondary_accession__should_retrieve_secondary_accession_of_study(self):
-        assert creq.get_study_secondary_accession('Webin-460', 'MGYS00000410') == 'ERP001736'
-
-    def test_get_secondary_accession_should_raise_exception_on_invalid_mgys_accession(self):
-        with pytest.raises(ValueError):
-            creq.get_study_secondary_accession('Webin-460', 'MGYS_INVALID')
-
-    def test_get_user_details_should_retrieve_user_details(self):
-        assert creq.get_user_details('Webin-460')['email-address'] == 'metagenomics@ebi.ac.uk'
-
-    def test_get_user_details_should_raise_exception_on_invalid_webin_account(self):
-        with pytest.raises(ValueError):
-            creq.get_user_details('Webin_INVALID')
+# class TestRequestCLI(object):
+    # def setup_method(self, method):
+    #     clean_db()
+    #
+    # def taredown_method(self, method):
+    #     clean_db()
+    #
+    # def test_get_secondary_accession__should_retrieve_secondary_accession_of_study(self):
+    #     assert creq.get_study_secondary_accession('Webin-460', 'MGYS00000410') == 'ERP001736'
+    #
+    # def test_get_secondary_accession_should_raise_exception_on_invalid_mgys_accession(self):
+    #     with pytest.raises(ValueError):
+    #         creq.get_study_secondary_accession('Webin-460', 'MGYS_INVALID')
+    #
+    # def test_get_user_details_should_retrieve_user_details(self):
+    #     assert creq.get_user_details('Webin-460')['email-address'] == 'metagenomics@ebi.ac.uk'
+    #
+    # def test_get_user_details_should_raise_exception_on_invalid_webin_account(self):
+    #     with pytest.raises(ValueError):
+    #         creq.get_user_details('Webin_INVALID')
 
     # def test_main_should_create_full_request(self):
     #     secondary_accession = 'DRP000303'
