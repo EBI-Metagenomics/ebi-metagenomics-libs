@@ -20,7 +20,6 @@ import logging
 
 import django.db
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Max
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'backlog_cli.settings'
 

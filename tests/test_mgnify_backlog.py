@@ -7,6 +7,8 @@ from ena_portal_api import ena_handler
 from backlog.models import Study, Run, RunAssembly, AssemblyJob, Assembler, AssemblyJobStatus, RunAssemblyJob, \
     User, Pipeline, UserRequest, Assembly, AnnotationJob
 
+from tests.util import clean_db
+
 
 class MockResponse:
     def __init__(self, status_code, data=None, text=None):
@@ -54,24 +56,6 @@ user_data = {
 mgnify = mgnify_handler.MgnifyHandler('default')
 
 ena = ena_handler.EnaApiHandler()
-
-
-def clean_db():
-    AssemblyJob.objects.all().delete()
-    AnnotationJob.objects.all().delete()
-    AssemblyJobStatus.objects.all().delete()
-
-    RunAssembly.objects.all().delete()
-    RunAssemblyJob.objects.all().delete()
-    Run.objects.all().delete()
-    Assembly.objects.all().delete()
-    Study.objects.all().delete()
-
-    UserRequest.objects.all().delete()
-    User.objects.all().delete()
-
-    Pipeline.objects.all().delete()
-    Assembler.objects.all().delete()
 
 
 class TestBacklogHandler(object):
@@ -155,7 +139,8 @@ class TestBacklogHandler(object):
         assert run.library_strategy == run_data['library_strategy']
         assert run.library_layout == run_data['library_layout']
         assert run.library_source == run_data['library_source']
-        assert run.ena_last_update == datetime.strptime(run_data['last_updated'], "%Y-%m-%d").date()
+        # ena_last_update; last date on which row was updated from ENA
+        assert run.ena_last_update == datetime.today().date()
 
     def test_get_or_save_run_should_require_lineage_to_insert_run(self):
         study = mgnify.create_study_obj(study_data)
@@ -458,7 +443,7 @@ class TestBacklogHandler(object):
     def test_is_valid_lineage_should_return_false_as_lineage_exists(self):
         assert not mgnify.is_valid_lineage('root:Environmen')
 
-    def test_get_up_to_date_annotation_jobs_should_retrieve_all_jobs(self):
+    def test_get_up_to_date_annotation_jobs_should_retrieve_all_jobs_in_priority_order(self):
         study = mgnify.create_study_obj(study_data)
         accessions = ['ERR164407', 'ERR164408', 'ERR164409']
         lineage = 'root:Host-Associated:Human:Digestive System'
@@ -471,7 +456,11 @@ class TestBacklogHandler(object):
                                   user_data['surname'])
         request = mgnify.create_user_request(user, 0, 1)
 
-        for run in runs[1:]:
-            mgnify.create_annotation_job(request, run, 0)
+        assert len(AnnotationJob.objects.all()) == 0
 
-        up_to_date_jobs = mgnify.get_up_to_date_annotation_jobs(study_data['secondary_study_accession'])
+        mgnify.create_annotation_job(request, runs[0], 0)
+        mgnify.create_annotation_job(request, runs[1], 1)
+        mgnify.create_annotation_job(request, runs[2], 2)
+
+        up_to_date_runs = mgnify.get_up_to_date_annotation_jobs(study_data['secondary_study_accession'])
+        assert len(up_to_date_runs) == 3
