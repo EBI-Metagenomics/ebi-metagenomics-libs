@@ -41,14 +41,18 @@ MAX_RETRIES = 5
 
 
 def parse_args(args):
-    parser = argparse.ArgumentParser(description='Tool to store analysis requests in the EMG backlog database')
+    parser = argparse.ArgumentParser(
+        description='Tool to store analysis & assembly requests in the EMG backlog database')
     parser.add_argument('study', help='Study accession (all are supported)')
     parser.add_argument('webinID', help='Webin id')
     parser.add_argument('RTticket', help='RT ticket')
-    parser.add_argument('--db', choices=['default', 'dev', 'prod'], default='prod')
+    parser.add_argument('--db', choices=['default', 'dev', 'prod'], default='default')
     parser.add_argument('--private', action='store_true')
     parser.add_argument('--priority', type=int, choices=range(0, 5), default=0)
     parser.add_argument('--lineage', help='Full lineage of biome')
+    actions = parser.add_mutually_exclusive_group()
+    actions.add_argument('--assemble', action='store_true', help='Create assemblyJobs')
+    actions.add_argument('--annotate', action='store_true', help='Create annotationjobs')
     return parser.parse_args(args)
 
 
@@ -112,6 +116,9 @@ def filter_duplicate_runs(annotated_runs, run_accessions):
 
 def main(argv=None):
     args = parse_args(argv)
+    if not args.annotate and not args.assemble:
+        logging.error('No job type specified, please set --annotate or --assemble in arugments.')
+        quit()
     mh = mgnify_handler.MgnifyHandler(args.db)
     ena = ena_handler.EnaApiHandler()
     try:
@@ -162,8 +169,13 @@ def main(argv=None):
 
     for i, run in enumerate(runs):
         run = mh.get_or_save_run(ena, study, run, args.lineage)
-        mh.create_annotation_job(request, run, args.priority)
-        logging.info('Created annotationJob for run {}'.format(run.primary_accession))
+        if args.annotate:
+            mh.create_annotation_job(request, run, args.priority)
+            msg = 'Created annotationJob for run {}'
+        else:
+            mh.create_assembly_job(run, run.compressed_data_size, 'pending', 'metaspades')
+            msg = 'Created assemblyJob for run {}'
+        logging.info(msg.format(run.primary_accession))
 
 
 if __name__ == '__main__':

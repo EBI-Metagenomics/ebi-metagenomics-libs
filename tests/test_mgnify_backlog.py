@@ -147,7 +147,7 @@ class TestBacklogHandler(object):
 
         run = mgnify.create_run_obj(study, run_data)
 
-        mgnify.create_assembly_job(run, '0', 'metaspades', '3.12.0', status)
+        mgnify.create_assembly_job(run, '0', status, 'metaspades', '3.12.0')
         assert mgnify.is_assembly_job_in_backlog(run_data['run_accession'], 'metaspades', '3.11.1') is None
 
     def test_is_assembly_in_backlog_should_find_assembly_version(self):
@@ -158,7 +158,7 @@ class TestBacklogHandler(object):
 
         run = mgnify.create_run_obj(study, run_data)
 
-        inserted_assembly_job = mgnify.create_assembly_job(run, '0', 'metaspades', '3.11.1', status)
+        inserted_assembly_job = mgnify.create_assembly_job(run, '0', status, 'metaspades', '3.11.1')
         retrieved_assembly_job = mgnify.is_assembly_job_in_backlog(run_data['run_accession'], 'metaspades', '3.11.1')
         assert inserted_assembly_job.pk == retrieved_assembly_job.pk
 
@@ -170,7 +170,7 @@ class TestBacklogHandler(object):
 
         run = mgnify.create_run_obj(study, run_data)
 
-        inserted_assembly_job = mgnify.create_assembly_job(run, '0', 'metaspades', '3.11.1', status)
+        inserted_assembly_job = mgnify.create_assembly_job(run, '0', status, 'metaspades', '3.11.1')
         retrieved_assembly_job = mgnify.is_assembly_job_in_backlog(run_data['run_accession'], 'metaspades')
         assert inserted_assembly_job.pk == retrieved_assembly_job.pk
 
@@ -311,7 +311,7 @@ class TestBacklogHandler(object):
 
         assembler_name = 'metaspades'
         assembler_version = '3.11.1'
-        inserted_assembly_job = mgnify.create_assembly_job(run, '0', assembler_name, assembler_version, status)
+        inserted_assembly_job = mgnify.create_assembly_job(run, '0', status, assembler_name, assembler_version)
 
         assert len(AssemblyJob.objects.all()) == 1
         mgnify.set_assembly_job_running(run_data['run_accession'], assembler_name, assembler_version)
@@ -336,7 +336,7 @@ class TestBacklogHandler(object):
 
         assembler_name = 'metaspades'
         assembler_version = '3.11.1'
-        inserted_assembly_job = mgnify.create_assembly_job(run, '0', assembler_name, assembler_version, run_status)
+        inserted_assembly_job = mgnify.create_assembly_job(run, '0', run_status, assembler_name, assembler_version)
 
         assert len(AssemblyJob.objects.all()) == 1
         mgnify.set_assembly_job_pending(run_data['run_accession'], assembler_name, assembler_version)
@@ -357,7 +357,7 @@ class TestBacklogHandler(object):
         status = AssemblyJobStatus(description='pending')
         status.save()
 
-        mgnify.create_assembly_job(run, '0', 'metaspades', '3.12.0', status)
+        mgnify.create_assembly_job(run, '0', status, 'metaspades', '3.12.0')
         assert len(AssemblyJob.objects.all()) == 1
         assert len(mgnify.filter_active_runs([run_data], 'metaspades')) == 0
 

@@ -149,13 +149,18 @@ class MgnifyHandler:
             assembly_annotation_job.save(using=self.database)
         return job
 
-    def create_assembly_job(self, run, total_size, assembler_name, assembler_version, status, priority=0):
+    # Status can be AssemblyJobStatus or string description of status
+    def create_assembly_job(self, run, total_size, status, assembler_name, assembler_version=None, priority=0):
         try:
+            if not assembler_version:
+                assembler_version = self.get_latest_assembler_version(assembler_name)
             assembler = Assembler.objects.using(self.database).get(name=assembler_name, version=assembler_version)
         except ObjectDoesNotExist:
             assembler = Assembler(name=assembler_name, version=assembler_version)
             assembler.save(using=self.database)
 
+        if isinstance(status, str):
+            status = AssemblyJobStatus.objects.using(self.database).get(description=status)
         job = AssemblyJob(assembler=assembler, status=status, input_size=total_size, priority=priority)
         job.save(using=self.database)
         RunAssemblyJob(assembly_job=job, run=run).save(using=self.database)
@@ -169,7 +174,7 @@ class MgnifyHandler:
             job.save()
         else:
             logging.info('Creating new assembly job for run {}'.format(run.primary_accession))
-            job = self.create_assembly_job(run, total_size, assembler_name, assembler_version, status, priority)
+            job = self.create_assembly_job(run, total_size, status, assembler_name, assembler_version, priority)
         return job
 
     def set_assembly_job_running(self, run_accession, assembler_name,
@@ -198,7 +203,10 @@ class MgnifyHandler:
         return list(filter(lambda r: not self.is_assembly_job_in_backlog(r['run_accession'], assembler, version), runs))
 
     def get_latest_assembler_version(self, assembler_name):
-        return Assembler.objects.using(self.database).filter(name=assembler_name).order_by('-version')[0].version
+        try:
+            return Assembler.objects.using(self.database).filter(name=assembler_name).order_by('-version')[0].version
+        except IndexError:
+            raise ObjectDoesNotExist
 
     def get_pending_assembly_jobs(self):
         return AssemblyJob.objects.using(self.database).filter(status__description='pending').order_by('-priority')

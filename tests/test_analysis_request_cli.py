@@ -36,7 +36,8 @@ class TestRequestCLI(object):
         webin_id = 'Webin-460'
         rt_ticket = 1
         creq.main(
-            [secondary_accession, webin_id, str(rt_ticket), '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
+            [secondary_accession, webin_id, str(rt_ticket), '--annotate', '--db', 'default', '--lineage',
+             'root:Host-Associated:Human'])
 
         studies = Study.objects.all()
         assert len(studies) == 1
@@ -44,12 +45,14 @@ class TestRequestCLI(object):
         runs = Run.objects.all()
         # Check runs were inserted and linked to correct study
         assert len(runs) == 2
-        assert [run.study.secondary_accession == secondary_accession for run in runs]
+        for run in runs:
+            assert run.study.secondary_accession == secondary_accession
         run_accessions = [run.primary_accession for run in runs]
         # Check annotationJobs were inserted and linked to correct pipeline and run
         annotation_jobs = AnnotationJob.objects.all()
         assert len(annotation_jobs) == 2
-        assert [job.pipeline.version == 4.1 for job in annotation_jobs]
+        for job in annotation_jobs:
+            assert job.pipeline.version == 4.1
         for job in annotation_jobs:
             assert job.pipeline.version == 4.1
             assert job.runannotationjob_set.first().run.primary_accession in run_accessions
@@ -60,31 +63,31 @@ class TestRequestCLI(object):
         assert requests[0].rt_ticket == rt_ticket
         assert requests[0].user.webin_id == webin_id
 
-    def test_main_should_not_create_duplicate_request(self):
+    def test_main_should_not_create_duplicate_annotation_request(self):
         Pipeline(version=4.1).save()
         secondary_accession = 'SRP077065'
-        creq.main([secondary_accession, 'Webin-460', '1', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
+        creq.main([secondary_accession, 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
         with pytest.raises(SystemExit):
             creq.main(
-                [secondary_accession, 'Webin-460', '1', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
+                [secondary_accession, 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
         # Check runs were inserted and linked to correct study
         assert len(Run.objects.all()) == 2
         assert len(AnnotationJob.objects.all()) == 2
         assert len(UserRequest.objects.all()) == 1
 
-    def test_main_should_create_request_with_mgys_accession(self):
+    def test_main_should_create_annotation_request_with_mgys_accession(self):
         Pipeline(version=4.1).save()
         mgys_accession = 'MGYS00003133'
-        creq.main([mgys_accession, 'Webin-460', '1', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
+        creq.main([mgys_accession, 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
         # Check runs were inserted and linked to correct study
         assert len(Run.objects.all()) == 14
         assert len(AnnotationJob.objects.all()) == 14
         assert len(UserRequest.objects.all()) == 1
 
-    def test_main_should_create_request_with_primary_accession(self):
+    def test_main_should_create_annotation_request_with_primary_accession(self):
         Pipeline(version=4.1).save()
         primary_accession = 'PRJNA262656'
-        creq.main([primary_accession, 'Webin-460', '1', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
+        creq.main([primary_accession, 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
         # Check runs were inserted and linked to correct study
         assert len(Run.objects.all()) == 14
         assert len(AnnotationJob.objects.all()) == 14
@@ -92,8 +95,20 @@ class TestRequestCLI(object):
 
     def test_main_should_raise_exception_if_mgys_accession_is_invalid(self):
         with pytest.raises(ValueError) as e:
-            creq.main(['MGYS_INVALID', 'Webin-460', '1', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
+            creq.main(['MGYS_INVALID', 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage', 'root:Host-Associated:Human'])
 
     def test_main_should_require_lineage_to_insert_run(self):
         with pytest.raises(ValueError) as e:
-            creq.main(['SRP077065', 'Webin-460', '1', '--db', 'default'])
+            creq.main(['SRP077065', 'Webin-460', '1', '--annotate', '--db', 'default'])
+
+    def test_main_should_create_assembly_job(self):
+        Assembler(name='metaspades', version='3.12.0').save()
+        AssemblyJobStatus(description='pending').save()
+        creq.main(['SRP077065', 'Webin-460', '0', '--assemble', '--lineage', 'root'])
+        assert len(Run.objects.all()) == 2
+        assembly_jobs = AssemblyJob.objects.all()
+        assert len(assembly_jobs) == 2
+        for job in assembly_jobs:
+            assert job.assembler.name == 'metaspades'
+            assert job.assembler.version == '3.12.0'
+        assert len(UserRequest.objects.all()) == 1
