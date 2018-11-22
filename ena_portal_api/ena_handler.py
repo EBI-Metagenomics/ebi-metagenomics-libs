@@ -123,8 +123,12 @@ class EnaApiHandler:
         data['result'] = 'read_run'
         data['fields'] = fields or 'study_accession,secondary_study_accession,run_accession,library_source,' \
                                    'library_strategy,library_layout,fastq_ftp,fastq_md5,base_count,read_count,' \
-                                   'instrument_platform,instrument_model,secondary_sample_accession',
+                                   'instrument_platform,instrument_model,secondary_sample_accession'
         data['query'] = 'secondary_study_accession=\"{}\"'.format(study_sec_acc)
+
+        if filter_assembly_runs and 'library_strategy' not in data['fields']:
+            data['fields'] += ',library_strategy'
+
         response = self.post_request(data)
         if str(response.status_code)[0] != '2':
             logging.error(
