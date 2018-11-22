@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Copyright 2017 EMBL - European Bioinformatics Institute
+# Copyright 2018 EMBL - European Bioinformatics Institute
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -58,12 +58,7 @@ def parse_args(args):
 
 def authenticate_session(session, webin_id):
     get_csrftoken = session.get(LOGIN_FORM).headers
-    if 'csrftoken' in session.cookies:
-        # Django 1.6 and up
-        csrftoken = session.cookies['csrftoken']
-    else:
-        # older versions
-        csrftoken = session.cookies['csrf']
+    csrftoken = session.cookies['csrftoken']
 
     session.headers.update({'referer': 'https://www.ebi.ac.uk'})
     login_data = {'username': webin_id, 'password': API_PASSWORD, 'csrfmiddlewaretoken': csrftoken}
@@ -118,7 +113,7 @@ def main(argv=None):
     args = parse_args(argv)
     if not args.annotate and not args.assemble:
         logging.error('No job type specified, please set --annotate or --assemble in arugments.')
-        quit()
+        sys.exit(1)
     mh = mgnify_handler.MgnifyHandler(args.db)
     ena = ena_handler.EnaApiHandler()
     try:
@@ -165,7 +160,7 @@ def main(argv=None):
     runs = filter_duplicate_runs(annotated_runs, runs)
     if not len(runs):
         logging.warning('No runs or assemblies left to annotate in this study.')
-        sys.exit(0)
+        sys.exit(1)
 
     for i, run in enumerate(runs):
         run = mh.get_or_save_run(ena, study, run, args.lineage)

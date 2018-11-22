@@ -112,3 +112,7 @@ class TestRequestCLI(object):
             assert job.assembler.name == 'metaspades'
             assert job.assembler.version == '3.12.0'
         assert len(UserRequest.objects.all()) == 1
+
+    def test_main_should_throw_error_if_both_annotate_and_assemble_flags_not_given(self):
+        with pytest.raises(SystemExit):
+            creq.main(['SRP077065', 'Webin-460', '0', '--lineage', 'root'])
