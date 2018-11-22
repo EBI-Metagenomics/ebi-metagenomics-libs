@@ -142,3 +142,11 @@ class TestEnaHandler(object):
     def test_get_study_run_accessions_should_return_all_accessions(self):
         ena = ena_handler.EnaApiHandler()
         assert set(ena.get_study_run_accessions('ERP000339')) == {'ERR019477', 'ERR019478'}
+
+    def test_get_study_run_accessions_should_not_return_amplicons(self):
+        ena = ena_handler.EnaApiHandler()
+        assert len(ena.get_study_run_accessions('SRP118880')) == 10
+
+    def test_get_study_run_accessions_should_return_all_accessions_including_amplicon(self):
+        ena = ena_handler.EnaApiHandler()
+        assert len(ena.get_study_run_accessions('SRP118880', filter_assembly_runs=False)) == 390

@@ -128,7 +128,6 @@ class EnaApiHandler:
 
         if filter_assembly_runs and 'library_strategy' not in data['fields']:
             data['fields'] += ',library_strategy'
-
         response = self.post_request(data)
         if str(response.status_code)[0] != '2':
             logging.error(
@@ -139,7 +138,6 @@ class EnaApiHandler:
         runs = json.loads(response.text)
         if filter_assembly_runs:
             runs = list(filter(run_filter, runs))
-
         if filter_accessions:
             runs = list(filter(lambda r: r['run_accession'] in filter_accessions, runs))
 
