@@ -109,6 +109,46 @@ def filter_duplicate_runs(annotated_runs, run_accessions):
     return list(filter(lambda r: r not in annotated_run_accession, run_accessions))
 
 
+def create_new_run_jobs(ena, mh, study, request, args):
+    runs = ena.get_study_run_accessions(study.secondary_accession, False, args.private)
+    if not len(runs):
+        logging.warning('No runs to annotate in this study.')
+        return
+    annotated_runs = mh.get_up_to_date_annotation_jobs(study.secondary_accession)
+    runs = filter_duplicate_runs(annotated_runs, runs)
+    if not len(runs):
+        logging.warning('All runs in this study are annotated with the latest pipeline.')
+        return
+
+    for run in runs:
+        run = mh.get_or_save_run(ena, study, run, args.lineage)
+        if args.annotate:
+            mh.create_annotation_job(request, run, args.priority)
+            msg = 'Created annotationJob for run {}'
+        else:
+            mh.create_assembly_job(run, run.compressed_data_size, 'pending', 'metaspades')
+            msg = 'Created assemblyJob for run {}'
+        logging.info(msg.format(run.primary_accession))
+
+
+def create_new_assembly_annotation_jobs(ena, mh, study, request, args):
+    raise NotImplementedError('Will not be implemented until ENA release access to ERZ accessions')
+    # assemblies = ena.get_study_assembly_accessions(study.secondary_accession, False, args.private)
+    # if not len(assemblies):
+    #     logging.warning('No runs to annotate in this study.')
+    #     return
+    # annotated_assemblies = mh.get_up_to_date_annotation_jobs(study.secondary_accession)
+    # assemblies = filter_duplicate_runs(annotated_assemblies, assemblies)
+    # if not len(assemblies):
+    #     logging.warning('All runs in this study are annotated with the latest pipeline.')
+    #     return
+    #
+    # for assembly in assemblies:
+    #     assembly = mh.get_or_save_run(ena, study, assembly, args.lineage)
+    #     mh.create_annotation_job(request, assembly, args.priority)
+    #     logging.info('Created annotationJob for assembly {}'.format(assembly.primary_accession))
+
+
 def main(argv=None):
     args = parse_args(argv)
     if not args.annotate and not args.assemble:
@@ -152,25 +192,12 @@ def main(argv=None):
             raise ('Could not get study {} from ena.'.format(accession))
         logging.info('Created study {}'.format(accession))
 
-    secondary_accession = study.secondary_accession
-
     logging.info('Fetching study runs...')
-    runs = ena.get_study_run_accessions(secondary_accession, False, args.private)
-    annotated_runs = mh.get_up_to_date_annotation_jobs(secondary_accession)
-    runs = filter_duplicate_runs(annotated_runs, runs)
-    if not len(runs):
-        logging.warning('No runs or assemblies left to annotate in this study.')
-        sys.exit(1)
 
-    for run in runs:
-        run = mh.get_or_save_run(ena, study, run, args.lineage)
-        if args.annotate:
-            mh.create_annotation_job(request, run, args.priority)
-            msg = 'Created annotationJob for run {}'
-        else:
-            mh.create_assembly_job(run, run.compressed_data_size, 'pending', 'metaspades')
-            msg = 'Created assemblyJob for run {}'
-        logging.info(msg.format(run.primary_accession))
+    create_new_run_jobs(ena, mh, study, request, args)
+
+    if args.annotate:
+        create_new_assembly_annotation_jobs(ena, mh, study, request, args)
 
 
 if __name__ == '__main__':

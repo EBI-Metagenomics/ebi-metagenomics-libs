@@ -142,7 +142,7 @@ class EnaApiHandler:
             runs = list(filter(lambda r: r['run_accession'] in filter_accessions, runs))
 
         for run in runs:
-            if private or not 'fastq_ftp' in run:
+            if private or 'fastq_ftp' not in run:
                 run['raw_data_size'] = None
             else:
                 run['raw_data_size'] = self.get_run_raw_size(run)
@@ -151,9 +151,35 @@ class EnaApiHandler:
                     run[int_param] = int(run[int_param])
         return runs
 
+    def get_study_assemblies(self, study_primary_accession, fields=None, filter_accessions=None):
+        raise NotImplementedError('Will not be implemented until ENA release access to ERZ accessions')
+        # data = get_default_params()
+        # data['result'] = 'assembly'
+        # data['fields'] = fields or 'accession,assembly_level,assembly_name,assembly_title,base_count,' \
+        #                            'genome_representation,sample_accession,scientific_name,' \
+        #                            'secondary_sample_accession,strain,study_accession,study_description,' \
+        #                            'study_name,study_title,tax_id'
+        # data['query'] = 'study_accession=\"{}\"'.format(study_primary_accession)
+        #
+        # response = self.post_request(data)
+        # if str(response.status_code)[0] != '2':
+        #     logging.error(
+        #         'Error retrieving study runs {}, response code: {}'.format(study_primary_accession, response.status_code))
+        #     logging.error('Response: {}'.format(response.text))
+        #     raise ValueError('Could not retrieve runs for study %s.', study_primary_accession)
+        #
+        # runs = json.loads(response.text)
+        # if filter_accessions:
+        #     runs = list(filter(lambda r: r['run_accession'] in filter_accessions, runs))
+        #
+        # return runs
+
     def get_study_run_accessions(self, study_sec_acc, filter_assembly_runs=True, private=False):
-        return [run['run_accession'] for run in
-                self.get_study_runs(study_sec_acc, 'run_accession', filter_assembly_runs, private)]
+        try:
+            return [run['run_accession'] for run in
+                    self.get_study_runs(study_sec_acc, 'run_accession', filter_assembly_runs, private)]
+        except json.decoder.JSONDecodeError:
+            return []
 
     def get_run_raw_size(self, run):
         urls = run['fastq_ftp'].split(';')
