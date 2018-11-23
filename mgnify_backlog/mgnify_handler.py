@@ -20,6 +20,7 @@ import logging
 
 import django.db
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'backlog_cli.settings'
 
@@ -105,9 +106,9 @@ class MgnifyHandler:
 
     def is_assembly_job_in_backlog(self, primary_accession, assembler_name, assembler_version=None):
         if not assembler_version:
-            jobs = AssemblyJob.objects.using(self.database).filter(runs__primary_accession=primary_accession,
-                                                                   assembler__name=assembler_name).order_by(
-                '-assembler__version')
+            jobs = AssemblyJob.objects.using(self.database) \
+                .filter(runs__primary_accession=primary_accession,
+                        assembler__name=assembler_name).order_by('-assembler__version')
         else:
             jobs = AssemblyJob.objects.using(self.database).filter(runs__primary_accession=primary_accession,
                                                                    assembler__name=assembler_name,
@@ -138,7 +139,7 @@ class MgnifyHandler:
         latest_pipeline = self.get_latest_pipeline()
         status = AnnotationJobStatus.objects.using(self.database).get(description='SCHEDULED')
         job = AnnotationJob(request=request, pipeline=latest_pipeline, priority=priority)
-        job.exec_status_id = status.id
+        job.status = status
         job.save(using=self.database)
 
         if type(assembly_or_run) is Run:
@@ -223,6 +224,28 @@ class MgnifyHandler:
         latest_pipeline = self.get_latest_pipeline()
         return Run.objects.using(self.database).filter(study__secondary_accession=study_accession,
                                                        runannotationjob__annotation_job__pipeline=latest_pipeline)
+
+    def set_annotation_jobs_completed(self, study_obj, rt_ticket, excluded_runs=[]):
+        completed_status = AnnotationJobStatus.objects.using(self.database).get(description='COMPLETED')
+        jobs = AnnotationJob.objects.using(self.database).filter(
+            Q(assemblyannotationjob__assembly__study=study_obj) |
+            Q(runannotationjob__run__study=study_obj), request__rt_ticket=rt_ticket).exclude(
+            runannotationjob__run__primary_accession__in=excluded_runs).exclude(
+            assemblyannotationjob__assembly__primary_accession__in=excluded_runs)
+        jobs.update(status=completed_status)
+
+    def set_annotation_jobs_failed(self, study_obj, rt_ticket, failed_runs):
+        failed_status = AnnotationJobStatus.objects.using(self.database).get(description='FAILED')
+        jobs = AnnotationJob.objects.using(self.database).filter(
+            Q(assemblyannotationjob__assembly__study=study_obj) |
+            Q(runannotationjob__run__study=study_obj), request__rt_ticket=rt_ticket).filter(
+            Q(runannotationjob__run__primary_accession__in=failed_runs) | Q(
+                assemblyannotationjob__assembly__primary_accession__in=failed_runs))
+
+        jobs.update(status=failed_status)
+
+    def get_request_webin(self, rt_ticket):
+        return UserRequest.objects.using(self.database).get(rt_ticket=rt_ticket).user.webin_id
 
 
 def sanitise_string(text):

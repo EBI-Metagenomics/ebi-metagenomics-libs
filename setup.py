@@ -32,6 +32,7 @@ setup(
     entry_points={
         'console_scripts': [
             'create_request=analysis_request_cli.create_request:main'
+            'complete_request=analysis_request_cli.complete_request:main'
         ],
     },
     tests_require=test_requirements,

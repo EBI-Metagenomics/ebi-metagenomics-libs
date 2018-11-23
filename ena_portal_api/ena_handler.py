@@ -85,7 +85,9 @@ class EnaApiHandler:
             raise ValueError('Could not retrieve runs for study %s.', study_acc)
         try:
             study = json.loads(response.text)[0]
-        except (IndexError, TypeError, ValueError):
+        except (IndexError, TypeError, ValueError) as e:
+            logging.error(e)
+            logging.error(response.text)
             raise ValueError('Could not find study {} in ENA.'.format(study_acc))
         return study
 

@@ -3,8 +3,9 @@ from backlog.models import *
 
 def clean_db():
     AssemblyJob.objects.all().delete()
-    AnnotationJob.objects.all().delete()
     AssemblyJobStatus.objects.all().delete()
+
+    AnnotationJob.objects.all().delete()
 
     RunAssembly.objects.all().delete()
     RunAssemblyJob.objects.all().delete()

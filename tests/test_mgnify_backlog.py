@@ -371,6 +371,10 @@ class TestBacklogHandler(object):
             Assembler(name=assembler_name, version=version).save()
         assert mgnify.get_latest_assembler_version(assembler_name) == '3.12.0'
 
+    def test_get_latest_assembler_version_should_raise_exception_if_not_found(self):
+        with pytest.raises(mgnify_handler.ObjectDoesNotExist):
+            mgnify.get_latest_assembler_version('metaspades')
+
     def test_get_pending_assembly_jobs_should_return_empty_list(self):
         assert len(mgnify.get_pending_assembly_jobs()) == 0
 

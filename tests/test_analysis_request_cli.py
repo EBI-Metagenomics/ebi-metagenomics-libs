@@ -1,14 +1,15 @@
-import analysis_request_cli.create_request as creq
-
 import pytest
 
-from backlog.models import Study, Run, AssemblyJob, Assembler, AssemblyJobStatus, \
+import analysis_request_cli.create_request as creq
+import analysis_request_cli.complete_request as ccomp
+
+from backlog.models import Study, Run, AssemblyJob, Assembler, AssemblyJobStatus, AnnotationJobStatus, \
     Pipeline, UserRequest, AnnotationJob
 
 from tests.util import clean_db
 
 
-class TestRequestCLI(object):
+class TestCreateRequestCLI(object):
     def setup_method(self, method):
         clean_db()
 
@@ -78,12 +79,12 @@ class TestRequestCLI(object):
 
     def test_main_should_create_annotation_request_with_mgys_accession(self):
         Pipeline(version=4.1).save()
-        mgys_accession = 'MGYS00003133'
+        mgys_accession = 'MGYS00001879'
         creq.main([mgys_accession, 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage',
                    'root:Host-Associated:Human'])
         # Check runs were inserted and linked to correct study
-        assert len(Run.objects.all()) == 14
-        assert len(AnnotationJob.objects.all()) == 14
+        assert len(Run.objects.all()) == 2
+        assert len(AnnotationJob.objects.all()) == 2
         assert len(UserRequest.objects.all()) == 1
 
     def test_main_should_create_annotation_request_with_primary_accession(self):
@@ -108,7 +109,7 @@ class TestRequestCLI(object):
     def test_main_should_create_assembly_job(self):
         Assembler(name='metaspades', version='3.12.0').save()
         AssemblyJobStatus(description='pending').save()
-        creq.main(['SRP077065', 'Webin-460', '0', '--assemble', '--lineage', 'root'])
+        creq.main(['SRP077065', 'Webin-460', '0', '--assemble', '--lineage', 'root', '--db', 'default'])
         assert len(Run.objects.all()) == 2
         assembly_jobs = AssemblyJob.objects.all()
         assert len(assembly_jobs) == 2
@@ -119,4 +120,72 @@ class TestRequestCLI(object):
 
     def test_main_should_throw_error_if_both_annotate_and_assemble_flags_not_given(self):
         with pytest.raises(SystemExit):
-            creq.main(['SRP077065', 'Webin-460', '0', '--lineage', 'root'])
+            creq.main(['SRP077065', 'Webin-460', '0', '--lineage', 'root', '--db', 'default'])
+
+
+class TestCompleteRequestCLI(object):
+    study_accession = 'ERP023889'
+    webin_account = 'Webin-460'
+    rt_ticket = 0
+
+    @classmethod
+    def setup_class(cls):
+        clean_db()
+        Pipeline(version=4.1).save()
+        creq.main([cls.study_accession, cls.webin_account, cls.rt_ticket,
+                   '--annotate', '--lineage', 'root', '--db', 'default'])
+        assert len(AnnotationJob.objects.all()) == 2
+
+    def setup_method(self, method):
+        scheduled_status = AnnotationJobStatus.objects.get(description='SCHEDULED')
+        AnnotationJob.objects.all().update(status=scheduled_status)
+
+    def taredown_class(self, method):
+        clean_db()
+
+    def test_main_should_set_all_annotationjobs_to_completed(self):
+        ccomp.main([self.study_accession, self.rt_ticket, '--db', 'default'])
+        annotation_jobs = AnnotationJob.objects.all()
+        for job in annotation_jobs:
+            assert job.status.description == 'COMPLETED'
+
+    def test_main_should_work_with_mgys_accession(self):
+        mgys_accession = 'MGYS00001879'
+        ccomp.main([mgys_accession, self.rt_ticket, '--db', 'default'])
+        annotation_jobs = AnnotationJob.objects.all()
+        for job in annotation_jobs:
+            assert job.status.description == 'COMPLETED'
+
+    def test_main_should_work_with_ena_primary_accession(self):
+        mgys_accession = 'PRJEB21618'
+        ccomp.main([mgys_accession, self.rt_ticket, '--db', 'default'])
+        annotation_jobs = AnnotationJob.objects.all()
+        for job in annotation_jobs:
+            assert job.status.description == 'COMPLETED'
+
+    def test_main_should_raise_error_if_secondary_accession_not_in_backlog(self):
+        with pytest.raises(ValueError):
+            ccomp.main(['ERP_INVALID', self.rt_ticket, '--db', 'default'])
+
+    def test_main_should_raise_error_if_mgys_accession_not_in_backlog(self):
+        with pytest.raises(ValueError):
+            ccomp.main(['MGYS_invalid', self.rt_ticket, '--db', 'default'])
+
+    def test_main_should_set_single_run_as_failed(self):
+        mgys_accession = 'PRJEB21618'
+        failed_accession = 'ERR2026004'
+        ccomp.main([mgys_accession, self.rt_ticket, '--db', 'default', '--failed_runs', 'ERR2026004'])
+        annotation_jobs = AnnotationJob.objects.all()
+        for job in annotation_jobs:
+            if job.runannotationjob_set.all()[0].run.primary_accession == failed_accession:
+                expected_status = 'FAILED'
+            else:
+                expected_status = 'COMPLETED'
+            assert job.status.description == expected_status
+
+    def test_main_should_set_both_runs_as_failed(self):
+        mgys_accession = 'PRJEB21618'
+        ccomp.main([mgys_accession, self.rt_ticket, '--db', 'default', '--failed_runs', 'ERR2026003', 'ERR2026004'])
+        annotation_jobs = AnnotationJob.objects.all()
+        for job in annotation_jobs:
+            assert job.status.description == 'FAILED'
