@@ -26,7 +26,7 @@ logging.basicConfig(level=logging.INFO)
 
 
 def parse_args(args):
-    parser = argparse.ArgumentParser(description='Tool to store analysis requests in the EMG backlog database')
+    parser = argparse.ArgumentParser(description='Tool to store the analysis status of study runs/assemblies in the EMG backlog database')
     parser.add_argument('study', help='Study accession (all are supported)')
     parser.add_argument('RTticket', help='RT ticket')
     parser.add_argument('--db', choices=['default', 'dev', 'prod'], default='default')
