@@ -187,7 +187,7 @@ def main(argv=None):
         try:
             study_data = ena.get_study(accession)
             study = mh.create_study_obj(study_data)
-        except json.decoder.JSONDecodeError:
+        except ValueError:
             raise ('Could not get study {} from ena.'.format(accession))
         logging.info('Created study {}'.format(accession))
 

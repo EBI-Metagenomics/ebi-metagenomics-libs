@@ -200,14 +200,14 @@ class EnaApiHandler:
         try:
             return [assembly['accession'] for assembly in
                     self.get_study_assemblies(study_prim_acc, 'accession')]
-        except json.decoder.JSONDecodeError:
+        except ValueError:
             return []
 
     def get_study_run_accessions(self, study_sec_acc, filter_assembly_runs=True, private=False):
         try:
             return [run['run_accession'] for run in
                     self.get_study_runs(study_sec_acc, 'run_accession', filter_assembly_runs, private)]
-        except json.decoder.JSONDecodeError:
+        except ValueError:
             return []
 
     def get_run_raw_size(self, run):

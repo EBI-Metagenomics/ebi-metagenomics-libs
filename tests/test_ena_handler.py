@@ -211,3 +211,11 @@ class TestEnaHandler(object):
     def test_get_study_assembly_accessions_should_return_all_accessions(self):
         ena = ena_handler.EnaApiHandler()
         assert set(ena.get_study_assembly_accessions('PRJNA326769')) == {'GCA_001751075', 'GCA_001751165'}
+
+    def test_get_study_assembly_accessions_should_return_empty_list_if_study_contains_no_runs(self):
+        ena = ena_handler.EnaApiHandler()
+        assert len(ena.get_study_assembly_accessions('PRJEB2280')) == 0
+
+    def test_get_study_run_accessions_should_return_empty_list_if_study_contains_no_runs(self):
+        ena = ena_handler.EnaApiHandler()
+        assert len(ena.get_study_run_accessions('ERP105889')) == 0
