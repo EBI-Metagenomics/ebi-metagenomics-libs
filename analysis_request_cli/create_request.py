@@ -132,21 +132,21 @@ def create_new_run_jobs(ena, mh, study, request, args):
 
 
 def create_new_assembly_annotation_jobs(ena, mh, study, request, args):
-    raise NotImplementedError('Will not be implemented until ENA release access to ERZ accessions')
-    # assemblies = ena.get_study_assembly_accessions(study.secondary_accession, False, args.private)
-    # if not len(assemblies):
-    #     logging.warning('No runs to annotate in this study.')
-    #     return
-    # annotated_assemblies = mh.get_up_to_date_annotation_jobs(study.secondary_accession)
-    # assemblies = filter_duplicate_runs(annotated_assemblies, assemblies)
-    # if not len(assemblies):
-    #     logging.warning('All runs in this study are annotated with the latest pipeline.')
-    #     return
-    #
-    # for assembly in assemblies:
-    #     assembly = mh.get_or_save_run(ena, study, assembly, args.lineage)
-    #     mh.create_annotation_job(request, assembly, args.priority)
-    #     logging.info('Created annotationJob for assembly {}'.format(assembly.primary_accession))
+    # TODO implement to support studies containing assemblies
+    assemblies = ena.get_study_assembly_accessions(study.secondary_accession, False, args.private)
+    if not len(assemblies):
+        logging.warning('No runs to annotate in this study.')
+        return
+    annotated_assemblies = mh.get_up_to_date_annotation_jobs(study.secondary_accession)
+    assemblies = filter_duplicate_runs(annotated_assemblies, assemblies)
+    if not len(assemblies):
+        logging.warning('All runs in this study are annotated with the latest pipeline.')
+        return
+
+    for assembly in assemblies:
+        assembly = mh.get_or_save_run(ena, study, assembly, args.lineage)
+        mh.create_annotation_job(request, assembly, args.priority)
+        logging.info('Created annotationJob for assembly {}'.format(assembly.primary_accession))
 
 
 def main(argv=None):
@@ -196,8 +196,8 @@ def main(argv=None):
 
     create_new_run_jobs(ena, mh, study, request, args)
 
-    if args.annotate:
-        create_new_assembly_annotation_jobs(ena, mh, study, request, args)
+    # if args.annotate:
+    #     create_new_assembly_annotation_jobs(ena, mh, study, request, args)
 
 
 if __name__ == '__main__':

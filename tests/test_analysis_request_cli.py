@@ -68,10 +68,8 @@ class TestCreateRequestCLI(object):
         secondary_accession = 'SRP077065'
         creq.main([secondary_accession, 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage',
                    'root:Host-Associated:Human'])
-        with pytest.raises(SystemExit):
-            creq.main(
-                [secondary_accession, 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage',
-                 'root:Host-Associated:Human'])
+        creq.main([secondary_accession, 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage',
+                   'root:Host-Associated:Human'])
         # Check runs were inserted and linked to correct study
         assert len(Run.objects.all()) == 2
         assert len(AnnotationJob.objects.all()) == 2
