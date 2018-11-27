@@ -127,6 +127,61 @@ class TestEnaHandler(object):
         with pytest.raises(ValueError):
             ena.get_study_runs('SRP125161')
 
+    def test_get_study_assemblies_should_have_all_fields(self):
+        ena = ena_handler.EnaApiHandler()
+        assemblies = ena.get_study_assemblies('PRJNA326769')
+        for assembly in assemblies:
+            assert len(assembly) == 16
+            assert isinstance(assembly, dict)
+
+    def test_get_study_assemblies_should_filter_fields(self):
+        ena = ena_handler.EnaApiHandler()
+        assemblies = ena.get_study_assemblies('PRJNA326769', fields='accession,study_accession')
+        for assembly in assemblies:
+            assert len(assembly) == 2
+            assert isinstance(assembly, dict)
+
+    def test_get_study_assemblies_should_filter_accessions(self):
+        ena = ena_handler.EnaApiHandler()
+        assemblies = ena.get_study_assemblies('PRJNA326769', filter_accessions=['GCA_001751075'])
+        for assembly in assemblies:
+            assert len(assembly) == 16
+            assert isinstance(assembly, dict)
+
+    def test_get_study_assemblies_invalid_accession(self):
+        ena = ena_handler.EnaApiHandler()
+        with pytest.raises(ValueError):
+            ena.get_study_assemblies('Invalid accession')
+
+    def test_get_study_assemblies_api_unavailable(self):
+        ena = ena_handler.EnaApiHandler()
+        ena.post_request = lambda r: MockResponse(500)
+        with pytest.raises(ValueError):
+            ena.get_study_assemblies('PRJNA326769')
+
+    def test_get_assembly_should_have_all_fields(self):
+        ena = ena_handler.EnaApiHandler()
+        assembly = ena.get_assembly('GCA_001751075')
+        assert len(assembly) == 16
+        assert isinstance(assembly, dict)
+
+    def test_get_assembly_should_filter_fields(self):
+        ena = ena_handler.EnaApiHandler()
+        assembly = ena.get_assembly('GCA_001751075', fields='accession,study_accession')
+        assert len(assembly) == 2
+        assert isinstance(assembly, dict)
+
+    def test_get_assembly_api_unavailable(self):
+        ena = ena_handler.EnaApiHandler()
+        ena.post_request = lambda r: MockResponse(500)
+        with pytest.raises(ValueError):
+            ena.get_assembly('GCA_001751075')
+
+    def test_get_assembly_invalid_accession(self):
+        ena = ena_handler.EnaApiHandler()
+        with pytest.raises(ValueError):
+            ena.get_assembly('Invalid_accession')
+
     def test_download_runs(self, tmpdir):
         tmpdir = tmpdir.strpath
         current_dir = os.getcwd()
@@ -152,3 +207,7 @@ class TestEnaHandler(object):
     def test_get_study_run_accessions_should_return_all_accessions_including_amplicon(self):
         ena = ena_handler.EnaApiHandler()
         assert len(ena.get_study_run_accessions('SRP118880', filter_assembly_runs=False)) == 390
+
+    def test_get_study_assembly_accessions_should_return_all_accessions(self):
+        ena = ena_handler.EnaApiHandler()
+        assert set(ena.get_study_assembly_accessions('PRJNA326769')) == {'GCA_001751075', 'GCA_001751165'}

@@ -4,7 +4,7 @@ import analysis_request_cli.create_request as creq
 import analysis_request_cli.complete_request as ccomp
 
 from backlog.models import Study, Run, AssemblyJob, Assembler, AssemblyJobStatus, AnnotationJobStatus, \
-    Pipeline, UserRequest, AnnotationJob
+    Pipeline, UserRequest, AnnotationJob, Assembly
 
 from tests.util import clean_db
 
@@ -12,6 +12,8 @@ from tests.util import clean_db
 class TestCreateRequestCLI(object):
     def setup_method(self, method):
         clean_db()
+        Pipeline(version=4.1).save()
+
 
     def taredown_method(self, method):
         clean_db()
@@ -31,7 +33,6 @@ class TestCreateRequestCLI(object):
             creq.get_user_details('Webin-0000')
 
     def test_main_should_create_full_request(self):
-        Pipeline(version=4.1).save()
         secondary_accession = 'SRP077065'
         webin_id = 'Webin-460'
         rt_ticket = 1
@@ -48,14 +49,24 @@ class TestCreateRequestCLI(object):
         for run in runs:
             assert run.study.secondary_accession == secondary_accession
         run_accessions = [run.primary_accession for run in runs]
+
+        assemblies = Assembly.objects.all()
+        assert len(assemblies) == 2
+        for assembly in assemblies:
+            assert assembly.study.secondary_accession == secondary_accession
+        assembly_accessions = [assembly.primary_accession for assembly in assemblies]
+
         # Check annotationJobs were inserted and linked to correct pipeline and run
         annotation_jobs = AnnotationJob.objects.all()
-        assert len(annotation_jobs) == 2
+        assert len(annotation_jobs) == 4
         for job in annotation_jobs:
             assert job.pipeline.version == 4.1
-        for job in annotation_jobs:
-            assert job.pipeline.version == 4.1
-            assert job.runannotationjob_set.first().run.primary_accession in run_accessions
+            runs = job.runannotationjob_set.all()
+            if runs:
+                assert runs[0].run.primary_accession in run_accessions
+            assemblies = job.assemblyannotationjob_set.all()
+            if assemblies:
+                assert assemblies[0].assembly.primary_accession in assembly_accessions
 
         requests = UserRequest.objects.all()
         assert len(requests) == 1
@@ -64,19 +75,22 @@ class TestCreateRequestCLI(object):
         assert requests[0].user.webin_id == webin_id
 
     def test_main_should_not_create_duplicate_annotation_request(self):
-        Pipeline(version=4.1).save()
         secondary_accession = 'SRP077065'
-        creq.main([secondary_accession, 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage',
-                   'root:Host-Associated:Human'])
-        creq.main([secondary_accession, 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage',
-                   'root:Host-Associated:Human'])
+        cmd = [secondary_accession, 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage',
+               'root:Host-Associated:Human']
+
+        creq.main(cmd)
+        assert len(Assembly.objects.all()) == 2
+        assert len(AnnotationJob.objects.all()) == 4
+        assert len(UserRequest.objects.all()) == 1
+        creq.main(cmd)
         # Check runs were inserted and linked to correct study
         assert len(Run.objects.all()) == 2
-        assert len(AnnotationJob.objects.all()) == 2
+        assert len(Assembly.objects.all()) == 2
+        assert len(AnnotationJob.objects.all()) == 4
         assert len(UserRequest.objects.all()) == 1
 
     def test_main_should_create_annotation_request_with_mgys_accession(self):
-        Pipeline(version=4.1).save()
         mgys_accession = 'MGYS00001879'
         creq.main([mgys_accession, 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage',
                    'root:Host-Associated:Human'])
@@ -86,7 +100,6 @@ class TestCreateRequestCLI(object):
         assert len(UserRequest.objects.all()) == 1
 
     def test_main_should_create_annotation_request_with_primary_accession(self):
-        Pipeline(version=4.1).save()
         primary_accession = 'PRJNA262656'
         creq.main([primary_accession, 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage',
                    'root:Host-Associated:Human'])
@@ -119,6 +132,16 @@ class TestCreateRequestCLI(object):
     def test_main_should_throw_error_if_both_annotate_and_assemble_flags_not_given(self):
         with pytest.raises(SystemExit):
             creq.main(['SRP077065', 'Webin-460', '0', '--lineage', 'root', '--db', 'default'])
+
+    def test_main_should_function_with_study_containing_only_assemblies(self):
+        creq.main(['MGYS00003602', 'Webin-460', '0', '--lineage', 'root', '--db', 'default', '--annotate'])
+        assert len(Study.objects.all()) == 1
+        assert len(Assembly.objects.all()) == 1
+        assert len(AnnotationJob.objects.all()) == 1
+
+    def test_main_should_raise_error_with_study_containing_only_assemblies_if_no_lineage_provided(self):
+        with pytest.raises(ValueError):
+            creq.main(['MGYS00003602', 'Webin-460', '0', '--db', 'default', '--annotate'])
 
 
 class TestCompleteRequestCLI(object):

@@ -152,27 +152,56 @@ class EnaApiHandler:
         return runs
 
     def get_study_assemblies(self, study_primary_accession, fields=None, filter_accessions=None):
-        raise NotImplementedError('Will not be implemented until ENA release access to ERZ accessions')
-        # data = get_default_params()
-        # data['result'] = 'assembly'
-        # data['fields'] = fields or 'accession,assembly_level,assembly_name,assembly_title,base_count,' \
-        #                            'genome_representation,sample_accession,scientific_name,' \
-        #                            'secondary_sample_accession,strain,study_accession,study_description,' \
-        #                            'study_name,study_title,tax_id'
-        # data['query'] = 'study_accession=\"{}\"'.format(study_primary_accession)
-        #
-        # response = self.post_request(data)
-        # if str(response.status_code)[0] != '2':
-        #     logging.error(
-        #         'Error retrieving study runs {}, response code: {}'.format(study_primary_accession, response.status_code))
-        #     logging.error('Response: {}'.format(response.text))
-        #     raise ValueError('Could not retrieve runs for study %s.', study_primary_accession)
-        #
-        # runs = json.loads(response.text)
-        # if filter_accessions:
-        #     runs = list(filter(lambda r: r['run_accession'] in filter_accessions, runs))
-        #
-        # return runs
+        data = get_default_params()
+        data['result'] = 'assembly'
+        data['fields'] = fields or 'accession,assembly_level,assembly_name,assembly_title,base_count,' \
+                                   'genome_representation,sample_accession,scientific_name,' \
+                                   'secondary_sample_accession,strain,study_accession,study_description,' \
+                                   'study_name,study_title,tax_id,last_updated'
+        data['query'] = 'study_accession=\"{}\"'.format(study_primary_accession)
+
+        response = self.post_request(data)
+        if str(response.status_code)[0] != '2':
+            logging.error(
+                'Error retrieving study assemblies {}, response code: {}'.format(study_primary_accession,
+                                                                                 response.status_code))
+            logging.error('Response: {}'.format(response.text))
+            raise ValueError('Could not retrieve assemblies for study %s.', study_primary_accession)
+        assemblies = json.loads(response.text)
+        if filter_accessions:
+            assemblies = list(filter(lambda r: r['accession'] in filter_accessions, assemblies))
+
+        return assemblies
+
+    def get_assembly(self, assembly_name, fields=None):
+        data = get_default_params()
+        data['result'] = 'assembly'
+        data['fields'] = fields or 'accession,assembly_level,assembly_name,assembly_title,base_count,' \
+                                   'genome_representation,sample_accession,scientific_name,' \
+                                   'secondary_sample_accession,strain,study_accession,study_description,' \
+                                   'study_name,study_title,tax_id,last_updated'
+        data['query'] = 'accession=\"{}\"'.format(assembly_name)
+
+        response = self.post_request(data)
+        if str(response.status_code)[0] != '2':
+            logging.error(
+                'Error retrieving assembly {}, response code: {}'.format(assembly_name, response.status_code))
+            logging.error('Response: {}'.format(response.text))
+            raise ValueError('Could not retrieve assembly %s.', assembly_name)
+
+        try:
+            assembly = json.loads(response.text)[0]
+        except (IndexError, TypeError, ValueError):
+            raise ValueError('Could not find assembly {} in ENA.'.format(assembly_name))
+
+        return assembly
+
+    def get_study_assembly_accessions(self, study_prim_acc):
+        try:
+            return [assembly['accession'] for assembly in
+                    self.get_study_assemblies(study_prim_acc, 'accession')]
+        except json.decoder.JSONDecodeError:
+            return []
 
     def get_study_run_accessions(self, study_sec_acc, filter_assembly_runs=True, private=False):
         try:

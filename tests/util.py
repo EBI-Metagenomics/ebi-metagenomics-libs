@@ -43,7 +43,8 @@ run_data = {
 }
 
 assembly_data = {
-    'primary_accession': 'ERR12345_test'
+    'accession': 'ERR12345_test',
+    'last_updated': '2018-11-21'
 }
 
 user_data = {
@@ -52,3 +53,14 @@ user_data = {
     'first_name': 'John',
     'surname': 'Doe'
 }
+
+assembly_data = {'accession': 'GCA_001751075', 'assembly_level': 'scaffold', 'assembly_name': 'ASM175107v1',
+                 'assembly_title': 'ASM175107v1 assembly for Desulfobacterales bacterium S7086C20',
+                 'base_count': '2653970', 'genome_representation': 'full', 'sample_accession': 'SAMN05301627',
+                 'scientific_name': 'Desulfobacterales bacterium S7086C20', 'secondary_sample_accession': '',
+                 'strain': '', 'study_accession': 'PRJNA326769',
+                 'study_description': "Two samples ...",
+                 'study_name': 'marine sediment metagenome',
+                 'study_title': 'marine sediment metagenome Raw sequence reads', 'tax_id': '1869302',
+                 'last_updated': '2016-10-03'
+                 }

@@ -25,6 +25,27 @@ mgnify = mgnify_handler.MgnifyHandler('default')
 ena = ena_handler.EnaApiHandler()
 
 
+def create_annotation_jobs(rt_ticket=0, priority=0):
+    study = mgnify.create_study_obj(study_data)
+    accessions = ['ERR164407', 'ERR164408', 'ERR164409']
+    lineage = 'root:Host-Associated:Human:Digestive System'
+
+    runs = [mgnify.get_or_save_run(ena, study, accession, lineage) for accession in accessions]
+    pipeline = Pipeline(version=4.1)
+    pipeline.save()
+
+    user = mgnify.create_user(user_data['webin_id'], user_data['email_address'], user_data['first_name'],
+                              user_data['surname'])
+    request = mgnify.create_user_request(user, priority, rt_ticket)
+
+    assert len(AnnotationJob.objects.all()) == 0
+
+    mgnify.create_annotation_job(request, runs[0], 0)
+    mgnify.create_annotation_job(request, runs[1], 1)
+    mgnify.create_annotation_job(request, runs[2], 2)
+    return study, runs
+
+
 class TestBacklogHandler(object):
     def setup_method(self, method):
         clean_db()
@@ -114,14 +135,34 @@ class TestBacklogHandler(object):
         with pytest.raises(ValueError):
             mgnify.get_or_save_run(ena, study, run_data['run_accession'], None)
 
+    def test_get_or_save_assembly_should_find_existing_assembly(self):
+        study = mgnify.create_study_obj(study_data)
+        created_assembly = mgnify.create_assembly_obj(study, assembly_data)
+        retrieve_assembly = mgnify.get_or_save_assembly(ena, study, assembly_data['accession'], 'root')
+
+        assert isinstance(retrieve_assembly, Assembly)
+        assert retrieve_assembly.pk == created_assembly.pk
+
+    def test_get_or_save_assembly_should_fetch_from_ena(self):
+        study = mgnify.create_study_obj(study_data)
+        retrieved_assembly = mgnify.get_or_save_assembly(ena, study, assembly_data['accession'], 'root')
+
+        assert isinstance(retrieved_assembly, Assembly)
+        assert retrieved_assembly.ena_last_update == assembly_data['last_updated']
+
+    def test_get_or_save_assembly_should_require_lineage_to_insert_assembly(self):
+        study = mgnify.create_study_obj(study_data)
+        with pytest.raises(ValueError):
+            mgnify.get_or_save_assembly(ena, study, assembly_data['accession'], None)
+
     def test_create_assembly_obj_no_related_runs(self):
         study = mgnify.create_study_obj(study_data)
         mgnify.create_assembly_obj(study, assembly_data)
         assemblies = Assembly.objects.all()
         assert len(assemblies) == 1
         assembly = assemblies[0]
-        for v, k in assembly_data.items():
-            assert getattr(assembly, v) == k
+        assert assembly.primary_accession == assembly_data['accession']
+        assert assembly.ena_last_update == datetime.strptime(assembly_data['last_updated'], "%Y-%m-%d").date()
 
     def test_create_assembly_obj_w_related_runs(self):
         study = mgnify.create_study_obj(study_data)
@@ -135,6 +176,50 @@ class TestBacklogHandler(object):
         run_assembly = run_assemblies[0]
         assert run_assembly.run.pk == run.pk
         assert run_assembly.assembly.pk == assembly.pk
+
+    def test_create_assembly_job_should_set_latest_assembler(self):
+        study = mgnify.create_study_obj(study_data)
+        run = mgnify.create_run_obj(study, run_data)
+        latest_version = '3.12.0'
+        _ = Assembler(name='metaspades', version='3.11.1').save()
+        _ = Assembler(name='metaspades', version=latest_version).save()
+
+        status = AssemblyJobStatus(description='PENDING')
+        status.save()
+        mgnify.create_assembly_job(run, 0, status, 'metaspades')
+
+        assembly_jobs = AssemblyJob.objects.all()
+        assert len(assembly_jobs) == 1
+        assembly_job = assembly_jobs[0]
+        assert assembly_job.assembler.version == latest_version
+
+    def test_create_assembly_job_should_set_status_from_model(self):
+        study = mgnify.create_study_obj(study_data)
+        run = mgnify.create_run_obj(study, run_data)
+        _ = Assembler(name='metaspades', version='3.11.1').save()
+
+        status = AssemblyJobStatus(description='PENDING')
+        status.save()
+        mgnify.create_assembly_job(run, 0, status, 'metaspades')
+
+        assembly_jobs = AssemblyJob.objects.all()
+        assert len(assembly_jobs) == 1
+        assembly_job = assembly_jobs[0]
+        assert assembly_job.status.description == status.description
+
+    def test_create_assembly_job_should_set_status_from_string_arg(self):
+        study = mgnify.create_study_obj(study_data)
+        run = mgnify.create_run_obj(study, run_data)
+        description = 'PENDING'
+
+        _ = Assembler(name='metaspades', version='3.11.1').save()
+        _ = AssemblyJobStatus(description=description).save()
+        mgnify.create_assembly_job(run, 0, description, 'metaspades')
+
+        assembly_jobs = AssemblyJob.objects.all()
+        assert len(assembly_jobs) == 1
+        assembly_job = assembly_jobs[0]
+        assert assembly_job.status.description == description
 
     def test_is_assembly_in_backlog_should_not_find_any_assemblies(self):
         assert mgnify.is_assembly_job_in_backlog('ERR12345_test', 'metaspades', '3.11.1') is None
@@ -414,12 +499,18 @@ class TestBacklogHandler(object):
     def test_is_valid_lineage_should_return_false_as_lineage_exists(self):
         assert not mgnify.is_valid_lineage('root:Environmen')
 
-    def test_get_up_to_date_annotation_jobs_should_retrieve_all_jobs_in_priority_order(self):
+    def test_get_up_to_date_run_annotation_jobs_should_retrieve_all_jobs_in_priority_order(self):
+        runs = create_annotation_jobs()[1]
+
+        up_to_date_runs = mgnify.get_up_to_date_run_annotation_jobs(study_data['secondary_study_accession'])
+        assert len(up_to_date_runs) == len(runs)
+
+    def test_get_up_to_date_assembly_annotation_jobs_should_retrieve_all_jobs_in_priority_order(self):
         study = mgnify.create_study_obj(study_data)
-        accessions = ['ERR164407', 'ERR164408', 'ERR164409']
+        accessions = ['GCA_001751075', 'GCA_001751165']
         lineage = 'root:Host-Associated:Human:Digestive System'
 
-        runs = [mgnify.get_or_save_run(ena, study, accession, lineage) for accession in accessions]
+        assemblies = [mgnify.get_or_save_assembly(ena, study, accession, lineage) for accession in accessions]
         pipeline = Pipeline(version=4.1)
         pipeline.save()
 
@@ -429,9 +520,52 @@ class TestBacklogHandler(object):
 
         assert len(AnnotationJob.objects.all()) == 0
 
-        mgnify.create_annotation_job(request, runs[0], 0)
-        mgnify.create_annotation_job(request, runs[1], 1)
-        mgnify.create_annotation_job(request, runs[2], 2)
+        mgnify.create_annotation_job(request, assemblies[0], 0)
+        mgnify.create_annotation_job(request, assemblies[1], 1)
 
-        up_to_date_runs = mgnify.get_up_to_date_annotation_jobs(study_data['secondary_study_accession'])
-        assert len(up_to_date_runs) == 3
+        up_to_date_assemblies = mgnify.get_up_to_date_assembly_annotation_jobs(study_data['secondary_study_accession'])
+        assert len(up_to_date_assemblies) == len(assemblies)
+
+    def test_set_annotation_jobs_completed_should_set_all_annotation_jobs_to_completed(self):
+        rt_ticket = 1
+        study, runs = create_annotation_jobs(rt_ticket=rt_ticket)
+
+        mgnify.set_annotation_jobs_completed(study, rt_ticket)
+        for annotation_job in AnnotationJob.objects.all():
+            assert annotation_job.status.description == 'COMPLETED'
+
+    def test_set_annotation_jobs_completed_should_not_set_excluded_accessions(self):
+        rt_ticket = 1
+        study, runs = create_annotation_jobs(rt_ticket=rt_ticket)
+        excluded_accession = [runs[0].primary_accession]
+
+        mgnify.set_annotation_jobs_completed(study, rt_ticket, excluded_runs=excluded_accession)
+
+        for annotation_job in AnnotationJob.objects.all():
+
+            if annotation_job.runannotationjob_set.first().run.primary_accession in excluded_accession:
+                status = 'SCHEDULED'
+            else:
+                status = 'COMPLETED'
+            assert annotation_job.status.description == status
+
+    def test_set_annotation_jobs_failed_should_filter_by_accession(self):
+        rt_ticket = 1
+        study, runs = create_annotation_jobs(rt_ticket=rt_ticket)
+        failed_accession = [runs[0].primary_accession]
+
+        mgnify.set_annotation_jobs_failed(study, rt_ticket, failed_accession)
+
+        for annotation_job in AnnotationJob.objects.all():
+            if annotation_job.runannotationjob_set.first().run.primary_accession in failed_accession:
+                status = 'FAILED'
+            else:
+                status = 'SCHEDULED'
+            assert annotation_job.status.description == status
+
+    def test_get_request_webin_should_retrieve_webin_account_associated_to_rt_ticket_number(self):
+        user = mgnify.create_user(user_data['webin_id'], user_data['email_address'], user_data['first_name'],
+                                  user_data['surname'])
+        rt_ticket = 0
+        _ = mgnify.create_user_request(user, 0, rt_ticket)
+        assert mgnify.get_request_webin(rt_ticket) == user_data['webin_id']

@@ -68,7 +68,9 @@ class MgnifyHandler:
         return r
 
     def create_assembly_obj(self, study, assembly_data):
-        assembly = Assembly(study=study, primary_accession=assembly_data['primary_accession'])
+        assembly = Assembly(study=study,
+                            primary_accession=assembly_data['accession'],
+                            ena_last_update=assembly_data['last_updated'])
         assembly.save(using=self.database)
         if 'related_runs' in assembly_data:
             for run in assembly_data['related_runs']:
@@ -87,6 +89,9 @@ class MgnifyHandler:
     def get_backlog_run(self, run_accession):
         return Run.objects.using(self.database).get(primary_accession=run_accession)
 
+    def get_backlog_assembly(self, assembly_accession):
+        return Assembly.objects.using(self.database).get(primary_accession=assembly_accession)
+
     def get_or_save_study(self, ena_handler, secondary_study_accession):
         try:
             return self.get_backlog_secondary_study(secondary_study_accession)
@@ -103,6 +108,15 @@ class MgnifyHandler:
             run = ena_handler.get_run(run_accession)
             run['lineage'] = lineage
             return self.create_run_obj(study, run)
+
+    def get_or_save_assembly(self, ena_handler, study, assembly_accession, lineage):
+        try:
+            return self.get_backlog_assembly(assembly_accession)
+        except ObjectDoesNotExist:
+            if not lineage:
+                raise ValueError('Lineage not provided, cannot create new assembly')
+            assembly = ena_handler.get_assembly(assembly_accession)
+            return self.create_assembly_obj(study, assembly)
 
     def is_assembly_job_in_backlog(self, primary_accession, assembler_name, assembler_version=None):
         if not assembler_version:
@@ -220,27 +234,32 @@ class MgnifyHandler:
             return False
 
     # Get a list of runs in study which have been annotated with latest pipeline
-    def get_up_to_date_annotation_jobs(self, study_accession):
+    def get_up_to_date_run_annotation_jobs(self, study_accession):
         latest_pipeline = self.get_latest_pipeline()
         return Run.objects.using(self.database).filter(study__secondary_accession=study_accession,
                                                        runannotationjob__annotation_job__pipeline=latest_pipeline)
 
-    def set_annotation_jobs_completed(self, study_obj, rt_ticket, excluded_runs=None):
+    def get_up_to_date_assembly_annotation_jobs(self, study_accession):
+        latest_pipeline = self.get_latest_pipeline()
+        return Assembly.objects.using(self.database).filter(study__secondary_accession=study_accession,
+                                                            assemblyannotationjob__annotation_job__pipeline=latest_pipeline)
+
+    def set_annotation_jobs_completed(self, study, rt_ticket, excluded_runs=None):
         if not excluded_runs:
             excluded_runs = []
         completed_status = AnnotationJobStatus.objects.using(self.database).get(description='COMPLETED')
         jobs = AnnotationJob.objects.using(self.database).filter(
-            Q(assemblyannotationjob__assembly__study=study_obj) |
-            Q(runannotationjob__run__study=study_obj), request__rt_ticket=rt_ticket).exclude(
+            Q(assemblyannotationjob__assembly__study=study) |
+            Q(runannotationjob__run__study=study), request__rt_ticket=rt_ticket).exclude(
             runannotationjob__run__primary_accession__in=excluded_runs).exclude(
             assemblyannotationjob__assembly__primary_accession__in=excluded_runs)
         jobs.update(status=completed_status)
 
-    def set_annotation_jobs_failed(self, study_obj, rt_ticket, failed_runs):
+    def set_annotation_jobs_failed(self, study, rt_ticket, failed_runs):
         failed_status = AnnotationJobStatus.objects.using(self.database).get(description='FAILED')
         jobs = AnnotationJob.objects.using(self.database).filter(
-            Q(assemblyannotationjob__assembly__study=study_obj) |
-            Q(runannotationjob__run__study=study_obj), request__rt_ticket=rt_ticket).filter(
+            Q(assemblyannotationjob__assembly__study=study) |
+            Q(runannotationjob__run__study=study), request__rt_ticket=rt_ticket).filter(
             Q(runannotationjob__run__primary_accession__in=failed_runs) | Q(
                 assemblyannotationjob__assembly__primary_accession__in=failed_runs))
 
