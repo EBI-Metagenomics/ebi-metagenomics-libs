@@ -57,12 +57,12 @@ def parse_args(args):
 
 
 def authenticate_session(session, webin_id):
-    get_csrftoken = session.get(LOGIN_FORM).headers
+    _ = session.get(LOGIN_FORM).headers
     csrftoken = session.cookies['csrftoken']
 
     session.headers.update({'referer': 'https://www.ebi.ac.uk'})
     login_data = {'username': webin_id, 'password': API_PASSWORD, 'csrfmiddlewaretoken': csrftoken}
-    login = session.post(LOGIN_URL, data=login_data)
+    _ = session.post(LOGIN_URL, data=login_data)
     return session
 
 

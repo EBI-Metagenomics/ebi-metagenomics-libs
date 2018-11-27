@@ -142,10 +142,10 @@ class MgnifyHandler:
         job.status = status
         job.save(using=self.database)
 
-        if type(assembly_or_run) is Run:
+        if isinstance(assembly_or_run, Run):
             run_annotation_job = RunAnnotationJob(run=assembly_or_run, annotation_job=job)
             run_annotation_job.save(using=self.database)
-        elif type(assembly_or_run) is Assembly:
+        elif isinstance(assembly_or_run, Assembly):
             assembly_annotation_job = AssemblyAnnotationJob(assembly=assembly_or_run, annotation_job=job)
             assembly_annotation_job.save(using=self.database)
         return job
@@ -225,7 +225,9 @@ class MgnifyHandler:
         return Run.objects.using(self.database).filter(study__secondary_accession=study_accession,
                                                        runannotationjob__annotation_job__pipeline=latest_pipeline)
 
-    def set_annotation_jobs_completed(self, study_obj, rt_ticket, excluded_runs=[]):
+    def set_annotation_jobs_completed(self, study_obj, rt_ticket, excluded_runs=None):
+        if not excluded_runs:
+            excluded_runs = []
         completed_status = AnnotationJobStatus.objects.using(self.database).get(description='COMPLETED')
         jobs = AnnotationJob.objects.using(self.database).filter(
             Q(assemblyannotationjob__assembly__study=study_obj) |
