@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 import os
 import sys
 
-version = "0.1.2"
+version = "0.1.3"
 
 _base = os.path.dirname(os.path.abspath(__file__))
 _requirements = os.path.join(_base, 'requirements.txt')
@@ -25,9 +25,9 @@ setup(
     packages=find_packages(),
     install_requires=install_requirements,
     include_package_data=True,
-    install_requirementss=['emg-backlog-schema>=0.4.4'],
+    install_requirements=['emg-backlog-schema>=0.4.5'],
     dependency_links=[
-        'https://github.com/EBI-Metagenomics/emg-backlog-schema/tarball/master#egg=emg-backlog-schema-0.4.4'
+        'https://github.com/EBI-Metagenomics/emg-backlog-schema/tarball/master#egg=emg-backlog-schema-0.4.5'
     ],
     entry_points={
         'console_scripts': [

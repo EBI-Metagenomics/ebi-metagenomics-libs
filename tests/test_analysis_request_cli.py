@@ -113,9 +113,9 @@ class TestCreateRequestCLI(object):
             creq.main(['MGYS_INVALID', 'Webin-460', '1', '--annotate', '--db', 'default', '--lineage',
                        'root:Host-Associated:Human'])
 
-    def test_main_should_require_lineage_to_insert_run(self):
-        with pytest.raises(ValueError):
-            creq.main(['SRP077065', 'Webin-460', '1', '--annotate', '--db', 'default'])
+    # def test_main_should_require_lineage_to_insert_run(self):
+    #     with pytest.raises(ValueError):
+    #         creq.main(['SRP077065', 'Webin-460', '1', '--annotate', '--db', 'default'])
 
     def test_main_should_create_assembly_job(self):
         Assembler(name='metaspades', version='3.12.0').save()
@@ -139,9 +139,9 @@ class TestCreateRequestCLI(object):
         assert len(Assembly.objects.all()) == 1
         assert len(AnnotationJob.objects.all()) == 1
 
-    def test_main_should_raise_error_with_study_containing_only_assemblies_if_no_lineage_provided(self):
-        with pytest.raises(ValueError):
-            creq.main(['MGYS00003602', 'Webin-460', '0', '--db', 'default', '--annotate'])
+    # def test_main_should_raise_error_with_study_containing_only_assemblies_if_no_lineage_provided(self):
+    #     with pytest.raises(ValueError):
+    #         creq.main(['MGYS00003602', 'Webin-460', '0', '--db', 'default', '--annotate'])
 
 
 class TestCompleteRequestCLI(object):

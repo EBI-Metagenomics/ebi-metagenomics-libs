@@ -30,7 +30,7 @@ def create_annotation_jobs(rt_ticket=0, priority=0):
     accessions = ['ERR164407', 'ERR164408', 'ERR164409']
     lineage = 'root:Host-Associated:Human:Digestive System'
 
-    runs = [mgnify.get_or_save_run(ena, study, accession, lineage) for accession in accessions]
+    runs = [mgnify.get_or_save_run(ena, accession, study=study, lineage=lineage) for accession in accessions]
     pipeline = Pipeline(version=4.1)
     pipeline.save()
 
@@ -66,7 +66,7 @@ class TestBacklogHandler(object):
 
     def test_get_study_by_secondary_accession(self):
         mgnify.create_study_obj(study_data)
-        study = mgnify.get_backlog_secondary_study(study_data['secondary_study_accession'])
+        study = mgnify.get_backlog_study(study_data['secondary_study_accession'])
 
         assert isinstance(study, Study)
         assert study.primary_accession == study_data['study_accession']
@@ -109,14 +109,14 @@ class TestBacklogHandler(object):
     def test_get_or_save_run_should_find_existing_run(self):
         study = mgnify.create_study_obj(study_data)
         created_run = mgnify.create_run_obj(study, run_data)
-        retrieved_run = mgnify.get_or_save_run(ena, study, run_data['run_accession'], 'root')
+        retrieved_run = mgnify.get_or_save_run(ena, run_data['run_accession'], study=study)
 
         assert isinstance(retrieved_run, Run)
         assert retrieved_run.pk == created_run.pk
 
     def test_get_or_save_run_should_fetch_from_ena(self):
         study = mgnify.create_study_obj(study_data)
-        run = mgnify.get_or_save_run(ena, study, run_data['run_accession'], 'root')
+        run = mgnify.get_or_save_run(ena, run_data['run_accession'], study=study)
 
         assert isinstance(run, Run)
         assert run.primary_accession == run_data['run_accession']
@@ -130,30 +130,30 @@ class TestBacklogHandler(object):
         # ena_last_update; last date on which row was updated from ENA
         assert run.ena_last_update == datetime.today().date()
 
-    def test_get_or_save_run_should_require_lineage_to_insert_run(self):
-        study = mgnify.create_study_obj(study_data)
-        with pytest.raises(ValueError):
-            mgnify.get_or_save_run(ena, study, run_data['run_accession'], None)
+    # def test_get_or_save_run_should_require_lineage_to_insert_run(self):
+    #     study = mgnify.create_study_obj(study_data)
+    #     with pytest.raises(ValueError):
+    #         mgnify.get_or_save_run(ena, run_data['run_accession'], None, study)
 
     def test_get_or_save_assembly_should_find_existing_assembly(self):
         study = mgnify.create_study_obj(study_data)
         created_assembly = mgnify.create_assembly_obj(study, assembly_data)
-        retrieve_assembly = mgnify.get_or_save_assembly(ena, study, assembly_data['accession'], 'root')
+        retrieve_assembly = mgnify.get_or_save_assembly(ena, assembly_data['accession'], study)
 
         assert isinstance(retrieve_assembly, Assembly)
         assert retrieve_assembly.pk == created_assembly.pk
 
     def test_get_or_save_assembly_should_fetch_from_ena(self):
         study = mgnify.create_study_obj(study_data)
-        retrieved_assembly = mgnify.get_or_save_assembly(ena, study, assembly_data['accession'], 'root')
+        retrieved_assembly = mgnify.get_or_save_assembly(ena, assembly_data['accession'], study)
 
         assert isinstance(retrieved_assembly, Assembly)
         assert retrieved_assembly.ena_last_update == assembly_data['last_updated']
 
-    def test_get_or_save_assembly_should_require_lineage_to_insert_assembly(self):
-        study = mgnify.create_study_obj(study_data)
-        with pytest.raises(ValueError):
-            mgnify.get_or_save_assembly(ena, study, assembly_data['accession'], None)
+    # def test_get_or_save_assembly_should_require_lineage_to_insert_assembly(self):
+    #     study = mgnify.create_study_obj(study_data)
+    #     with pytest.raises(ValueError):
+    #         mgnify.get_or_save_assembly(ena, assembly_data['accession'], None, study)
 
     def test_create_assembly_obj_no_related_runs(self):
         study = mgnify.create_study_obj(study_data)
@@ -510,7 +510,7 @@ class TestBacklogHandler(object):
         accessions = ['GCA_001751075', 'GCA_001751165']
         lineage = 'root:Host-Associated:Human:Digestive System'
 
-        assemblies = [mgnify.get_or_save_assembly(ena, study, accession, lineage) for accession in accessions]
+        assemblies = [mgnify.get_or_save_assembly(ena, accession, study) for accession in accessions]
         pipeline = Pipeline(version=4.1)
         pipeline.save()
 

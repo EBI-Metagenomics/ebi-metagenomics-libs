@@ -49,10 +49,7 @@ def main(argv=None):
         accession = args.study
 
     try:
-        if accession[0:3] in ('ERP', 'SRP', 'DRP'):
-            study = mh.get_backlog_secondary_study(accession)
-        else:
-            study = mh.get_backlog_study(accession)
+        study = mh.get_backlog_study(accession)
     except ObjectDoesNotExist:
         raise ValueError('Could not find study {} in backlog'.format(accession))
 

@@ -30,6 +30,8 @@ from backlog.models import Study, Run, AssemblyJob, RunAssembly, Assembler, Asse
     User, Pipeline, \
     UserRequest, AnnotationJobStatus, Assembly, AnnotationJob, AssemblyAnnotationJob, RunAnnotationJob
 
+from mgnify_util.accession_parsers import is_secondary_study_acc
+
 
 class MgnifyHandler:
     def __init__(self, database):
@@ -45,6 +47,16 @@ class MgnifyHandler:
         s.save(using=self.database)
         return s
 
+    def update_study_obj(self, data):
+        s = Study.objects.using(self.database).get(primary_accession=data['study_accession'],
+                                                   secondary_accession=data['secondary_study_accession'])
+        if 'study_title' in data:
+            s.title = sanitise_string(data['study_title'])
+        s.public = get_date(data, 'first_public') <= datetime.now().date()
+        if 'last_updated' in data:
+            s.ena_last_update = get_date(data, 'last_updated')
+        s.save(using=self.database)
+
     def create_run_obj(self, study, run):
         r = Run(study=study,
                 primary_accession=run['run_accession'],
@@ -59,12 +71,35 @@ class MgnifyHandler:
                 compressed_data_size=run['raw_data_size'] if 'raw_data_size' in run else 0,
                 sample_primary_accession=run[
                     'secondary_sample_accession'] if 'secondary_sample_accession' in run else None,
-                biome_validated=False
+                biome_validated='lineage' in run
                 )
-        biome = Biome.objects.using(self.database).get(lineage=run['lineage'])
-        r.biome = biome
+        if 'lineage' in run:
+            biome = Biome.objects.using(self.database).get(lineage=run['lineage'])
+            r.biome = biome
         r.clean_fields()
         r.save(using=self.database)
+        return r
+
+    def update_run_obj(self, data):
+        r = Run.objects.using(self.database).get(primary_accession=data['run_accession'])
+        int_fields = ['base_count', 'read_count']
+        [setattr(r, int_field, data[int_field]) for int_field in int_fields if int_field in data]
+        string_fields = ['instrument_platform', 'instrument_model', 'instrument_strategy', 'instrument_']
+        [setattr(r, string_field, sanitise_string(data[string_field])) for string_field in string_fields if
+         string_field in data]
+        if 'last_updated' in data:
+            r.ena_last_update = data['last_updated']
+        if 'raw_data_size' in data:
+            r.compressed_data_size = data['raw_data_size']
+        if 'secondary_sample_accession' in data:
+            r.secondary_sample_accession = data['secondary_sample_accession']
+        if 'lineage' in data:
+            biome = Biome.objects.using(self.database).get(lineage=data['lineage'])
+            r.biome = biome
+
+        r.clean_fields()
+        r.save(using=self.database)
+        r.save()
         return r
 
     def create_assembly_obj(self, study, assembly_data):
@@ -77,14 +112,26 @@ class MgnifyHandler:
                 RunAssembly(run=run, assembly=assembly).save()
         return assembly
 
-    # def get_assemblies(database, secondary_study_accession, run_accessions, assembler, version):
-    #     return Run.objects.using(database).filter()
+    def update_assembly_obj(self, assembly_data):
+        assembly = Assembly.objects.using(self.database).get(primary_accession=assembly_data['accession'])
+        if 'last_updated' in assembly_data:
+            assembly.ena_last_update = assembly_data['last_updated']
+        assembly.clean_fields()
+        assembly.save()
+        if 'related_runs' in assembly_data:
+            run_accessions = assembly.runassembly_set.all().values_list('run__primary_accession', flat=True)
+            for run in assembly_data['related_runs']:
+                if not isinstance(run, Run):
+                    run = self.get_backlog_run(run)
+                if run.primary_accession not in run_accessions:
+                    RunAssembly(run=run, assembly=assembly).save()
+        return assembly
 
-    def get_backlog_study(self, primary_accession):
-        return Study.objects.using(self.database).get(primary_accession=primary_accession)
-
-    def get_backlog_secondary_study(self, secondary_study_accession):
-        return Study.objects.using(self.database).get(secondary_accession=secondary_study_accession)
+    def get_backlog_study(self, accession):
+        if is_secondary_study_acc(accession):
+            return Study.objects.using(self.database).get(secondary_accession=accession)
+        else:
+            return Study.objects.using(self.database).get(primary_accession=accession)
 
     def get_backlog_run(self, run_accession):
         return Run.objects.using(self.database).get(primary_accession=run_accession)
@@ -92,30 +139,31 @@ class MgnifyHandler:
     def get_backlog_assembly(self, assembly_accession):
         return Assembly.objects.using(self.database).get(primary_accession=assembly_accession)
 
-    def get_or_save_study(self, ena_handler, secondary_study_accession):
+    def get_or_save_study(self, ena_handler, prim_or_sec_study_accession):
         try:
-            return self.get_backlog_secondary_study(secondary_study_accession)
+            return self.get_backlog_study(prim_or_sec_study_accession)
         except ObjectDoesNotExist:
-            study = ena_handler.get_study(secondary_study_accession)
+            study = ena_handler.get_study(prim_or_sec_study_accession)
             return self.create_study_obj(study)
 
-    def get_or_save_run(self, ena_handler, study, run_accession, lineage):
+    def get_or_save_run(self, ena_handler, run_accession, study=None, lineage=None):
         try:
             return self.get_backlog_run(run_accession)
         except ObjectDoesNotExist:
-            if not lineage:
-                raise ValueError('Lineage not provided, cannot create new run')
             run = ena_handler.get_run(run_accession)
-            run['lineage'] = lineage
+            if lineage:
+                run['lineage'] = lineage
+            if not study:
+                study = self.get_or_save_study(ena_handler, run['study_accession'])
             return self.create_run_obj(study, run)
 
-    def get_or_save_assembly(self, ena_handler, study, assembly_accession, lineage):
+    def get_or_save_assembly(self, ena_handler, assembly_accession, study=None):
         try:
             return self.get_backlog_assembly(assembly_accession)
         except ObjectDoesNotExist:
-            if not lineage:
-                raise ValueError('Lineage not provided, cannot create new assembly')
             assembly = ena_handler.get_assembly(assembly_accession)
+            if not study:
+                study = self.get_or_save_study(ena_handler, assembly['study_accession'])
             return self.create_assembly_obj(study, assembly)
 
     def is_assembly_job_in_backlog(self, primary_accession, assembler_name, assembler_version=None):

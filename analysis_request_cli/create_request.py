@@ -121,7 +121,7 @@ def create_new_run_jobs(ena, mh, study, request, args):
         return
 
     for run in runs:
-        run = mh.get_or_save_run(ena, study, run, args.lineage)
+        run = mh.get_or_save_run(ena, run, lineage=args.lineage, study=study)
         if args.annotate:
             mh.create_annotation_job(request, run, args.priority)
             msg = 'Created annotationJob for run {}'
@@ -143,7 +143,7 @@ def create_new_assembly_annotation_jobs(ena, mh, study, request, args):
         return
 
     for assembly in assemblies:
-        assembly = mh.get_or_save_assembly(ena, study, assembly, args.lineage)
+        assembly = mh.get_or_save_assembly(ena, assembly,  study)
         mh.create_annotation_job(request, assembly, args.priority)
         logging.info('Created annotationJob for assembly {}'.format(assembly.primary_accession))
 
@@ -179,10 +179,7 @@ def main(argv=None):
         accession = args.study
 
     try:
-        if accession[0:3] in ('ERP', 'SRP', 'DRP'):
-            study = mh.get_backlog_secondary_study(accession)
-        else:
-            study = mh.get_backlog_study(accession)
+        study = mh.get_backlog_study(accession)
     except ObjectDoesNotExist:
         try:
             study_data = ena.get_study(accession)
