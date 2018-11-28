@@ -21,6 +21,8 @@ if "test" in sys.argv:
 
 setup(
     name="emg_libs",
+    author='Miguel Boland, Maxim Scheremetjew',
+    author_email='mdb@ebi.ac.uk, maxim@ebi.ac.uk',
     version=version,
     packages=find_packages(),
     install_requires=install_requirements,

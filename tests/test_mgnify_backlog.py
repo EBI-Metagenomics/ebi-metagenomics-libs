@@ -528,7 +528,7 @@ class TestBacklogHandler(object):
 
     def test_set_annotation_jobs_completed_should_set_all_annotation_jobs_to_completed(self):
         rt_ticket = 1
-        study, runs = create_annotation_jobs(rt_ticket=rt_ticket)
+        study, _ = create_annotation_jobs(rt_ticket=rt_ticket)
 
         mgnify.set_annotation_jobs_completed(study, rt_ticket)
         for annotation_job in AnnotationJob.objects.all():
