@@ -295,26 +295,62 @@ class MgnifyHandler:
     def set_annotation_jobs_completed(self, study, rt_ticket, excluded_runs=None):
         if not excluded_runs:
             excluded_runs = []
-        completed_status = AnnotationJobStatus.objects.using(self.database).get(description='COMPLETED')
         jobs = AnnotationJob.objects.using(self.database).filter(
             Q(assemblyannotationjob__assembly__study=study) |
             Q(runannotationjob__run__study=study), request__rt_ticket=rt_ticket).exclude(
             runannotationjob__run__primary_accession__in=excluded_runs).exclude(
             assemblyannotationjob__assembly__primary_accession__in=excluded_runs)
-        jobs.update(status=completed_status)
+        self.update_annotation_jobs_status(jobs, 'COMPLETED')
 
     def set_annotation_jobs_failed(self, study, rt_ticket, failed_runs):
-        failed_status = AnnotationJobStatus.objects.using(self.database).get(description='FAILED')
         jobs = AnnotationJob.objects.using(self.database).filter(
             Q(assemblyannotationjob__assembly__study=study) |
             Q(runannotationjob__run__study=study), request__rt_ticket=rt_ticket).filter(
             Q(runannotationjob__run__primary_accession__in=failed_runs) | Q(
                 assemblyannotationjob__assembly__primary_accession__in=failed_runs))
+        self.update_annotation_jobs_status(jobs, 'FAILED')
 
-        jobs.update(status=failed_status)
+    def get_annotation_job_status(self, description):
+        return AnnotationJobStatus.objects.using(self.database).get(description=description)
 
     def get_request_webin(self, rt_ticket):
         return UserRequest.objects.using(self.database).get(rt_ticket=rt_ticket).user.webin_id
+
+    def update_annotation_jobs_status(self, annotation_jobs, status_description):
+        try:
+            status = self.get_annotation_job_status(status_description)
+            annotation_jobs.update(status=status)
+        except ObjectDoesNotExist:
+            statuses = ','.join(AnnotationJobStatus.objects.using(self.database).values_list('description', flat=True))
+            raise ValueError('Status {} is invalid. Valid choices are: {}'.format(status_description, statuses))
+
+    def update_annotation_jobs_priority(self, annotation_jobs, priority):
+        annotation_jobs.update(priority=priority)
+
+    def update_annotation_jobs(self, run_or_assembly_accessions=None, study_accessions=None, status=None, priority=None,
+                               pipeline_version=None):
+
+        jobs = AnnotationJob.objects.using(self.database)
+        if run_or_assembly_accessions:
+            jobs = jobs.filter(
+                Q(runannotationjob__run__primary_accession__in=run_or_assembly_accessions) |
+                Q(assemblyannotationjob__assembly__primary_accession__in=run_or_assembly_accessions))
+        if study_accessions:
+            jobs = jobs.filter(
+                Q(runannotationjob__run__study__primary_accession__in=study_accessions) |
+                Q(runannotationjob__run__study__secondary_accession__in=study_accessions) |
+                Q(assemblyannotationjob__assembly__study__primary_accession__in=study_accessions) |
+                Q(assemblyannotationjob__assembly__study__secondary_accession__in=study_accessions))
+        if pipeline_version:
+            jobs = jobs.filter(pipeline__version=pipeline_version)
+        logging.info('Matched {} annotation job(s)'.format(len(jobs)))
+        if status:
+            self.update_annotation_jobs_status(jobs, status)
+            logging.info('Updated AnnotationJob status...')
+
+        if priority:
+            self.update_annotation_jobs_priority(jobs, priority)
+            logging.info('Updated AnnotationJob priority...')
 
 
 def sanitise_string(text):

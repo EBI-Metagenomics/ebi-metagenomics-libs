@@ -1,4 +1,5 @@
 from backlog.models import *
+from tests.test_mgnify_backlog import mgnify, ena
 
 
 def clean_db():
@@ -64,3 +65,24 @@ assembly_data = {'accession': 'GCA_001751075', 'assembly_level': 'scaffold', 'as
                  'study_title': 'marine sediment metagenome Raw sequence reads', 'tax_id': '1869302',
                  'last_updated': '2016-10-03'
                  }
+
+
+def create_annotation_jobs(rt_ticket=0, priority=0):
+    study = mgnify.create_study_obj(study_data)
+    accessions = ['ERR164407', 'ERR164408', 'ERR164409']
+    lineage = 'root:Host-Associated:Human:Digestive System'
+
+    runs = [mgnify.get_or_save_run(ena, accession, study=study, lineage=lineage) for accession in accessions]
+    pipeline = Pipeline(version=4.1)
+    pipeline.save()
+
+    user = mgnify.create_user(user_data['webin_id'], user_data['email_address'], user_data['first_name'],
+                              user_data['surname'])
+    request = mgnify.create_user_request(user, priority, rt_ticket)
+
+    assert len(AnnotationJob.objects.all()) == 0
+
+    mgnify.create_annotation_job(request, runs[0], priority)
+    mgnify.create_annotation_job(request, runs[1], priority)
+    mgnify.create_annotation_job(request, runs[2], priority)
+    return study, runs
