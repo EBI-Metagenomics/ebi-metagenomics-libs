@@ -1,0 +1,26 @@
+language: python
+python:
+  - "3.4"
+  - "3.5"
+  - "3.6"
+
+env:
+  - BACKLOG_CONFIG=$TRAVIS_BUILD_DIR/travis/config.yaml
+
+install:
+  # Test dependencies
+  - pip install 'pytest==3.7.4'
+  # Project dependencies
+  - pip install -U --process-dependency-links .
+
+  # Setup database
+  - mysql -e 'CREATE DATABASE emg_backlog_2;'
+  - emgbacklog migrate --database=default
+  - mysql -u root --password="" --database=emg_backlog_2 < travis/biomes.sql
+
+script:
+  - python setup.py test
+
+after_success:
+  - pip install codacy-coverage
+  - python-codacy-coverage -r coverage.xml

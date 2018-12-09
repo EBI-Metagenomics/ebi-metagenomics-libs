@@ -1,0 +1,10 @@
+include LICENSE
+include requirements.txt
+include requirements-test.txt
+
+recursive-include analysis_request_cli *
+recursive-include ena_portal_api *
+recursive-include mgnify_backlog *
+
+recursive-exclude * __pycache__
+recursive-exclude * *.pyc
