@@ -2,11 +2,11 @@ import pytest
 
 from analysis_request_cli import edit_annotation_job
 
-from backlog.models import Study, Run, AssemblyJob, Assembler, AssemblyJobStatus, AnnotationJobStatus, \
-    Pipeline, UserRequest, AnnotationJob, Assembly
+from backlog.models import AnnotationJobStatus, Pipeline, AnnotationJob
 
 import mgnify_backlog.mgnify_handler as mgnify_handler
-from tests.util import clean_db, create_annotation_jobs, study_data, run_data
+from tests.test_mgnify_backlog import create_annotation_jobs
+from tests.util import clean_db, study_data
 
 mgnify = mgnify_handler.MgnifyHandler('default')
 
