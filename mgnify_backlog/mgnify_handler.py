@@ -316,6 +316,27 @@ class MgnifyHandler:
     def get_request_webin(self, rt_ticket):
         return UserRequest.objects.using(self.database).get(rt_ticket=rt_ticket).user.webin_id
 
+    def get_annotation_jobs(self, run_or_assembly_accessions=None, study_accessions=None, status=None, priority=None,
+                            pipeline_version=None):
+        jobs = AnnotationJob.objects.using(self.database)
+        if run_or_assembly_accessions:
+            jobs = jobs.filter(
+                Q(runannotationjob__run__primary_accession__in=run_or_assembly_accessions) |
+                Q(assemblyannotationjob__assembly__primary_accession__in=run_or_assembly_accessions))
+        if study_accessions:
+            jobs = jobs.filter(
+                Q(runannotationjob__run__study__primary_accession__in=study_accessions) |
+                Q(runannotationjob__run__study__secondary_accession__in=study_accessions) |
+                Q(assemblyannotationjob__assembly__study__primary_accession__in=study_accessions) |
+                Q(assemblyannotationjob__assembly__study__secondary_accession__in=study_accessions))
+        if priority:
+            jobs = jobs.filter(priority=priority)
+        if status:
+            jobs = jobs.filter(status__description=status)
+        if pipeline_version:
+            jobs = jobs.filter(pipeline__version=pipeline_version)
+        return jobs
+
     def update_annotation_jobs_status(self, annotation_jobs, status_description):
         try:
             status = self.get_annotation_job_status(status_description)
@@ -330,19 +351,8 @@ class MgnifyHandler:
     def update_annotation_jobs(self, run_or_assembly_accessions=None, study_accessions=None, status=None, priority=None,
                                pipeline_version=None):
 
-        jobs = AnnotationJob.objects.using(self.database)
-        if run_or_assembly_accessions:
-            jobs = jobs.filter(
-                Q(runannotationjob__run__primary_accession__in=run_or_assembly_accessions) |
-                Q(assemblyannotationjob__assembly__primary_accession__in=run_or_assembly_accessions))
-        if study_accessions:
-            jobs = jobs.filter(
-                Q(runannotationjob__run__study__primary_accession__in=study_accessions) |
-                Q(runannotationjob__run__study__secondary_accession__in=study_accessions) |
-                Q(assemblyannotationjob__assembly__study__primary_accession__in=study_accessions) |
-                Q(assemblyannotationjob__assembly__study__secondary_accession__in=study_accessions))
-        if pipeline_version:
-            jobs = jobs.filter(pipeline__version=pipeline_version)
+        jobs = self.get_annotation_jobs(run_or_assembly_accessions=run_or_assembly_accessions,
+                                        study_accessions=study_accessions, pipeline_version=pipeline_version)
         logging.info('Matched {} annotation job(s)'.format(len(jobs)))
         if status:
             self.update_annotation_jobs_status(jobs, status)
