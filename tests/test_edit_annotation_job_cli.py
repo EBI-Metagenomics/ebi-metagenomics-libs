@@ -29,7 +29,7 @@ class TestCreateRequestCLI(object):
 
         assert len(AnnotationJob.objects.all()) == 0
 
-        study, _ = create_annotation_jobs(rt_ticket, initial_priority)
+        create_annotation_jobs(rt_ticket, initial_priority)
 
         initial_jobs = AnnotationJob.objects.all()
         for job in initial_jobs:
