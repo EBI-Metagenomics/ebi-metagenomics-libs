@@ -1,10 +1,12 @@
 from datetime import datetime
-
 import pytest
+
+
+from mgnify_backlog import mgnify_handler
+
 from backlog.models import Study, Run, RunAssembly, AssemblyJob, Assembler, AssemblyJobStatus, RunAssemblyJob, \
     User, Pipeline, UserRequest, Assembly, AnnotationJob, AnnotationJobStatus
 from ena_portal_api import ena_handler
-from mgnify_backlog import mgnify_handler
 
 from tests.util import user_data, clean_db, assembly_data, study_data, run_data
 
@@ -598,8 +600,9 @@ class TestBacklogHandler(object):
             assert job.priority == initial_priority
             assert job.status == initial_status
 
-        mgnify.update_annotation_jobs(study_accessions=[study_secondary_accession], priority=final_priority,
-                                      status=final_status_description)
+        mgnify.update_annotation_jobs_from_accessions(study_accessions=[study_secondary_accession],
+                                                      priority=final_priority,
+                                                      status=final_status_description)
 
         final_jobs = AnnotationJob.objects.all()
         assert len(initial_jobs) == len(final_jobs)
@@ -627,9 +630,10 @@ class TestBacklogHandler(object):
             assert job.priority == initial_priority
             assert job.status == initial_status
 
-        mgnify.update_annotation_jobs(study_accessions=[study_secondary_accession],
-                                      run_or_assembly_accessions=filtered_run_accession, priority=final_priority,
-                                      status=final_status_description)
+        mgnify.update_annotation_jobs_from_accessions(study_accessions=[study_secondary_accession],
+                                                      run_or_assembly_accessions=filtered_run_accession,
+                                                      priority=final_priority,
+                                                      status=final_status_description)
 
         final_jobs = AnnotationJob.objects.all()
         assert len(initial_jobs) == len(final_jobs)
@@ -660,8 +664,9 @@ class TestBacklogHandler(object):
             assert job.priority == initial_priority
             assert job.status == initial_status
 
-        mgnify.update_annotation_jobs(run_or_assembly_accessions=filtered_run_accession, priority=final_priority,
-                                      status=final_status_description)
+        mgnify.update_annotation_jobs_from_accessions(run_or_assembly_accessions=filtered_run_accession,
+                                                      priority=final_priority,
+                                                      status=final_status_description)
 
         final_jobs = AnnotationJob.objects.all()
         assert len(initial_jobs) == len(final_jobs)
@@ -701,8 +706,9 @@ class TestBacklogHandler(object):
             assert job.priority == initial_priority
             assert job.status == initial_status
 
-        mgnify.update_annotation_jobs(priority=final_priority,
-                                      status=final_status_description, pipeline_version=new_pipeline_version)
+        mgnify.update_annotation_jobs_from_accessions(priority=final_priority,
+                                                      status=final_status_description,
+                                                      pipeline_version=new_pipeline_version)
 
         final_jobs = AnnotationJob.objects.all()
         assert len(initial_jobs) == len(final_jobs)
@@ -713,3 +719,21 @@ class TestBacklogHandler(object):
             else:
                 assert job.priority == initial_priority
                 assert job.status == initial_status
+
+    def test_update_annotationjob(self):
+        rt_ticket = 0
+        initial_priority = 1
+        assert len(AnnotationJob.objects.all()) == 0
+        study, _ = create_annotation_jobs(rt_ticket, initial_priority)
+
+        running_status = mgnify.get_annotation_job_status('RUNNING')
+        job = AnnotationJob.objects.first()
+        job_id = job.id
+
+        new_attr = {'priority': 4, 'status': running_status}
+        mgnify.update_annotation_job(job, new_attr)
+
+        modified_job = AnnotationJob.objects.get(id=job_id)
+
+        for attr, val in new_attr.items():
+            assert getattr(modified_job, attr) == val

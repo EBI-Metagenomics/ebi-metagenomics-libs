@@ -40,7 +40,7 @@ def main(argv=None):
         args.studies = args.studies.split(',')
     if args.runs_and_assemblies:
         args.runs_and_assemblies = args.runs_and_assemblies.split(',')
-    mgnify.update_annotation_jobs(args.runs_and_assemblies, args.studies, args.status, args.priority,
+    mgnify.update_annotation_jobs_from_accessions(args.runs_and_assemblies, args.studies, args.status, args.priority,
                                   args.pipeline_version)
 
 

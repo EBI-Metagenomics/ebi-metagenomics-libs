@@ -351,8 +351,13 @@ class MgnifyHandler:
     def update_annotation_jobs_directory(self, annotation_jobs, directory):
         annotation_jobs.update(directory=directory)
 
-    def update_annotation_jobs(self, run_or_assembly_accessions=None, study_accessions=None, status=None, priority=None,
-                               pipeline_version=None, directory=None):
+    def update_annotation_job(self, job, field_dict):
+        for k, v in field_dict.items():
+            setattr(job, k, v)
+        job.save()
+
+    def update_annotation_jobs_from_accessions(self, run_or_assembly_accessions=None, study_accessions=None,
+                                               status=None, priority=None, pipeline_version=None, directory=None):
 
         jobs = self.get_annotation_jobs(run_or_assembly_accessions=run_or_assembly_accessions,
                                         study_accessions=study_accessions, pipeline_version=pipeline_version)
