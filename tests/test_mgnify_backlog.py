@@ -724,7 +724,7 @@ class TestBacklogHandler(object):
         rt_ticket = 0
         initial_priority = 1
         assert len(AnnotationJob.objects.all()) == 0
-        study, _ = create_annotation_jobs(rt_ticket, initial_priority)
+        create_annotation_jobs(rt_ticket, initial_priority)
 
         running_status = mgnify.get_annotation_job_status('RUNNING')
         job = AnnotationJob.objects.first()
