@@ -348,8 +348,11 @@ class MgnifyHandler:
     def update_annotation_jobs_priority(self, annotation_jobs, priority):
         annotation_jobs.update(priority=priority)
 
+    def update_annotation_jobs_directory(self, annotation_jobs, directory):
+        annotation_jobs.update(directory=directory)
+
     def update_annotation_jobs(self, run_or_assembly_accessions=None, study_accessions=None, status=None, priority=None,
-                               pipeline_version=None):
+                               pipeline_version=None, directory=None):
 
         jobs = self.get_annotation_jobs(run_or_assembly_accessions=run_or_assembly_accessions,
                                         study_accessions=study_accessions, pipeline_version=pipeline_version)
@@ -361,6 +364,10 @@ class MgnifyHandler:
         if priority:
             self.update_annotation_jobs_priority(jobs, priority)
             logging.info('Updated AnnotationJob priority...')
+
+        if directory and status == 'RUNNING':
+            self.update_annotation_jobs_directory(jobs, directory)
+            logging.info('Setting directory for launched jobs...')
 
 
 def sanitise_string(text):
