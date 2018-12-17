@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 import os
 import sys
 
-version = "0.1.3"
+version = "0.1.4"
 
 _base = os.path.dirname(os.path.abspath(__file__))
 _requirements = os.path.join(_base, 'requirements.txt')
@@ -34,7 +34,8 @@ setup(
     entry_points={
         'console_scripts': [
             'create_request=analysis_request_cli.create_request:main',
-            'complete_request=analysis_request_cli.complete_request:main'
+            'complete_request=analysis_request_cli.complete_request:main',
+            'edit_annotation_job=analysis_request_cli.edit_annotation_job:main'
         ],
     },
     tests_require=test_requirements,

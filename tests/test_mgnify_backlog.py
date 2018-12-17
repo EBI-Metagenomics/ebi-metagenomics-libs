@@ -1,13 +1,14 @@
-import pytest
 from datetime import datetime
+import pytest
+
 
 from mgnify_backlog import mgnify_handler
-from ena_portal_api import ena_handler
 
 from backlog.models import Study, Run, RunAssembly, AssemblyJob, Assembler, AssemblyJobStatus, RunAssemblyJob, \
-    User, Pipeline, UserRequest, Assembly, AnnotationJob
+    User, Pipeline, UserRequest, Assembly, AnnotationJob, AnnotationJobStatus
+from ena_portal_api import ena_handler
 
-from tests.util import clean_db, study_data, run_data, assembly_data, user_data
+from tests.util import user_data, clean_db, assembly_data, study_data, run_data
 
 
 class MockResponse:
@@ -30,19 +31,21 @@ def create_annotation_jobs(rt_ticket=0, priority=0):
     accessions = ['ERR164407', 'ERR164408', 'ERR164409']
     lineage = 'root:Host-Associated:Human:Digestive System'
 
-    runs = [mgnify.get_or_save_run(ena, accession, study=study, lineage=lineage) for accession in accessions]
+    runs = [mgnify.get_or_save_run(ena, accession, study=study, lineage=lineage) for accession in
+            accessions]
     pipeline = Pipeline(version=4.1)
     pipeline.save()
 
-    user = mgnify.create_user(user_data['webin_id'], user_data['email_address'], user_data['first_name'],
+    user = mgnify.create_user(user_data['webin_id'], user_data['email_address'],
+                              user_data['first_name'],
                               user_data['surname'])
     request = mgnify.create_user_request(user, priority, rt_ticket)
 
     assert len(AnnotationJob.objects.all()) == 0
 
-    mgnify.create_annotation_job(request, runs[0], 0)
-    mgnify.create_annotation_job(request, runs[1], 1)
-    mgnify.create_annotation_job(request, runs[2], 2)
+    mgnify.create_annotation_job(request, runs[0], priority)
+    mgnify.create_annotation_job(request, runs[1], priority)
+    mgnify.create_annotation_job(request, runs[2], priority)
     return study, runs
 
 
@@ -244,7 +247,8 @@ class TestBacklogHandler(object):
         run = mgnify.create_run_obj(study, run_data)
 
         inserted_assembly_job = mgnify.create_assembly_job(run, '0', status, 'metaspades', '3.11.1')
-        retrieved_assembly_job = mgnify.is_assembly_job_in_backlog(run_data['run_accession'], 'metaspades', '3.11.1')
+        retrieved_assembly_job = mgnify.is_assembly_job_in_backlog(run_data['run_accession'], 'metaspades',
+                                                                   '3.11.1')
         assert inserted_assembly_job.pk == retrieved_assembly_job.pk
 
     def test_is_assembly_in_backlog_should_find_any_version(self):
@@ -275,7 +279,8 @@ class TestBacklogHandler(object):
             assert getattr(user, v) == k
 
     def test_create_user_request_should_create_user_request(self):
-        user = mgnify.create_user(user_data['webin_id'], user_data['email_address'], user_data['first_name'],
+        user = mgnify.create_user(user_data['webin_id'], user_data['email_address'],
+                                  user_data['first_name'],
                                   user_data['surname'])
         mgnify.create_user_request(user, 0, 1)
         requests = UserRequest.objects.all()
@@ -286,7 +291,8 @@ class TestBacklogHandler(object):
         assert request.rt_ticket == 1
 
     def test_get_user_request_should_return_inserted_request(self):
-        user = mgnify.create_user(user_data['webin_id'], user_data['email_address'], user_data['first_name'],
+        user = mgnify.create_user(user_data['webin_id'], user_data['email_address'],
+                                  user_data['first_name'],
                                   user_data['surname'])
         inserted_request = UserRequest(user=user, rt_ticket=1234, priority=1)
         inserted_request.save()
@@ -508,13 +514,13 @@ class TestBacklogHandler(object):
     def test_get_up_to_date_assembly_annotation_jobs_should_retrieve_all_jobs_in_priority_order(self):
         study = mgnify.create_study_obj(study_data)
         accessions = ['GCA_001751075', 'GCA_001751165']
-        lineage = 'root:Host-Associated:Human:Digestive System'
 
         assemblies = [mgnify.get_or_save_assembly(ena, accession, study) for accession in accessions]
         pipeline = Pipeline(version=4.1)
         pipeline.save()
 
-        user = mgnify.create_user(user_data['webin_id'], user_data['email_address'], user_data['first_name'],
+        user = mgnify.create_user(user_data['webin_id'], user_data['email_address'],
+                                  user_data['first_name'],
                                   user_data['surname'])
         request = mgnify.create_user_request(user, 0, 1)
 
@@ -523,7 +529,8 @@ class TestBacklogHandler(object):
         mgnify.create_annotation_job(request, assemblies[0], 0)
         mgnify.create_annotation_job(request, assemblies[1], 1)
 
-        up_to_date_assemblies = mgnify.get_up_to_date_assembly_annotation_jobs(study_data['secondary_study_accession'])
+        up_to_date_assemblies = mgnify.get_up_to_date_assembly_annotation_jobs(
+            study_data['secondary_study_accession'])
         assert len(up_to_date_assemblies) == len(assemblies)
 
     def test_set_annotation_jobs_completed_should_set_all_annotation_jobs_to_completed(self):
@@ -564,8 +571,169 @@ class TestBacklogHandler(object):
             assert annotation_job.status.description == status
 
     def test_get_request_webin_should_retrieve_webin_account_associated_to_rt_ticket_number(self):
-        user = mgnify.create_user(user_data['webin_id'], user_data['email_address'], user_data['first_name'],
+        user = mgnify.create_user(user_data['webin_id'], user_data['email_address'],
+                                  user_data['first_name'],
                                   user_data['surname'])
         rt_ticket = 0
         _ = mgnify.create_user_request(user, 0, rt_ticket)
         assert mgnify.get_request_webin(rt_ticket) == user_data['webin_id']
+
+    def test_update_annotation_jobs_status_should_raise_exception_on_invalid_status_description(self):
+        with pytest.raises(ValueError):
+            mgnify.update_annotation_jobs_status([], 'INVALID_DESCRIPTION')
+
+    def test_update_annotation_jobs_should_set_priority_and_status_for_all_runs_in_study(self):
+        rt_ticket = 0
+        initial_priority = 1
+        initial_status = AnnotationJobStatus.objects.get(description='SCHEDULED')
+
+        final_priority = 2
+        final_status_description = 'RUNNING'
+
+        assert len(AnnotationJob.objects.all()) == 0
+
+        study, _ = create_annotation_jobs(rt_ticket, initial_priority)
+        study_secondary_accession = study.secondary_accession
+
+        initial_jobs = AnnotationJob.objects.all()
+        for job in initial_jobs:
+            assert job.priority == initial_priority
+            assert job.status == initial_status
+
+        mgnify.update_annotation_jobs_from_accessions(study_accessions=[study_secondary_accession],
+                                                      priority=final_priority,
+                                                      status=final_status_description)
+
+        final_jobs = AnnotationJob.objects.all()
+        assert len(initial_jobs) == len(final_jobs)
+        for job in final_jobs:
+            assert job.priority == final_priority
+            assert job.status.description == final_status_description
+
+    def test_update_annotation_jobs_should_set_priority_and_status_for_all_runs_in_study_filtered(self):
+        rt_ticket = 0
+        initial_priority = 1
+        initial_status = AnnotationJobStatus.objects.get(description='SCHEDULED')
+
+        filtered_run_accession = ['ERR164407']
+
+        final_priority = 2
+        final_status_description = 'RUNNING'
+
+        assert len(AnnotationJob.objects.all()) == 0
+
+        study, _ = create_annotation_jobs(rt_ticket, initial_priority)
+        study_secondary_accession = study.secondary_accession
+
+        initial_jobs = AnnotationJob.objects.all()
+        for job in initial_jobs:
+            assert job.priority == initial_priority
+            assert job.status == initial_status
+
+        mgnify.update_annotation_jobs_from_accessions(study_accessions=[study_secondary_accession],
+                                                      run_or_assembly_accessions=filtered_run_accession,
+                                                      priority=final_priority,
+                                                      status=final_status_description)
+
+        final_jobs = AnnotationJob.objects.all()
+        assert len(initial_jobs) == len(final_jobs)
+        for job in final_jobs:
+            if job.runannotationjob_set.first().run.primary_accession in filtered_run_accession:
+                assert job.priority == final_priority
+                assert job.status.description == final_status_description
+            else:
+                assert job.priority == initial_priority
+                assert job.status == initial_status
+
+    def test_update_annotation_jobs_should_set_priority_and_status_for_run_only(self):
+        rt_ticket = 0
+        initial_priority = 1
+        initial_status = AnnotationJobStatus.objects.get(description='SCHEDULED')
+
+        final_priority = 2
+        final_status_description = 'RUNNING'
+
+        assert len(AnnotationJob.objects.all()) == 0
+
+        create_annotation_jobs(rt_ticket, initial_priority)
+
+        filtered_run_accession = ['ERR164407']
+
+        initial_jobs = AnnotationJob.objects.all()
+        for job in initial_jobs:
+            assert job.priority == initial_priority
+            assert job.status == initial_status
+
+        mgnify.update_annotation_jobs_from_accessions(run_or_assembly_accessions=filtered_run_accession,
+                                                      priority=final_priority,
+                                                      status=final_status_description)
+
+        final_jobs = AnnotationJob.objects.all()
+        assert len(initial_jobs) == len(final_jobs)
+        for job in final_jobs:
+            if job.runannotationjob_set.first().run.primary_accession in filtered_run_accession:
+                assert job.priority == final_priority
+                assert job.status.description == final_status_description
+            else:
+                assert job.priority == initial_priority
+                assert job.status == initial_status
+
+    def test_update_annotation_jobs_should_update_by_pipeline_version_only(self):
+        rt_ticket = 0
+        initial_priority = 1
+        initial_status = AnnotationJobStatus.objects.get(description='SCHEDULED')
+
+        final_priority = 2
+        final_status_description = 'RUNNING'
+
+        new_pipeline_version = 5.0
+
+        assert len(AnnotationJob.objects.all()) == 0
+
+        create_annotation_jobs(rt_ticket, initial_priority)
+        assert len(AnnotationJob.objects.all()) == 3
+
+        Pipeline(version=new_pipeline_version).save()
+
+        request = UserRequest.objects.first()
+        for run in Run.objects.all():
+            mgnify.create_annotation_job(request=request, assembly_or_run=run, priority=initial_priority)
+
+        assert len(AnnotationJob.objects.all()) == 6
+
+        initial_jobs = AnnotationJob.objects.all()
+        for job in initial_jobs:
+            assert job.priority == initial_priority
+            assert job.status == initial_status
+
+        mgnify.update_annotation_jobs_from_accessions(priority=final_priority,
+                                                      status=final_status_description,
+                                                      pipeline_version=new_pipeline_version)
+
+        final_jobs = AnnotationJob.objects.all()
+        assert len(initial_jobs) == len(final_jobs)
+        for job in final_jobs:
+            if job.pipeline.version == new_pipeline_version:
+                assert job.priority == final_priority
+                assert job.status.description == final_status_description
+            else:
+                assert job.priority == initial_priority
+                assert job.status == initial_status
+
+    def test_update_annotationjob(self):
+        rt_ticket = 0
+        initial_priority = 1
+        assert len(AnnotationJob.objects.all()) == 0
+        create_annotation_jobs(rt_ticket, initial_priority)
+
+        running_status = mgnify.get_annotation_job_status('RUNNING')
+        job = AnnotationJob.objects.first()
+        job_id = job.id
+
+        new_attr = {'priority': 4, 'status': running_status}
+        mgnify.update_annotation_job(job, new_attr)
+
+        modified_job = AnnotationJob.objects.get(id=job_id)
+
+        for attr, val in new_attr.items():
+            assert getattr(modified_job, attr) == val

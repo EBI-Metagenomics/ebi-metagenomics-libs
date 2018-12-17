@@ -42,11 +42,6 @@ run_data = {
     'raw_data_size': 12345
 }
 
-assembly_data = {
-    'accession': 'ERR12345_test',
-    'last_updated': '2018-11-21'
-}
-
 user_data = {
     'webin_id': 'Webin-460',
     'email_address': 'test@test.com',
