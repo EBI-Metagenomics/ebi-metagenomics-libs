@@ -316,6 +316,9 @@ class MgnifyHandler:
     def get_request_webin(self, rt_ticket):
         return UserRequest.objects.using(self.database).get(rt_ticket=rt_ticket).user.webin_id
 
+    def get_annotation_job_status(self, description):
+        return AnnotationJobStatus.objects.using(self.database).get(description=description)
+    
     def get_annotation_jobs(self, run_or_assembly_accessions=None, study_accessions=None, status_description=None, priority=None,
                             pipeline_version=None, experiment_type=None):
         jobs = AnnotationJob.objects.using(self.database)
