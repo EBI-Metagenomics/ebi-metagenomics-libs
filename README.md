@@ -6,7 +6,7 @@ This repository contains internal tools and libs used by the MGnify team at EMBL
 
 ## Installation
 ```bash
-pip install -U git+git://github.com/EBI-Metagenomics/ebi-metagenomics-libs.git@analysis-request-cli
+pip install -U git+git://github.com/EBI-Metagenomics/ebi-metagenomics-libs.git
 ```
 ## Setting up analysis_request_cli
 The following environment vars must be defined:
