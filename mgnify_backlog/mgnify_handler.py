@@ -57,7 +57,7 @@ class MgnifyHandler:
             s.ena_last_update = get_date(data, 'last_updated')
         s.save(using=self.database)
 
-    def create_run_obj(self, study, run):
+    def create_run_obj(self, study, run, public=True):
         r = Run(study=study,
                 primary_accession=run['run_accession'],
                 base_count=run['base_count'],
@@ -71,7 +71,8 @@ class MgnifyHandler:
                 compressed_data_size=run['raw_data_size'] if 'raw_data_size' in run else 0,
                 sample_primary_accession=run[
                     'secondary_sample_accession'] if 'secondary_sample_accession' in run else None,
-                biome_validated='lineage' in run
+                biome_validated='lineage' in run,
+                public=public
                 )
         if 'lineage' in run:
             biome = Biome.objects.using(self.database).get(lineage=run['lineage'])
@@ -146,7 +147,7 @@ class MgnifyHandler:
             study = ena_handler.get_study(prim_or_sec_study_accession)
             return self.create_study_obj(study)
 
-    def get_or_save_run(self, ena_handler, run_accession, study=None, lineage=None):
+    def get_or_save_run(self, ena_handler, run_accession, study=None, lineage=None, public=True):
         try:
             return self.get_backlog_run(run_accession)
         except ObjectDoesNotExist:
@@ -155,7 +156,7 @@ class MgnifyHandler:
                 run['lineage'] = lineage
             if not study:
                 study = self.get_or_save_study(ena_handler, run['study_accession'])
-            return self.create_run_obj(study, run)
+            return self.create_run_obj(study, run, public)
 
     def get_or_save_assembly(self, ena_handler, assembly_accession, study=None):
         try:

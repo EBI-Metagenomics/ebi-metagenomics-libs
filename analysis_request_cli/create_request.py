@@ -121,7 +121,7 @@ def create_new_run_jobs(ena, mh, study, request, args):
         return
 
     for run in runs:
-        run = mh.get_or_save_run(ena, run, lineage=args.lineage, study=study)
+        run = mh.get_or_save_run(ena, run, lineage=args.lineage, study=study, public=not args.private)
         if args.annotate:
             mh.create_annotation_job(request, run, args.priority)
             msg = 'Created annotationJob for run {}'
