@@ -602,7 +602,7 @@ class TestBacklogHandler(object):
 
         mgnify.update_annotation_jobs_from_accessions(study_accessions=[study_secondary_accession],
                                                       priority=final_priority,
-                                                      status=final_status_description)
+                                                      status_description=final_status_description)
 
         final_jobs = AnnotationJob.objects.all()
         assert len(initial_jobs) == len(final_jobs)
@@ -633,7 +633,7 @@ class TestBacklogHandler(object):
         mgnify.update_annotation_jobs_from_accessions(study_accessions=[study_secondary_accession],
                                                       run_or_assembly_accessions=filtered_run_accession,
                                                       priority=final_priority,
-                                                      status=final_status_description)
+                                                      status_description=final_status_description)
 
         final_jobs = AnnotationJob.objects.all()
         assert len(initial_jobs) == len(final_jobs)
@@ -666,7 +666,7 @@ class TestBacklogHandler(object):
 
         mgnify.update_annotation_jobs_from_accessions(run_or_assembly_accessions=filtered_run_accession,
                                                       priority=final_priority,
-                                                      status=final_status_description)
+                                                      status_description=final_status_description)
 
         final_jobs = AnnotationJob.objects.all()
         assert len(initial_jobs) == len(final_jobs)
@@ -707,7 +707,7 @@ class TestBacklogHandler(object):
             assert job.status == initial_status
 
         mgnify.update_annotation_jobs_from_accessions(priority=final_priority,
-                                                      status=final_status_description,
+                                                      status_description=final_status_description,
                                                       pipeline_version=new_pipeline_version)
 
         final_jobs = AnnotationJob.objects.all()
