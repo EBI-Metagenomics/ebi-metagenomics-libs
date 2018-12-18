@@ -295,29 +295,29 @@ class MgnifyHandler:
     def set_annotation_jobs_completed(self, study, rt_ticket, excluded_runs=None):
         if not excluded_runs:
             excluded_runs = []
+        completed_status = AnnotationJobStatus.objects.using(self.database).get(description='COMPLETED')
         jobs = AnnotationJob.objects.using(self.database).filter(
             Q(assemblyannotationjob__assembly__study=study) |
             Q(runannotationjob__run__study=study), request__rt_ticket=rt_ticket).exclude(
             runannotationjob__run__primary_accession__in=excluded_runs).exclude(
             assemblyannotationjob__assembly__primary_accession__in=excluded_runs)
-        self.update_annotation_jobs_status(jobs, 'COMPLETED')
+        jobs.update(status=completed_status)
 
     def set_annotation_jobs_failed(self, study, rt_ticket, failed_runs):
+        failed_status = AnnotationJobStatus.objects.using(self.database).get(description='FAILED')
         jobs = AnnotationJob.objects.using(self.database).filter(
             Q(assemblyannotationjob__assembly__study=study) |
             Q(runannotationjob__run__study=study), request__rt_ticket=rt_ticket).filter(
             Q(runannotationjob__run__primary_accession__in=failed_runs) | Q(
                 assemblyannotationjob__assembly__primary_accession__in=failed_runs))
-        self.update_annotation_jobs_status(jobs, 'FAILED')
 
-    def get_annotation_job_status(self, description):
-        return AnnotationJobStatus.objects.using(self.database).get(description=description)
+        jobs.update(status=failed_status)
 
     def get_request_webin(self, rt_ticket):
         return UserRequest.objects.using(self.database).get(rt_ticket=rt_ticket).user.webin_id
 
-    def get_annotation_jobs(self, run_or_assembly_accessions=None, study_accessions=None, status=None, priority=None,
-                            pipeline_version=None):
+    def get_annotation_jobs(self, run_or_assembly_accessions=None, study_accessions=None, status_description=None, priority=None,
+                            pipeline_version=None, experiment_type=None):
         jobs = AnnotationJob.objects.using(self.database)
         if run_or_assembly_accessions:
             jobs = jobs.filter(
@@ -329,10 +329,15 @@ class MgnifyHandler:
                 Q(runannotationjob__run__study__secondary_accession__in=study_accessions) |
                 Q(assemblyannotationjob__assembly__study__primary_accession__in=study_accessions) |
                 Q(assemblyannotationjob__assembly__study__secondary_accession__in=study_accessions))
+        if experiment_type:
+            if experiment_type == 'ASSEMBLY':
+                jobs = jobs.filter(assemblyannotationjob__isnull=False).distinct()
+            else:
+                jobs = jobs.filter(runannotationjob__run__library_strategy=experiment_type)
         if priority:
             jobs = jobs.filter(priority=priority)
-        if status:
-            jobs = jobs.filter(status__description=status)
+        if status_description:
+            jobs = jobs.filter(status__description=status_description)
         if pipeline_version:
             jobs = jobs.filter(pipeline__version=pipeline_version)
         return jobs
@@ -357,20 +362,20 @@ class MgnifyHandler:
         job.save()
 
     def update_annotation_jobs_from_accessions(self, run_or_assembly_accessions=None, study_accessions=None,
-                                               status=None, priority=None, pipeline_version=None, directory=None):
+                                               status_description=None, priority=None, pipeline_version=None, directory=None):
 
         jobs = self.get_annotation_jobs(run_or_assembly_accessions=run_or_assembly_accessions,
                                         study_accessions=study_accessions, pipeline_version=pipeline_version)
         logging.info('Matched {} annotation job(s)'.format(len(jobs)))
-        if status:
-            self.update_annotation_jobs_status(jobs, status)
+        if status_description:
+            self.update_annotation_jobs_status(jobs, status_description)
             logging.info('Updated AnnotationJob status...')
 
         if priority:
             self.update_annotation_jobs_priority(jobs, priority)
             logging.info('Updated AnnotationJob priority...')
 
-        if directory and status == 'RUNNING':
+        if directory and status_description == 'RUNNING':
             self.update_annotation_jobs_directory(jobs, directory)
             logging.info('Setting directory for launched jobs...')
 
