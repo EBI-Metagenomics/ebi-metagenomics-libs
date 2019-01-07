@@ -151,7 +151,7 @@ class MgnifyHandler:
         try:
             return self.get_backlog_run(run_accession)
         except ObjectDoesNotExist:
-            run = ena_handler.get_run(run_accession)
+            run = ena_handler.get_run(run_accession, public=public)
             if lineage:
                 run['lineage'] = lineage
             if not study:

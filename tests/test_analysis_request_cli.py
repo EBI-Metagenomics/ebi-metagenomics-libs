@@ -14,7 +14,6 @@ class TestCreateRequestCLI(object):
         clean_db()
         Pipeline(version=4.1).save()
 
-
     def taredown_method(self, method):
         clean_db()
 
