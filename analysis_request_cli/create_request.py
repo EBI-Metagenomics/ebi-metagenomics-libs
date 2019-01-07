@@ -28,7 +28,6 @@ from django.core.exceptions import ObjectDoesNotExist
 import logging
 import time
 
-logging.basicConfig(level=logging.WARN)
 
 API_DATA_URL = os.environ.get('MGNIFY_API_URL', 'https://www.ebi.ac.uk/metagenomics/api/v1/')
 
@@ -50,6 +49,7 @@ def parse_args(args):
     parser.add_argument('--private', action='store_true')
     parser.add_argument('--priority', type=int, choices=range(0, 5), default=0)
     parser.add_argument('--lineage', help='Full lineage of biome')
+    parser.add_argument('-v', '--verbose', action='store_true')
     actions = parser.add_mutually_exclusive_group()
     actions.add_argument('--assemble', action='store_true', help='Create assemblyJobs')
     actions.add_argument('--annotate', action='store_true', help='Create annotationjobs')
@@ -150,6 +150,7 @@ def create_new_assembly_annotation_jobs(ena, mh, study, request, args):
 
 def main(argv=None):
     args = parse_args(argv)
+    logging.basicConfig(level=logging.DEBUG if args.verbose else logging.INFO)
     if not args.annotate and not args.assemble:
         logging.error('No job type specified, please set --annotate or --assemble in arugments.')
         sys.exit(1)
