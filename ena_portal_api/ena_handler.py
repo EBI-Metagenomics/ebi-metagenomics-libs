@@ -24,8 +24,6 @@ from multiprocessing.pool import ThreadPool
 
 ENA_API_URL = os.environ.get('ENA_API_URL', "https://www.ebi.ac.uk/ena/portal/api/search")
 
-logging.basicConfig(level=logging.INFO)
-
 STUDY_DEFAULT_FIELDS = 'study_accession,secondary_study_accession,study_description,study_name,study_title,' \
                        'tax_id,scientific_name,center_name,last_updated,first_public'
 
@@ -104,7 +102,7 @@ class EnaApiHandler:
             raise ValueError('Could not find study {} in ENA.'.format(study_acc))
         return study
 
-    def get_run(self, run_accession, fields=None):
+    def get_run(self, run_accession, fields=None, public=True):
         data = get_default_params()
         data['result'] = 'read_run'
         data[
@@ -121,12 +119,17 @@ class EnaApiHandler:
         except (IndexError, TypeError, ValueError):
             raise ValueError('Could not find run {} in ENA.'.format(run_accession))
 
-        if 'fastq_ftp' in run:
+        if public and 'fastq_ftp' in run:
             run['raw_data_size'] = self.get_run_raw_size(run)
 
         for int_param in ('read_count', 'base_count'):
             if int_param in run:
-                run[int_param] = int(run[int_param])
+                try:
+                    run[int_param] = int(run[int_param])
+                except ValueError as e:
+                    if not public:
+                        raise e
+                    run[int_param] = -1
         return run
 
     def get_study_runs(self, study_sec_acc, fields=None, filter_assembly_runs=True, private=False,
