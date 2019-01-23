@@ -16,13 +16,14 @@ class TestCreateRequestCLI(object):
         clean_db()
         Pipeline(version=4.1).save()
 
-    def taredown_method(self, method):
+    def teardown_method(self, method):
         clean_db()
 
     def test_edit_annotation_jobs_should_set_status(self):
         rt_ticket = 0
         initial_priority = 1
-        initial_status = AnnotationJobStatus.objects.get(description='SCHEDULED')
+        initial_status = AnnotationJobStatus.objects.get(
+            description='SCHEDULED')
 
         final_priority = 2
         final_status_description = 'RUNNING'
@@ -37,7 +38,8 @@ class TestCreateRequestCLI(object):
             assert job.status == initial_status
 
         edit_annotation_job.main(
-            ['-s', study_data['secondary_study_accession'], '-ss', final_status_description, '-p', str(final_priority)])
+            ['-s', study_data['secondary_study_accession'], '-ss',
+             final_status_description, '-p', str(final_priority)])
 
         final_jobs = AnnotationJob.objects.all()
         assert len(initial_jobs) == len(final_jobs)
@@ -48,7 +50,8 @@ class TestCreateRequestCLI(object):
     def test_edit_annotation_jobs_should_set_status_of_runs(self):
         rt_ticket = 0
         initial_priority = 1
-        initial_status = AnnotationJobStatus.objects.get(description='SCHEDULED')
+        initial_status = AnnotationJobStatus.objects.get(
+            description='SCHEDULED')
 
         final_priority = 2
         final_status_description = 'RUNNING'
@@ -64,7 +67,8 @@ class TestCreateRequestCLI(object):
             assert job.status == initial_status
 
         edit_annotation_job.main(
-            ['-ra', run_accession, '-ss', final_status_description, '-p', str(final_priority)])
+            ['-ra', run_accession, '-ss', final_status_description, '-p',
+             str(final_priority)])
 
         final_jobs = AnnotationJob.objects.all()
         assert len(initial_jobs) == len(final_jobs)
@@ -76,10 +80,18 @@ class TestCreateRequestCLI(object):
                 assert job.priority == initial_priority
                 assert job.status == initial_status
 
-    def test_edit_annnotation_jobs_should_exit_if_no_runs_or_studies_specified(self):
+    def test_edit_annnotation_jobs_should_exit_if_no_runs_or_studies_specified(
+            self):
         with pytest.raises(SystemExit):
             edit_annotation_job.main(['-ss', 'DESCRIBED'])
 
-    def test_edit_annotation_jobs_should_exit_if_no_status_or_priority_specified(self):
+    def test_edit_annotation_jobs_should_exit_if_no_status_or_priority_specified(
+            self):
         with pytest.raises(SystemExit):
-            edit_annotation_job.main(['-s', study_data['secondary_study_accession']])
+            edit_annotation_job.main(
+                ['-s', study_data['secondary_study_accession']])
+
+    def test_edit_annotation_jobs_should_exit_if_priority_out_of_range(self):
+        with pytest.raises(SystemExit):
+            edit_annotation_job.main(
+                ['-s', study_data['secondary_study_accession']], '-p', 0)
