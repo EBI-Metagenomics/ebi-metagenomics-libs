@@ -38,6 +38,8 @@ ASSEMBLY_DEFAULT_FIELDS = 'accession,assembly_level,assembly_name,assembly_title
 
 from mgnify_util.accession_parsers import is_secondary_study_acc
 
+logging.getLogger('urllib3.connectionpool').setLevel(logging.INFO)
+
 
 def get_default_connection_headers():
     return {
@@ -51,7 +53,7 @@ def get_default_connection_headers():
 def get_default_params():
     return {
         # Disabled as metagenomic data is commonly mis-labelled in ENA as GENOMIC, causing searches to fail
-        # "dataPortal": "metagenome",
+        "dataPortal": "metagenome",
         "format": "json",
     }
 

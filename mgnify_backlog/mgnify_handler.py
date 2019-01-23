@@ -321,7 +321,7 @@ class MgnifyHandler:
         return AnnotationJobStatus.objects.using(self.database).get(description=description)
     
     def get_annotation_jobs(self, run_or_assembly_accessions=None, study_accessions=None, status_description=None, priority=None,
-                            pipeline_version=None, experiment_type=None):
+                            pipeline_version=None, experiment_types=None):
         jobs = AnnotationJob.objects.using(self.database)
         if run_or_assembly_accessions:
             jobs = jobs.filter(
@@ -333,17 +333,24 @@ class MgnifyHandler:
                 Q(runannotationjob__run__study__secondary_accession__in=study_accessions) |
                 Q(assemblyannotationjob__assembly__study__primary_accession__in=study_accessions) |
                 Q(assemblyannotationjob__assembly__study__secondary_accession__in=study_accessions))
-        if experiment_type:
-            if experiment_type == 'ASSEMBLY':
-                jobs = jobs.filter(assemblyannotationjob__isnull=False).distinct()
-            else:
-                jobs = jobs.filter(runannotationjob__run__library_strategy=experiment_type)
+        if experiment_types and len(experiment_types):
+            q_objects = Q()
+            for exp in experiment_types:
+                if exp == 'ASSEMBLY':
+                    q_objects |= Q(assemblyannotationjob__isnull=False)
+                else:
+                    q_objects |= Q(runannotationjob__run__library_strategy=exp)
+
+            jobs = jobs.filter(q_objects)
+            if 'ASSEMBLY' in experiment_types:
+                jobs = jobs.distinct()
         if priority:
             jobs = jobs.filter(priority=priority)
         if status_description:
             jobs = jobs.filter(status__description=status_description)
         if pipeline_version:
             jobs = jobs.filter(pipeline__version=pipeline_version)
+        jobs.order_by('-priority')
         return jobs
 
     def update_annotation_jobs_status(self, annotation_jobs, status_description):
