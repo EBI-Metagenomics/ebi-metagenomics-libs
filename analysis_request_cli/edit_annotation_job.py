@@ -15,7 +15,7 @@ def parse_args(argv):
     parser.add_argument('-ra', '--runs_and_assemblies', help='Comma separated list of run / assembly accessions')
     parser.add_argument('-ss', '--status', help='AnnotationJob status ')
     parser.add_argument('-p', '--priority', type=int, help='Priority to set for designated annotationJobs',
-                        choices=range(0, 6))
+                        choices=range(1, 6))
     parser.add_argument('--pipeline_version', help='Pipeline version (defaults to latest analysis of the study/runs')
     parser.add_argument('--db', choices=['default', 'dev', 'prod'], default='default')
     parser.add_argument('-v', '--verbose')
