@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 import os
 import sys
 
-version = "0.1.8"
+version = "0.1.9"
 
 _base = os.path.dirname(os.path.abspath(__file__))
 _requirements = os.path.join(_base, 'requirements.txt')

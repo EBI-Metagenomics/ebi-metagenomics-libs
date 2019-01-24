@@ -350,7 +350,7 @@ class MgnifyHandler:
             jobs = jobs.filter(status__description=status_description)
         if pipeline_version:
             jobs = jobs.filter(pipeline__version=pipeline_version)
-        jobs.order_by('-priority')
+        jobs = jobs.order_by('-priority')
         return jobs
 
     def update_annotation_jobs_status(self, annotation_jobs, status_description):
