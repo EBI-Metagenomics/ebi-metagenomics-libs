@@ -122,7 +122,7 @@ class EnaApiHandler:
         except (IndexError, TypeError, ValueError):
             raise ValueError('Could not find run {} in ENA.'.format(run_accession))
 
-        if public and 'fastq_ftp' in run:
+        if public and 'fastq_ftp' in run and len(run['fastq_ftp']) > 0:
             run['raw_data_size'] = self.get_run_raw_size(run)
 
         for int_param in ('read_count', 'base_count'):
@@ -158,10 +158,11 @@ class EnaApiHandler:
             runs = list(filter(lambda r: r['run_accession'] in filter_accessions, runs))
 
         for run in runs:
-            if private or 'fastq_ftp' not in run:
-                run['raw_data_size'] = None
-            else:
+            if not private and 'fastq_ftp' in run and len(run['fastq_ftp']) > 0:
                 run['raw_data_size'] = self.get_run_raw_size(run)
+            else:
+                run['raw_data_size'] = None
+
             for int_param in ('read_count', 'base_count'):
                 if int_param in run:
                     run[int_param] = int(run[int_param])
@@ -220,8 +221,8 @@ class EnaApiHandler:
         except ValueError:
             return []
 
-    def get_run_raw_size(self, run):
-        urls = run['fastq_ftp'].split(';')
+    def get_run_raw_size(self, run, field='fastq_ftp'):
+        urls = run[field].split(';')
         return sum([int(requests.head('http://' + url, auth=self.auth).headers['content-length']) for url in urls])
 
     def get_updated_studies(self, cutoff_date, fields=None):
