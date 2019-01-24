@@ -122,12 +122,13 @@ class EnaApiHandler:
         except (IndexError, TypeError, ValueError):
             raise ValueError('Could not find run {} in ENA.'.format(run_accession))
 
-        if public and 'fastq_ftp' in run and len(run['fastq_ftp']) > 0:
-            run['raw_data_size'] = self.get_run_raw_size(run)
-        elif public and 'submitted_ftp' in run and len(run['submitted_ftp']) > 0:
-            run['raw_data_size'] = self.get_run_raw_size(run, 'submitted_ftp')
-        else:
-            run['raw_data_size'] = None
+        if fields is None or 'raw_data_size' in fields:
+            if public and 'fastq_ftp' in run and len(run['fastq_ftp']) > 0:
+                run['raw_data_size'] = self.get_run_raw_size(run)
+            elif public and 'submitted_ftp' in run and len(run['submitted_ftp']) > 0:
+                run['raw_data_size'] = self.get_run_raw_size(run, 'submitted_ftp')
+            else:
+                run['raw_data_size'] = None
 
         for int_param in ('read_count', 'base_count'):
             if int_param in run:
