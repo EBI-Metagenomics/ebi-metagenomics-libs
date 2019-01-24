@@ -53,7 +53,7 @@ def get_default_connection_headers():
 def get_default_params():
     return {
         # Disabled as metagenomic data is commonly mis-labelled in ENA as GENOMIC, causing searches to fail
-        "dataPortal": "metagenome",
+        # "dataPortal": "metagenome",
         "format": "json",
     }
 
@@ -99,8 +99,9 @@ class EnaApiHandler:
         try:
             study = json.loads(response.text)[0]
         except (IndexError, TypeError, ValueError) as e:
-            logging.debug(e)
-            logging.debug(response.text)
+            logging.error(e)
+            logging.error(response.status_code)
+            logging.error(response.text)
             raise ValueError('Could not find study {} in ENA.'.format(study_acc))
         return study
 
