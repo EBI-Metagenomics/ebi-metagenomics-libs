@@ -124,6 +124,10 @@ class EnaApiHandler:
 
         if public and 'fastq_ftp' in run and len(run['fastq_ftp']) > 0:
             run['raw_data_size'] = self.get_run_raw_size(run)
+        elif public and 'submitted_ftp' in run and len(run['submitted_ftp']) > 0:
+            run['raw_data_size'] = self.get_run_raw_size(run, 'submitted_ftp')
+        else:
+            run['raw_data_size'] = None
 
         for int_param in ('read_count', 'base_count'):
             if int_param in run:
@@ -160,6 +164,8 @@ class EnaApiHandler:
         for run in runs:
             if not private and 'fastq_ftp' in run and len(run['fastq_ftp']) > 0:
                 run['raw_data_size'] = self.get_run_raw_size(run)
+            elif not private and 'submitted_ftp' in run and len(run['submitted_ftp']) > 0:
+                run['raw_data_size'] = self.get_run_raw_size(run, field='submitted_ftp')
             else:
                 run['raw_data_size'] = None
 

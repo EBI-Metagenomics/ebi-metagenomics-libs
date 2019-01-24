@@ -3,7 +3,11 @@ from setuptools import setup, find_packages
 import os
 import sys
 
+<<<<<<< HEAD
 version = "0.1.10"
+=======
+version = "0.1.11"
+>>>>>>> Added additional check of fastq_ftp existence with fallback to submitted_ftp
 
 _base = os.path.dirname(os.path.abspath(__file__))
 _requirements = os.path.join(_base, 'requirements.txt')
