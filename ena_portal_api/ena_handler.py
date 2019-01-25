@@ -82,27 +82,31 @@ class EnaApiHandler:
         return response
 
     # Supports ENA primary and secondary study accessions
-    def get_study(self, study_acc, fields=None):
+    def get_study(self, primary_accession=None, secondary_accession=None, fields=None):
         data = get_default_params()
         data['result'] = 'study'
         data['fields'] = fields or STUDY_DEFAULT_FIELDS
 
-        if is_secondary_study_acc(study_acc):
-            data['query'] = 'secondary_study_accession=\"{}\"'.format(study_acc)
+        if primary_accession and not secondary_accession:
+            data['query'] = f'study_accession="{primary_accession}"'
+        elif not primary_accession and secondary_accession:
+            data['query'] = f'secondary_study_accession="{secondary_accession}"'
         else:
-            data['query'] = 'study_accession=\"{}\"'.format(study_acc)
+            data['query'] = f'study_accession="{primary_accession}" AND secondary_study_accession="{secondary_accession}"'
+
         response = self.post_request(data)
         if str(response.status_code)[0] != '2':
-            logging.debug('Error retrieving study {}, response code: {}'.format(study_acc, response.status_code))
+            logging.debug(data)
+            logging.debug('Error retrieving study {} {}, response code: {}'.format(primary_accession, secondary_accession, response.status_code))
             logging.debug('Response: {}'.format(response.text))
-            raise ValueError('Could not retrieve runs for study %s.', study_acc)
+            raise ValueError('Could not retrieve runs for study %s %s.', primary_accession, secondary_accession)
         try:
             study = json.loads(response.text)[0]
         except (IndexError, TypeError, ValueError, KeyError) as e:
             logging.error(e)
             logging.error(response.status_code)
             logging.error(response.text)
-            raise ValueError('Could not find study {} in ENA.'.format(study_acc))
+            raise ValueError('Could not find study {} {} in ENA.'.format(primary_accession, secondary_accession))
         return study
 
     def get_run(self, run_accession, fields=None, public=True):
@@ -236,7 +240,7 @@ class EnaApiHandler:
         data = get_default_params()
         data['result'] = 'study'
         data['fields'] = fields or STUDY_DEFAULT_FIELDS
-        data['query'] = 'last_updated>=' + cutoff_date
+        data['query'] = f'last_updated>={cutoff_date} AND last_updated<=2014-01-01'
         response = self.post_request(data)
         status_code = str(response.status_code)
         if status_code[0] != '2':
@@ -258,7 +262,8 @@ class EnaApiHandler:
         data = get_default_params()
         data['result'] = 'read_run'
         data['fields'] = fields or RUN_DEFAULT_FIELDS
-        data['query'] = 'last_updated>=' + cutoff_date
+        data['query'] = f'last_updated>={cutoff_date} AND last_updated<=2014-01-01'
+        data['limit'] = 100
         response = self.post_request(data)
         status_code = str(response.status_code)
         if status_code[0] != '2':
@@ -281,7 +286,7 @@ class EnaApiHandler:
         data = get_default_params()
         data['result'] = 'assembly'
         data['fields'] = fields or ASSEMBLY_DEFAULT_FIELDS
-        data['query'] = 'last_updated>=' + cutoff_date
+        data['query'] = f'last_updated>={cutoff_date} AND last_updated<=2014-01-01'
         response = self.post_request(data)
         status_code = str(response.status_code)
         if status_code[0] != '2':

@@ -58,7 +58,7 @@ class TestBacklogHandler(object):
 
     def test_save_and_retrieve_study(self):
         mgnify.create_study_obj(study_data)
-        study = mgnify.get_backlog_study(study_data['study_accession'])
+        study = mgnify.get_backlog_study(primary_accession=study_data['study_accession'])
 
         assert isinstance(study, Study)
         assert study.primary_accession == study_data['study_accession']
@@ -69,7 +69,7 @@ class TestBacklogHandler(object):
 
     def test_get_study_by_secondary_accession(self):
         mgnify.create_study_obj(study_data)
-        study = mgnify.get_backlog_study(study_data['secondary_study_accession'])
+        study = mgnify.get_backlog_study(secondary_accession=study_data['secondary_study_accession'])
 
         assert isinstance(study, Study)
         assert study.primary_accession == study_data['study_accession']
@@ -96,13 +96,13 @@ class TestBacklogHandler(object):
 
     def test_get_or_save_study_should_find_existing_study(self):
         inserted_study = mgnify.create_study_obj(study_data)
-        retrieved_study = mgnify.get_or_save_study(None, study_data['secondary_study_accession'])
+        retrieved_study = mgnify.get_or_save_study(None, secondary_accession=study_data['secondary_study_accession'])
 
         assert isinstance(retrieved_study, Study)
         assert retrieved_study.pk == inserted_study.pk
 
     def test_get_or_save_study_should_fetch_from_ena(self):
-        retrieved_study = mgnify.get_or_save_study(ena, study_data['secondary_study_accession'])
+        retrieved_study = mgnify.get_or_save_study(ena, secondary_accession=study_data['secondary_study_accession'])
 
         assert isinstance(retrieved_study, Study)
         assert len(Study.objects.all()) == 1

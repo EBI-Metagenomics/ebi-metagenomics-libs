@@ -31,21 +31,29 @@ class TestEnaHandler(object):
 
     def test_get_study_primary_accession_should_retrieve_study_all_fields(self):
         ena = ena_handler.EnaApiHandler()
-        study = ena.get_study('ERP001736')
+        study = ena.get_study(secondary_accession='ERP001736')
         assert isinstance(study, dict)
         assert len(study.keys()) == 10
 
-    @pytest.mark.parametrize('accession', ('ERP001736', 'PRJEB1787'))
-    def test_get_study_secondary_accession_should_retrieve_study_all_fields(self, accession):
+    @pytest.mark.parametrize('accession_arg',
+                             ({'secondary_accession': 'ERP001736'}, {'primary_accession': 'PRJEB1787'}))
+    def test_get_study_secondary_accession_should_retrieve_study_all_fields(self, accession_arg):
         ena = ena_handler.EnaApiHandler()
-        study = ena.get_study(accession)
+        study = ena.get_study(**accession_arg)
         assert isinstance(study, dict)
         assert len(study.keys()) == 10
 
-    @pytest.mark.parametrize('accession', ('ERP001736', 'PRJEB1787'))
-    def test_get_study_secondary_accession_should_retrieve_study_filtered_fields(self, accession):
+    def test_get_study_from_both_accessions(self):
         ena = ena_handler.EnaApiHandler()
-        study = ena.get_study(accession, fields='study_accession')
+        study = ena.get_study(primary_accession='PRJEB1787', secondary_accession='ERP001736')
+        assert isinstance(study, dict)
+        assert len(study.keys()) == 10
+
+    @pytest.mark.parametrize('accession_arg',
+                             ({'secondary_accession': 'ERP001736'}, {'primary_accession': 'PRJEB1787'}))
+    def test_get_study_secondary_accession_should_retrieve_study_filtered_fields(self, accession_arg):
+        ena = ena_handler.EnaApiHandler()
+        study = ena.get_study(fields='study_accession', **accession_arg)
         assert isinstance(study, dict)
         assert len(study.keys()) == 1
         assert 'study_accession' in study

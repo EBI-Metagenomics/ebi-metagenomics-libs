@@ -128,11 +128,15 @@ class MgnifyHandler:
                     RunAssembly(run=run, assembly=assembly).save()
         return assembly
 
-    def get_backlog_study(self, accession):
-        if is_secondary_study_acc(accession):
-            return Study.objects.using(self.database).get(secondary_accession=accession)
-        else:
-            return Study.objects.using(self.database).get(primary_accession=accession)
+    def get_backlog_study(self, primary_accession=None, secondary_accession=None):
+        query = Study.objects.using(self.database)
+        if primary_accession:
+            query = query.filter(primary_accession=primary_accession)
+        if secondary_accession:
+            query = query.filter(secondary_accession=secondary_accession)
+        if len(query) == 0:
+            raise ObjectDoesNotExist(f'Study {primary_accession} {secondary_accession} could not be found.')
+        return query[0]
 
     def get_backlog_run(self, run_accession):
         return Run.objects.using(self.database).get(primary_accession=run_accession)
@@ -140,11 +144,11 @@ class MgnifyHandler:
     def get_backlog_assembly(self, assembly_accession):
         return Assembly.objects.using(self.database).get(primary_accession=assembly_accession)
 
-    def get_or_save_study(self, ena_handler, prim_or_sec_study_accession):
+    def get_or_save_study(self, ena_handler, primary_accession=None, secondary_accession=None):
         try:
-            return self.get_backlog_study(prim_or_sec_study_accession)
+            return self.get_backlog_study(primary_accession, secondary_accession)
         except ObjectDoesNotExist:
-            study = ena_handler.get_study(prim_or_sec_study_accession)
+            study = ena_handler.get_study(primary_accession=primary_accession, secondary_accession=secondary_accession)
             return self.create_study_obj(study)
 
     def get_or_save_run(self, ena_handler, run_accession, study=None, lineage=None, public=True):
