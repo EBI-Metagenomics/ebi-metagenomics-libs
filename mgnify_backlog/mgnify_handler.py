@@ -135,7 +135,7 @@ class MgnifyHandler:
         if secondary_accession:
             query = query.filter(secondary_accession=secondary_accession)
         if len(query) == 0:
-            raise ObjectDoesNotExist(f'Study {primary_accession} {secondary_accession} could not be found.')
+            raise ObjectDoesNotExist('Study {} {} could not be found.'.format(primary_accession, secondary_accession))
         return query[0]
 
     def get_backlog_run(self, run_accession):

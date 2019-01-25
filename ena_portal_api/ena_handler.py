@@ -88,11 +88,12 @@ class EnaApiHandler:
         data['fields'] = fields or STUDY_DEFAULT_FIELDS
 
         if primary_accession and not secondary_accession:
-            data['query'] = f'study_accession="{primary_accession}"'
+            data['query'] = 'study_accession="{}"'.format(primary_accession)
         elif not primary_accession and secondary_accession:
-            data['query'] = f'secondary_study_accession="{secondary_accession}"'
+            data['query'] = 'secondary_study_accession="{}"'.format(secondary_accession)
         else:
-            data['query'] = f'study_accession="{primary_accession}" AND secondary_study_accession="{secondary_accession}"'
+            data['query'] = 'study_accession="{}" AND secondary_study_accession="{}"'\
+                .format(primary_accession, secondary_accession)
 
         response = self.post_request(data)
         if str(response.status_code)[0] != '2':
@@ -240,7 +241,7 @@ class EnaApiHandler:
         data = get_default_params()
         data['result'] = 'study'
         data['fields'] = fields or STUDY_DEFAULT_FIELDS
-        data['query'] = f'last_updated>={cutoff_date} AND last_updated<=2014-01-01'
+        data['query'] = 'last_updated>={}'.format(cutoff_date)
         response = self.post_request(data)
         status_code = str(response.status_code)
         if status_code[0] != '2':
@@ -262,8 +263,7 @@ class EnaApiHandler:
         data = get_default_params()
         data['result'] = 'read_run'
         data['fields'] = fields or RUN_DEFAULT_FIELDS
-        data['query'] = f'last_updated>={cutoff_date} AND last_updated<=2014-01-01'
-        data['limit'] = 100
+        data['query'] = 'last_updated>={}'.format(cutoff_date)
         response = self.post_request(data)
         status_code = str(response.status_code)
         if status_code[0] != '2':
@@ -286,7 +286,7 @@ class EnaApiHandler:
         data = get_default_params()
         data['result'] = 'assembly'
         data['fields'] = fields or ASSEMBLY_DEFAULT_FIELDS
-        data['query'] = f'last_updated>={cutoff_date} AND last_updated<=2014-01-01'
+        data['query'] = 'last_updated>={}'.format(cutoff_date)
         response = self.post_request(data)
         status_code = str(response.status_code)
         if status_code[0] != '2':
