@@ -52,16 +52,12 @@ def get_default_connection_headers():
 
 def get_default_params():
     return {
-        # Disabled as metagenomic data is commonly mis-labelled in ENA as GENOMIC, causing searches to fail
-        # "dataPortal": "metagenome",
         "format": "json",
     }
 
 
 def run_filter(d):
     return d['library_strategy'] != 'AMPLICON'
-    # Disabled as metagenomic data is commonly mis-labelled in ENA as GENOMIC, causing searches to fail
-    # and d['library_source'] == 'METAGENOMIC'
 
 
 class EnaApiHandler:
@@ -92,13 +88,15 @@ class EnaApiHandler:
         elif not primary_accession and secondary_accession:
             data['query'] = 'secondary_study_accession="{}"'.format(secondary_accession)
         else:
-            data['query'] = 'study_accession="{}" AND secondary_study_accession="{}"'\
+            data['query'] = 'study_accession="{}" AND secondary_study_accession="{}"' \
                 .format(primary_accession, secondary_accession)
 
         response = self.post_request(data)
         if str(response.status_code)[0] != '2':
             logging.debug(data)
-            logging.debug('Error retrieving study {} {}, response code: {}'.format(primary_accession, secondary_accession, response.status_code))
+            logging.debug(
+                'Error retrieving study {} {}, response code: {}'.format(primary_accession, secondary_accession,
+                                                                         response.status_code))
             logging.debug('Response: {}'.format(response.text))
             raise ValueError('Could not retrieve runs for study %s %s.', primary_accession, secondary_accession)
         try:
@@ -112,9 +110,10 @@ class EnaApiHandler:
 
     def get_run(self, run_accession, fields=None, public=True):
         data = get_default_params()
+        if not public:
+            data["dataPortal"] = "metagenome"
         data['result'] = 'read_run'
-        data[
-            'fields'] = fields or RUN_DEFAULT_FIELDS
+        data['fields'] = fields or RUN_DEFAULT_FIELDS
         data['query'] = 'run_accession=\"{}\"'.format(run_accession)
         response = self.post_request(data)
         if str(response.status_code)[0] != '2':
