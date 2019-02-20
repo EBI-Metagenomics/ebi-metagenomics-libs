@@ -17,6 +17,7 @@
 from datetime import datetime
 import os
 import logging
+import re
 
 import django.db
 from django.core.exceptions import ObjectDoesNotExist
@@ -31,6 +32,8 @@ from backlog.models import Study, Run, AssemblyJob, RunAssembly, Assembler, Asse
     UserRequest, AnnotationJobStatus, Assembly, AnnotationJob, AssemblyAnnotationJob, RunAnnotationJob
 
 from mgnify_util.accession_parsers import is_secondary_study_acc
+
+run_reg = r'([E|S|D]RR\d{5,})_?'
 
 
 class MgnifyHandler:
@@ -103,13 +106,16 @@ class MgnifyHandler:
         r.save()
         return r
 
-    def create_assembly_obj(self, study, assembly_data):
+    def create_assembly_obj(self, ena_handler, study, assembly_data):
         assembly = Assembly(study=study,
-                            primary_accession=assembly_data['accession'],
+                            primary_accession=assembly_data['analysis_accession'],
                             ena_last_update=assembly_data['last_updated'])
         assembly.save(using=self.database)
-        if 'related_runs' in assembly_data:
-            for run in assembly_data['related_runs']:
+        alias = assembly_data['analysis_alias']
+        if re.match(run_reg, alias):
+            run_ids = re.findall(run_reg, assembly_data['analysis_alias'])
+            for run_id in run_ids:
+                run = self.get_or_save_run(ena_handler, run_id)
                 RunAssembly(run=run, assembly=assembly).save()
         return assembly
 
@@ -169,7 +175,7 @@ class MgnifyHandler:
             assembly = ena_handler.get_assembly(assembly_accession)
             if not study:
                 study = self.get_or_save_study(ena_handler, assembly['study_accession'])
-            return self.create_assembly_obj(study, assembly)
+            return self.create_assembly_obj(ena_handler, study, assembly)
 
     def is_assembly_job_in_backlog(self, primary_accession, assembler_name, assembler_version=None):
         if not assembler_version:

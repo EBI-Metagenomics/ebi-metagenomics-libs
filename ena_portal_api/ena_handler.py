@@ -31,10 +31,15 @@ RUN_DEFAULT_FIELDS = 'study_accession,secondary_study_accession,run_accession,li
                      'library_layout,fastq_ftp,fastq_md5,base_count,read_count,instrument_platform,instrument_model,' \
                      'secondary_sample_accession'
 
-ASSEMBLY_DEFAULT_FIELDS = 'accession,assembly_level,assembly_name,assembly_title,base_count,' \
-                          'genome_representation,sample_accession,scientific_name,' \
-                          'secondary_sample_accession,strain,study_accession,study_description,' \
-                          'study_name,study_title,tax_id,last_updated'
+ASSEMBLY_DEFAULT_FIELDS = 'analysis_accession,study_accession,secondary_study_accession,sample_accession,' \
+                          'secondary_sample_accession,analysis_title,analysis_type,center_name,first_public,' \
+                          'last_updated,study_title,tax_id,scientific_name,analysis_alias,study_alias,' \
+                          'submitted_bytes,submitted_md5,submitted_ftp,submitted_aspera,submitted_galaxy,' \
+                          'sample_alias,broker_name,sample_title,sample_description,pipeline_name,' \
+                          'pipeline_version,assembly_type,description,host_tax_id,' \
+                          'host_status,host_sex,submitted_host_sex,host_body_site,' \
+                          'host_gravidity,host_genotype,host_phenotype,host_growth_conditions,collection_date,' \
+                          'collected_by,country,location,depth,altitude,elevation,checklist,' \
 
 from mgnify_util.accession_parsers import is_secondary_study_acc
 
@@ -53,6 +58,7 @@ def get_default_connection_headers():
 def get_default_params():
     return {
         "format": "json",
+        "includeMetagenomes": True
     }
 
 
@@ -179,30 +185,32 @@ class EnaApiHandler:
                     run[int_param] = int(run[int_param])
         return runs
 
-    def get_study_assemblies(self, study_primary_accession, fields=None, filter_accessions=None):
+    def get_study_assemblies(self, study_accession, fields=None, filter_accessions=None):
         data = get_default_params()
-        data['result'] = 'assembly'
+        data['result'] = 'analysis'
         data['fields'] = fields or ASSEMBLY_DEFAULT_FIELDS
-        data['query'] = 'study_accession=\"{}\"'.format(study_primary_accession)
+        data['query'] = f'(study_accession=\"{study_accession}\" ' \
+                        f'OR secondary_study_accession=\"{study_accession}\") ' \
+                        f'AND assembly_type = "primary metagenome"'
 
         response = self.post_request(data)
         if str(response.status_code)[0] != '2':
             logging.debug(
-                'Error retrieving study assemblies {}, response code: {}'.format(study_primary_accession,
+                'Error retrieving study assemblies {}, response code: {}'.format(study_accession,
                                                                                  response.status_code))
             logging.debug('Response: {}'.format(response.text))
-            raise ValueError('Could not retrieve assemblies for study %s.', study_primary_accession)
+            raise ValueError('Could not retrieve assemblies for study %s.', study_accession)
         assemblies = json.loads(response.text)
         if filter_accessions:
-            assemblies = list(filter(lambda r: r['accession'] in filter_accessions, assemblies))
+            assemblies = list(filter(lambda r: r['analysis_accession'] in filter_accessions, assemblies))
 
         return assemblies
 
     def get_assembly(self, assembly_name, fields=None):
         data = get_default_params()
-        data['result'] = 'assembly'
+        data['result'] = 'analysis'
         data['fields'] = fields or ASSEMBLY_DEFAULT_FIELDS
-        data['query'] = 'accession=\"{}\"'.format(assembly_name)
+        data['query'] = 'analysis_accession=\"{}\" AND assembly_type=\"primary metagenome\"'.format(assembly_name)
 
         response = self.post_request(data)
         if str(response.status_code)[0] != '2':
@@ -220,8 +228,8 @@ class EnaApiHandler:
 
     def get_study_assembly_accessions(self, study_prim_acc):
         try:
-            return [assembly['accession'] for assembly in
-                    self.get_study_assemblies(study_prim_acc, 'accession')]
+            return [assembly['analysis_accession'] for assembly in
+                    self.get_study_assemblies(study_prim_acc, 'analysis_accession')]
         except ValueError:
             return []
 
