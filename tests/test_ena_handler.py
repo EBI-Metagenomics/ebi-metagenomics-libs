@@ -29,28 +29,34 @@ class TestEnaHandler(object):
         ena = ena_handler.EnaApiHandler()
         assert ena.auth is None
 
-    def test_get_study_primary_accession_should_retrieve_study_all_fields(self):
-        ena = ena_handler.EnaApiHandler()
-        study = ena.get_study(secondary_accession='ERP001736')
-        assert isinstance(study, dict)
-        assert len(study.keys()) == 10
-
     @pytest.mark.parametrize('accession_arg',
-                             ({'secondary_accession': 'ERP001736'}, {'primary_accession': 'PRJEB1787'}))
-    def test_get_study_secondary_accession_should_retrieve_study_all_fields(self, accession_arg):
+                             ({'primary_accession': 'PRJEB1787'},
+                              {'secondary_accession': 'ERP001736'},
+                              {'primary_accession': 'PRJEB1787',
+                               'secondary_accession': 'ERP001736'},
+                              {'primary_accession': 'PRJEB30568',
+                               'public': False},
+                              {'secondary_accession': 'ERP113040',
+                               'public': False},
+                              {'primary_accession': 'PRJEB30568',
+                               'secondary_accession': 'ERP113040',
+                               'public': False}))
+    def test_get_study_from_accessions_should_retrieve_default_fields(self, accession_arg):
+        """
+            This will iterate over all cases above. It will test each accession
+            type individual and together.
+        :param accession_arg:
+        :return:
+        """
         ena = ena_handler.EnaApiHandler()
         study = ena.get_study(**accession_arg)
         assert isinstance(study, dict)
         assert len(study.keys()) == 10
 
-    def test_get_study_from_both_accessions(self):
-        ena = ena_handler.EnaApiHandler()
-        study = ena.get_study(primary_accession='PRJEB1787', secondary_accession='ERP001736')
-        assert isinstance(study, dict)
-        assert len(study.keys()) == 10
-
     @pytest.mark.parametrize('accession_arg',
-                             ({'secondary_accession': 'ERP001736'}, {'primary_accession': 'PRJEB1787'}))
+                             ({'secondary_accession': 'ERP001736'},
+                              {'primary_accession': 'PRJEB1787'},
+                              {'primary_accession': 'PRJEB1787', 'secondary_accession': 'ERP001736'}))
     def test_get_study_secondary_accession_should_retrieve_study_filtered_fields(self, accession_arg):
         ena = ena_handler.EnaApiHandler()
         study = ena.get_study(fields='study_accession', **accession_arg)

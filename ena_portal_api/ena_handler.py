@@ -81,8 +81,11 @@ class EnaApiHandler:
         return response
 
     # Supports ENA primary and secondary study accessions
-    def get_study(self, primary_accession=None, secondary_accession=None, fields=None):
+    def get_study(self, primary_accession=None, secondary_accession=None,
+                  fields=None, public=True):
         data = get_default_params()
+        if not public:
+            data["dataPortal"] = "metagenome"
         data['result'] = 'study'
         data['fields'] = fields or STUDY_DEFAULT_FIELDS
 

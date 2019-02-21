@@ -151,14 +151,18 @@ class MgnifyHandler:
     def get_backlog_assembly(self, assembly_accession):
         return Assembly.objects.using(self.database).get(primary_accession=assembly_accession)
 
-    def get_or_save_study(self, ena_handler, primary_accession=None, secondary_accession=None):
+    def get_or_save_study(self, ena_handler, primary_accession=None,
+                          secondary_accession=None, public=True):
         try:
             return self.get_backlog_study(primary_accession, secondary_accession)
         except ObjectDoesNotExist:
-            study = ena_handler.get_study(primary_accession=primary_accession, secondary_accession=secondary_accession)
+            study = ena_handler.get_study(primary_accession=primary_accession,
+                                          secondary_accession=secondary_accession,
+                                          public=public)
             return self.create_study_obj(study)
 
-    def get_or_save_run(self, ena_handler, run_accession, study=None, lineage=None, public=True):
+    def get_or_save_run(self, ena_handler, run_accession, study=None,
+                        lineage=None, public=True):
         try:
             return self.get_backlog_run(run_accession)
         except ObjectDoesNotExist:
