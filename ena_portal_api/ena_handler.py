@@ -36,10 +36,7 @@ ASSEMBLY_DEFAULT_FIELDS = 'analysis_accession,study_accession,secondary_study_ac
                           'last_updated,study_title,tax_id,scientific_name,analysis_alias,study_alias,' \
                           'submitted_bytes,submitted_md5,submitted_ftp,submitted_aspera,submitted_galaxy,' \
                           'sample_alias,broker_name,sample_title,sample_description,pipeline_name,' \
-                          'pipeline_version,assembly_type,description,host_tax_id,' \
-                          'host_status,host_sex,submitted_host_sex,host_body_site,' \
-                          'host_gravidity,host_genotype,host_phenotype,host_growth_conditions,collection_date,' \
-                          'collected_by,country,location,depth,altitude,elevation,checklist,' \
+                          'pipeline_version,assembly_type,description'
 
 from mgnify_util.accession_parsers import is_secondary_study_acc
 

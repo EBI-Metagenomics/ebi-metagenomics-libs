@@ -133,46 +133,35 @@ class TestBacklogHandler(object):
         # ena_last_update; last date on which row was updated from ENA
         assert run.ena_last_update == datetime.today().date()
 
-    # def test_get_or_save_run_should_require_lineage_to_insert_run(self):
-    #     study = mgnify.create_study_obj(study_data)
-    #     with pytest.raises(ValueError):
-    #         mgnify.get_or_save_run(ena, run_data['run_accession'], None, study)
-
     def test_get_or_save_assembly_should_find_existing_assembly(self):
         study = mgnify.create_study_obj(study_data)
-        created_assembly = mgnify.create_assembly_obj(study, assembly_data)
-        retrieve_assembly = mgnify.get_or_save_assembly(ena, assembly_data['accession'], study)
+        created_assembly = mgnify.create_assembly_obj(ena, study, assembly_data, public=True)
+        retrieve_assembly = mgnify.get_or_save_assembly(ena, assembly_data['analysis_accession'], study)
 
         assert isinstance(retrieve_assembly, Assembly)
         assert retrieve_assembly.pk == created_assembly.pk
 
     def test_get_or_save_assembly_should_fetch_from_ena(self):
         study = mgnify.create_study_obj(study_data)
-        retrieved_assembly = mgnify.get_or_save_assembly(ena, assembly_data['accession'], study)
+        retrieved_assembly = mgnify.get_or_save_assembly(ena, assembly_data['analysis_accession'], study)
 
         assert isinstance(retrieved_assembly, Assembly)
         assert retrieved_assembly.ena_last_update == assembly_data['last_updated']
 
-    # def test_get_or_save_assembly_should_require_lineage_to_insert_assembly(self):
-    #     study = mgnify.create_study_obj(study_data)
-    #     with pytest.raises(ValueError):
-    #         mgnify.get_or_save_assembly(ena, assembly_data['accession'], None, study)
-
     def test_create_assembly_obj_no_related_runs(self):
         study = mgnify.create_study_obj(study_data)
-        mgnify.create_assembly_obj(study, assembly_data)
+        mgnify.create_assembly_obj(ena, study, assembly_data, public=True)
         assemblies = Assembly.objects.all()
         assert len(assemblies) == 1
         assembly = assemblies[0]
-        assert assembly.primary_accession == assembly_data['accession']
+        assert assembly.primary_accession == assembly_data['analysis_accession']
         assert assembly.ena_last_update == datetime.strptime(assembly_data['last_updated'], "%Y-%m-%d").date()
 
     def test_create_assembly_obj_w_related_runs(self):
         study = mgnify.create_study_obj(study_data)
         run = mgnify.create_run_obj(study, run_data)
         assembly_data_w_run = {k: v for k, v in assembly_data.items()}
-        assembly_data_w_run['related_runs'] = [run]
-        assembly = mgnify.create_assembly_obj(study, assembly_data_w_run)
+        assembly = mgnify.create_assembly_obj(ena, study, assembly_data_w_run, public=True)
 
         run_assemblies = RunAssembly.objects.all()
         assert len(run_assemblies) == 1
@@ -328,7 +317,7 @@ class TestBacklogHandler(object):
 
     def test_create_annotation_job_should_create_annotationjob_for_assembly(self):
         study = mgnify.create_study_obj(study_data)
-        assembly = mgnify.create_assembly_obj(study, assembly_data)
+        assembly = mgnify.create_assembly_obj(ena, study, assembly_data, public=True)
         Pipeline(version=4.1).save()
 
         user = User(**user_data)
@@ -513,7 +502,7 @@ class TestBacklogHandler(object):
 
     def test_get_up_to_date_assembly_annotation_jobs_should_retrieve_all_jobs_in_priority_order(self):
         study = mgnify.create_study_obj(study_data)
-        accessions = ['GCA_001751075', 'GCA_001751165']
+        accessions = ['ERZ795049', 'ERZ795050']
 
         assemblies = [mgnify.get_or_save_assembly(ena, accession, study) for accession in accessions]
         pipeline = Pipeline(version=4.1)

@@ -106,10 +106,11 @@ class MgnifyHandler:
         r.save()
         return r
 
-    def create_assembly_obj(self, ena_handler, study, assembly_data):
+    def create_assembly_obj(self, ena_handler, study, assembly_data, public):
         assembly = Assembly(study=study,
                             primary_accession=assembly_data['analysis_accession'],
-                            ena_last_update=assembly_data['last_updated'])
+                            ena_last_update=assembly_data['last_updated'],
+                            public=public)
         assembly.save(using=self.database)
         alias = assembly_data['analysis_alias']
         if re.match(run_reg, alias):
@@ -168,14 +169,14 @@ class MgnifyHandler:
                 study = self.get_or_save_study(ena_handler, run['study_accession'])
             return self.create_run_obj(study, run, public)
 
-    def get_or_save_assembly(self, ena_handler, assembly_accession, study=None):
+    def get_or_save_assembly(self, ena_handler, assembly_accession, study=None, public=True):
         try:
             return self.get_backlog_assembly(assembly_accession)
         except ObjectDoesNotExist:
             assembly = ena_handler.get_assembly(assembly_accession)
             if not study:
                 study = self.get_or_save_study(ena_handler, assembly['study_accession'])
-            return self.create_assembly_obj(ena_handler, study, assembly)
+            return self.create_assembly_obj(ena_handler, study, assembly, public)
 
     def is_assembly_job_in_backlog(self, primary_accession, assembler_name, assembler_version=None):
         if not assembler_version:

@@ -137,23 +137,23 @@ class TestEnaHandler(object):
 
     def test_get_study_assemblies_should_have_all_fields(self):
         ena = ena_handler.EnaApiHandler()
-        assemblies = ena.get_study_assemblies('PRJNA326769')
+        assemblies = ena.get_study_assemblies('ERP112609')
         for assembly in assemblies:
-            assert len(assembly) == 16
+            assert len(assembly) == 28
             assert isinstance(assembly, dict)
 
     def test_get_study_assemblies_should_filter_fields(self):
         ena = ena_handler.EnaApiHandler()
-        assemblies = ena.get_study_assemblies('PRJNA326769', fields='accession,study_accession')
+        assemblies = ena.get_study_assemblies('ERP112609', fields='analysis_accession,study_accession')
         for assembly in assemblies:
             assert len(assembly) == 2
             assert isinstance(assembly, dict)
 
     def test_get_study_assemblies_should_filter_accessions(self):
         ena = ena_handler.EnaApiHandler()
-        assemblies = ena.get_study_assemblies('PRJNA326769', filter_accessions=['GCA_001751075'])
+        assemblies = ena.get_study_assemblies('ERP112609', filter_accessions=['GCA_001751075'])
         for assembly in assemblies:
-            assert len(assembly) == 16
+            assert len(assembly) == 28
             assert isinstance(assembly, dict)
 
     def test_get_study_assemblies_invalid_accession(self):
@@ -165,17 +165,17 @@ class TestEnaHandler(object):
         ena = ena_handler.EnaApiHandler()
         ena.post_request = lambda r: MockResponse(500)
         with pytest.raises(ValueError):
-            ena.get_study_assemblies('PRJNA326769')
+            ena.get_study_assemblies('ERP112609')
 
     def test_get_assembly_should_have_all_fields(self):
         ena = ena_handler.EnaApiHandler()
-        assembly = ena.get_assembly('GCA_001751075')
-        assert len(assembly) == 16
+        assembly = ena.get_assembly('ERZ795049')
+        assert len(assembly) == 28
         assert isinstance(assembly, dict)
 
     def test_get_assembly_should_filter_fields(self):
         ena = ena_handler.EnaApiHandler()
-        assembly = ena.get_assembly('GCA_001751075', fields='accession,study_accession')
+        assembly = ena.get_assembly('ERZ795049', fields='analysis_accession,study_accession')
         assert len(assembly) == 2
         assert isinstance(assembly, dict)
 
@@ -183,7 +183,7 @@ class TestEnaHandler(object):
         ena = ena_handler.EnaApiHandler()
         ena.post_request = lambda r: MockResponse(500)
         with pytest.raises(ValueError):
-            ena.get_assembly('GCA_001751075')
+            ena.get_assembly('ERZ795049')
 
     def test_get_assembly_invalid_accession(self):
         ena = ena_handler.EnaApiHandler()
@@ -218,7 +218,7 @@ class TestEnaHandler(object):
 
     def test_get_study_assembly_accessions_should_return_all_accessions(self):
         ena = ena_handler.EnaApiHandler()
-        assert set(ena.get_study_assembly_accessions('PRJNA326769')) == {'GCA_001751075', 'GCA_001751165'}
+        assert set(ena.get_study_assembly_accessions('ERP112609')) == {'ERZ795049'}
 
     def test_get_study_assembly_accessions_should_return_empty_list_if_study_contains_no_runs(self):
         ena = ena_handler.EnaApiHandler()

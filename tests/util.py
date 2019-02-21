@@ -49,13 +49,37 @@ user_data = {
     'surname': 'Doe'
 }
 
-assembly_data = {'accession': 'GCA_001751075', 'assembly_level': 'scaffold', 'assembly_name': 'ASM175107v1',
-                 'assembly_title': 'ASM175107v1 assembly for Desulfobacterales bacterium S7086C20',
-                 'base_count': '2653970', 'genome_representation': 'full', 'sample_accession': 'SAMN05301627',
-                 'scientific_name': 'Desulfobacterales bacterium S7086C20', 'secondary_sample_accession': '',
-                 'strain': '', 'study_accession': 'PRJNA326769',
-                 'study_description': "Two samples ...",
-                 'study_name': 'marine sediment metagenome',
-                 'study_title': 'marine sediment metagenome Raw sequence reads', 'tax_id': '1869302',
-                 'last_updated': '2016-10-03'
-                 }
+assembly_data = {
+    "analysis_accession": "ERZ795049",
+    "study_accession": "PRJEB30178",
+    "secondary_study_accession": "ERP112609",
+    "sample_accession": "SAMN05720147",
+    "secondary_sample_accession": "SRS1687472",
+    "analysis_title": "activated sludge metagenome 1",
+    "analysis_type": "SEQUENCE_ASSEMBLY",
+    "center_name": "EMG",
+    "first_public": "2019-01-07",
+    "last_updated": "2018-12-07",
+    "study_title": "EMG produced TPA metagenomics assembly of the Active sludge microbial communities of municipal "
+                   "wastewater-treating anaerobic digesters from Japan - AD_JPNAS3_MetaG metagenome "
+                   "(activated sludge metagenome) data set.",
+    "tax_id": "942017",
+    "scientific_name": "activated sludge metagenome",
+    "analysis_alias": "ERR164407",
+    "study_alias": "activated sludge metagenome metagenomic assembly (assembled from PRJNA340507, "
+                   "internal_id: d538b336-5fe0-46ef-a720-48017eda4913)",
+    "submitted_bytes": "214299326;54",
+    "submitted_md5": "6e3180ec655a47a0cc2c4535f8008caa;c3a387584a3383505c219720ffbf857b",
+    "sample_alias": "Gp0138835",
+    "broker_name": "EBI-EMG",
+    "sample_title": "Active sludge microbial communities of municipal wastewater-treating anaerobic "
+                    "digesters from Japan - AD_JPNAS3_MetaG",
+    "status_id": "4",
+    "sample_description": "Active sludge microbial communities of municipal wastewater-treating "
+                          "anaerobic digesters from Japan - AD_JPNAS3_MetaG",
+    "pipeline_name": "",
+    "pipeline_version": "",
+    "assembly_type": "primary metagenome",
+    "description": "activated sludge metagenome 1",
+
+}
