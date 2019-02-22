@@ -54,7 +54,8 @@ def get_default_connection_headers():
 def get_default_params():
     return {
         "format": "json",
-        "includeMetagenomes": True
+        "includeMetagenomes": True,
+        'dataPortal': 'metagenome'
     }
 
 
@@ -79,6 +80,7 @@ class EnaApiHandler:
         if self.auth:
             response = requests.post(self.url, data=data, auth=self.auth, **get_default_connection_headers())
         else:
+            logging.warning('Not authenticated')
             response = requests.post(self.url, data=data, **get_default_connection_headers())
         return response
 
