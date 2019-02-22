@@ -1,7 +1,10 @@
+from unittest import mock
+
 import pytest
 import os
 
 from ena_portal_api import ena_handler
+from unittest.mock import patch
 
 
 class MockResponse:
@@ -15,13 +18,13 @@ class MockResponse:
 
 
 class TestEnaHandler(object):
+    @mock.patch.dict(os.environ, {'ENA_API_USER': 'username', 'ENA_API_PASSWORD': 'password'})
     def test_authentication_set(self):
-        auth = ('username', 'password')
-        os.environ['ENA_API_USER'], os.environ['ENA_API_PASSWORD'] = auth
         ena = ena_handler.EnaApiHandler()
-        assert ena.auth == auth
+        assert ena.auth == ('username', 'password')
 
-    def test_authentication_not_set(self):
+    @patch('os.environ')
+    def test_authentication_not_set(self, mocked_class):
         if os.environ['ENA_API_USER']:
             del os.environ['ENA_API_USER']
         if os.environ['ENA_API_PASSWORD']:
@@ -29,28 +32,29 @@ class TestEnaHandler(object):
         ena = ena_handler.EnaApiHandler()
         assert ena.auth is None
 
-    def test_get_study_primary_accession_should_retrieve_study_all_fields(self):
-        ena = ena_handler.EnaApiHandler()
-        study = ena.get_study(secondary_accession='ERP001736')
-        assert isinstance(study, dict)
-        assert len(study.keys()) == 10
-
     @pytest.mark.parametrize('accession_arg',
-                             ({'secondary_accession': 'ERP001736'}, {'primary_accession': 'PRJEB1787'}))
-    def test_get_study_secondary_accession_should_retrieve_study_all_fields(self, accession_arg):
+                             ({'primary_accession': 'PRJEB1787'},
+                              {'secondary_accession': 'ERP001736'},
+                              {'primary_accession': 'PRJEB1787', 'secondary_accession': 'ERP001736'},
+                              {'primary_accession': 'PRJEB30568', 'public': False},
+                              {'secondary_accession': 'ERP113040', 'public': False},
+                              {'primary_accession': 'PRJEB30568', 'secondary_accession': 'ERP113040', 'public': False}))
+    def test_get_study_from_accessions_should_retrieve_default_fields(self, accession_arg):
+        """
+            This will iterate over all cases above. It will test each accession
+            type individual and together.
+        :param accession_arg:
+        :return:
+        """
         ena = ena_handler.EnaApiHandler()
         study = ena.get_study(**accession_arg)
         assert isinstance(study, dict)
         assert len(study.keys()) == 10
 
-    def test_get_study_from_both_accessions(self):
-        ena = ena_handler.EnaApiHandler()
-        study = ena.get_study(primary_accession='PRJEB1787', secondary_accession='ERP001736')
-        assert isinstance(study, dict)
-        assert len(study.keys()) == 10
-
     @pytest.mark.parametrize('accession_arg',
-                             ({'secondary_accession': 'ERP001736'}, {'primary_accession': 'PRJEB1787'}))
+                             ({'secondary_accession': 'ERP001736'},
+                              {'primary_accession': 'PRJEB1787'},
+                              {'primary_accession': 'PRJEB1787', 'secondary_accession': 'ERP001736'}))
     def test_get_study_secondary_accession_should_retrieve_study_filtered_fields(self, accession_arg):
         ena = ena_handler.EnaApiHandler()
         study = ena.get_study(fields='study_accession', **accession_arg)

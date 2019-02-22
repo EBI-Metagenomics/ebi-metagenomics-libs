@@ -21,6 +21,7 @@ import json
 import os
 import logging
 from multiprocessing.pool import ThreadPool
+from time import sleep
 
 ENA_API_URL = os.environ.get('ENA_API_URL', "https://www.ebi.ac.uk/ena/portal/api/search")
 
@@ -38,8 +39,6 @@ ASSEMBLY_DEFAULT_FIELDS = 'analysis_accession,study_accession,secondary_study_ac
                           'sample_alias,broker_name,sample_title,sample_description,pipeline_name,' \
                           'pipeline_version,assembly_type,description'
 
-from mgnify_util.accession_parsers import is_secondary_study_acc
-
 logging.getLogger('urllib3.connectionpool').setLevel(logging.INFO)
 
 
@@ -55,12 +54,16 @@ def get_default_connection_headers():
 def get_default_params():
     return {
         "format": "json",
-        "includeMetagenomes": True
+        "includeMetagenomes": True,
+        'dataPortal': 'metagenome'
     }
 
 
 def run_filter(d):
     return d['library_strategy'] != 'AMPLICON'
+
+
+RETRY_COUNT = 5
 
 
 class EnaApiHandler:
@@ -77,11 +80,12 @@ class EnaApiHandler:
         if self.auth:
             response = requests.post(self.url, data=data, auth=self.auth, **get_default_connection_headers())
         else:
+            logging.warning('Not authenticated')
             response = requests.post(self.url, data=data, **get_default_connection_headers())
         return response
 
     # Supports ENA primary and secondary study accessions
-    def get_study(self, primary_accession=None, secondary_accession=None, fields=None):
+    def get_study(self, primary_accession=None, secondary_accession=None, fields=None, public=True, attempt=0):
         data = get_default_params()
         data['result'] = 'study'
         data['fields'] = fields or STUDY_DEFAULT_FIELDS
@@ -102,6 +106,19 @@ class EnaApiHandler:
                                                                          response.status_code))
             logging.debug('Response: {}'.format(response.text))
             raise ValueError('Could not retrieve runs for study %s %s.', primary_accession, secondary_accession)
+        elif response.status_code == 204:
+            if attempt < 5:
+                attempt += 1
+                sleep(1)
+                logging.warning('Error 204 when retrieving study {} {}, retrying {}'.format(primary_accession,
+                                                                                            secondary_accession,
+                                                                                            attempt))
+                return self.get_study(primary_accession=primary_accession, secondary_accession=secondary_accession,
+                                      fields=fields, public=public, attempt=attempt)
+            else:
+                raise ValueError('Could not find study {} {} in ENA after {} attempts'.format(primary_accession,
+                                                                                              secondary_accession,
+                                                                                              RETRY_COUNT))
         try:
             study = json.loads(response.text)[0]
         except (IndexError, TypeError, ValueError, KeyError) as e:
@@ -111,10 +128,8 @@ class EnaApiHandler:
             raise ValueError('Could not find study {} {} in ENA.'.format(primary_accession, secondary_accession))
         return study
 
-    def get_run(self, run_accession, fields=None, public=True):
+    def get_run(self, run_accession, fields=None, public=True, attempt=0):
         data = get_default_params()
-        if not public:
-            data["dataPortal"] = "metagenome"
         data['result'] = 'read_run'
         data['fields'] = fields or RUN_DEFAULT_FIELDS
         data['query'] = 'run_accession=\"{}\"'.format(run_accession)
@@ -123,7 +138,14 @@ class EnaApiHandler:
             logging.debug('Error retrieving run {}, response code: {}'.format(run_accession, response.status_code))
             logging.debug('Response: {}'.format(response.text))
             raise ValueError('Could not retrieve run with accession %s.', run_accession)
-
+        elif response.status_code == 204:
+            if attempt < 5:
+                attempt += 1
+                sleep(1)
+                logging.warning('Error 204 when retrieving run {} , retrying {}'.format(run_accession, attempt))
+                return self.get_run(run_accession=run_accession, fields=fields, public=public, attempt=attempt)
+            else:
+                raise ValueError('Could not find run {} in ENA after {} attempts'.format(run_accession, RETRY_COUNT))
         try:
             run = json.loads(response.text)[0]
         except (IndexError, TypeError, ValueError):
