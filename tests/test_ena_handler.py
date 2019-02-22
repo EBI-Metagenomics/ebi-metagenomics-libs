@@ -35,10 +35,9 @@ class TestEnaHandler(object):
     @pytest.mark.parametrize('accession_arg',
                              ({'primary_accession': 'PRJEB1787'},
                               {'secondary_accession': 'ERP001736'},
-                              {'primary_accession': 'PRJEB1787', 'secondary_accession': 'ERP001736'},
-                              {'primary_accession': 'PRJEB30568', 'public': False},
-                              {'secondary_accession': 'ERP113040', 'public': False},
-                              {'primary_accession': 'PRJEB30568', 'secondary_accession': 'ERP113040', 'public': False}))
+                              {'primary_accession': 'PRJEB1787',
+                               'secondary_accession': 'ERP001736'},
+                              {'secondary_accession': 'ERP113040'}))
     def test_get_study_from_accessions_should_retrieve_default_fields(self, accession_arg):
         """
             This will iterate over all cases above. It will test each accession
