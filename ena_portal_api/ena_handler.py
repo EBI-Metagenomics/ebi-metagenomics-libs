@@ -85,7 +85,7 @@ class EnaApiHandler:
         return response
 
     # Supports ENA primary and secondary study accessions
-    def get_study(self, primary_accession=None, secondary_accession=None, fields=None, public=True, attempt=0):
+    def get_study(self, primary_accession=None, secondary_accession=None, fields=None, attempt=0):
         data = get_default_params()
         data['result'] = 'study'
         data['fields'] = fields or STUDY_DEFAULT_FIELDS
@@ -114,7 +114,7 @@ class EnaApiHandler:
                                                                                             secondary_accession,
                                                                                             attempt))
                 return self.get_study(primary_accession=primary_accession, secondary_accession=secondary_accession,
-                                      fields=fields, public=public, attempt=attempt)
+                                      fields=fields, attempt=attempt)
             else:
                 raise ValueError('Could not find study {} {} in ENA after {} attempts'.format(primary_accession,
                                                                                               secondary_accession,
