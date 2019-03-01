@@ -1,0 +1,13 @@
+TRINITY-DN10395-c0-g1-i1	transdecoder	gene	1	1292	.	-	.	ID=GENE.TRINITY-DN10395-c0-g1-i1~~TRINITY-DN10395-c0-g1-i1.p1;Name=ORF%20type%3Acomplete%20len%3A404%20%28-%29%2Cscore%3D102.88
+TRINITY-DN10395-c0-g1-i1	transdecoder	mRNA	1	1292	.	-	.	ID=TRINITY-DN10395-c0-g1-i1.p1;Parent=GENE.TRINITY-DN10395-c0-g1-i1~~TRINITY-DN10395-c0-g1-i1.p1;Name=ORF%20type%3Acomplete%20len%3A404%20%28-%29%2Cscore%3D102.88
+TRINITY-DN10395-c0-g1-i1	transdecoder	five_prime_UTR	1241	1292	.	-	.	ID=TRINITY-DN10395-c0-g1-i1.p1.utr5p1;Parent=TRINITY-DN10395-c0-g1-i1.p1
+TRINITY-DN10395-c0-g1-i1	transdecoder	exon	1	1292	.	-	.	ID=TRINITY-DN10395-c0-g1-i1.p1.exon1;Parent=TRINITY-DN10395-c0-g1-i1.p1
+TRINITY-DN10395-c0-g1-i1	transdecoder	CDS	29	1240	.	-	0	ID=cds.TRINITY-DN10395-c0-g1-i1.p1;Parent=TRINITY-DN10395-c0-g1-i1.p1
+TRINITY-DN10395-c0-g1-i1	transdecoder	three_prime_UTR	1	28	.	-	.	ID=TRINITY-DN10395-c0-g1-i1.p1.utr3p1;Parent=TRINITY-DN10395-c0-g1-i1.p1
+
+TRINITY-DN10052-c0-g1-i1	transdecoder	gene	1	994	.	+	.	ID=GENE.TRINITY-DN10052-c0-g1-i1~~TRINITY-DN10052-c0-g1-i1.p1;Name=ORF%20type%3Acomplete%20len%3A221%20%28%2B%29%2Cscore%3D44.95
+TRINITY-DN10052-c0-g1-i1	transdecoder	mRNA	1	994	.	+	.	ID=TRINITY-DN10052-c0-g1-i1.p1;Parent=GENE.TRINITY-DN10052-c0-g1-i1~~TRINITY-DN10052-c0-g1-i1.p1;Name=ORF%20type%3Acomplete%20len%3A221%20%28%2B%29%2Cscore%3D44.95
+TRINITY-DN10052-c0-g1-i1	transdecoder	five_prime_UTR	1	73	.	+	.	ID=TRINITY-DN10052-c0-g1-i1.p1.utr5p1;Parent=TRINITY-DN10052-c0-g1-i1.p1
+TRINITY-DN10052-c0-g1-i1	transdecoder	exon	1	994	.	+	.	ID=TRINITY-DN10052-c0-g1-i1.p1.exon1;Parent=TRINITY-DN10052-c0-g1-i1.p1
+TRINITY-DN10052-c0-g1-i1	transdecoder	CDS	74	736	.	+	0	ID=cds.TRINITY-DN10052-c0-g1-i1.p1;Parent=TRINITY-DN10052-c0-g1-i1.p1
+TRINITY-DN10052-c0-g1-i1	transdecoder	three_prime_UTR	737	994	.	+	.	ID=TRINITY-DN10052-c0-g1-i1.p1.utr3p1;Parent=TRINITY-DN10052-c0-g1-i1.p1

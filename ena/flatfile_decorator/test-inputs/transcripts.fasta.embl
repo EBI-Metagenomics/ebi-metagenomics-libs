@@ -1,0 +1,175 @@
+ID   XXX; XXX; linear; unassigned RNA; XXX; XXX; 994 BP.
+XX
+AC   XXX; 
+XX
+AC * _TRINITY-DN10052-c0-g1-i1
+XX
+PR   Project:PRJNA248394;
+XX
+DT   26-Feb-2019 (Rel. 133, Created)
+XX
+DE   XXX
+XX
+KW   .
+XX
+OS   Symbiodinium sp. ccmp2430
+XX
+OC   cellular organisms; Eukaryota; Alveolata; Dinophyceae; Suessiales;
+OC   Symbiodiniaceae; Symbiodinium; unclassified Symbiodinium.
+XX
+RN   [1]
+RP   1-994
+RG   XXX
+RT   ;
+RL   Submitted (26-FEB-2019) to the INSDC.
+XX
+FH   Key             Location/Qualifiers
+FH
+FT   source          1..994
+FT                   /mol_type="unassigned RNA"
+FT                   /organism="Symbiodinium sp. ccmp2430"
+FT   gene            1..994
+FT                   /locus_tag="XXX_LOCUS1"
+FT                   /note="source:transdecoder"
+FT                   /note="ID:GENE.TRINITY-DN10052-c0-g1-i1~~TRINITY-DN10052-c0
+FT                   -g1-i1.p1"
+FT                   /standard_name="ORF type:complete len:221 (+),score=44.95"
+FT   mRNA            1..994
+FT                   /locus_tag="XXX_LOCUS1"
+FT                   /note="source:transdecoder"
+FT                   /note="ID:TRINITY-DN10052-c0-g1-i1.p1"
+FT                   /standard_name="ORF type:complete len:221 (+),score=44.95"
+FT   5'UTR           1..73
+FT                   /locus_tag="XXX_LOCUS1"
+FT                   /note="source:transdecoder"
+FT                   /note="ID:TRINITY-DN10052-c0-g1-i1.p1.utr5p1"
+FT   exon            1..994
+FT                   /locus_tag="XXX_LOCUS1"
+FT                   /note="source:transdecoder"
+FT                   /note="ID:TRINITY-DN10052-c0-g1-i1.p1.exon1"
+FT   CDS             74..736
+FT                   /locus_tag="XXX_LOCUS1"
+FT                   /codon_start=1
+FT                   /note="source:transdecoder"
+FT                   /note="ID:cds.TRINITY-DN10052-c0-g1-i1.p1"
+FT                   /translation="MMVVCGLLLLTSAMKLGQVAAAEMPQVLTSMPQEARAARTASKED
+FT                   VAYLNRHIFAGNVLKPLGGGVEQWVVSFCPRWWQPCQQLEQTFLEAARHWQSELNTDPS
+FT                   MLRVRFAQVDCAVDKVLCNEQHVTTYPMVALYRGGIQIDLKGIAREQTVTALEQFLKTN
+FT                   VQRVARSEGAEASGQPLRASSSFLDPRNAGALLAECMRSPAGSSVVVGEPAVPTLLS"
+FT                   /transl_table=1
+FT   3'UTR           737..994
+FT                   /locus_tag="XXX_LOCUS1"
+FT                   /note="source:transdecoder"
+FT                   /note="ID:TRINITY-DN10052-c0-g1-i1.p1.utr3p1"
+XX
+SQ   Sequence 994 BP; 205 A; 262 C; 300 G; 227 T; 0 other;
+     TTTGGCTCAA GACTGATGCA GCCAATGACG CAGCTCCAGT CTGGACCTTG TCCAAGTCCT        60
+     TAGCGGCCGT CGCATGATGG TGGTGTGCGG CTTGCTGCTC CTGACCTCAG CGATGAAGCT       120
+     AGGCCAGGTG GCTGCCGCGG AGATGCCGCA GGTCCTGACT TCGATGCCGC AAGAAGCTCG       180
+     AGCGGCCAGG ACAGCATCGA AGGAAGACGT CGCCTACCTG AACCGGCACA TCTTCGCGGG       240
+     GAATGTGCTG AAGCCCCTGG GAGGTGGCGT GGAGCAGTGG GTGGTGTCCT TTTGCCCAAG       300
+     ATGGTGGCAA CCATGCCAAC AGCTGGAGCA GACCTTCTTA GAAGCGGCAA GACATTGGCA       360
+     AAGTGAGCTG AACACGGACC CTTCAATGCT ACGGGTGCGA TTTGCGCAGG TTGACTGCGC       420
+     TGTGGACAAG GTTCTCTGCA ACGAACAGCA TGTGACTACA TACCCAATGG TAGCCCTCTA       480
+     CCGTGGTGGA ATTCAGATCG ACTTGAAAGG TATCGCGAGA GAGCAGACTG TGACTGCACT       540
+     TGAGCAGTTC CTGAAGACCA ATGTCCAGCG CGTTGCAAGA TCGGAGGGCG CCGAGGCTTC       600
+     CGGGCAGCCC CTTCGGGCAA GCTCATCTTT CTTGGACCCT CGAAATGCTG GTGCTCTGCT       660
+     GGCAGAATGC ATGCGATCTC CTGCTGGCAG CAGCGTTGTT GTTGGTGAGC CTGCGGTTCC       720
+     TACATTACTC TCCTGAAGAC CCTCGTGGAA ATTATTCGAC AAGGATCACT GGGCACTCTT       780
+     CCGTTTCCTT CTTGCCCTGG GGTCCTTCAC CGGCTGTCGT CGAAATCTGA CACCAGAGAA       840
+     GGTCCTGCGA GCTCTGGGGT TCAACCCCGT GAGTTTCCTC TGTTCGCAGG CGTAGGATGA       900
+     TTAGGGGTTT AGGTTTGAGG CTGCCTGGTG AGCTGCTTTA GTCCTGTACA TCTTAGATGC       960
+     TCCGGGCGGC CCGATATGCG AGCGAAAAAA AAAA                                   994
+//
+ID   XXX; XXX; linear; unassigned RNA; XXX; XXX; 1292 BP.
+XX
+AC   XXX; 
+XX
+AC * _TRINITY-DN10395-c0-g1-i1
+XX
+PR   Project:PRJNA248394;
+XX
+DT   26-Feb-2019 (Rel. 133, Created)
+XX
+DE   XXX
+XX
+KW   .
+XX
+OS   Symbiodinium sp. ccmp2430
+XX
+OC   cellular organisms; Eukaryota; Alveolata; Dinophyceae; Suessiales;
+OC   Symbiodiniaceae; Symbiodinium; unclassified Symbiodinium.
+XX
+RN   [1]
+RP   1-1292
+RG   XXX
+RT   ;
+RL   Submitted (26-FEB-2019) to the INSDC.
+XX
+FH   Key             Location/Qualifiers
+FH
+FT   source          1..1292
+FT                   /mol_type="unassigned RNA"
+FT                   /organism="Symbiodinium sp. ccmp2430"
+FT   gene            complement(1..1292)
+FT                   /locus_tag="XXX_LOCUS2"
+FT                   /note="source:transdecoder"
+FT                   /note="ID:GENE.TRINITY-DN10395-c0-g1-i1~~TRINITY-DN10395-c0
+FT                   -g1-i1.p1"
+FT                   /standard_name="ORF type:complete len:404 (-),score=102.88"
+FT   mRNA            complement(1..1292)
+FT                   /locus_tag="XXX_LOCUS2"
+FT                   /note="source:transdecoder"
+FT                   /note="ID:TRINITY-DN10395-c0-g1-i1.p1"
+FT                   /standard_name="ORF type:complete len:404 (-),score=102.88"
+FT   exon            complement(1..1292)
+FT                   /locus_tag="XXX_LOCUS2"
+FT                   /note="source:transdecoder"
+FT                   /note="ID:TRINITY-DN10395-c0-g1-i1.p1.exon1"
+FT   3'UTR           complement(1..28)
+FT                   /locus_tag="XXX_LOCUS2"
+FT                   /note="source:transdecoder"
+FT                   /note="ID:TRINITY-DN10395-c0-g1-i1.p1.utr3p1"
+FT   CDS             complement(29..1240)
+FT                   /locus_tag="XXX_LOCUS2"
+FT                   /codon_start=1
+FT                   /note="source:transdecoder"
+FT                   /note="ID:cds.TRINITY-DN10395-c0-g1-i1.p1"
+FT                   /translation="MGAYYVNDNVRIKATGKMGTVTLTNGHAVKVLGTWWHAEEVEPLP
+FT                   YMGSGPYHARFQQTMLRIKDPKRSIPFYEENFGMKLIHWIEFPEFKFTVYFLERPREGQ
+FT                   TVPACSMEKTTIENEKYLWTMSGSTLELTHNHGEEMNDNFKVWNGNVGRDGEGANYADE
+FT                   PAARGFGHVAFNCDDVYEACERLEKNGVKFQKKPDEGRMKGLAFALDPDGYWLEIVRRE
+FT                   KLGWKEYYNLSQTMLRVKDGPASVEFYTKHLGMTLLRKVDFPQYKFSLYFLASLTPAEL
+FT                   AECLPLDPENKHAGGLNPEVPNALTKIAWNQCLELTWNHGTEKDPDFKVHDGNSEPKGF
+FT                   GHIGFIVDNLQESCDNMEAQGVQFKKRPQEGKMRGLAFALDPNGYWVELVDRKASFAGI
+FT                   CSNY"
+FT                   /transl_table=1
+FT   5'UTR           complement(1241..1292)
+FT                   /locus_tag="XXX_LOCUS2"
+FT                   /note="source:transdecoder"
+FT                   /note="ID:TRINITY-DN10395-c0-g1-i1.p1.utr5p1"
+XX
+SQ   Sequence 1292 BP; 269 A; 369 C; 317 G; 337 T; 0 other;
+     TGGGGGTTCC TTACTACAGA TATACTATCT AGTAGTTCGA GCAGATGCCA GCGAACGAGG        60
+     CTTTTCGGTC AACGAGCTCC ACCCAATAGC CGTTTGGGTC GAGGGCAAAA GCCAAGCCTC       120
+     GCATCTTGCC CTCTTGTGGT CTTTTCTTGA ACTGGACGCC TTGAGCTTCC ATGTTGTCGC       180
+     AGGACTCCTG TAAGTTGTCC ACGATGAAGC CGATGTGGCC AAACCCCTTG GGCTCAGAAT       240
+     TGCCATCGTG AACCTTGAAA TCGGGGTCTT TCTCGGTGCC GTGATTCCAA GTGAGTTCGA       300
+     GGCACTGGTT CCAAGCGATC TTCGTCAGAG CGTTCGGAAC CTCCGGATTC AGGCCGCCGG       360
+     CGTGCTTGTT TTCAGGATCA AGTGGGAGGC ATTCTGCAAG CTCTGCCGGC GTGAGCGATG       420
+     CCAGGAAGTA TAATGAAAAT TTGTATTGTG GAAAATCCAC TTTTCGCAGC AGCGTCATTC       480
+     CCAAGTGCTT GGTGTAAAAC TCCACGCTGG CAGGGCCATC CTTCACGCGA AGCATTGTCT       540
+     GAGAGAGGTT GTAGTACTCT TTCCATCCCA ACTTCTCGCG CCTAACGATC TCCAACCAGT       600
+     ATCCGTCAGG ATCCAACGCA AAGGCCAAGC CCTTCATTCG ACCTTCGTCT GGCTTCTTCT       660
+     GAAACTTCAC ACCATTCTTC TCCAAACGCT CGCAGGCTTC GTACACATCG TCGCAGTTGA       720
+     AGGCGACATG CCCGAACCCA CGCGCTGCAG GCTCATCAGC ATAGTTTGCG CCTTCTCCGT       780
+     CGCGTCCTAC ATTTCCATTC CAAACCTTGA AGTTGTCGTT CATCTCTTCA CCGTGGTTGT       840
+     GCGTCAGCTC CAAAGTGGAT CCTGACATGG TCCAAAGATA CTTCTCGTTC TCGATGGTGG       900
+     TCTTTTCCAT GCTGCATGCT GGAACAGTCT GCCCTTCTCT TGGGCGTTCC AAGAAGTAGA       960
+     CTGTGAACTT GAACTCGGGA AACTCAATCC AATGGATCAG CTTCATGCCG AAGTTTTCCT      1020
+     CGTAGAAGGG GATCGACCTC TTGGGATCCT TGATCCGCAA CATGGTCTGC TGGAAGCGGG      1080
+     CATGGTACGG ACCGGAGCCC ATGTAAGGGA GGGGCTCCAC CTCTTCTGCA TGCCACCACG      1140
+     TGCCCAGCAC CTTCACCGCA TGTCCGTTCG TCAGAGTCAC CGTTCCCATC TTTCCGGTTG      1200
+     CCTTGATACG CACATTATCA TTGACATAGT ATGCCCCCAT GGCGCTACAC TAAGAGCTTG      1260
+     GGCTTTTAGC CCTGGCCGAG CCAACGCTTG AG                                    1292
+//
