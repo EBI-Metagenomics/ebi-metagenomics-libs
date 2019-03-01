@@ -39,6 +39,10 @@ Make sure you have got Java >= 1.7 and Maven install
 
 $ mvn -version
 
+$ ./build.sh
+
+$ ./distribution/bin/unifire.sh -h
+
 ---------------------------------------------
 How to generate embl flatfiles?
 
