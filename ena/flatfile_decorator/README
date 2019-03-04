@@ -49,11 +49,11 @@ How to generate embl flatfiles?
 --translate           Include translation in CDS features.
 -o OUTPUT, --output OUTPUT
 
-$ EMBLmyGFF3 transcripts.fasta.transdecoder.gff3 transcripts.fasta -o transcripts.fasta.embl --translate
+$ EMBLmyGFF3 transcripts.fasta.transdecoder.gff3 transcripts.fasta -o transcripts.fasta.embl --translate -m 'unassigned RNA' -p XXX -r 1 -s 631057 -t linear -i XXX
 
-organism:631057
-locus_tag (A default XXX locus_tag will be set up if none provided):
-molecule_type:unassigned RNA
-project ID:PRJNA248394
-topology:linear
-transl_table:1
+organism (-s): 631057
+locus_tag (A default XXX locus_tag will be set up if none provided) (-i): XXX
+molecule_type (-m): unassigned RNA
+project ID (-p): XXX
+topology (-t): linear
+transl_table (-r): 1

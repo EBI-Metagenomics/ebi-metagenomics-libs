@@ -55,7 +55,7 @@ class FlatfileDecorator:
         # Add peptide extension
         identifier = f'{seq_id}.p1'
         if identifier not in self._annotations:
-            identifier = f'{acc}.p2'
+            identifier = f'{seq_id}.p2'
             if identifier not in self._annotations:
                 return None
         return self._annotations.get(identifier)
