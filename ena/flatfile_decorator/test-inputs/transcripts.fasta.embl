@@ -1,3 +1,161 @@
+ID   XXX; XXX; linear; unassigned RNA; XXX; XXX; 920 BP.
+XX
+AC   XXX; 
+XX
+AC * _TRINITY-DN10011-c0-g1-i1
+XX
+PR   Project:XXX;
+XX
+DT   06-Mar-2019 (Rel. 133, Created)
+XX
+DE   XXX
+XX
+KW   .
+XX
+OS   Symbiodinium sp. ccmp2430
+XX
+OC   cellular organisms; Eukaryota; Alveolata; Dinophyceae; Suessiales;
+OC   Symbiodiniaceae; Symbiodinium; unclassified Symbiodinium.
+XX
+RN   [1]
+RP   1-920
+RG   XXX
+RT   ;
+RL   Submitted (06-MAR-2019) to the INSDC.
+XX
+FH   Key             Location/Qualifiers
+FH
+FT   source          1..920
+FT                   /mol_type="unassigned RNA"
+FT                   /organism="Symbiodinium sp. ccmp2430"
+FT   gene            complement(1..920)
+FT                   /locus_tag="XXX_LOCUS1"
+FT                   /note="source:transdecoder"
+FT                   /note="ID:GENE.TRINITY-DN10011-c0-g1-i1~~TRINITY-DN10011-c0
+FT                   -g1-i1.p1"
+FT                   /standard_name="ORF type:5prime_partial len:235
+FT                   (-),score=33.00"
+FT   mRNA            complement(1..920)
+FT                   /locus_tag="XXX_LOCUS1"
+FT                   /note="source:transdecoder"
+FT                   /note="ID:TRINITY-DN10011-c0-g1-i1.p1"
+FT                   /standard_name="ORF type:5prime_partial len:235
+FT                   (-),score=33.00"
+FT   exon            complement(1..920)
+FT                   /locus_tag="XXX_LOCUS1"
+FT                   /note="source:transdecoder"
+FT                   /note="ID:TRINITY-DN10011-c0-g1-i1.p1.exon1"
+FT   3'UTR           complement(1..215)
+FT                   /locus_tag="XXX_LOCUS1"
+FT                   /note="source:transdecoder"
+FT                   /note="ID:TRINITY-DN10011-c0-g1-i1.p1.utr3p1"
+FT   CDS             complement(216..>920)
+FT                   /locus_tag="XXX_LOCUS1"
+FT                   /codon_start=1
+FT                   /note="source:transdecoder"
+FT                   /note="ID:cds.TRINITY-DN10011-c0-g1-i1.p1"
+FT                   /translation="FWLKWLAQTSAADRSPCDLPPKSSRGRMADSAVSTADSSEWDLLD
+FT                   ARDASILDWEVLSSIRWAPTDDDTRSVAESLASSASLCTAIGWPSLSHAARAARSGELL
+FT                   DSPPAPAGISYKDALMNGAGGLNTIKASEMARGPVPQPNRCCFVNGYRRVPQAATMSDP
+FT                   SEDLVADQDWYLRKEQGSLLARRRWRFDRRPFLKDQERRSGRSAPSWEYEFGSSSAGYC
+FT                   IPEEECEDDEPV"
+FT                   /transl_table=1
+XX
+SQ   Sequence 920 BP; 194 A; 262 C; 279 G; 185 T; 0 other;
+     AGATTCTGCA GTGTACGTAG GTCATGTTTG AGATTGATCC GGAGGTCCGA GACTGGGCCG        60
+     GTGCGTTGCA GAGCCGGGTA CGAGCTATGT ACAGTGCTGC ACGAGCAAAA CAGATGTTGA       120
+     GTGTACGGTG ACAATCTTCC AGACTGTGTA TCGAAGAGTT TGGGTTTAAG GGGCTGTTGT       180
+     GCTCAAAAAG GGGGCACTCA ACAGTCGTGG CCGGTTCAGA CGGGCTCGTC ATCTTCGCAT       240
+     TCTTCCTCCG GAATGCAGTA GCCTGCAGAG GAGCTGCCGA ACTCGTACTC CCAACTGGGT       300
+     GCAGAACGTC CGGAACGCCT TTCCTGGTCC TTGAGGAATG GGCGCCGGTC GAAGCGCCAG       360
+     CGTCGCCTGG CAAGCAAAGA GCCTTGTTCC TTGCGCAGGT ACCAATCCTG GTCGGCGACC       420
+     AGATCCTCGC TCGGATCGGA CATCGTCGCT GCCTGAGGCA CGCGTCGATA GCCGTTCACA       480
+     AAGCAGCAGC GATTCGGCTG GGGAACTGGT CCCCTCGCCA TTTCCGATGC CTTGATCGTG       540
+     TTGAGACCTC CAGCTCCATT CATGAGGGCG TCTTTGTACG AGATTCCAGC AGGAGCAGGT       600
+     GGGCTGTCCA ATAGCTCCCC TGAGCGTGCC GCACGTGCCG CATGGCTCAA GGAGGGCCAC       660
+     CCGATGGCAG TGCAAAGGGA CGCACTGGAC GCGAGAGATT CGGCCACCGA GCGCGTATCA       720
+     TCGTCCGTAG GAGCCCAACG AATGCTCGAC AGAACCTCCC AGTCCAGGAT GCTGGCGTCA       780
+     CGCGCATCCA ACAAGTCCCA CTCAGACGAA TCCGCAGTTG ACACAGCACT GTCCGCCATT       840
+     CTGCCTCGCG ACGACTTCGG AGGAAGGTCG CAAGGGCTCC GGTCAGCTGC AGAGGTTTGA       900
+     GCCAGCCACT TGAGCCAAAA                                                   920
+//
+ID   XXX; XXX; linear; unassigned RNA; XXX; XXX; 981 BP.
+XX
+AC   XXX; 
+XX
+AC * _TRINITY-DN10013-c0-g1-i1
+XX
+PR   Project:XXX;
+XX
+DT   06-Mar-2019 (Rel. 133, Created)
+XX
+DE   XXX
+XX
+KW   .
+XX
+OS   Symbiodinium sp. ccmp2430
+XX
+OC   cellular organisms; Eukaryota; Alveolata; Dinophyceae; Suessiales;
+OC   Symbiodiniaceae; Symbiodinium; unclassified Symbiodinium.
+XX
+RN   [1]
+RP   1-981
+RG   XXX
+RT   ;
+RL   Submitted (06-MAR-2019) to the INSDC.
+XX
+FH   Key             Location/Qualifiers
+FH
+FT   source          1..981
+FT                   /mol_type="unassigned RNA"
+FT                   /organism="Symbiodinium sp. ccmp2430"
+FT   gene            1..981
+FT                   /locus_tag="XXX_LOCUS2"
+FT                   /note="source:transdecoder"
+FT                   /note="ID:GENE.TRINITY-DN10013-c0-g1-i1~~TRINITY-DN10013-c0
+FT                   -g1-i1.p1"
+FT                   /standard_name="ORF type:internal len:328 (+),score=66.16"
+FT   mRNA            1..981
+FT                   /locus_tag="XXX_LOCUS2"
+FT                   /note="source:transdecoder"
+FT                   /note="ID:TRINITY-DN10013-c0-g1-i1.p1"
+FT                   /standard_name="ORF type:internal len:328 (+),score=66.16"
+FT   exon            1..981
+FT                   /locus_tag="XXX_LOCUS2"
+FT                   /note="source:transdecoder"
+FT                   /note="ID:TRINITY-DN10013-c0-g1-i1.p1.exon1"
+FT   CDS             <1..>981
+FT                   /locus_tag="XXX_LOCUS2"
+FT                   /codon_start=1
+FT                   /note="source:transdecoder"
+FT                   /note="ID:cds.TRINITY-DN10013-c0-g1-i1.p1"
+FT                   /translation="NGGLQLASASPPSLPRRALRALAAGALGARAQPGSAATWLPRPAS
+FT                   GAISGGVLPLTIGLGTCLVSEGDVTRQVSSALDTGYRVIDTAQRYGNEAGIGRALKEAF
+FT                   DKGLRRDEVFVTTKVWPTNYGFDKAIGSVQDSAKKLGLEAIDLVLPHWPGLSTSIEAAE
+FT                   SNFRLRRETWKALEQMKKDGLVKNIGVSNYNDRHLTELLDYADTLPMASQFEIHPFNTR
+FT                   EMLVQKCQKLGIRVNAYSPLGGKGNPNQVTDKLLSLQLLTDIGSAHGKTPAQTILRWHL
+FT                   QRGVTPIPKASSAKRLGENFDVFDFELSDQEMQEISGLDRRRFAVM"
+FT                   /transl_table=1
+XX
+SQ   Sequence 981 BP; 219 A; 278 C; 295 G; 189 T; 0 other;
+     AACGGAGGGT TGCAGCTGGC CTCCGCTTCC CCCCCGTCGC TGCCTCGGCG AGCACTGAGA        60
+     GCACTGGCGG CTGGCGCACT TGGGGCACGG GCCCAGCCGG GAAGCGCCGC GACGTGGCTC       120
+     CCGCGACCGG CGTCTGGAGC CATCTCTGGT GGGGTGCTGC CCCTGACCAT AGGACTTGGT       180
+     ACCTGCTTGG TCTCTGAGGG AGATGTGACC AGGCAGGTCT CCAGTGCTTT GGACACTGGC       240
+     TACCGCGTCA TCGACACAGC ACAGAGGTAT GGCAATGAAG CCGGCATCGG CCGGGCATTG       300
+     AAGGAAGCGT TTGACAAGGG CCTTCGTCGT GACGAGGTCT TCGTGACCAC CAAGGTGTGG       360
+     CCCACGAATT ACGGCTTCGA CAAGGCAATC GGCTCGGTGC AGGACTCGGC AAAGAAGCTC       420
+     GGCCTCGAGG CCATTGATCT GGTCTTACCG CATTGGCCTG GTCTCAGCAC CAGCATCGAG       480
+     GCTGCAGAGT CGAATTTCCG GCTCCGGCGA GAAACCTGGA AAGCCCTGGA GCAAATGAAG       540
+     AAGGATGGCC TTGTCAAGAA CATCGGTGTG TCCAACTACA ATGACCGACA TCTTACCGAG       600
+     CTTCTCGACT ATGCTGACAC CCTTCCGATG GCAAGCCAGT TCGAGATCCA TCCATTCAAC       660
+     ACGCGTGAGA TGCTGGTACA GAAATGCCAA AAGCTTGGCA TCAGGGTCAA CGCCTACTCA       720
+     CCGCTGGGAG GAAAAGGCAA CCCCAACCAG GTAACCGACA AGCTGCTTTC GCTACAACTT       780
+     CTGACAGACA TCGGTTCTGC ACATGGGAAG ACCCCGGCGC AGACGATTTT GCGGTGGCAC       840
+     CTGCAGCGAG GCGTGACGCC AATCCCAAAG GCCAGTTCTG CAAAGCGATT GGGTGAGAAT       900
+     TTCGACGTCT TCGACTTCGA GCTGAGCGAT CAAGAAATGC AGGAGATTTC AGGACTTGAT       960
+     CGACGGCGTT TTGCAGTGAT G                                                 981
+//
 ID   XXX; XXX; linear; unassigned RNA; XXX; XXX; 994 BP.
 XX
 AC   XXX; 
@@ -6,7 +164,7 @@ AC * _TRINITY-DN10052-c0-g1-i1
 XX
 PR   Project:XXX;
 XX
-DT   26-Feb-2019 (Rel. 133, Created)
+DT   06-Mar-2019 (Rel. 133, Created)
 XX
 DE   XXX
 XX
@@ -21,7 +179,7 @@ RN   [1]
 RP   1-994
 RG   XXX
 RT   ;
-RL   Submitted (26-FEB-2019) to the INSDC.
+RL   Submitted (06-MAR-2019) to the INSDC.
 XX
 FH   Key             Location/Qualifiers
 FH
@@ -29,26 +187,26 @@ FT   source          1..994
 FT                   /mol_type="unassigned RNA"
 FT                   /organism="Symbiodinium sp. ccmp2430"
 FT   gene            1..994
-FT                   /locus_tag="XXX_LOCUS1"
+FT                   /locus_tag="XXX_LOCUS3"
 FT                   /note="source:transdecoder"
 FT                   /note="ID:GENE.TRINITY-DN10052-c0-g1-i1~~TRINITY-DN10052-c0
 FT                   -g1-i1.p1"
 FT                   /standard_name="ORF type:complete len:221 (+),score=44.95"
 FT   mRNA            1..994
-FT                   /locus_tag="XXX_LOCUS1"
+FT                   /locus_tag="XXX_LOCUS3"
 FT                   /note="source:transdecoder"
 FT                   /note="ID:TRINITY-DN10052-c0-g1-i1.p1"
 FT                   /standard_name="ORF type:complete len:221 (+),score=44.95"
 FT   5'UTR           1..73
-FT                   /locus_tag="XXX_LOCUS1"
+FT                   /locus_tag="XXX_LOCUS3"
 FT                   /note="source:transdecoder"
 FT                   /note="ID:TRINITY-DN10052-c0-g1-i1.p1.utr5p1"
 FT   exon            1..994
-FT                   /locus_tag="XXX_LOCUS1"
+FT                   /locus_tag="XXX_LOCUS3"
 FT                   /note="source:transdecoder"
 FT                   /note="ID:TRINITY-DN10052-c0-g1-i1.p1.exon1"
 FT   CDS             74..736
-FT                   /locus_tag="XXX_LOCUS1"
+FT                   /locus_tag="XXX_LOCUS3"
 FT                   /codon_start=1
 FT                   /note="source:transdecoder"
 FT                   /note="ID:cds.TRINITY-DN10052-c0-g1-i1.p1"
@@ -58,7 +216,7 @@ FT                   MLRVRFAQVDCAVDKVLCNEQHVTTYPMVALYRGGIQIDLKGIAREQTVTALEQFLKTN
 FT                   VQRVARSEGAEASGQPLRASSSFLDPRNAGALLAECMRSPAGSSVVVGEPAVPTLLS"
 FT                   /transl_table=1
 FT   3'UTR           737..994
-FT                   /locus_tag="XXX_LOCUS1"
+FT                   /locus_tag="XXX_LOCUS3"
 FT                   /note="source:transdecoder"
 FT                   /note="ID:TRINITY-DN10052-c0-g1-i1.p1.utr3p1"
 XX
@@ -89,7 +247,7 @@ AC * _TRINITY-DN10395-c0-g1-i1
 XX
 PR   Project:XXX;
 XX
-DT   26-Feb-2019 (Rel. 133, Created)
+DT   06-Mar-2019 (Rel. 133, Created)
 XX
 DE   XXX
 XX
@@ -104,7 +262,7 @@ RN   [1]
 RP   1-1292
 RG   XXX
 RT   ;
-RL   Submitted (26-FEB-2019) to the INSDC.
+RL   Submitted (06-MAR-2019) to the INSDC.
 XX
 FH   Key             Location/Qualifiers
 FH
@@ -112,26 +270,26 @@ FT   source          1..1292
 FT                   /mol_type="unassigned RNA"
 FT                   /organism="Symbiodinium sp. ccmp2430"
 FT   gene            complement(1..1292)
-FT                   /locus_tag="XXX_LOCUS2"
+FT                   /locus_tag="XXX_LOCUS4"
 FT                   /note="source:transdecoder"
 FT                   /note="ID:GENE.TRINITY-DN10395-c0-g1-i1~~TRINITY-DN10395-c0
 FT                   -g1-i1.p1"
 FT                   /standard_name="ORF type:complete len:404 (-),score=102.88"
 FT   mRNA            complement(1..1292)
-FT                   /locus_tag="XXX_LOCUS2"
+FT                   /locus_tag="XXX_LOCUS4"
 FT                   /note="source:transdecoder"
 FT                   /note="ID:TRINITY-DN10395-c0-g1-i1.p1"
 FT                   /standard_name="ORF type:complete len:404 (-),score=102.88"
 FT   exon            complement(1..1292)
-FT                   /locus_tag="XXX_LOCUS2"
+FT                   /locus_tag="XXX_LOCUS4"
 FT                   /note="source:transdecoder"
 FT                   /note="ID:TRINITY-DN10395-c0-g1-i1.p1.exon1"
 FT   3'UTR           complement(1..28)
-FT                   /locus_tag="XXX_LOCUS2"
+FT                   /locus_tag="XXX_LOCUS4"
 FT                   /note="source:transdecoder"
 FT                   /note="ID:TRINITY-DN10395-c0-g1-i1.p1.utr3p1"
 FT   CDS             complement(29..1240)
-FT                   /locus_tag="XXX_LOCUS2"
+FT                   /locus_tag="XXX_LOCUS4"
 FT                   /codon_start=1
 FT                   /note="source:transdecoder"
 FT                   /note="ID:cds.TRINITY-DN10395-c0-g1-i1.p1"
@@ -145,7 +303,7 @@ FT                   GHIGFIVDNLQESCDNMEAQGVQFKKRPQEGKMRGLAFALDPNGYWVELVDRKASFAGI
 FT                   CSNY"
 FT                   /transl_table=1
 FT   5'UTR           complement(1241..1292)
-FT                   /locus_tag="XXX_LOCUS2"
+FT                   /locus_tag="XXX_LOCUS4"
 FT                   /note="source:transdecoder"
 FT                   /note="ID:TRINITY-DN10395-c0-g1-i1.p1.utr5p1"
 XX
@@ -175,13 +333,13 @@ SQ   Sequence 1292 BP; 269 A; 369 C; 317 G; 337 T; 0 other;
 //
 ID   XXX; XXX; linear; unassigned RNA; XXX; XXX; 549 BP.
 XX
-AC   XXX;
+AC   XXX; 
 XX
 AC * _TRINITY-DN27005-c0-g1-i1
 XX
 PR   Project:XXX;
 XX
-DT   04-Mar-2019 (Rel. 133, Created)
+DT   06-Mar-2019 (Rel. 133, Created)
 XX
 DE   XXX
 XX
@@ -196,7 +354,7 @@ RN   [1]
 RP   1-549
 RG   XXX
 RT   ;
-RL   Submitted (04-MAR-2019) to the INSDC.
+RL   Submitted (06-MAR-2019) to the INSDC.
 XX
 FH   Key             Location/Qualifiers
 FH
