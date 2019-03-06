@@ -18,7 +18,7 @@ import logging
 import os
 import sys
 
-from parser.interproscan_parser import InterProScanTSVResultParser
+from interproscan_parser import InterProScanTSVResultParser
 
 __author__ = "Maxim Scheremetjew"
 __version__ = "0.1"
@@ -31,38 +31,27 @@ def parse_accession(aline):
 
 class FlatfileDecorator:
 
-    def __init__(self, input_embl_flatfile,
-                 output_file, annotations: dict):
+    def __init__(self, input_embl_flatfile, output_file):
         self._input_embl_flatfile = input_embl_flatfile
         self._output_file = output_file
-        # https://www.ncbi.nlm.nih.gov/genbank/collab/db_xref/
-        self._annotations = annotations
 
-    def add_db_xrefs(self, database: str, identifier: str):
-        """
-            Adds a new DB cross reference entry to the records.
-
-            List of database:
-            https://www.ncbi.nlm.nih.gov/genbank/collab/db_xref/
-
-        :param database:
-        :param identifier:
-        :return:
-        """
-        pass
-
-    def lookup_seq_id(self, seq_id: str):
+    @staticmethod
+    def lookup_seq_id(seq_id: str, annotations: dict):
         # Add peptide extension
         identifier = f'{seq_id}.p1'
-        if identifier not in self._annotations:
+        if identifier not in annotations:
             identifier = f'{seq_id}.p2'
-            if identifier not in self._annotations:
+            if identifier not in annotations:
                 return None
-        return self._annotations.get(identifier)
+        return annotations.get(identifier)
 
-    def decorate(self):
+    def add_func_annotations(self, annotation_map: dict):
         """
-            This method call will perform the actual decoration.
+            This method call will perform the actual decoration with functional
+            annotations.
+
+            List of databases can be found here:
+            https://www.ncbi.nlm.nih.gov/genbank/collab/db_xref/
         :return:
         """
         infile = open(self._input_embl_flatfile, "r")
@@ -71,7 +60,7 @@ class FlatfileDecorator:
         while aline:
             if 'AC *' in aline:
                 acc = parse_accession(aline)
-                annotations = self.lookup_seq_id(acc)
+                annotations = self.lookup_seq_id(acc, annotation_map)
             if "transl_table" in aline:
                 index = aline.index('transl_table')
                 new_line_start = aline[0:index - 1]
@@ -137,11 +126,9 @@ def main(argv=None):
         # print(annotations.get_annotation_ids("Reactome"))
 
     # Step 2: Decorate flaffile with db_xrefs
-    flatfile_decorator = FlatfileDecorator(input_file,
-                                           output_file,
-                                           ipro_parser.annotations)
+    flatfile_decorator = FlatfileDecorator(input_file, output_file)
 
-    flatfile_decorator.decorate()
+    flatfile_decorator.add_func_annotations(ipro_parser.annotations)
 
 
 if __name__ == '__main__':
