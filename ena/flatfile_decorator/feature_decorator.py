@@ -18,7 +18,7 @@ import logging
 import os
 import sys
 
-from parser.parser import InterProScanTSVResultParser
+from parser.interproscan_parser import InterProScanTSVResultParser
 
 __author__ = "Maxim Scheremetjew"
 __version__ = "0.1"
