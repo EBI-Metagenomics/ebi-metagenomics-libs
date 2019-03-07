@@ -1,0 +1,19 @@
+TRINITY-DN10052-c0-g1-i1.p1	419add9942ed9663e7713e1224b9070b	220	CDD	cd02961	PDI_a_family	69	160	4.51767E-12	T	18-02-2019
+TRINITY-DN10052-c0-g1-i1.p1	419add9942ed9663e7713e1224b9070b	220	Pfam	PF00085	Thioredoxin	66	160	4.6E-8	T	18-02-2019	IPR013766	Thioredoxin domain	GO:0045454	
+TRINITY-DN10052-c0-g1-i1.p1	419add9942ed9663e7713e1224b9070b	220	SUPERFAMILY	SSF52833		44	163	8.82E-14	T	18-02-2019	IPR036249	Thioredoxin-like superfamily		
+TRINITY-DN10052-c0-g1-i1.p1	419add9942ed9663e7713e1224b9070b	220	Gene3D	G3DSA:3.40.30.10		27	177	3.2E-15	T	18-02-2019
+TRINITY-DN10395-c0-g1-i1.p1	d4794c9f3a4c14bb92c03e6b3a25b89b	403	SUPERFAMILY	SSF54593		232	392	2.82E-26	T	18-02-2019	IPR029068	Glyoxalase/Bleomycin resistance protein/Dihydroxybiphenyl dioxygenase
+TRINITY-DN10395-c0-g1-i1.p1	d4794c9f3a4c14bb92c03e6b3a25b89b	403	ProSiteProfiles	PS51819	Vicinal oxygen chelate (VOC) domain profile.	231	392	21.721	T	18-02-2019	IPR037523	Vicinal oxygen chelate (VOC) domain
+TRINITY-DN10395-c0-g1-i1.p1	d4794c9f3a4c14bb92c03e6b3a25b89b	403	Gene3D	G3DSA:3.10.180.10		49	222	3.8E-52	T	18-02-2019	IPR029068	Glyoxalase/Bleomycin resistance protein/Dihydroxybiphenyl dioxygenase
+TRINITY-DN10395-c0-g1-i1.p1	d4794c9f3a4c14bb92c03e6b3a25b89b	403	Coils	Coil		347	367	-	T	18-02-2019
+TRINITY-DN10395-c0-g1-i1.p1	d4794c9f3a4c14bb92c03e6b3a25b89b	403	Gene3D	G3DSA:3.10.180.10		223	396	4.5E-51	T	18-02-2019	IPR029068	Glyoxalase/Bleomycin resistance protein/Dihydroxybiphenyl dioxygenase
+TRINITY-DN10395-c0-g1-i1.p1	d4794c9f3a4c14bb92c03e6b3a25b89b	403	ProSiteProfiles	PS51819	Vicinal oxygen chelate (VOC) domain profile.	55	221	23.579	T	18-02-2019	IPR037523	Vicinal oxygen chelate (VOC) domain
+TRINITY-DN10395-c0-g1-i1.p1	d4794c9f3a4c14bb92c03e6b3a25b89b	403	SUPERFAMILY	SSF54593		53	220	3.49E-28	T	18-02-2019	IPR029068	Glyoxalase/Bleomycin resistance protein/Dihydroxybiphenyl dioxygenase
+TRINITY-DN10395-c0-g1-i1.p1	d4794c9f3a4c14bb92c03e6b3a25b89b	403	CDD	cd07233	GlxI_Zn	232	390	1.73837E-62	T	18-02-2019
+TRINITY-DN10395-c0-g1-i1.p1	d4794c9f3a4c14bb92c03e6b3a25b89b	403	ProSitePatterns	PS00934	Glyoxalase I signature 1.	58	79	-	T	18-02-2019	IPR018146	Glyoxalase I, conserved site	GO:0004462|GO:0046872	KEGG: 00620+4.4.1.5|MetaCyc: PWY-5386|Reactome: R-HSA-70268
+TRINITY-DN10395-c0-g1-i1.p1	d4794c9f3a4c14bb92c03e6b3a25b89b	403	Pfam	PF00903	Glyoxalase/Bleomycin resistance protein/Dioxygenase superfamily	57	218	1.7E-18	T	18-02-2019	IPR004360	Glyoxalase/fosfomycin resistance/dioxygenase domain
+TRINITY-DN10395-c0-g1-i1.p1	d4794c9f3a4c14bb92c03e6b3a25b89b	403	Pfam	PF00903	Glyoxalase/Bleomycin resistance protein/Dioxygenase superfamily	233	389	2.1E-14	T	18-02-2019	IPR004360	Glyoxalase/fosfomycin resistance/dioxygenase domain
+TRINITY-DN10395-c0-g1-i1.p1	d4794c9f3a4c14bb92c03e6b3a25b89b	403	TIGRFAM	TIGR00068	glyox_I: lactoylglutathione lyase	228	399	5.1E-39	T	18-02-2019	IPR004361	Glyoxalase I	GO:0004462|GO:0046872	KEGG: 00620+4.4.1.5|MetaCyc: PWY-5386|Reactome: R-HSA-70268
+TRINITY-DN10395-c0-g1-i1.p1	d4794c9f3a4c14bb92c03e6b3a25b89b	403	TIGRFAM	TIGR00068	glyox_I: lactoylglutathione lyase	54	223	6.1E-38	T	18-02-2019	IPR004361	Glyoxalase I	GO:0004462|GO:0046872	KEGG: 00620+4.4.1.5|MetaCyc: PWY-5386|Reactome: R-HSA-70268
+TRINITY-DN10395-c0-g1-i1.p1	d4794c9f3a4c14bb92c03e6b3a25b89b	403	ProSitePatterns	PS00934	Glyoxalase I signature 1.	234	255	-	T	18-02-2019	IPR018146	Glyoxalase I, conserved site	GO:0004462|GO:0046872	KEGG: 00620+4.4.1.5|MetaCyc: PWY-5386|Reactome: R-HSA-70268
+TRINITY-DN10395-c0-g1-i1.p1	d4794c9f3a4c14bb92c03e6b3a25b89b	403	CDD	cd07233	GlxI_Zn	56	219	1.3455E-64	T	18-02-2019
