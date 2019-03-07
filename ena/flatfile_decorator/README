@@ -5,6 +5,10 @@ Flat file example:
 https://www.ebi.ac.uk/ena/submit/flat-file
 https://www.ebi.ac.uk/ena/submit/entry-upload-templates#ITS
 
+Non coding RNA:
+https://www.ebi.ac.uk/ena/data/view/Non-coding:GQ497714.1:1..54690:ncRNA&display=text
+http://www.insdc.org/rna_vocab.html
+
 ---------------------------------------------
 How to install EMBLmyGFF3 using Conda?
 

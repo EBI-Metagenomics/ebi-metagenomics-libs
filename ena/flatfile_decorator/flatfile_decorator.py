@@ -120,15 +120,19 @@ def main(argv=None):
     ipro_parser.parse_file()
     for seq_id, annotations in ipro_parser.annotations.items():
         print(seq_id)
-        # print(annotations.get_annotation_ids("InterPro"))
-        # print(annotations.get_annotation_ids("GO"))
-        # print(annotations.get_annotation_ids("KEGG"))
-        # print(annotations.get_annotation_ids("Reactome"))
+
+    # Step 2: Parse cmsearch matches
+    ipro_parser = InterProScanTSVResultParser(annotation_file)
+    ipro_parser.parse_file()
+    for seq_id, annotations in ipro_parser.annotations.items():
+        print(seq_id)
 
     # Step 2: Decorate flaffile with db_xrefs
     flatfile_decorator = FlatfileDecorator(input_file, output_file)
 
     flatfile_decorator.add_func_annotations(ipro_parser.annotations)
+
+    flatfile_decorator.add_rna_annotations(ipro_parser.annotations)
 
 
 if __name__ == '__main__':
