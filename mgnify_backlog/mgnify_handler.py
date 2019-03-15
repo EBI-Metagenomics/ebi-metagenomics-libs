@@ -350,9 +350,9 @@ class MgnifyHandler:
                 Q(assemblyannotationjob__assembly__study__secondary_accession__in=study_accessions))
         if experiment_types and len(experiment_types):
             q_objects = Q()
-            no_assembly = list(filter(lambda exp: exp != 'ASSEMBLY', experiment_types))
-            if len(no_assembly):
-                q_objects |= Q(runannotationjob__run__library_strategy__in=experiment_types)
+            exclude_assembly = list(filter(lambda exp: exp != 'ASSEMBLY', experiment_types))
+            if len(exclude_assembly):
+                q_objects |= Q(runannotationjob__run__library_strategy__in=exclude_assembly)
 
             if 'ASSEMBLY' in experiment_types:
                 q_objects |= Q(assemblyannotationjob__isnull=False)
