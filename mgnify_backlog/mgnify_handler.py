@@ -157,8 +157,7 @@ class MgnifyHandler:
             return self.get_backlog_study(primary_accession, secondary_accession)
         except ObjectDoesNotExist:
             study = ena_handler.get_study(primary_accession=primary_accession,
-                                          secondary_accession=secondary_accession,
-                                          public=public)
+                                          secondary_accession=secondary_accession)
             return self.create_study_obj(study)
 
     def get_or_save_run(self, ena_handler, run_accession, study=None,
@@ -334,8 +333,9 @@ class MgnifyHandler:
 
     def get_annotation_job_status(self, description):
         return AnnotationJobStatus.objects.using(self.database).get(description=description)
-    
-    def get_annotation_jobs(self, run_or_assembly_accessions=None, study_accessions=None, status_description=None, priority=None,
+
+    def get_annotation_jobs(self, run_or_assembly_accessions=None, study_accessions=None, status_description=None,
+                            priority=None,
                             pipeline_version=None, experiment_types=None):
         jobs = AnnotationJob.objects.using(self.database)
         if run_or_assembly_accessions:
@@ -350,13 +350,14 @@ class MgnifyHandler:
                 Q(assemblyannotationjob__assembly__study__secondary_accession__in=study_accessions))
         if experiment_types and len(experiment_types):
             q_objects = Q()
-            for exp in experiment_types:
-                if exp == 'ASSEMBLY':
-                    q_objects |= Q(assemblyannotationjob__isnull=False)
-                else:
-                    q_objects |= Q(runannotationjob__run__library_strategy=exp)
+            no_assembly = list(filter(lambda exp: exp != 'ASSEMBLY', experiment_types))
+            if len(no_assembly):
+                q_objects |= Q(runannotationjob__run__library_strategy__in=experiment_types)
 
+            if 'ASSEMBLY' in experiment_types:
+                q_objects |= Q(assemblyannotationjob__isnull=False)
             jobs = jobs.filter(q_objects)
+
             if 'ASSEMBLY' in experiment_types:
                 jobs = jobs.distinct()
         if priority:
@@ -413,7 +414,6 @@ class MgnifyHandler:
         if set_public or set_private:
             self.update_annotation_jobs_privacy(jobs, set_public)
             logging.info('Updated Run and study privacy...')
-
 
 
 def sanitise_string(text):

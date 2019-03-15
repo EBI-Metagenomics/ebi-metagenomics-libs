@@ -1,0 +1,3017 @@
+"rfam_acc","description","clen"
+"RF02543","Eukaryotic large subunit ribosomal RNA",3401
+"RF02540","Archaeal large subunit ribosomal RNA",2990
+"RF02541","Bacterial large subunit ribosomal RNA",2925
+"RF02462","Ascomycota telomerase RNA",1859
+"RF01960","Eukaryotic small subunit ribosomal RNA",1851
+"RF00177","Bacterial small subunit ribosomal RNA",1533
+"RF01959","Archaeal small subunit ribosomal RNA",1477
+"RF02542","Microsporidia small subunit ribosomal RNA",1312
+"RF01050","Saccharomyces telomerase",1208
+"RF01272","Small nucleolar RNA snR86",1008
+"RF02746","antisense RNA of rseC mRNA",886
+"RF02088","Enterobacterial sRNA STnc510",807
+"RF01800","growth arrested DNA-damage inducible gene 7",754
+"RF03079","MISL RNA",747
+"RF01825","RNA of unknown function 21",690
+"RF02576","tsr1 small RNA",657
+"RF00943","microRNA MIR824",654
+"RF02627","Shigella small RNA 1",654
+"RF02611","Brucella sRNA 0653",642
+"RF01577","Plasmodium RNase_P",626
+"RF02636","Enterococcus sRNA EF1368_EF1369",626
+"RF02545","Trypanosomatid mitochondrial small subunit ribosomal RNA",623
+"RF00549","c-sis internal ribosome entry site (IRES)",621
+"RF01071","Ornate Large Extremophilic RNA",616
+"RF01271","Small nucleolar RNA snR30",612
+"RF02743","Saccharopolyspora sRNA 389",595
+"RF03087","ROOL RNA",580
+"RF02658","Rhopalosiphum padi virus 5'UTR internal ribosome entry site",579
+"RF00228","Hepatitis A virus internal ribosome entry site (IRES)",572
+"RF00488","Yeast U1 spliceosomal RNA",569
+"RF01270","Small nucleolar RNA snR84",568
+"RF02546","Trypanosomatid mitochondrial large subunit ribosomal RNA",561
+"RF01765","srg1",556
+"RF00551","Bicoid 3'-UTR regulatory element",547
+"RF01469","Listeria sRNA rli33",532
+"RF01491","Listeria sRNA rli54",528
+"RF00503","RNAIII",511
+"RF01683","Pseudomonas sRNA P6",510
+"RF01478","Listeria sRNA rli47",508
+"RF02735","Saccharopolyspora sRNA 350",508
+"RF00224","FGF-2 internal ribosome entry site (IRES)",498
+"RF01473","Listeria sRNA rli41",494
+"RF02738","Soft rot Enterobacteriaceae Rev 24 asRNA",489
+"RF02739","Soft rot Enterobacteriaceae Rev 41 sRNA",480
+"RF02639","Enterococcus sRNA EF0869_EF0870",474
+"RF02400","Heat shock protein 83 3' UTR",470
+"RF02267","Vax2os1 conserved region 2",466
+"RF01946","KCNQ1 overlapping transcript 1 conserved region 1",464
+"RF00210","Aphthovirus internal ribosome entry site (IRES)",462
+"RF01052","Arthropod 7SK RNA",445
+"RF02745","Soft rot Enterobacteriaceae Rev 42 5'UTR",443
+"RF01818","RNA Staph. aureus C",440
+"RF02032","Giant, ornate, lake- and Lactobacillales-derived (GOLLD) RNA",438
+"RF00024","Vertebrate telomerase RNA",436
+"RF02599","Brucella sRNA CI408",435
+"RF02583","S. aureus Teg23 small RNA",433
+"RF01460","Listeria sRNA rliH",429
+"RF01766","cspA thermoregulator",428
+"RF02742","Soft rot Enterobacteriaceae Rev 72 asRNA",426
+"RF01824","RNA of unknown function 20",425
+"RF01268","Small Cajal body-specific RNA 2",421
+"RF02736","Soft rot Enterobacteriaceae Rev 11 asRNA",417
+"RF02637","Enterococcus sRNA EF0408_EF0409",412
+"RF01894","Prostate cancer antigen RNA 3 conserved region 2",409
+"RF02664","Cyp24a1 internal ribosome entry site (IRES)",404
+"RF01675","Pseudomonas sRNA CrcZ",398
+"RF02417","VR-RNA",397
+"RF02943","Bacteroidales-2 RNA",392
+"RF02997","HOLDH RNA",391
+"RF02660","icaR 3'UTR",390
+"RF02575","Drosophila melanogaster stable intronic sequence RNA 1",389
+"RF02081","Enterobacterial sRNA STnc550",388
+"RF01267","Small nucleolar RNA snR37",385
+"RF02405","Pseudomonas sRNA P34",383
+"RF01877","Myocardial infarction associated transcript exon 5 conserved region 3",382
+"RF02041","HOXA transcript at the distal tip, conserved region 2",374
+"RF00222","Bag-1 internal ribosome entry site (IRES)",370
+"RF00636","ncRNA Repressor of NFAT (nuclear factor of activated T cells)",370
+"RF02635","Enterococcus sRNA EF0820_EF0821",370
+"RF00010","Bacterial RNase P class A",367
+"RF00011","Bacterial RNase P class B",366
+"RF01471","Listeria sRNA rliB",360
+"RF00018","CsrB/RsmB RNA family",356
+"RF00023","transfer-messenger RNA",354
+"RF02737","Soft rot Enterobacteriaceae Rev 13 asRNA",354
+"RF02042","HOXA transcript at the distal tip, conserved region 3",353
+"RF00547","TrkB IRES",352
+"RF02574","Rickettsia sRNA 10",352
+"RF02571","mcr7 sRNA",351
+"RF02988","GEBRO RNA",350
+"RF01265","Small nucleolar RNA snR42",349
+"RF01395","isrL Hfq binding RNA",345
+"RF02104","Deleted in lymphocytic leukemia 1 conserved region 2",344
+"RF02225","Proteobacterial sRNA sX6",342
+"RF02671","Yersinia sRNA 35",339
+"RF01849","Alphaproteobacteria transfer-messenger RNA",338
+"RF00036","HIV Rev response element",337
+"RF02741","Soft rot Enterobacteriaceae Rev 44 asRNA",336
+"RF03110","throat-1 RNA",334
+"RF00040","RNase E 5' UTR element",334
+"RF02080","Salmonella enterica sRNA STnc170",333
+"RF01850","Betaproteobacteria transfer-messenger RNA",331
+"RF00100","7SK RNA",330
+"RF01295","Small Cajal body-specific RNA 7",330
+"RF01296","Small nucleolar RNA U85",329
+"RF02763","IsrM sRNA",329
+"RF01494","Listeria sRNA rliD",327
+"RF02249","Six3os1 conserved region 4",326
+"RF02767","Yersinia sRNA 186/sR026/CsrC",325
+"RF02350","Nitrosomonas sRNA psRNA6",324
+"RF02243","Proteobacterial sRNA Xoo8",323
+"RF00226","n-myc internal ribosome entry site (IRES)",322
+"RF01512","A. fumigatus sRNA Afu_309",322
+"RF01857","Archaeal signal recognition particle RNA",318
+"RF02610","Brucella sRNA 0709",318
+"RF02800","Rickettsia sRNA47",316
+"RF01502","Fungal signal recognition particle RNA",314
+"RF02878","Mesorhizobail RNA 7",312
+"RF02567","Vibrio alginolyticus sRNA 907",311
+"RF02689","hilD 3'UTR",310
+"RF02852","Yersinia sRNA 206",310
+"RF02238","Xanthomonas sRNA asX4/Xoo4",309
+"RF00461","Vascular endothelial growth factor (VEGF) IRES A",308
+"RF01264","Small nucleolar RNA snR83",308
+"RF02654","MicL sRNA",308
+"RF01855","Plant signal recognition particle RNA",305
+"RF02566","Mycobacterium smegmatis small RNA 1",304
+"RF02777","OppA 5' UTR thermometer",304
+"RF00009","Nuclear RNase P",303
+"RF00373","Archaeal RNase P",303
+"RF00216","c-myc internal ribosome entry site (IRES)",302
+"RF02189","ST7 overlapping transcript 4 conserved region 3",302
+"RF00017","Metazoan signal recognition particle RNA",301
+"RF02744","Soft rot Enterobacteriaceae Rev 39 5'UTR",300
+"RF02707","TeloSII non coding RNA 33",297
+"RF00126","ryfA RNA",296
+"RF01756","rne-II RNA",296
+"RF02812","anti ponA RNA",295
+"RF02209","WT1 antisense RNA conserved region 7",294
+"RF01389","isrF Hfq binding RNA",292
+"RF02514","5' ureB small RNA",292
+"RF01417","Retroviral 3'UTR stability element",289
+"RF01851","Cyanobacteria transfer-messenger RNA",288
+"RF01822","RNA Staph. aureus A",287
+"RF01406","STnc500 Hfq binding RNA",285
+"RF01570","Dictyostelium signal recognition particle",283
+"RF01670","Pseudomonas sRNA P17",282
+"RF02769","Yersinia sRNA 202",282
+"RF02210","WT1 antisense RNA conserved region 8",281
+"RF02616","Streptococcus sRNA 8",281
+"RF01391","isrH Hfq binding RNA",280
+"RF00449","HIF-1 alpha IRES",279
+"RF00459","Mason-Pfizer monkey virus packaging signal",279
+"RF01390","isrG Hfq binding RNA",279
+"RF02377","SurA sRNA",278
+"RF00470","Togavirus 5' plus strand cis-regulatory element",277
+"RF01582","RNA of unknown function RUF4",277
+"RF02709","TeloSII non coding RNA 43",277
+"RF00064","HgcG RNA (Pab40)",276
+"RF01846","Fungal small nucleolar RNA U3",276
+"RF01953","SOX2 overlapping transcript exon 3",276
+"RF00231","Small Cajal body specific RNA 13",275
+"RF00885","microRNA MIR821",275
+"RF02687","RAGATH-8 RNA",275
+"RF02731","Aggregatibacter sRNA JA03",274
+"RF00209","Pestivirus internal ribosome entry site (IRES)",274
+"RF00193","Citrus tristeza virus replication signal",273
+"RF01263","Small nucleolar RNA snR191",273
+"RF02250","Six3os1 conserved region 5",272
+"RF02909","Listeria sRNA rli117",272
+"RF02858","Actinobacillus sRNA 08",270
+"RF02894","Staphylococcus sRNA 35 (srn_0335)",270
+"RF01261","Small nucleolar RNA snR82",270
+"RF01294","Small nucleolar RNA U89",270
+"RF00615","Listeria Hfq binding LhrA",269
+"RF01845","Early nodulin 40",269
+"RF01968","Rhabdomyosarcoma 2 associated transcript conserved region 7",268
+"RF01402","STnc150 Hfq binding RNA",267
+"RF02415","Listeria sRNA rliG",267
+"RF02649","Ruegeria trans44 sRNA",267
+"RF00030","RNase MRP",266
+"RF02880","Mesorhizobail RNA 15",266
+"RF00478","Small Cajal body specific RNA 6",265
+"RF01578","Plasmodium RNA of unkown function RUF1",264
+"RF02365","Cyanobacterial functional RNA 17",264
+"RF00223","bip internal ribosome entry site (IRES)",263
+"RF01472","Listeria sRNA rli40",263
+"RF02173","SMAD5 antisense RNA 1 conserved region 1",263
+"RF02942","Clostridiales-3 RNA",262
+"RF00447","Voltage-gated potassium-channel Kv1.4 IRES",260
+"RF01260","Small nucleolar RNA snR11",260
+"RF01412","BsrG",259
+"RF02816","Hepatitis B virus post-transcriptional regulatory element 1151-1410",259
+"RF02933","ARRPOF RNA",257
+"RF02825","Legionella RNA 17",256
+"RF02675","Yersinia sRNA 141",255
+"RF02897","Staphylococcus sRNA 808",255
+"RF00061","Hepatitis C virus internal ribosome entry site",255
+"RF00084","CsrC RNA family",255
+"RF00629","Pseudomonas sRNA P24",255
+"RF01259","Small nucleolar RNA snR63",255
+"RF01477","Listeria sRNA rli43",255
+"RF01854","Bacterial large signal recognition particle RNA",255
+"RF02849","Yersinia sRNA 197",254
+"RF02851","Yersinia sRNA 283",253
+"RF02757","Erse small RNA",252
+"RF00229","Picornavirus internal ribosome entry site (IRES)",252
+"RF00028","Group I catalytic intron",251
+"RF02749","Wolbachia sRNA mel02",251
+"RF02970","EGFOA-assoc-1 RNA",250
+"RF02160","Prostate androgen-regulated transcript 1 conserved region 2",249
+"RF00511","Kaposi's sarcoma-associated herpesvirus internal ribosome entry site",248
+"RF00563","Small nucleolar RNA SNORA53",248
+"RF02099","rivX sRNA",248
+"RF01493","Listeria sRNA rli37",247
+"RF02673","Streptomyces sRNA 4677",247
+"RF01258","Small nucleolar RNA snR10",245
+"RF02205","WT1 antisense RNA conserved region 3",245
+"RF00044","Bacteriophage pRNA",244
+"RF02558","Coxiella burnetii sRNA 2",243
+"RF02590","S. pyogenes small RNA 1186876",243
+"RF02143","Hydatidiform mole associated and imprinted conserved region 1",242
+"RF01856","Protozoan signal recognition particle RNA",241
+"RF02101","Highly up-regulated in liver cancer conserved region",241
+"RF02655","Brucella BSR0441 sRNA",240
+"RF01487","Listeria sRNA rliI",239
+"RF02442","Streptococcus sRNA SpF66",239
+"RF00567","Small nucleolar RNA SNORD17",238
+"RF02577","S. aureus tsr24 small RNA",238
+"RF01703","Dictyoglomi-1 RNA",236
+"RF01891","Taurine upregulated gene 1 conserved region 3",236
+"RF02695","Nitrogen regulated small RNA",236
+"RF02872","sRNA regulator of biofilms A",235
+"RF02149","MEST intronic transcript 1, antisense RNA conserved region 2",235
+"RF02515","AfaR small RNA",234
+"RF02648","Ruegeria cis90 sRNA",234
+"RF02140","HOXA11 antisense RNA 1 conserved region 4",233
+"RF00534","SgrS RNA",232
+"RF02862","Enterococcus sRNA 1300",231
+"RF01951","SOX2 overlapping transcript exon 1",230
+"RF02134","HTT antisense RNA 1 conserved region 1",230
+"RF02423","Burkholderia sRNA Bp1_Cand871_SIPHT",230
+"RF02602","Brucella sRNA CI414",229
+"RF02005","Group II catalytic intron D1-D4-6",228
+"RF02762","C1_109596F  5' UTR thermometer",227
+"RF02706","TeloSII non coding RNA 30",226
+"RF01950","KCNQ1 overlapping transcript 1 conserved region 5",226
+"RF02360","Cyanobacterial functional RNA 8/9",226
+"RF00230","T-box leader",224
+"RF01464","Listeria sRNA rliA",224
+"RF02691","Burkholderia sRNA 19",224
+"RF01257","Small nucleolar RNA snR31",223
+"RF02050","Salmonella enterica sRNA STnc470",223
+"RF00117","C0719 RNA",222
+"RF01446","small nucleolar RNA snR95",222
+"RF01459","Listeria sRNA rliE",222
+"RF02532","Murine norovirus 3'UTR",222
+"RF02842","Enterococcus sRNA A1",222
+"RF03077","RT-2 RNA",222
+"RF00261","L-myc internal ribosome entry site (IRES)",221
+"RF00893","microRNA MIR854",221
+"RF01847","Plant small nucleolar RNA U3",221
+"RF01476","Listeria sRNA rliF",220
+"RF01848","ACEA small nucleolar RNA U3",220
+"RF01976","HOX antisense intergenic RNA myeloid 1 conserved region 2",220
+"RF00045","Small nucleolar RNA SNORA73 family",219
+"RF00012","Small nucleolar RNA U3",218
+"RF01758","sucA-II RNA",218
+"RF02159","Prostate androgen-regulated transcript 1 conserved region 1",218
+"RF00448","Epstein-Barr virus nuclear antigen (EBNA) IRES",217
+"RF02079","Enterobacterial sRNA STnc180",217
+"RF02247","Six3os1 conserved region 2",217
+"RF00495","Heat shock protein 70 (Hsp70) internal ribosome entry site (IRES)",216
+"RF03065","IS605-orfB-I RNA",216
+"RF01681","Pseudomonas sRNA P4",215
+"RF02112","DLG2 antisense RNA 1 conserved region 1",215
+"RF02113","DLG2 antisense RNA 1 conserved region 2",215
+"RF02452","Bacillus sRNA ncr1575",215
+"RF00552","rncO",214
+"RF01407","STnc560 Hfq binding RNA",214
+"RF02604","Brucella sRNA CI153",214
+"RF01673","PhrS",213
+"RF02560","Coxiella burnetii sRNA 9",213
+"RF02650","Cag non-coding RNA1",213
+"RF02857","Leptospira sRNA 30_255",213
+"RF03090","lysM-Actino RNA",213
+"RF02886","Mycobacterium sRNA 6715",212
+"RF03108","Methylosinus-1 RNA",212
+"RF00083","GlmZ RNA activator of glmS mRNA",212
+"RF00524","R2 RNA element",212
+"RF01447","small nucleolar RNA snR98",212
+"RF01262","Small nucleolar RNA snR44",211
+"RF01450","small nucleolar RNA snR96",211
+"RF01715","Pedo-repair RNA",211
+"RF02190","ST7 overlapping transcript 4 conserved region 4",211
+"RF03072","raiA RNA",211
+"RF02919","ilvB-OMG RNA",210
+"RF01445","small nucleolar RNA snR94",210
+"RF02376","SR1 sRNA",210
+"RF00125","IS128 RNA",209
+"RF01440","small nucleolar RNA snR42",208
+"RF02122","FTX transcript, XIST regulator conserved region 5",208
+"RF02357","RNaseP truncated form",208
+"RF02422","Burkholderia sRNA Bp1_Cand738_SIPHT",208
+"RF02830","Streptomyces RNA 1601",208
+"RF02867","Burkholderia sRNA 11",207
+"RF01256","Small nucleolar RNA snR43",207
+"RF01589","small nucleolar RNA snoR11",207
+"RF01888","Embryonic ventral forebrain RNA 1 conserved region 2",207
+"RF02384","FasX small RNA",207
+"RF00124","IS102 RNA",206
+"RF01254","Small nucleolar RNA snR34",206
+"RF02076","Gammaproteobacterial sRNA STnc100",206
+"RF02760","sR035 sRNA",206
+"RF02690","Burkholderia sRNA 1",205
+"RF02815","Lig 5' UTR thermometer",205
+"RF01928","Maternal intergenic circadian oscillating RNA 1",205
+"RF02091","DAOA antisense RNA 1 conserved region 2",205
+"RF02102","Disrupted in schizophrenia 2 conserved region",205
+"RF02212","ZFAT antisense RNA 1 conserved region 2",205
+"RF02368","Cyanobacterial functional RNA 21",205
+"RF02456","Dianthovirus RNA2 3'UTR stem loops",205
+"RF00487","Connexin-43 internal ribosome entry site (IRES)",204
+"RF01255","Small nucleolar RNA snR35",204
+"RF01702","Cyano-2 RNA",204
+"RF00457","Mnt IRES",203
+"RF01967","Rhabdomyosarcoma 2 associated transcript conserved region 6",203
+"RF02141","HOXA11 antisense RNA 1 conserved region 5",203
+"RF02881","Mesorhizobail RNA 25",203
+"RF01992","Viral integration site 1",202
+"RF02082","Enterobacterial sRNA STnc540",202
+"RF00090","Small nucleolar RNA SNORA74",201
+"RF00458","Cripavirus internal ribosome entry site (IRES)",201
+"RF01397","isrO Hfq binding RNA",201
+"RF02090","DAOA antisense RNA 1 conserved region 1",201
+"RF02187","ST7 overlapping transcript 4 conserved region 1",201
+"RF02349","Proteobacterial sRNA psRNA2",201
+"RF02355","Bradyrhizobiaceae sRNA BjrC174",201
+"RF02004","Group II catalytic intron D1-D4-5",200
+"RF02251","Six3os1 conserved region 6",200
+"RF02409","Small nucleolar RNA snoR125",200
+"RF02608","Acinetobacter sRNA 11",200
+"RF02911","Baculoviridae Nucleocapsid Assembly essential Element",200
+"RF01807","GIR1 branching ribozyme",199
+"RF02272","Vax2os1 conserved region 3",199
+"RF00022","GcvB RNA",198
+"RF00441","Small nucleolar RNA Z242",198
+"RF01249","Small nucleolar RNA snR190",198
+"RF02111","IS009",198
+"RF02215","ZNFX1 antisense RNA 1 conserved region 1",198
+"RF02563","Coxiella burnetii sRNA 3",198
+"RF01253","Small nucleolar RNA snR46",197
+"RF00638","microRNA MIR159",196
+"RF01252","Small nucleolar RNA snR5",196
+"RF01496","A. fumigatus sRNA Afu_182",196
+"RF01700","Collinsella-1 RNA",196
+"RF01947","KCNQ1 overlapping transcript 1 conserved region 2",196
+"RF02559","Coxiella burnetii sRNA 4",196
+"RF02614","Brucella sRNA 1073",196
+"RF02696","Teg49 sRNA",196
+"RF02723","Small nucleolar RNA ZL1",196
+"RF02863","Enterococcus sRNA 2410",196
+"RF03037","PAGEV RNA",196
+"RF02850","Yersinia sRNA 276",195
+"RF01752","psaA RNA",195
+"RF00628","RgsA sRNA",194
+"RF01808","MicX Vibrio cholerae sRNA",194
+"RF02252","Six3os1 conserved region 7",194
+"RF02855","Yersinia sRNA 251",194
+"RF02778","FdoG-1 5' UTR thermometer",193
+"RF03018","RT-15 RNA",193
+"RF00004","U2 spliceosomal RNA",193
+"RF01250","Small nucleolar RNA snR189",193
+"RF01251","Small nucleolar RNA snR3",193
+"RF01970","Rhabdomyosarcoma 2 associated transcript conserved region 9",193
+"RF01674","Pseudomonas sRNA P27",192
+"RF02392","Staphylococcus sRNA sau-53",192
+"RF02503","Rhizobiales sRNA Atu_C9",192
+"RF00174","Cobalamin riboswitch",191
+"RF00621","Beta-globin co-transcriptional cleavage ribozyme",191
+"RF01247","Small nucleolar RNA snR32",191
+"RF01788","drz-agam-2-2 ribozyme",191
+"RF02034","IMES-1 RNA motif",191
+"RF02375","Aar sRNA",191
+"RF02414","Listeria sRNA rli60",191
+"RF02601","Brucella sRNA CI337",191
+"RF03028","RT-7 RNA",191
+"RF02792","Archaeal Small RNA 162",190
+"RF00882","microRNA MIR811",190
+"RF01745","manA RNA",190
+"RF02103","Deleted in lymphocytic leukemia 1 conserved region 1",190
+"RF02603","Brucella sRNA CII26",190
+"RF01819","RNA Staph. aureus D",189
+"RF02562","Coxiella burnetii sRNA 14",189
+"RF00013","6S / SsrS RNA",188
+"RF01246","Small nucleolar RNA snR81",188
+"RF01462","Listeria sRNA rli26",188
+"RF00424","Small Cajal body specific RNA 16",187
+"RF01244","Small nucleolar RNA snR4",187
+"RF01245","Small nucleolar RNA snR9",187
+"RF01419","Antisense RNA which regulates isiA expression",187
+"RF01449","small nucleolar RNA snR100",187
+"RF01580","Plasmodium RNA of unkown function RU6-F3",187
+"RF02138","HOXA11 antisense RNA 1 conserved region 2",187
+"RF02259","Vax2os1 conserved region 1",187
+"RF02657","Sense overlapping transcript RNA 2652 (sot)",187
+"RF01492","Listeria sRNA rli28",186
+"RF02196","TP53 target 1 conserved region 2",186
+"RF02861","Neisseria sRNA 84",186
+"RF02876","Antisense to pHK01_099",185
+"RF01452","small nucleolar RNA snR99",185
+"RF00319","Small nucleolar RNA SNORA23",184
+"RF00337","Small nucleolar RNA Z112",184
+"RF01248","Small nucleolar RNA snR8",184
+"RF02200","TTC28 antisense RNA 1 conserved region 3",184
+"RF02471","Actinobacteria sRNA Ms_IGR-5",184
+"RF00168","Lysine riboswitch",183
+"RF01243","Small nucleolar RNA snR33",183
+"RF02783","IscS-1 ICR thermometer",183
+"RF00252","Alfalfa mosaic virus coat protein binding (CPB) RNA",182
+"RF02237","Xanthomonas sRNA asX3",182
+"RF00883","microRNA MIR820",181
+"RF01484","Listeria sRNA rli59",181
+"RF02578","S. aureus tsr25 small RNA",181
+"RF02986","FuFi-1 RNA",181
+"RF02799","Chromosome-encoded Shigella sRNA B",180
+"RF02901","Aggregatibacter sRNA 41",180
+"RF00623","Pseudomonas sRNA P1",180
+"RF01240","Small nucleolar RNA snR85",180
+"RF01242","Small nucleolar RNA snR36",180
+"RF01266","Small nucleolar RNA snR45",180
+"RF01887","Embryonic ventral forebrain RNA 1 conserved region 1",180
+"RF01892","Taurine upregulated gene 1 conserved region 4",180
+"RF02271","TUC338",180
+"RF02606","Acinetobacter sRNA 28",180
+"RF01241","Small nucleolar RNA SNORA81",179
+"RF01693","Bacteroidales-1 RNA",179
+"RF02142","HOXA11 antisense RNA 1 conserved region 6",179
+"RF02258","Adaptive response 33 conserved region 4",179
+"RF02638","Enterococcus sRNA EF0605_EF0606",179
+"RF02647","Ruegeria cis52 sRNA",179
+"RF02694","RalR antitoxin",179
+"RF03069","malK-I RNA",179
+"RF00025","Ciliate telomerase RNA",178
+"RF02164","Pvt1 oncogene conserved region 1",178
+"RF02668","Drosophila small cajal body-specific RNA PsiU2-55",178
+"RF00082","SraG RNA",177
+"RF02078","Salmonella enterica sRNA STnc210",177
+"RF00886","microRNA MIR807",176
+"RF01269","Small nucleolar RNA snR80",176
+"RF02073","Salmonella enterica sRNA STnc260",176
+"RF02156","NPPA antisense RNA 1 conserved region 1",176
+"RF02612","Brucella sRNA 1350",176
+"RF02640","S. pyogenes small RNA MOSES4",176
+"RF00080","yybP-ykoY manganese riboswitch",175
+"RF02135","HTT antisense RNA 1 conserved region 2",175
+"RF02895","Staphylococcus sRNA 414",175
+"RF01889","LincRNA-p21 conserved region 1",174
+"RF02424","Burkholderia sRNA Bp2_Cand287_SIPHT",174
+"RF02504","Rhizobiales sRNA Atu_L1",174
+"RF02656","Sense overlapping transcript RNA 0042 (sot)",174
+"RF02659","ncRv12659 sRNA",174
+"RF01481","Listeria sRNA rli53",173
+"RF01528","caulobacter sRNA CC3513",173
+"RF02165","Pvt1 oncogene conserved region 2",173
+"RF02167","Pvt1 oncogene conserved region 4",173
+"RF02176","SMAD5 antisense RNA 1 conserved region 4",173
+"RF02712","Epstein-Barr virus EBER2",173
+"RF02859","Actinobacillus sRNA 11",173
+"RF01005","microRNA MIR530",172
+"RF01438","small nucleolar RNA snR35",172
+"RF02188","ST7 overlapping transcript 4 conserved region 2",172
+"RF02593","Nitrogen stress-induced RNA 8",172
+"RF00234","glmS glucosamine-6-phosphate activated ribozyme",171
+"RF01474","Listeia sRNA rli42",171
+"RF02001","Group II catalytic intron D1-D4-3",171
+"RF02116","FAS antisense RNA 1 conserved region",171
+"RF02836","Burkholderia RNA 14",171
+"RF02936","Chloroflexus-1 RNA",171
+"RF01239","Small nucleolar RNA snR49",170
+"RF01911","microRNA MIR2118",170
+"RF00077","SraB RNA",169
+"RF00259","Interferon gamma 5' UTR regulatory element",169
+"RF00380","ykoK leader",169
+"RF01432","small nucleolar RNA snoR143",169
+"RF02374","Yersinia YenS sRNA",169
+"RF02609","Brucella sRNA 0602",169
+"RF02819","Vibrio RNA AS7",169
+"RF02870","Burkholderia sRNA 35",168
+"RF00058","HgcF RNA (Pab35)",168
+"RF00232","Spi-1 (PU.1) 5' UTR regulatory element",168
+"RF00387","FGF-1 internal ribosome entry site (IRES)",168
+"RF01441","small nulceolar RNA snR46",168
+"RF01731","TwoAYGGAY RNA",168
+"RF01434","small nucleolar RNA snR3",167
+"RF01437","small nucleolar RNA snR10",167
+"RF02223","Proteobacterial sRNA sX4",167
+"RF02457","Tombusvirus 3' cap-independent translation element",167
+"RF02600","Brucella sRNA CI27",167
+"RF02848","Enterococcus sRNA B11",167
+"RF02860","Actinobacillus sRNA 14",167
+"RF03053","OTKONC RNA",166
+"RF03098","RAGATH-22 RNA",166
+"RF00003","U1 spliceosomal RNA",166
+"RF00171","Tombusvirus 5' UTR",166
+"RF00553","Small Cajal body specific RNA 1",166
+"RF01699","Clostridiales-1 RNA",166
+"RF01789","Epstein-Barr virus EBER1",166
+"RF02043","HOXA transcript at the distal tip, conserved region 4",166
+"RF02052","Enterobacterial sRNA STnc630",166
+"RF02527","Streptococcus sRNA SSRC38",166
+"RF01043","microRNA MIR1023",165
+"RF01237","Small nucleolar RNA snR161",165
+"RF01238","Small nucleolar RNA snR70",165
+"RF01879","Non-coding RNA LOC285194",165
+"RF02178","Smith-Magenis syndrome chromosome region, candidate 2 conserved region 2",165
+"RF02864","Enterococcus sRNA 30",165
+"RF02956","DUF2693 RNA",165
+"RF03046","Pseudomonadales-1 RNA",164
+"RF01439","small nucleolar RNA snR36",164
+"RF02607","Acinetobacter sRNA 25",164
+"RF00128","Glm Y RNA activator of glmS mRNA",163
+"RF00369","sroC RNA",163
+"RF01488","Listeria sRNA rli49",163
+"RF01610","Caenorhabditis snoRNA ceN104",163
+"RF01399","isrQ Hfq binding RNA",162
+"RF01743","leu/phe leader RNA from Lactococcus",162
+"RF02053","Enterobacterial sRNA STnc430",162
+"RF02198","TTC28 antisense RNA 1 conserved region 1",162
+"RF02354","Bradyrhizobiaceae sRNA BjrC80",162
+"RF02678","Hatchet ribozyme",162
+"RF02708","TeloSII non coding RNA 40",162
+"RF03019","RT-16 RNA",162
+"RF02837","Burkholderia RNA 7 (anti-hemB)",161
+"RF00372","sroH RNA",161
+"RF02197","TP73 antisense RNA 1 conserved region",161
+"RF02378","SurC sRNA",161
+"RF02524","Streptococcus sRNA sagA",161
+"RF01416","NrrF RNA",160
+"RF01584","small nucleolar RNA snoR03",160
+"RF01601","small nucleolar RNA snoR26",160
+"RF02072","Salmonella enterica sRNA STnc590",160
+"RF02404","Pseudomonas sRNA P33",160
+"RF02613","Brucella sRNA 0739",160
+"RF00102","VA RNA",159
+"RF00389","Bamboo mosaic virus satellite RNA cis-regulatory element",159
+"RF01619","C. elegans sRNA ceN115",159
+"RF01957","Nuclear enriched abundant transcript 1 conserved region 3",159
+"RF02070","Salmonella enterica sRNA STnc300",159
+"RF02177","Smith-Magenis syndrome chromosome region, candidate 2 conserved region 1",159
+"RF02234","Xanthomonadaceae sRNA sX15",159
+"RF02665","Drosophila small cajal body-specific RNA PsiU1-6",159
+"RF01442","small nucleolar RNA snR90",158
+"RF01461","Listeria sRNA rli22",158
+"RF01504","A. fumigatus sRNA Afu_254",158
+"RF01794","sok antitoxin (CssrC)",158
+"RF02047","Sphinx conserved region 2",158
+"RF02060","Enterobacterial sRNA STnc410",158
+"RF02605","Streptomyces sRNA scr5239",158
+"RF02960","DUF2800 RNA",158
+"RF02884","Burkholderia sRNA 7",157
+"RF02501","Rhizobiales sRNA Atu_C7",157
+"RF00091","Small nucleolar RNA SNORA62/SNORA6 family",156
+"RF00540","Small nucleolar RNA psi18S-1854",156
+"RF01581","Plasmodium RNA of unknown function RUF6-5",156
+"RF02194","Bacterial antisense RNA HPnc0260",156
+"RF02199","TTC28 antisense RNA 1 conserved region 2",156
+"RF02390","Staphylococcus sRNA sau-41",156
+"RF02498","Rhizobiales sRNA Atu_C3",156
+"RF00007","U12 minor spliceosomal RNA",155
+"RF01637","Nematode snoRNA ceN47",155
+"RF01757","sbcD RNA",155
+"RF00002","5.8S ribosomal RNA",154
+"RF01579","Plasmodium RNA of unknown function RUF2",154
+"RF01971","Rhabdomyosarcoma 2 associated transcript conserved region 10",154
+"RF01983","Pregnancy induced noncoding RNA",154
+"RF02411","Small nucleolar RNA snoR138",154
+"RF02774","KatA 5' UTR thermometer",154
+"RF02834","Vibrio RNA VqmR",154
+"RF02998","IS605-orfB-II RNA",154
+"RF02729","Aggregatibacter sRNA JA01",153
+"RF00518","speF leader",153
+"RF00620","Hepatitis C alternative reading frame stem-loop",153
+"RF02195","TP53 target 1 conserved region 1",153
+"RF02645","Ruegeria cis2 sRNA",153
+"RF00306","Small nucleolar RNA Z178",152
+"RF00433","Hsp90 cis-regulatory element",152
+"RF01728","STAXI RNA",152
+"RF01884","Non-coding RNA BC040587",152
+"RF02311","Tetrahymena snoRNA TtnuHACA3",152
+"RF02410","Small nucleolar RNA snoR136",152
+"RF02868","Burkholderia sRNA 37",152
+"RF02973","Enterococcus-1 RNA",152
+"RF03089","cold-seep-1 RNA",152
+"RF02672","Small pathogenicity island RNA X",151
+"RF02686","RAGATH-6 RNA",151
+"RF02951","DABA-DC-AT RNA",151
+"RF00225","Tobamovirus internal ribosome entry site (IRES)",151
+"RF00920","microRNA MIR444",151
+"RF01293","Small nucleolar RNA ACA59",151
+"RF02525","Streptococcus sRNA SSRC30",151
+"RF02581","S. aureus tsr32 small RNA",151
+"RF02625","Wolbachia sRNA 46",151
+"RF00444","PrrF RNA",150
+"RF00550","Hepatitis E virus cis-reactive element",150
+"RF01087","Pseudoknot of the regulatory region of the repZ gene",150
+"RF01470","Listeria sRNA rli38",150
+"RF01909","CDKN2B antisense RNA 1 intronic convserved region",150
+"RF02062","Salmonella enterica sRNA STnc361",150
+"RF02157","NPPA antisense RNA 1 conserved region 2",150
+"RF02482","Small nucleolar RNA GlsR19",150
+"RF02485","Small nucleolar RNA GlsR22",150
+"RF02529","Streptococcus sRNA SSRC8",150
+"RF02890","Small pathogenicity island RNA C (srn_3610)",150
+"RF02995","IMES-5 RNA",150
+"RF03045","proV RNA",149
+"RF00484","Connexin-32 internal ribosome entry site (IRES)",149
+"RF01292","Small nucleolar RNA snoR2/U65",149
+"RF01430","small nucleolar RNA snoR134",149
+"RF01479","Listeria sRNA rli48",149
+"RF01482","AdoCbl riboswitch",149
+"RF01500","A. fumigatus snoRNA Afu_198",149
+"RF01508","Barley yellow dwarf virus 5'UTR",149
+"RF01754","radC RNA",149
+"RF02036","IMES-3 RNA motif",149
+"RF02069","Enterobacterial sRNA STnc70",149
+"RF02343","Alphaproteobacterial sRNA ar9",149
+"RF02486","Small nucleolar RNA GlsR23",149
+"RF00191","Small nucleolar RNA SNORA57",148
+"RF00512","Leucine operon leader",148
+"RF00586","Small nucleolar RNA SNORA12",148
+"RF01398","isrP Hfq binding RNA",148
+"RF01451","small nucleolar RNA snR97",148
+"RF01775","RNA S.aureus Orsay G",148
+"RF02012","Group II catalytic intron D1-D4-7",148
+"RF02347","Alphaproteobacterial sRNA ar45",148
+"RF02561","Coxiella burnetii sRNA 12",148
+"RF02632","Hfq-regulated sRNA 10",148
+"RF03068","RT-3 RNA",148
+"RF03106","RT-11 RNA",147
+"RF00113","Short Intergenic Abundant RNA",147
+"RF00336","Small nucleolar RNA J26",147
+"RF01468","Listeria sRNA rli32",147
+"RF01495","Human acetyl-coA cholesterol acyltransferase mRNA",147
+"RF01568","Dictyostelium snoRNA DdR18",147
+"RF02121","FTX transcript, XIST regulator conserved region 3",147
+"RF02370","Bacillus tryptophan operon leader",147
+"RF02413","Small nucleolar RNA snoR145",147
+"RF02481","Small nucleolar RNA GlsR18",147
+"RF02487","Small nucleolar RNA GlsR24",147
+"RF01433","small nucleolar RNA snoR137",146
+"RF01669","Pseudomonas sRNA P14",146
+"RF01875","Myocardial infarction associated transcript exon 5 conserved region 1",146
+"RF02049","Salmonella enterica sRNA STnc460",146
+"RF02342","Alphaproteobacterial sRNA ar7",146
+"RF02488","Small nucleolar RNA GlsR25",146
+"RF00067","Small nucleolar RNA SNORD15",145
+"RF00101","SraC/RyeA RNA",145
+"RF00545","Small nucleolar RNA psi18S-841/snoR66",145
+"RF00926","microRNA MIR1151",145
+"RF01436","small nucleolar RNA snR33",145
+"RF01606","small nucleolar RNA snoR31",145
+"RF01864","small nucleolar RNA snoR21",145
+"RF01882","Taurine upregulated gene 1 conserved region 1",145
+"RF01979","HOX antisense intergenic RNA myeloid 1 conserved region 5",145
+"RF02339","Giardia snoRNA GlsR17/miRNA miR2",145
+"RF02714","Small nucleolar RNA psi28S-3378",145
+"RF02921","RT-14 RNA",144
+"RF00492","small Cajal body-specific RNA 17",144
+"RF01236","Small nucleolar RNA U19",144
+"RF01443","small nucleolar RNA snR91",144
+"RF01444","small nucleolar RNA snR92",144
+"RF01815","rpsB sRNA",144
+"RF02045","CDKN2B antisense RNA 1 convserved region 3",144
+"RF02148","MEST intronic transcript 1, antisense RNA conserved region 1",144
+"RF02346","Alphaproteobacterial sRNA ar35",144
+"RF02363","Cyanobacterial functional RNA 11",144
+"RF02412","Small nucleolar RNA snoR144",144
+"RF02652","Salmonella enterica Typhi npcRNA 3",144
+"RF02653","Salmonella enterica Typhi npcRNA 143",144
+"RF02662","Bacillus asRNA 0872",144
+"RF00272","Small nucleolar RNA SNORA67",143
+"RF00541","Small nucleolar RNA psi28S-2876",143
+"RF00544","Small nucleolar RNA psi28S-3327",143
+"RF00600","Small nucleolar RNA SNORA79",143
+"RF01396","isrN Hfq binding RNA",143
+"RF01431","small nucleolar RNA snoR135",143
+"RF01435","small nucleolar RNA snR5",143
+"RF01448","small nucleolar RNA snR93",143
+"RF01602","small nucleolar RNA snoR27",143
+"RF01732","MarS sRNA",143
+"RF01736","flg-Rhizobiales RNA",143
+"RF01969","Rhabdomyosarcoma 2 associated transcript conserved region 8",143
+"RF02453","Bacillus sRNA ncr952",143
+"RF02642","S. pyogenes small RNA Spy491311c",143
+"RF02693","psm_mec locus RNA",143
+"RF02879","Mesorhizobail RNA 10",143
+"RF02669","Drosophila small cajal body-specific RNA PsiU6-40",142
+"RF00925","microRNA MIR1027",142
+"RF01291","Small nucleolar RNA SNORD97",142
+"RF01408","sraL Hfq binding RNA",142
+"RF01608","Caenorhabditis snoRNA ceN80",142
+"RF01718","Polynucleobacter-1 RNA",142
+"RF01778","Embryonic ventral forebrain-2 long ncRNA",142
+"RF01828","Small pathogenicity island RNA D",142
+"RF01865","Manganese dependent ribozyme in Vg1 mRNA",142
+"RF02535","ODC internal ribosome entry site (IRES)",142
+"RF00394","Small nucleolar RNA SNORA4",141
+"RF00565","Small Cajal body specific RNA 3",141
+"RF01640","Caenorhabditis snoRNA ceN51",141
+"RF02035","IMES-2 RNA motif",141
+"RF02123","FTX transcript, XIST regulator conserved region 4",141
+"RF02318","Tetrahymena snoRNA TtnuHACA11a",141
+"RF02634","Enterococcus sRNA EF3314_EF3315",141
+"RF03041","poplar-1 RNA",141
+"RF03083","cow-rumen-3 RNA",141
+"RF03096","RAGATH-19 RNA",141
+"RF02768","Yersinia sRNA 155(RyfD)",140
+"RF03005","lysM-TM7 RNA",140
+"RF00015","U4 spliceosomal RNA",140
+"RF00050","FMN riboswitch (RFN element)",140
+"RF00290","Bamboo mosaic potexvirus (BaMV) cis-regulatory element",140
+"RF00291","Small nucleolar RNA snoR639/H1",140
+"RF00409","Small nucleolar RNA SNORA7",140
+"RF00429","Small nucleolar RNA SNORA29",140
+"RF00482","Small nucleolar RNA F1/F2/snoR5a",140
+"RF00543","Small nucleolar RNA psi18S-1377",140
+"RF00564","Small Cajal body specific RNA 11",140
+"RF00602","Small Cajal body specific RNA 21",140
+"RF00782","microRNA MIR480",140
+"RF01456","Vibrio regulatory RNA of OmpA",140
+"RF01612","Nematode snoRNA ceN105",140
+"RF01660","Nematode snoRNA ceN88",140
+"RF02154","Non-protein coding RNA, upstream of F2R/PAR1 conserved region 1",140
+"RF02257","Adaptive response 33 conserved region 3",140
+"RF02356","Alphaproteobacterial sRNA BjrC1505",140
+"RF02431","Streptococcus sRNA SpF22",140
+"RF02666","Drosophila small cajal body-specific RNA PsiU2-35.45",140
+"RF00321","Small nucleolar RNA Z247",139
+"RF00393","Small nucleolar RNA SNORA8",139
+"RF00557","Ribosomal protein L10 leader",139
+"RF00625","Pseudomonas sRNA P11",139
+"RF01290","Small nucleolar RNA SNORD10",139
+"RF01427","small nucleolar RNA snoR127",139
+"RF01645","Nematode snoRNA ceN58",139
+"RF02193","T-cell leukemia/lymphoma 6 conserved region 3",139
+"RF02782","CpoB/ybgF ICR thermometer",139
+"RF00416","Small nucleolar RNA SNORA43",138
+"RF00542","Small nucleolar RNA psi28S-1192",138
+"RF01234","Small nucleolar RNA SNORA47",138
+"RF01453","3'TE-DR1 translation enhancer element",138
+"RF01672","Psudomonas sRNA P2",138
+"RF01867","caulobacter sRNA CC2171",138
+"RF02003","Group II catalytic intron D1-D4-4",138
+"RF02184","ST7 overlapping transcript 3 conserved region 2",138
+"RF02230","Proteobacterial sRNA sX11",138
+"RF00305","Small nucleolar RNA Z248",137
+"RF00398","Small nucleolar RNA SNORA15",137
+"RF00410","Small nucleolar RNA SNORA2/SNORA34 family",137
+"RF00548","U11 spliceosomal RNA",137
+"RF00613","Small nucleolar RNA SNORD94",137
+"RF01235","Small nucleolar RNA snR68",137
+"RF01628","Caenorhabditis snoRNA ceN38",137
+"RF01631","Caenorhabditis snoRNA ceN41",137
+"RF01644","Caenorhabditis snoRNA ceN59",137
+"RF01931","Bithoraxoid conserved region 3",137
+"RF02170","Pvt1 oncogene conserved region 7",137
+"RF02204","WT1 antisense RNA conserved region 2",137
+"RF02369","h2cR sRNA",137
+"RF02670","small Cajal body-specific RNA Dm46E3",137
+"RF02779","PepN 5' UTR thermometer",136
+"RF00379","ydaO/yuaA leader",136
+"RF00406","Small nucleolar RNA SNORA42/SNORA80 family",136
+"RF00407","Small nucleolar RNA SNORA50",136
+"RF00412","Small nucleolar RNA SNORA21",136
+"RF00418","Small nucleolar RNA SNORA58",136
+"RF00582","Small Cajal body specific RNA 14",136
+"RF00690","microRNA MIR408",136
+"RF01527","Caulobacter sRNA CrfA",136
+"RF01530","Caulobacter sRNA CC3664",136
+"RF02132","HOXB13 antisense RNA 1 conserved region 1",136
+"RF02492","Giardia U2 spliceosomal RNA",136
+"RF02667","Drosophila small cajal body-specific RNA PsiU2-38.40.4",136
+"RF00096","U8 small nucleolar RNA",135
+"RF00156","Small nucleolar RNA SNORA70",135
+"RF00190","Small nucleolar RNA SNORA16B/SNORA16A family",135
+"RF00397","Small nucleolar RNA SNORA14",135
+"RF00404","Small nucleolar RNA SNORA46",135
+"RF00408","Small nucleolar RNA SNORA1",135
+"RF00431","Small nucleolar RNA SNORA55",135
+"RF00554","Small nucleolar RNA SNORA48",135
+"RF00906","microRNA MIR1122",135
+"RF01055","Moco (molybdenum cofactor) riboswitch",135
+"RF01620","Nematode snoRNA ceN125",135
+"RF01654","Caenorhabditis snoRNA ceN82",135
+"RF01671","Pseudomonas sRNA P18",135
+"RF01874","Myocardial infarction associated transcript exon 1",135
+"RF01963","Rhabdomyosarcoma 2 associated transcript conserved region 2",135
+"RF02084","Enterobacteria sRNA STnc130",135
+"RF02110","Deleted in lymphocytic leukemia 2 conserved region 6",135
+"RF02124","JPX transcript, XIST activator conserved region 1",135
+"RF02316","Tetrahymena snoRNA TtnuHACA9",135
+"RF02330","Tetrahymena snoRNA TtnuHACA23",135
+"RF02536","Avian encephalitis virus (AEV) cis-acting replication element (CRE)",135
+"RF02633","Hfq-regulated sRNA 21",135
+"RF00056","Small nucleolar RNA SNORA71",134
+"RF00072","Small nucleolar RNA SNORA75",134
+"RF00264","Small nucleolar RNA SNORA64/SNORA10 family",134
+"RF00392","Small nucleolar RNA SNORA5",134
+"RF00396","Small nucleolar RNA SNORA13",134
+"RF00414","Small nucleolar RNA SNORA22",134
+"RF00419","Small nucleolar RNA SNORA52",134
+"RF00645","microRNA MIR169_2",134
+"RF01229","Small nucleolar RNA SNORA84",134
+"RF01231","Small nucleolar RNA snoR74",134
+"RF01233","Small nucleolar RNA U109",134
+"RF01486","Listeria sRNA rli62",134
+"RF01639","Caenorhabditis snoRNA ceN49",134
+"RF01816","RNA Staph. aureus A",134
+"RF01927","microRNA MIR1222",134
+"RF01941","microRNA MIR1223",134
+"RF02206","WT1 antisense RNA conserved region 4",134
+"RF02320","Tetrahymena snoRNA TtnuHACA13",134
+"RF02334","Tetrahymena snoRNA TtnuHACA28",134
+"RF02572","Brucella babR 5'UTR",134
+"RF02734","Corynebacterium sRNA 105",134
+"RF02906","Archaeal Small RNA 154",134
+"RF02957","EFASI RNA",134
+"RF03035","nqrA-Marinomonas RNA",134
+"RF02704","LcrF intergenic thermometer",133
+"RF00155","Small nucleolar RNA SNORA66",133
+"RF00166","PrrB/RsmZ RNA family",133
+"RF00263","Small nucleolar RNA SNORA68",133
+"RF00403","Small nucleolar RNA SNORA41",133
+"RF00411","Small nucleolar RNA SNORA9",133
+"RF00432","Small nucleolar RNA SNORA51",133
+"RF00546","Small nucleolar RNA psi28S-3316",133
+"RF00562","Small nucleolar RNA SNORA49",133
+"RF00618","U4atac minor spliceosomal RNA",133
+"RF00677","microRNA MIR168",133
+"RF02168","Pvt1 oncogene conserved region 5",133
+"RF02321","Tetrahymena snoRNA TtnuHACA14",133
+"RF00038","PrfA thermoregulator UTR",132
+"RF00139","Small nucleolar RNA SNORA72",132
+"RF00265","Small nucleolar RNA SNORA69",132
+"RF00340","Small nucleolar RNA SNORA36 family",132
+"RF00420","Small nucleolar RNA SNORA61",132
+"RF00425","Small nucleolar RNA SNORA18",132
+"RF00560","Small nucleolar RNA SNORA17",132
+"RF00598","Small nucleolar RNA SNORA76",132
+"RF01221","Small nucleolar RNA U6-47",132
+"RF01607","C. elegans snoRNA ceN100",132
+"RF01755","rmf RNA",132
+"RF01981","Prostate-specific transcript 1",132
+"RF02033","HNH endonuclease-associated RNA and ORF (HEARO) RNA",132
+"RF02048","Salmonella enterica conserved region STnc30",132
+"RF02312","Tetrahymena snoRNA TtnuHACA5",132
+"RF02446","Streptococcus sRNA SpR18",132
+"RF00235","Plasmid RNAIII",131
+"RF00286","Small Cajal body specific RNA 8",131
+"RF00334","Small nucleolar RNA SNORA3/SNORA45 family",131
+"RF00399","Small nucleolar RNA SNORA24",131
+"RF00405","Small nucleolar RNA SNORA44",131
+"RF00413","Small nucleolar RNA SNORA19",131
+"RF00428","Small nucleolar RNA SNORA38",131
+"RF00908","microRNA MIR529",131
+"RF00975","microRNA MIR845_2",131
+"RF01230","Small nucleolar RNA snoR77",131
+"RF01591","small nucleolar RNA snoR15",131
+"RF01617","Caenorhabditis snoRNA ceN113",131
+"RF01621","Caenorhabditis snoRNA ceN126",131
+"RF01629","Nematode snoRNA ceN39",131
+"RF01653","Caenorhabditis snoRNA ceN80",131
+"RF01656","Nematode sRNA ceN72-3_ceN74-2",131
+"RF01663","Caenorhabditis sRNA ceN93",131
+"RF01689","AdoCbl variant RNA",131
+"RF01692","Bacteroidete tryptophan peptide leader RNA",131
+"RF01774","Rickettsia rpsL leader",131
+"RF02161","Prostate androgen-regulated transcript 1 conserved region 3",131
+"RF02313","Tetrahymena snoRNA TtnuHACA6",131
+"RF02319","Tetrahymena snoRNA TtnuHACA12",131
+"RF02698","Avalong 5' UTR thermometer",131
+"RF02718","Small Cajal body specific RNA ncR14",131
+"RF02826","Streptomyces RNA 6925",131
+"RF03105","RAGATH-7-assoc RNA",131
+"RF02692","Burkholderia sRNA 39",130
+"RF02832","Streptomyces RNA 5676",130
+"RF02845","Enterococcus sRNA 1C",130
+"RF02883","Burkholderia sRNA 2",130
+"RF03062","xerDC RNA",130
+"RF00060","HgcE RNA (Pab105)",130
+"RF00062","HgcC family RNA",130
+"RF00092","Small nucleolar RNA SNORA63",130
+"RF00322","Small nucleolar RNA SNORA31",130
+"RF00391","RtT RNA",130
+"RF00422","Small Cajal body specific RNA 24",130
+"RF00437","Hairy RNA localisation element (HLE)",130
+"RF00438","Small nucleolar RNA SNORA33",130
+"RF00601","Small Cajal body specific RNA 20",130
+"RF00640","microRNA MIR167_1",130
+"RF01084","Pseudoknot of tRNA-like structure",130
+"RF01400","istR Hfq binding RNA",130
+"RF01627","Nematode snoRNA ceN36-1",130
+"RF01632","Caenorhabditis snoRNA ceN42",130
+"RF01649","Caenorhabditis snoRNA ceN67",130
+"RF01655","Caenorhabditis snoRNA ceN84",130
+"RF02065","Enterobacterial sRNA STnc340",130
+"RF02315","Tetrahymena snoRNA TtnuHACA8",130
+"RF02325","Tetrahymena snoRNA TtnuHACA18",130
+"RF02328","Tetrahymena snoRNA TtnuHACA21",130
+"RF00182","Coronavirus packaging signal",129
+"RF00312","Small nucleolar RNA Z206",129
+"RF00348","Small nucleolar RNA snoR9",129
+"RF00415","Small nucleolar RNA SNORA30/SNORA37 family",129
+"RF00417","Small nucleolar RNA SNORA56",129
+"RF00423","Small Cajal body specific RNA 4",129
+"RF00430","Small nucleolar RNA SNORA54",129
+"RF00566","Small nucleolar RNA SNORA35",129
+"RF00614","Small nucleolar RNA SNORA11",129
+"RF00865","microRNA MIR169_5",129
+"RF01224","Small nucleolar RNA snoR80",129
+"RF01227","Small nucleolar RNA snoR83",129
+"RF01385","isrA Hfq binding RNA",129
+"RF01633","Caenorhabditis snoRNA ceN43",129
+"RF02174","SMAD5 antisense RNA 1 conserved region 2",129
+"RF02314","Tetrahymena snoRNA TtnuHACA7",129
+"RF02516","mir-393 microRNA precursor family",129
+"RF02818","Vibrio RNA AS5",129
+"RF03104","RAGATH-36 RNA",129
+"RF02916","atpB RNA",128
+"RF03094","LAGLIDADG-2 RNA",128
+"RF00065","Small nucleolar RNA snoR9",128
+"RF00401","Small nucleolar RNA SNORA20",128
+"RF00402","Small nucleolar RNA SNORA25",128
+"RF00426","Small Cajal body specific RNA 15",128
+"RF00561","Small nucleolar RNA SNORA40",128
+"RF00792","microRNA mir-490",128
+"RF01225","Small nucleolar RNA ACA64",128
+"RF01228","Small nucleolar RNA snoR111",128
+"RF01635","Caenorhabditis snoRNA ceN45",128
+"RF01664","Caenorhabditis snoRNA ceN101",128
+"RF01773","Pseudomonas rpsL leader",128
+"RF01966","Rhabdomyosarcoma 2 associated transcript conserved region 5",128
+"RF01984","ZEB2 antisense RNA 1 conserved region 1",128
+"RF02393","Staphylococcus sRNA sau-59",128
+"RF02526","Streptococcus sRNA SSRC34",128
+"RF02531","Nrf2 internal ribosome entry site (IRES)",128
+"RF02615","Brucella sRNA 0626",128
+"RF02646","Ruegeria cis8 sRNA",128
+"RF00302","Small nucleolar RNA SNORA65",127
+"RF00443","Small nucleolar RNA SNORA27",127
+"RF00463","Apolipoprotein B (apoB) 5' UTR cis-regulatory element",127
+"RF00514","Histidine operon leader",127
+"RF00558","Ribosomal protein L20 leader",127
+"RF01590","small nucleolar RNA snoR14",127
+"RF02118","FMR1 antisense RNA 1 conserved region 2",127
+"RF02331","Tetrahymena snoRNA TtnuHACA24",127
+"RF02705","Brassica rapa small nucleolar RNA 775",127
+"RF03022","RT-10 RNA",127
+"RF03112","Staphylococcus-1 RNA",127
+"RF00075","mir-166 microRNA precursor",126
+"RF00099","Small nucleolar RNA SNORD22",126
+"RF00400","Small nucleolar RNA SNORA28",126
+"RF00515","PyrR binding site",126
+"RF00619","U6atac minor spliceosomal RNA",126
+"RF01053","Deinococcus radiodurans Y RNA",126
+"RF01593","small nucleolar RNA snoR16",126
+"RF01614","Caenorhabditis snoRNA ceN110",126
+"RF01658","Caenorhabditis snoRNA ceN81",126
+"RF01661","Caenorhabditis snoRNA ceN92",126
+"RF01881","X-chromosome inactivation gene exon 4",126
+"RF02192","T-cell leukemia/lymphoma 6 conserved region 2",126
+"RF00427","Small Cajal body specific RNA 23",125
+"RF00599","Small nucleolar RNA SNORA77",125
+"RF01069","purD RNA motif",125
+"RF01636","Caenorhabditis snoRNA ceN46",125
+"RF01638","Caenorhabditis snoRNA ceN48",125
+"RF01643","Caenorhabditis sRNA ceN56",125
+"RF01859","Phenylalanine leader peptide",125
+"RF01975","HOX antisense intergenic RNA myeloid 1 conserved region 1",125
+"RF02175","SMAD5 antisense RNA 1 conserved region 3",125
+"RF02277","Hammerhead ribozyme HH10",125
+"RF02618","Streptococcus sRNA 34",125
+"RF02828","Streptomyces RNA 3920",125
+"RF03000","LOOT RNA",125
+"RF02766","Yersinia sRNA 49",124
+"RF02809","RsmW RNA family",124
+"RF02840","Enterococcus sRNA 68 (Lacto-3 RNA)",124
+"RF02889","Pseudomonas sRNA 6",124
+"RF00721","microRNA MIR475",124
+"RF00958","microRNA mir-498",124
+"RF01089","Pseudoknot of the regulatory region of the repBA gene",124
+"RF01223","Small nucleolar RNA snR13",124
+"RF01405","STnc490 Hfq binding RNA",124
+"RF01659","Caenorhabditis snoRNA ceN86",124
+"RF01769","Enterobacteria greA leader",124
+"RF01925","microRNA MIR1428",124
+"RF02058","Gammaproteobacterial sRNA STnc400",124
+"RF02131","GNAS antisense RNA 1 conserved region 5",124
+"RF02242","Xanthomonadaceae sRNA Xoo5",124
+"RF02505","Rhizobiales sRNA Atu_L6",124
+"RF02555","mt-5S-like H. vermiformis",124
+"RF00121","MicC RNA",123
+"RF00303","Small nucleolar RNA snoR86",123
+"RF00311","Small nucleolar RNA Z188",123
+"RF00689","microRNA MIR390",123
+"RF01222","Small nucleolar RNA sn2417",123
+"RF01387","isrC Hfq binding RNA",123
+"RF01454","5'UTR enhancer element",123
+"RF01630","Nematode snoRNA ceN40",123
+"RF01802","Herpesvirus saimiri U RNA1/RNA2",123
+"RF01821","RNA Staph. aureus H",123
+"RF02327","Tetrahymena snoRNA TtnuHACA20",123
+"RF02344","Alphaproteobacterial ar14",123
+"RF02447","Streptococcus sRNA SpR19",123
+"RF02594","Nitrogen stress-induced RNA 9",123
+"RF02713","Mycoplasma sRNA MCS4",123
+"RF02756","ES239 sRNA",123
+"RF02835","Burkholderia RNA 11",122
+"RF02841","Enterococcus sRNA 70",122
+"RF03016","RT-12 RNA",122
+"RF03025","RT-4 RNA",122
+"RF03076","Streptomyces-metH RNA",122
+"RF00516","ylbH leader",122
+"RF00568","Small nucleolar RNA SNORA26",122
+"RF00768","microRNA MIR405",122
+"RF01955","Nuclear enriched abundant transcript 1 conserved region 1",122
+"RF02130","GNAS antisense RNA 1 conserved region 4",122
+"RF02458","Aureusvirus cap-independent translation element",122
+"RF02502","Rhizobiales sRNA Atu_C8",122
+"RF02579","S. aureus tsr26 small RNA",122
+"RF00041","Enteroviral 3' UTR element",121
+"RF00195","RsmY RNA family",121
+"RF00421","Small nucleolar RNA SNORA32",121
+"RF00483","Insulin-like growth factor II IRES",121
+"RF01490","Listeria snRNA rli51",121
+"RF01650","Caenorhabditis snoRNA ceN48",121
+"RF02039","SPRY4-IT1 conserved region 2",121
+"RF02105","Deleted in lymphocytic leukemia 2 conserved region 1",121
+"RF02208","WT1 antisense RNA conserved region 6",121
+"RF02268","MtlS RNA",121
+"RF02310","Tetrahymena snoRNA TtnuHACA2",121
+"RF02326","Tetrahymena snoRNA TtnuHACA19",121
+"RF02449","Bacillus sRNA ncr1015",121
+"RF02491","Giardia U1 spliceosomal RNA",121
+"RF00833","microRNA mir-70",120
+"RF01429","small nucleolar RNA snoR130",120
+"RF01915","microRNA mir-2238",120
+"RF01942","microRNA mir-1937",120
+"RF01943","microRNA mir-999",120
+"RF02429","Streptococcus sRNA SpF14",120
+"RF02550","RnaG sRNA",120
+"RF02854","Yersinia sRNA 100",120
+"RF02932","Betaproteobacteria-1 RNA",120
+"RF02966","DUF3268 RNA",120
+"RF02976","Flavobacterium-1 RNA",120
+"RF02989","gntR-DTE RNA",120
+"RF02775","SodB 5' UTR thermometer",119
+"RF00001","5S ribosomal RNA",119
+"RF00294","Small nucleolar RNA TBR17",119
+"RF00452","mir-172 microRNA precursor family",119
+"RF00627","Pseudomonas sRNA P15",119
+"RF00797","microRNA mir-355",119
+"RF01796","Fumarate/nitrate reductase regulator sRNA",119
+"RF01858","RNA Staph. aureus F",119
+"RF02128","GNAS antisense RNA 1 conserved region 2",119
+"RF02472","Giardia RNase MRP",119
+"RF00383","Insertion sequence IS1222 ribosomal frameshifting element",118
+"RF00445","mir-399 microRNA precursor family",118
+"RF00506","Threonine operon leader",118
+"RF00635","Highly accelerated region 1A/1B",118
+"RF00648","microRNA MIR396",118
+"RF01085","Pseudoknot of tRNA-like structure",118
+"RF01094","Polymerase ribosomal frameshift site",118
+"RF01220","Small nucleolar RNA snoR104",118
+"RF01866","C. elegans snoRNA ceN33",118
+"RF01999","Group II catalytic intron D1-D4-2",118
+"RF02114","FAM13A antisense RNA 1 conserved region 1",118
+"RF02324","Tetrahymena snoRNA TtnuHACA17",118
+"RF02469","Actinobacteria sRNA Ms_IGR-7",118
+"RF02839","Enterococcus sRNA 66",118
+"RF02899","Aggregatibacter sRNA 54",118
+"RF02781","ManX 5' UTR thermometer",117
+"RF02903","Aggregatibacter sRNA 96",117
+"RF02981","FTHFS RNA",117
+"RF03063","Streptomyces-metK RNA",117
+"RF00114","Ribosomal S15 leader",117
+"RF00307","Small nucleolar RNA snoR98",117
+"RF00360","Small nucleolar RNA Z107/R87",117
+"RF00704","microRNA MIR397",117
+"RF01497","ALIL pseudoknot",117
+"RF01735","epsC RNA",117
+"RF01912","microRNA mir-2807",117
+"RF02179","ST7 antisense RNA 1 conserved region 1",117
+"RF02287","Tetrahymena snoRNA TtnuCD10",117
+"RF02322","Tetrahymena snoRNA TtnuHACA15",117
+"RF02323","Tetrahymena snoRNA TtnuHACA16",117
+"RF02518","mir-2494 microRNA precursor family",117
+"RF00016","Small nucleolar RNA SNORD14",116
+"RF00020","U5 spliceosomal RNA",116
+"RF00499","Human parechovirus 1 (HPeV1) cis regulatory element (CRE)",116
+"RF00634","S-adenosyl methionine (SAM) riboswitch,",116
+"RF00989","microRNA mir-492",116
+"RF01219","Small nucleolar RNA snoR100",116
+"RF01719","Pseudomon-1/ErsA RNA",116
+"RF01936","microRNA mir-63",116
+"RF01948","KCNQ1 overlapping transcript 1 conserved region 3",116
+"RF01956","Nuclear enriched abundant transcript 1 conserved region 2",116
+"RF01974","H19 conserved region 3",116
+"RF02185","ST7 overlapping transcript 3 conserved region 3",116
+"RF02622","Brucella sRNA 121",116
+"RF02728","Haemophilus regulatory RNA responsive to iron",116
+"RF02730","Aggregatibacter sRNA JA02",116
+"RF02740","Soft rot Enterobacteriaceae Fwd 6 3'UTR",116
+"RF02908","Listeria sRNA rli30",116
+"RF03043","Prevotella-2 RNA",116
+"RF03066","COG3610-DE RNA",116
+"RF02748","Francisella sRNA B",115
+"RF02810","Lst 5' UTR thermometer",115
+"RF02856","Leptospira sRNA 30_292",115
+"RF00021","Spot 42 RNA",115
+"RF00201","Small nucleolar RNA Z278",115
+"RF00746","microRNA mir-454",115
+"RF00800","microRNA mir-353",115
+"RF00842","microRNA MIR403",115
+"RF01056","Magnesium Sensor",115
+"RF01465","Listeria sRNA rli31",115
+"RF02232","Xanthomonadaceae sRNA sX13",115
+"RF02235","Xanthomonadaceae sRNA asX1",115
+"RF02461","Blackcurrant reversion virus cap-independent translation element",115
+"RF02556","snaR-A sRNA",115
+"RF00122","GadY",114
+"RF00485","Potassium channel RNA editing signal",114
+"RF00578","Small nucleolar RNA SNORD89",114
+"RF00718","microRNA mir-431",114
+"RF01027","microRNA mir-765",114
+"RF01926","microRNA mir-981",114
+"RF02010","microRNA mir-3180",114
+"RF02030","tp2",114
+"RF02115","FAM13A antisense RNA 1 conserved region 2",114
+"RF02144","rsmX",114
+"RF02489","Small nucleolar RNA GlsR26",114
+"RF02533","Hepatitis A virus (HAV) cis-acting replication element (CRE)",114
+"RF02553","Y RNA-like",114
+"RF02821","Vibrio RNA IGR5",114
+"RF02887","Salmonella mgtC leader RNA",114
+"RF02920","Fusobacteriales-1 RNA",114
+"RF02958","drum RNA",114
+"RF03007","Mahella-1 RNA",114
+"RF02905","Archaeal Small RNA 41",113
+"RF02969","DUF3800-I RNA",113
+"RF03102","RAGATH-33 RNA",113
+"RF00471","Small nucleolar RNA snR48",113
+"RF00774","microRNA mir-360",113
+"RF00796","microRNA mir-48",113
+"RF00804","microRNA mir-240",113
+"RF00811","microRNA mir-84",113
+"RF01226","Small nucleolar RNA Z5",113
+"RF01411","BsrF",113
+"RF01418","HIV pol-1 stem loop",113
+"RF01565","Dictyostelium snoRNA DdR15",113
+"RF02169","Pvt1 oncogene conserved region 6",113
+"RF02191","T-cell leukemia/lymphoma 6 conserved region 1",113
+"RF02201","TTC28 antisense RNA 1 conserved region 4",113
+"RF02309","Tetrahymena snoRNA TtnuHACA1",113
+"RF02345","Alphaproteobacterial ar15",113
+"RF02421","Burkholderia sRNA Bp1_Cand684_SIPHT",113
+"RF02490","Small nucleolar RNA GlsR27",113
+"RF02500","EcpR1",113
+"RF02617","Streptococcus sRNA 10",113
+"RF02629","Regulator of motility and amylovoran A",113
+"RF00692","microRNA MIR171_2",112
+"RF00723","microRNA mir-448",112
+"RF00791","microRNA mir-357",112
+"RF00793","microRNA mir-497",112
+"RF00821","microRNA mir-249",112
+"RF01820","RNA Staph. aureus E (RoxS)",112
+"RF01921","microRNA mir-1296",112
+"RF02484","Small nucleolar RNA GlsR21",112
+"RF02557","Coxiella burnetii sRNA 1",112
+"RF02771","CnfY 5' UTR thermometer",112
+"RF02822","Streptococcus RNA 266",112
+"RF02715","Small nucleolar RNA ncR1",111
+"RF02720","Small Cajal body specific RNA ncR21",111
+"RF02747","Francisella sRNA A",111
+"RF02798","Chromosome-encoded Shigella sRNA A",111
+"RF00573","Small nucleolar RNA SNORD67",111
+"RF00579","Small nucleolar RNA SNORD90",111
+"RF00616","Listeria LhrC",111
+"RF00688","microRNA MIR394",111
+"RF00790","microRNA mir-358",111
+"RF00799","microRNA mir-354",111
+"RF00838","microRNA mir-252",111
+"RF01218","Small nucleolar RNA snR41",111
+"RF01457","Listeria sRNA rli22",111
+"RF01503","A. fumigatus sRNA Afu_203",111
+"RF01721","Pseudomon-groES RNA",111
+"RF01770","Gammaprotebacteria rimP leader",111
+"RF02014","microRNA mir-1178",111
+"RF02146","Maternally expressed 8 exon 2",111
+"RF02332","Tetrahymena snoRNA TtnuHACA25",111
+"RF02528","Streptococcus sRNA SSRC41",111
+"RF00035","OxyS RNA",110
+"RF00140","Alpha operon ribosome binding site",110
+"RF00199","SL2 RNA",110
+"RF00377","Small nucleolar RNA U6-53/MBII-28",110
+"RF00603","Small nucleolar RNA SNORD23",110
+"RF00660","microRNA mir-214",110
+"RF00664","microRNA mir-223",110
+"RF00819","microRNA mir-246",110
+"RF00846","microRNA mir-64",110
+"RF00855","microRNA mir-254",110
+"RF01033","microRNA mir-767",110
+"RF01289","Small nucleolar RNA snoR17",110
+"RF01517","iscR stability element",110
+"RF01919","microRNA mir-1419",110
+"RF01920","microRNA mir-764",110
+"RF02002","microRNA mir-720",110
+"RF02180","ST7 antisense RNA 1 conserved region 2",110
+"RF02222","Xanthomonas sRNA sX2",110
+"RF02450","Bacillus sRNA ncr1175",110
+"RF02758","RhlA 5' UTR ROSE like thermometer",110
+"RF02759","LasI 5' UTR ROSE like thermometer",110
+"RF02865","Burkholderia sRNA 1",110
+"RF02928","Actinomyces-1 RNA",110
+"RF02786","Small nucleolar RNA TBR2",109
+"RF02829","Streptomyces RNA 4115",109
+"RF02994","IMPDH RNA",109
+"RF03107","saliva-tongue-1 RNA",109
+"RF00243","traJ 5' UTR",109
+"RF00350","Small nucleolar RNA Z152/R70/R12/",109
+"RF00529","Small nucleolar RNA Me28S-Am2589",109
+"RF00647","microRNA MIR164",109
+"RF00695","microRNA MIR398",109
+"RF00812","microRNA mir-83",109
+"RF01212","Small nucleolar RNA sn2524",109
+"RF01216","Small nucleolar RNA snR87",109
+"RF01609","Caenorhabditis snoRNA ceN103",109
+"RF01685","6S-Flavo RNA",109
+"RF01771","Enterobacteria rnk leader",109
+"RF01780","AS1890 sRNA",109
+"RF01812","Pxr regulatory sRNA",109
+"RF01954","SOX2 overlapping transcript exon 4",109
+"RF01964","Rhabdomyosarcoma 2 associated transcript conserved region 3",109
+"RF02203","WT1 antisense RNA conserved region 1",109
+"RF02341","Mycobacterium sRNA ncrMT1302",109
+"RF02434","Streptococcus sRNA SpF39",109
+"RF00034","RprA RNA",108
+"RF00142","Small nucleolar RNA Z118/Z121/Z120",108
+"RF00162","SAM riboswitch (S box leader)",108
+"RF00327","Small nucleolar RNA Z194",108
+"RF00378","Qrr RNA",108
+"RF00442","Guanidine-I riboswitch",108
+"RF00451","mir-395 microRNA precursor family",108
+"RF01746","mraW RNA",108
+"RF01772","Pseudomonas rnk leader",108
+"RF01965","Rhabdomyosarcoma 2 associated transcript conserved region 4",108
+"RF02055","Enterobacterial sRNA STnc380",108
+"RF02158","NPPA antisense RNA 1 conserved region 3",108
+"RF02284","Tetrahymena snoRNA TtnuCD7",108
+"RF02302","Tetrahymena snoRNA TtnuCD26",108
+"RF02496","Rhizobiales sRNA Atu_At1",108
+"RF02755","ES222 sRNA",108
+"RF02941","COG3943 RNA",108
+"RF02962","DUF3800-III RNA",108
+"RF02770","Yersinia sRNA 224",107
+"RF02955","EGFOA RNA",107
+"RF03113","Poribacteria-1 RNA",107
+"RF03114","RT-1 RNA",107
+"RF00097","Plant small nucleolar RNA R71",107
+"RF00313","Small nucleolar RNA Z173",107
+"RF00779","microRNA MIR474",107
+"RF01026","microRNA MIR828",107
+"RF01511","A. fumigatus snoRNA Afu_304",107
+"RF01651","Caenorhabditis snoRNA ceN69",107
+"RF01830","Salmonella enterica Typhi npcRNA 44",107
+"RF01873","Polled intersex syndrome regulated transcript 1",107
+"RF01897","microRNA mir-188",107
+"RF02483","Small nucleolar RNA GlsR20",107
+"RF02508","Rhizobiales sRNA Atu_Ti4",107
+"RF02569","IhtA sRNA",107
+"RF00081","ArcZ RNA",106
+"RF00130","mir-192/215 microRNA precursor",106
+"RF00304","Small nucleolar RNA Z279/snoR105/snoR108",106
+"RF00509","Small nucleolar RNA snR64",106
+"RF00673","microRNA mir-217",106
+"RF00683","microRNA mir-143",106
+"RF00810","microRNA mir-85",106
+"RF01208","Small nucleolar RNA snoR99",106
+"RF01213","Small nucleolar RNA snoR103",106
+"RF01215","Small nucleolar RNA snoR97",106
+"RF01485","Listeria sRNA rli61",106
+"RF01515","A. fumigatus snoRNA Afu_514",106
+"RF01529","Cauldobacter sRNA CC3552",106
+"RF01572","Dictyostelium snoRNA DdR4",106
+"RF01742","lactis-plasmid RNA",106
+"RF01853","Mitochondrial DNA control region secondary structure A",106
+"RF01896","microRNA mir-142",106
+"RF01918","microRNA mir-1249",106
+"RF01932","Bithoraxoid conserved region 4",106
+"RF02093","mir-2968 microRNA precursor",106
+"RF02274","AniS",106
+"RF02335","Giardia snoRNA GlsR2/miRNA miR4",106
+"RF02426","Streptococcus sRNA SpF03",106
+"RF02547","Permuted mitochondrial genome encoded 5S rRNA",106
+"RF02947","cow-rumen-2 RNA",106
+"RF03103","RAGATH-34 RNA",106
+"RF02813","Pseudomonas PA5194 thermometer",105
+"RF02954","DUF3577 RNA",105
+"RF02982","gltS RNA",105
+"RF03088","Parabacteroides-1 RNA",105
+"RF00059","TPP riboswitch (THI element)",105
+"RF00795","microRNA mir-43",105
+"RF00820","microRNA mir-248",105
+"RF00900","microRNA mir-255",105
+"RF00954","microRNA MIR1446",105
+"RF01588","small nucleolar RNA snoR13",105
+"RF01872","Maternally expressed 3 conserved region 2",105
+"RF01917","microRNA MIR2587",105
+"RF01944","microRNA mir-2518",105
+"RF01997","microRNA mir-969",105
+"RF02006","microRNA mir-1253",105
+"RF02009","microRNA mir-987",105
+"RF02127","GNAS antisense RNA 1 conserved region 1",105
+"RF02269","Heliobacter pylori small RNA HPnc0580",105
+"RF02435","Streptococcus sRNA SpF41",105
+"RF02520","mir-965 microRNA precursor family",105
+"RF02530","Ure2 internal ribosome entry site (IRES)",105
+"RF00026","U6 spliceosomal RNA",104
+"RF00218","Small nucleolar RNA SNORD46",104
+"RF00477","Small nucleolar RNA snR66",104
+"RF00632","sxy 5' UTR element",104
+"RF00674","microRNA mir-187",104
+"RF00863","microRNA mir-BART17",104
+"RF00878","microRNA mir-456",104
+"RF01210","Small nucleolar RNA U13",104
+"RF01211","Small nucleolar RNA SNORD124",104
+"RF01712","Methylobacterium-1 RNA",104
+"RF01723","Rhizobiales-2 RNA",104
+"RF01729","Termite-flg RNA",104
+"RF01760","traJ-II RNA",104
+"RF01922","microRNA mir-654",104
+"RF01945","microRNA mir-1388",104
+"RF02220","ZNRD1 antisense RNA 1 conserved region 3",104
+"RF02317","Tetrahymena snoRNA TtnuHACA10",104
+"RF02385","Staphylococcus sRNA sau-13",104
+"RF02719","Small Cajal body specific RNA ncR20",104
+"RF02820","Vibrio RNA AS9",104
+"RF02892","Bacillus SR6 antitoxin",104
+"RF03011","Methylophilales-1 RNA",103
+"RF03026","RT-5 RNA",103
+"RF03049","RAGATH-24 RNA",103
+"RF00198","SL1 RNA",103
+"RF00388","Anti-Q RNA",103
+"RF00685","microRNA mir-36",103
+"RF00815","microRNA mir-244",103
+"RF00850","microRNA mir-259",103
+"RF01207","Small nucleolar RNA snR73",103
+"RF01420","Small nucleolar RNA snoR113",103
+"RF01505","A. fumigatus snoRNA Afu_264",103
+"RF01514","A. fumigatus snoRNA Afu_513",103
+"RF01895","microRNA mir-193",103
+"RF02329","Tetrahymena snoRNA TtnuHACA22",103
+"RF00106","RNAI",102
+"RF00144","mir-199 microRNA precursor",102
+"RF00167","Purine riboswitch",102
+"RF00646","microRNA mir-204",102
+"RF00656","microRNA mir-205",102
+"RF00663","microRNA mir-183",102
+"RF00713","microRNA mir-239",102
+"RF00714","microRNA MIR535",102
+"RF00728","microRNA mir-81",102
+"RF00859","microRNA mir-234",102
+"RF01065","23S methyl RNA motif",102
+"RF01720","Pseudomon-Rho RNA",102
+"RF01978","HOX antisense intergenic RNA myeloid 1 conserved region 4",102
+"RF02007","microRNA mir-1237",102
+"RF02432","Streptococcus sRNA SpF25",102
+"RF02437","Streptococcus sRNA SpF44",102
+"RF02494","Giardia U6 spliceosomal RNA",102
+"RF02573","Lactococcus lactis non-coding RNA 147",102
+"RF02680","PreQ1-III riboswitch",102
+"RF02697","LDH1 5'UTR",102
+"RF02764","Yersinia sRNA 190",102
+"RF02794","Pab19 RNA",102
+"RF02978","folP RNA",102
+"RF02983","Fibrobacter-1 RNA",102
+"RF03048","RAGATH-20 RNA",102
+"RF02789","Small nucleolar RNA TBR12",101
+"RF02902","Aggregatibacter sRNA 22",101
+"RF02972","engA RNA",101
+"RF00006","Vault RNA",101
+"RF00335","Small nucleolar RNA Z13/snr52",101
+"RF00374","Gammaretrovirus core encapsidation signal",101
+"RF00475","Small nucleolar RNA snR69",101
+"RF00643","microRNA MIR171_1",101
+"RF00730","microRNA mir-277",101
+"RF00817","microRNA mir-80",101
+"RF00824","microRNA mir-50",101
+"RF00959","microRNA mir-612",101
+"RF01034","microRNA mir-618",101
+"RF01209","Small nucleolar RNA snR76",101
+"RF01426","small nucleolar RNA snoR126",101
+"RF01764","yjdF RNA",101
+"RF02100","Translational regulator of tfoXVC",101
+"RF00111","SdsR_RyeB RNA",100
+"RF00138","Small nucleolar RNA SNORD16",100
+"RF00149","Small nucleolar RNA Z103",100
+"RF00330","Small nucleolar RNA Z43",100
+"RF00333","Small nucleolar RNA Z157/R69/R10",100
+"RF00434","Luteovirus cap-independent translation element (BTE)",100
+"RF00481","Hepatitis C virus 3'X element",100
+"RF00513","Tryptophan operon leader",100
+"RF00694","microRNA mir-137",100
+"RF00729","microRNA mir-278",100
+"RF00786","microRNA mir-289",100
+"RF00789","microRNA mir-286",100
+"RF00822","microRNA mir-274",100
+"RF00828","microRNA mir-75",100
+"RF00831","microRNA mir-73",100
+"RF00845","microRNA MIR158",100
+"RF00911","microRNA mir-672",100
+"RF00914","microRNA mir-674",100
+"RF00936","microRNA mir-744",100
+"RF00978","microRNA mir-638",100
+"RF00992","microRNA mir-593",100
+"RF01038","microRNA mir-1307",100
+"RF01064","microRNA mir-253",100
+"RF01204","Small nucleolar RNA snR65",100
+"RF01205","Small nucleolar RNA snR62",100
+"RF01214","Small nucleolar RNA snR51",100
+"RF01288","Small nucleolar RNA snoR31",100
+"RF01483","Listeria sRNA rli56",100
+"RF01498","A. fumigatus snoRNA Afu_190",100
+"RF01623","Caenorhabditis sRNA ceN23-1",100
+"RF01831","THF riboswitch",100
+"RF01913","microRNA mir-2778",100
+"RF01982","Pyrrolysine insertion sequence 1",100
+"RF01986","ZEB2 antisense RNA 1 conserved region 3",100
+"RF02046","Sphinx_ conserved region 1",100
+"RF02420","Burkholderia sRNA Bp1_Cand612_SIPHT",100
+"RF02479","Small nucleolar RNA GlsR13",100
+"RF02509","Pyrrolysine insertion sequence mtbB",100
+"RF02510","Pyrrolysine insertion sequence mttB",100
+"RF02511","Pyrrolysine insertion sequence TetR",100
+"RF02512","Pyrrolysine insertion sequence transposase 1",100
+"RF02513","Pyrrolysine insertion sequence transposase 2",100
+"RF00293","Small nucleolar RNA snoM1",99
+"RF00375","HIV primer binding site (PBS)",99
+"RF00726","microRNA mir-87",99
+"RF00734","microRNA mir-52",99
+"RF00747","microRNA mir-283",99
+"RF00760","microRNA mir-342",99
+"RF00780","microRNA MIR477",99
+"RF00805","microRNA mir-351",99
+"RF00806","microRNA mir-350",99
+"RF00857","microRNA mir-233",99
+"RF00888","microRNA mir-770",99
+"RF00949","microRNA mir-983",99
+"RF00962","microRNA mir-586",99
+"RF00987","microRNA mir-589",99
+"RF01008","microRNA mir-636",99
+"RF01040","microRNA mir-573",99
+"RF01054","preQ1-II (pre queuosine) riboswitch",99
+"RF01198","Small nucleolar RNA snoR69Y",99
+"RF01463","Listeria sRNA rli27",99
+"RF01899","microRNA mir-2241",99
+"RF02150","MEST intronic transcript 1, antisense RNA conserved region 3",99
+"RF02155","Non-protein coding RNA, upstream of F2R/PAR1 conserved region 2",99
+"RF02430","Streptococcus sRNA SpF19",99
+"RF02436","Streptococcus sRNA SpF43",99
+"RF02439","Streptococcus sRNA SpF56",99
+"RF02537","Vibrio ToxT activated RNA TarA",99
+"RF02787","Small nucleolar RNA TBR4",99
+"RF02875","Antisense to pHK01_035",99
+"RF03073","RT-19 RNA",99
+"RF03099","RAGATH-23 RNA",99
+"RF02683","NiCo riboswitch",98
+"RF00019","Y RNA",98
+"RF00309","Small nucleolar RNA snR60/Z15/Z230/Z193/J17",98
+"RF00356","Small nucleolar RNA R32/R81/Z41",98
+"RF00361","Small nucleolar RNA Z119",98
+"RF00678","microRNA mir-140",98
+"RF00758","microRNA mir-346",98
+"RF00794","microRNA mir-42",98
+"RF00808","microRNA mir-86",98
+"RF00837","microRNA mir-251",98
+"RF00851","microRNA mir-230",98
+"RF00856","microRNA mir-232",98
+"RF00927","microRNA mir-582",98
+"RF00937","microRNA mir-653",98
+"RF00960","microRNA mir-661",98
+"RF00984","microRNA mir-576",98
+"RF00988","microRNA mir-657",98
+"RF01002","microRNA mir-936",98
+"RF01007","microRNA mir-624",98
+"RF01028","microRNA mir-633",98
+"RF01031","microRNA mir-639",98
+"RF01202","Small nucleolar RNA sn2991",98
+"RF01392","isrI Hfq binding RNA",98
+"RF01458","Listeria snRNA rli23",98
+"RF01575","Dictyostelium snoRNA Dd7",98
+"RF01725","SAM-I/IV variant riboswitch",98
+"RF01730","Termite-leu RNA",98
+"RF01761","wcaG RNA",98
+"RF01901","microRNA mir-284",98
+"RF01906","HOTAIR conserved region 3",98
+"RF02139","HOXA11 antisense RNA 1 conserved region 3",98
+"RF02306","Tetrahymena snoRNA TtnuCD32",98
+"RF02364","Cyanobacterial functional RNA 13",98
+"RF02394","Staphylococcus sRNA sau-63",98
+"RF02463","Mycobacterium sRNA Ms_AS-1",98
+"RF02554","mt-5S-like P. polycephalum",98
+"RF02641","S. pyogenes small RNA Spy490483c",98
+"RF00127","t44 RNA",97
+"RF00132","Small nucleolar RNA R24",97
+"RF00169","Bacterial small signal recognition particle RNA",97
+"RF00205","Small nucleolar RNA R41",97
+"RF00288","Z30 small nucleolar RNA",97
+"RF00353","Small nucleolar RNA snoR31/Z110/Z27",97
+"RF00357","Small nucleolar RNA R44/J54/Z268 family",97
+"RF00479","Small nucleolar RNA snR71",97
+"RF00537","Small nucleolar RNA Me28S-Am2634",97
+"RF00676","microRNA mir-127",97
+"RF00761","microRNA mir-340",97
+"RF00770","microRNA mir-330",97
+"RF00785","microRNA mir-90",97
+"RF00787","microRNA mir-288",97
+"RF00798","microRNA mir-49",97
+"RF00816","microRNA mir-245",97
+"RF00826","microRNA mir-55",97
+"RF00827","microRNA mir-77",97
+"RF00835","microRNA mir-58",97
+"RF00843","microRNA mir-228",97
+"RF00872","microRNA mir-652",97
+"RF00873","microRNA mir-550",97
+"RF00905","microRNA mir-789",97
+"RF00928","microRNA mir-590",97
+"RF00948","microRNA mir-996",97
+"RF00963","microRNA mir-642",97
+"RF00972","microRNA mir-651",97
+"RF00973","microRNA mir-597",97
+"RF00980","microRNA mir-643",97
+"RF00995","microRNA mir-616",97
+"RF01000","microRNA mir-580",97
+"RF01016","microRNA mir-584",97
+"RF01029","microRNA mir-649",97
+"RF01059","microRNA mir-598",97
+"RF01075","Pseudoknot of tRNA-like structure",97
+"RF01199","Small nucleolar RNA snR58",97
+"RF01200","Small nucleolar RNA SNORD125",97
+"RF02120","FTX transcript, XIST regulator conserved region 2",97
+"RF02145","Maternally expressed 8 exon 1",97
+"RF02214","microRNA mir-56",97
+"RF02254","microRNA mir-35",97
+"RF02991","GP20-a RNA",97
+"RF03033","NLPC-P60 RNA",97
+"RF02964","DUF3800-V RNA",96
+"RF03095","RAGATH-17 RNA",96
+"RF00046","Small nucleolar RNA R30/Z108",96
+"RF00063","SscA RNA",96
+"RF00115","McaS/IsrA RNA",96
+"RF00183","G-CSF factor stem-loop destabilising element (SLDE)",96
+"RF00185","Flavivirus 3' UTR cis-acting replication element (CRE)",96
+"RF00255","mir-218 microRNA precursor family",96
+"RF00358","Small nucleolar RNA Z101",96
+"RF00679","microRNA mir-210",96
+"RF00763","microRNA mir-339",96
+"RF00765","microRNA mir-337",96
+"RF00809","microRNA mir-241",96
+"RF00830","microRNA mir-74",96
+"RF00874","microRNA mir-BART12",96
+"RF00879","microRNA mir-615",96
+"RF00947","microRNA mir-929",96
+"RF00961","microRNA mir-581",96
+"RF00965","microRNA mir-549",96
+"RF00968","microRNA mir-626",96
+"RF00971","microRNA mir-578",96
+"RF00974","microRNA mir-607",96
+"RF00985","microRNA mir-640",96
+"RF00990","microRNA mir-552",96
+"RF01013","microRNA mir-577",96
+"RF01018","microRNA mir-569",96
+"RF01032","microRNA mir-554",96
+"RF01044","microRNA mir-345",96
+"RF01203","Small nucleolar RNA snR47",96
+"RF01513","A. fumigatus snoRNA Afu_335",96
+"RF01595","small nucleolar RNA snoR19",96
+"RF01902","microRNA MIR439",96
+"RF01914","microRNA mir-932",96
+"RF01923","microRNA mir-711",96
+"RF02008","microRNA mir-621",96
+"RF02137","HOXA11 antisense RNA 1 conserved region 1",96
+"RF02397","Staphylococcus sRNA sau-5971",96
+"RF02402","A. fumigatus snoRNA Afu_263",96
+"RF02552","RcsR1 sRNA",96
+"RF02644","S. pyogenes small RNA Spy490380c",96
+"RF00068","Small nucleolar RNA SNORD21",95
+"RF00474","Small nucleolar RNA snR57",95
+"RF00580","Small nucleolar RNA SNORD91 family",95
+"RF00719","microRNA mir-326",95
+"RF00724","microRNA mir-282",95
+"RF00778","microRNA MIR473",95
+"RF00801","microRNA mir-280",95
+"RF00825","microRNA mir-344",95
+"RF00834","microRNA mir-268",95
+"RF00952","microRNA mir-650",95
+"RF00969","microRNA mir-556",95
+"RF00983","microRNA mir-662",95
+"RF00991","microRNA mir-599",95
+"RF00998","microRNA mir-562",95
+"RF01001","microRNA mir-609",95
+"RF01012","microRNA mir-628",95
+"RF01036","microRNA mir-567",95
+"RF01197","Small nucleolar RNA snR39",95
+"RF01287","Small nucleolar RNA snoR27",95
+"RF01480","Listeria sRNA rli52",95
+"RF01520","caulobacter sRNA CC0734",95
+"RF01521","caulobacter sRNA CC1840",95
+"RF01717","PhotoRC-II RNA",95
+"RF01871","Metastasis associated lung adenocarcinoma transcript 1",95
+"RF01916","microRNA mir-988",95
+"RF02029","sraA",95
+"RF02166","Pvt1 oncogene conserved region 3",95
+"RF02226","Xanthomonas sRNA sX7",95
+"RF02240","Xanthomonadaceae sRNA Xoo1",95
+"RF02244","microRNA mir-785",95
+"RF02428","Streptococcus sRNA SpF11",95
+"RF02493","Giardia U4 spliceosomal RNA",95
+"RF02688","RAGATH-13 RNA",95
+"RF02896","Staphylococcus sRNA 774",95
+"RF03009","malK-III RNA",95
+"RF03020","RT-17 RNA",95
+"RF02824","Legionella RNA 10",94
+"RF00033","MicF RNA",94
+"RF00135","Small nucleolar RNA Z223",94
+"RF00242","ctRNA",94
+"RF00267","Small nucleolar RNA R64/Z200 family",94
+"RF00292","Small nucleolar RNA TBR5",94
+"RF00301","Small nucleolar RNA Z256",94
+"RF00343","Small nucleolar RNA Z122",94
+"RF00504","Glycine riboswitch",94
+"RF00510","Tombusvirus internal replication element (IRE)",94
+"RF00593","Small nucleolar RNA U83B",94
+"RF00637","microRNA mir-276",94
+"RF00710","microRNA mir-44",94
+"RF00766","microRNA mir-335",94
+"RF00769","microRNA mir-331",94
+"RF00775","microRNA mir-432",94
+"RF00887","microRNA mir-802",94
+"RF00941","microRNA mir-434",94
+"RF00946","microRNA mir-1225",94
+"RF00970","microRNA mir-648",94
+"RF01010","microRNA mir-632",94
+"RF01021","microRNA mir-558",94
+"RF01023","microRNA mir-940",94
+"RF01037","microRNA mir-644",94
+"RF01041","microRNA mir-604",94
+"RF01286","Small nucleolar RNA snoR26",94
+"RF01383","GRIK4 3 prime UTR element",94
+"RF01401","rseX Hfq binding RNA",94
+"RF01409","STnc250 Hfq binding RNA",94
+"RF01797","Fst antitoxin sRNA",94
+"RF02011","microRNA mir-575",94
+"RF02013","microRNA mir-1280",94
+"RF02460","Satellite tobacco necrosis virus cap-independent translation element",94
+"RF02623","Brucella sRNA 140",94
+"RF00029","Group II catalytic intron",93
+"RF00328","Small nucleolar RNA Z161/Z228",93
+"RF00345","Small nucleolar RNA snoR1",93
+"RF00435","Repression of heat shock gene expression (ROSE) element",93
+"RF00659","microRNA mir-365",93
+"RF00697","microRNA mir-186",93
+"RF00739","microRNA MIR476",93
+"RF00748","microRNA mir-433",93
+"RF00754","microRNA mir-279",93
+"RF00788","microRNA mir-287",93
+"RF00957","microRNA mir-663",93
+"RF01201","Small nucleolar RNA snR40",93
+"RF01499","A. fumigatus snoRNA Afu_191",93
+"RF01507","A. fimigatus snoRNA Afu_298",93
+"RF01733","atoC RNA",93
+"RF01749","pan motif",93
+"RF01934","Bithoraxoid conserved region 6",93
+"RF02216","ZNFX1 antisense RNA 1 conserved region 2",93
+"RF02239","Xanthomonas sRNA asX6",93
+"RF02379","Cia-dependent small RNA csRNA1",93
+"RF02455","Dianthovirus RNA2 cap-independent translation element",93
+"RF02776","SodC 5' UTR thermometer",93
+"RF02797","Plasmid-encoded Shigella sRNA A",93
+"RF02953","DUF1874 RNA",93
+"RF02999","ivy-DE RNA",93
+"RF03040","PGK RNA",93
+"RF03074","Rhodo-rpoB RNA",93
+"RF02752","ES056 sRNA",92
+"RF02833","Streptomyces RNA 3202",92
+"RF02882","Mesorhizobail RNA 36",92
+"RF03029","RT-8 RNA",92
+"RF03080","RT-9 RNA",92
+"RF00042","CopA-like RNA",92
+"RF00108","Small nucleolar RNA SNORD116",92
+"RF00176","Tombusvirus 3' UTR region IV",92
+"RF00256","mir-196 microRNA precursor family",92
+"RF00310","Small nucleolar RNA Z165",92
+"RF00314","Small nucleolar RNA Z182",92
+"RF00371","sroE RNA",92
+"RF00472","Small nucleolar RNA snR55/Z10",92
+"RF00486","mir-129 microRNA precursor family",92
+"RF00698","microRNA mir-489",92
+"RF00706","microRNA mir-263",92
+"RF00720","microRNA mir-317",92
+"RF00742","microRNA MIR162_2",92
+"RF00896","microRNA mir-787",92
+"RF00903","microRNA mir-359",92
+"RF01067","ATPC RNA motif",92
+"RF01195","Small nucleolar RNA snR52",92
+"RF01196","Small nucleolar RNA Z30a",92
+"RF01206","Small nucleolar RNA snoR109",92
+"RF01284","Small nucleolar RNA snoR8a",92
+"RF01424","small nucleolar RNA snoR118",92
+"RF01509","A. fumigatus snoRNA Afu_300",92
+"RF01860","A. fumigatus snoRNA Afu_455",92
+"RF01900","microRNA mir-2024",92
+"RF01996","microRNA mir-995",92
+"RF02233","Xanthomonas sRNA sX14/Xoo3",92
+"RF02387","Staphylococcus sRNA sau-27",92
+"RF02506","Rhizobiales sRNA Atu_Ti1",92
+"RF02568","Escherichia coli small RNA (uptR) gene",92
+"RF00094","Hepatitis delta virus ribozyme",91
+"RF00213","Small nucleolar RNA R38",91
+"RF00285","Z6 small nucleolar RNA",91
+"RF00300","Small nucleolar RNA Z221/R21b",91
+"RF00338","Small nucleolar RNA snR53",91
+"RF00604","Small nucleolar RNA SNORD88",91
+"RF00652","microRNA MIR478",91
+"RF00708","microRNA mir-450",91
+"RF00757","microRNA mir-275",91
+"RF00762","microRNA mir-412",91
+"RF00764","microRNA mir-191",91
+"RF00895","microRNA mir-786",91
+"RF00901","microRNA MIR845_1",91
+"RF00921","microRNA mir-665",91
+"RF01045","microRNA mir-544",91
+"RF01194","Small nucleolar RNA sn2903",91
+"RF01384","Invasion gene-associated RNA",91
+"RF01428","small nucleolar RNA snoR128",91
+"RF01750","ZMP/ZTP riboswitch",91
+"RF01852","Selenocysteine transfer RNA",91
+"RF01930","Bithoraxoid conserved region 2",91
+"RF02038","SPRY4-IT1 conserved region 1",91
+"RF02348","Trans-activating crRNA",91
+"RF02619","Brucella sRNA 115",91
+"RF02877","Neisseria metabolic switch regulator b (RcoF1/NgncR163)",91
+"RF02935","che1 RNA",91
+"RF02963","DUF3800-IV RNA",91
+"RF02790","sodF sRNA",90
+"RF02967","DUF3800-VII RNA",90
+"RF00214","Retrovirus direct repeat 1 (dr1)",90
+"RF00246","mir-135 microRNA precursor family",90
+"RF00247","mir-160 microRNA precursor family",90
+"RF00317","Small nucleolar RNA Z163/Z177 family",90
+"RF00332","Small nucleolar RNA Z266",90
+"RF00349","Small nucleolar RNA R11/Z151",90
+"RF00351","Small nucleolar RNA R20",90
+"RF00386","Enterovirus 5' cloverleaf cis-acting replication element",90
+"RF00456","mir-34 microRNA precursor family",90
+"RF00581","Small nucleolar SNORD12/SNORD106",90
+"RF00691","microRNA mir-146",90
+"RF00711","microRNA mir-449",90
+"RF00777","microRNA mir-541",90
+"RF00807","microRNA mir-314",90
+"RF01030","microRNA mir-422",90
+"RF01193","Small nucleolar RNA snoR20a",90
+"RF01302","SnoRNA U36a",90
+"RF01518","NoRC associated RNA, pRNA",90
+"RF01594","small nucleolar RNA snoR18",90
+"RF01710","Lacto-usp RNA",90
+"RF01776","RNA anti-toxin A",90
+"RF01827","SAR11_0636 sRNA",90
+"RF01903","microRNA mir-500",90
+"RF01940","microRNA hvt-mir-H9",90
+"RF02015","microRNA mir-1287",90
+"RF02106","Deleted in lymphocytic leukemia 2 conserved region 2",90
+"RF02620","Brucella sRNA 119",90
+"RF00528","Small nucleolar RNA Me28S-Gm1083",89
+"RF00575","Small nucleolar RNA SNORD70",89
+"RF00611","Small nucleolar RNA SNORD111",89
+"RF00654","microRNA mir-216",89
+"RF00672","microRNA mir-190",89
+"RF00727","microRNA bantam",89
+"RF00745","microRNA mir-499",89
+"RF00814","microRNA mir-316",89
+"RF00829","microRNA mir-149",89
+"RF00867","microRNA mir-BART5",89
+"RF00907","microRNA mir-941",89
+"RF00966","microRNA mir-676",89
+"RF01180","Small nucleolar RNA snoR110",89
+"RF01184","Small nucleolar RNA snR79",89
+"RF01190","Small nucleolar RNA snR50",89
+"RF01413","microRNA miR-430",89
+"RF01883","Taurine upregulated gene 1 conserved region 2",89
+"RF02016","microRNA mir-1183",89
+"RF02301","Tetrahymena snoRNA TtnuCD25",89
+"RF02367","Cyanobacterial functional RNA 20",89
+"RF02474","Small nucleolar RNA GlsR5",89
+"RF02497","Rhizobiales sRNA Atu_C10",89
+"RF02507","Rhizobiales sRNA Atu_Ti3",89
+"RF02626","Wolbachia sRNA 59",89
+"RF02711","TeloSII non coding RNA 49",89
+"RF02772","AilA 5' UTR thermometer",89
+"RF03061","uxuA RNA",89
+"RF03109","Thermales-rpoB RNA",89
+"RF02773","TrxA 5' UTR thermometer",88
+"RF02987","GA-cis RNA",88
+"RF03115","KDPG-aldolase RNA",88
+"RF00053","mir-7 microRNA precursor",88
+"RF00073","mir-156 microRNA precursor",88
+"RF00211","Small nucleolar RNA SNORD35",88
+"RF00329","Small nucleolar RNA Z162",88
+"RF00359","Small nucleolar RNA Z102/R77",88
+"RF00653","microRNA mir-22",88
+"RF00662","microRNA mir-132",88
+"RF00675","microRNA mir-145",88
+"RF00732","microRNA mir-305",88
+"RF00773","microRNA mir-298",88
+"RF00841","microRNA mir-384",88
+"RF00853","microRNA mir-304",88
+"RF00876","microRNA mir-684",88
+"RF00877","microRNA mir-592",88
+"RF00917","microRNA mir-708",88
+"RF01024","microRNA mir-944",88
+"RF01314","microRNA mir-1227",88
+"RF01425","small nucleolar RNA snoR121",88
+"RF01576","D. discoideum snoRNA DdR8",88
+"RF01585","small nucleolar RNA snoR07",88
+"RF01625","Caenorhabditis snoRNA ceN28",88
+"RF01740","gyrA RNA",88
+"RF01823","rpsL sRNA",88
+"RF01898","microRNA mir-363",88
+"RF01937","microRNA mir-2780",88
+"RF02092","mir-2970 microRNA precursor",88
+"RF02151","MER1 repeat containing imprinted transcript 1 conserved region 1",88
+"RF02171","RFPL3 antisense RNA 1 conserved region 1",88
+"RF02539","Plant small nucleolar RNA SNOR75",88
+"RF02589","S. pyogenes small RNA 779816",88
+"RF02621","Brucella sRNA 120",88
+"RF00054","Small nucleolar RNA SNORD25",87
+"RF00079","OmrA-B family",87
+"RF00160","Small nucleolar RNA Z159/U59",87
+"RF00208","Small nucleolar RNA R72",87
+"RF00248","mir-148/mir-152 microRNA precursor family",87
+"RF00446","mir-133 microRNA precursor family",87
+"RF00473","Small nucleolar RNA snR54",87
+"RF00584","Small nucleolar RNA SNORD105",87
+"RF00639","microRNA mir-515",87
+"RF00705","microRNA mir-202",87
+"RF00848","microRNA mir-61",87
+"RF01051","Cyclic di-GMP-I riboswitch",87
+"RF01185","Small nucleolar RNA snR75",87
+"RF01189","Small nucleolar RNA sn1502",87
+"RF01192","Small nucleolar RNA SNORD11B",87
+"RF01386","isrB Hfq binding RNA",87
+"RF01410","BsrC",87
+"RF01421","small nucleolar RNA snoR114",87
+"RF01695","C4 antisense RNA",87
+"RF01724","SAM-Chlorobi RNA",87
+"RF01842","mycoplasma ribosomal frameshift element",87
+"RF01886","Heat shock gene hsromega conserved region 2",87
+"RF01910","microRNA mir-506",87
+"RF02018","microRNA mir-1207",87
+"RF02217","ZNFX1 antisense RNA 1 conserved region 3",87
+"RF02221","sRNA-Xcc1",87
+"RF02236","Xanthomonas sRNA asX2",87
+"RF02246","Six3os1 conserved region 1",87
+"RF02591","S. pyogenes small RNA 1786666",87
+"RF02630","Hfq-regulated sRNA 12",87
+"RF02846","Enterococcus sRNA 84",87
+"RF03056","RAGATH-35 RNA",87
+"RF02874","Antisense to traG",86
+"RF03082","dinG RNA",86
+"RF03100","RAGATH-27 RNA",86
+"RF00153","Small nucleolar RNA SNORD62",86
+"RF00220","Human rhinovirus internal cis-acting regulatory element (CRE)",86
+"RF00238","ctRNA",86
+"RF00296","Small nucleolar RNA R16",86
+"RF00320","Small nucleolar RNA Z185",86
+"RF00370","sroD RNA",86
+"RF00455","mir-15 microRNA precursor family",86
+"RF00532","Small nucleolar RNA Me18S-Um1356",86
+"RF00576","Small nucleolar RNA SNORD71",86
+"RF00594","Small nucleolar RNA SNORD86",86
+"RF00650","microRNA mir-153",86
+"RF00655","microRNA mir-28",86
+"RF00661","microRNA mir-31",86
+"RF00709","microRNA mir-455",86
+"RF00869","microRNA mir-BART7",86
+"RF00892","microRNA mir-551",86
+"RF00902","microRNA mir-791",86
+"RF00912","microRNA mir-877",86
+"RF00942","microRNA mir-1224",86
+"RF00997","microRNA mir-942",86
+"RF01039","microRNA mir-937",86
+"RF01186","Small nucleolar RNA SNORD127",86
+"RF01283","Small nucleolar RNA U30",86
+"RF01285","Small nucleolar RNA U31b",86
+"RF01422","small nucleolar RNA snoR116",86
+"RF01455","Stem loopII regulatory element in POLB",86
+"RF01552","Trypanosomatid snoRNA TB9Cs1H2",86
+"RF01574","Dictyostelium snoRNA DdR6",86
+"RF01929","Bithoraxoid conserved region 1",86
+"RF02000","microRNA MIR1846",86
+"RF02019","microRNA mir-1265",86
+"RF02333","Tetrahymena snoRNA TtnuHACA27",86
+"RF00014","DsrA RNA",85
+"RF00055","Small nucleolar RNA SNORD96 family",85
+"RF00112","CyaR/Rye RNA",85
+"RF00133","Small nucleolar RNA Z195/SNORD33/SNORD32 family",85
+"RF00134","Small nucleolar RNA Z196/R39/R59 family",85
+"RF00257","mir-194 microRNA precursor family",85
+"RF00439","Small nucleolar RNA SNORD87",85
+"RF00476","Small nucleolar RNA snR61/Z1/Z11",85
+"RF00531","Small nucleolar RNA Me28S-Gm3113",85
+"RF00682","microRNA mir-144",85
+"RF00702","microRNA mir-182",85
+"RF00755","microRNA mir-542",85
+"RF00767","microRNA mir-150",85
+"RF00803","microRNA mir-425",85
+"RF00839","microRNA mir-452",85
+"RF00956","microRNA MIR1444",85
+"RF01178","Small nucleolar RNA snoR77Y",85
+"RF01188","Small nucleolar RNA snR56",85
+"RF01786","Cyclic di-GMP-II riboswitch",85
+"RF01880","X-chromosome inactivation gene exon 1",85
+"RF02025","microRNA mir-3017",85
+"RF02094","mir-1803 microRNA precursor",85
+"RF02336","Giardia snoRNA GlsR1/miRNA miR6",85
+"RF02406","Small nucleolar RNA snoR120",85
+"RF02459","Necrovirus cap-independent translation element",85
+"RF02521","Pea enation mosaic virus-2 cap-independent translation element",85
+"RF02582","S. aureus tsr33 small RNA",85
+"RF02643","S. pyogenes small RNA Spy491738",85
+"RF02663","GmglnB1 5'UTR",85
+"RF02827","Streptomyces RNA 6106",85
+"RF02869","Burkholderia sRNA 25",85
+"RF02893","RpsF leader",85
+"RF02924","skipping-rope RNA",85
+"RF02980","freshwater-2 RNA",85
+"RF03023","rpfG RNA",85
+"RF03052","RAGATH-28 RNA",85
+"RF02681","Twister_sister_ribozyme",84
+"RF02891","ArsR-gov region gene B",84
+"RF03038","nhaA-II RNA",84
+"RF03039","Peptidase-S11 RNA",84
+"RF00027","let-7 microRNA precursor",84
+"RF00200","Small nucleolar RNA Z199",84
+"RF00233","Tymovirus/Pomovirus/Furovirus tRNA-like 3' UTR element",84
+"RF00324","Small nucleolar RNA MBII-202",84
+"RF00376","HIV gag stem loop 3 (GSL3)",84
+"RF00527","Small nucleolar RNA Me28S-Gm3255",84
+"RF00649","microRNA mir-128",84
+"RF00657","microRNA mir-184",84
+"RF00717","microRNA mir-315",84
+"RF00725","microRNA mir-iab-4",84
+"RF00737","microRNA mir-322",84
+"RF00772","microRNA mir-328",84
+"RF00776","microRNA mir-540",84
+"RF00781","microRNA mir-505",84
+"RF00862","microRNA mir-491",84
+"RF00993","microRNA mir-1473",84
+"RF01011","microRNA mir-605",84
+"RF01061","microRNA mir-548",84
+"RF01170","Small nucleolar RNA U61",84
+"RF01179","Small nucleolar RNA U83",84
+"RF01182","Small nucleolar RNA SNORD11",84
+"RF01183","Small nucleolar RNA SNORD19B",84
+"RF01280","Small nucleolar RNA snoR14",84
+"RF01466","Listeria sRNA rli34",84
+"RF01467","Listeria sRNA rli36",84
+"RF01586","small nucleolar RNA snoR09",84
+"RF01598","small nucleolar RNA snoR23",84
+"RF01603","small nucleolar RNA snoR29",84
+"RF01698","Chloroflexi-1 RNA",84
+"RF01744","livK RNA",84
+"RF01767","SMK box translational riboswitch (SAM-III)",84
+"RF01938","microRNA mir-1251",84
+"RF01998","Group II catalytic intron D1-D4-1",84
+"RF02020","microRNA mir-25",84
+"RF02021","microRNA mir-3179",84
+"RF02059","Salmonella enterica sRNA STnc40",84
+"RF02061","microRNA mir-301",84
+"RF02109","Deleted in lymphocytic leukemia 2 conserved region 5",84
+"RF02351","Proteobacteria sRNA psRNA14",84
+"RF00152","Small nucleolar RNA SNORD79",83
+"RF00188","Small nucleolar RNA SNORD103/SNORD85",83
+"RF00204","Small nucleolar RNA R12",83
+"RF00258","mir-130 microRNA precursor family",83
+"RF00271","Small nucleolar RNA SNORD60",83
+"RF00283","small Cajal body-specific RNA 18",83
+"RF00368","sroB RNA",83
+"RF00526","Small nucleolar RNA Me28S-U3344",83
+"RF00644","microRNA mir-27",83
+"RF00671","microRNA mir-138",83
+"RF00687","microRNA mir-136",83
+"RF00852","microRNA mir-231",83
+"RF00858","microRNA mir-306",83
+"RF00861","microRNA mir-488",83
+"RF00875","microRNA mir-692",83
+"RF00939","microRNA mir-504",83
+"RF00964","microRNA mir-938",83
+"RF00967","microRNA mir-281",83
+"RF01025","microRNA mir-934",83
+"RF01070","SucA RNA motif",83
+"RF01177","Small nucleolar RNA snR67",83
+"RF01181","Small nucleolar RNA snR77",83
+"RF01506","A. fumigatus snoRNA Afu_294",83
+"RF01569","Dictyostelium snoRNA DdR2",83
+"RF01583","small nucleolar RNA snoR01",83
+"RF01597","small nucleolar RNA snoR22",83
+"RF01694","Bacteroides-1 RNA",83
+"RF01814","rhtB sRNA",83
+"RF01876","Myocardial infarction associated transcript exon 5 conserved region 2",83
+"RF02071","Salmonella enterica sRNA STnc280",83
+"RF02075","Enterobacterial sRNA STnc230",83
+"RF02273","FsrA",83
+"RF02570","Brucella melitensis small RNA 0117",83
+"RF02651","Singlet oxygen resistance RNA Y",83
+"RF02722","Small Cajal body specific RNA ncR27",83
+"RF02725","Small nucleolar RNA ZL8",83
+"RF02785","Trypanosomatid small nucleolar RNA 2",83
+"RF02788","Small nucleolar RNA TBR6",83
+"RF02791","Conserved CCUCCUCCC motif stress-induced RNA 1",83
+"RF02866","Burkholderia sRNA 16 (Bc_KC_sr1)",83
+"RF02904","Aggregatibacter sRNA 69",83
+"RF03021","RT-18 RNA",83
+"RF02717","Small nucleolar RNA ncR4",82
+"RF02823","Legionella RNA 69",82
+"RF02937","Clostridiales-2 RNA",82
+"RF03044","Proteo-phage-1 RNA",82
+"RF00051","mir-17 microRNA precursor family",82
+"RF00105","Small nucleolar RNA SNORD115",82
+"RF00159","Small nucleolar RNA Z168/Z174",82
+"RF00352","Small nucleolar RNA R21",82
+"RF00507","Coronavirus frameshifting stimulation element",82
+"RF00536","Small nucleolar RNA Me28S-Cm3227",82
+"RF00609","Small nucleolar RNA SNORD100",82
+"RF00665","microRNA mir-290",82
+"RF00686","microRNA mir-338",82
+"RF00736","microRNA mir-320",82
+"RF00981","microRNA mir-939",82
+"RF01176","Small nucleolar RNA snR78",82
+"RF01191","Small nucleolar RNA SNORD121A",82
+"RF01596","small nucleolar RNA snoR20",82
+"RF01599","small nucleolar RNA snoR24",82
+"RF01676","Pseudomonas sRNA P31",82
+"RF01787","drz-agam-1 ribozyme",82
+"RF02227","Proteobacterial sRNA sX8",82
+"RF02353","Bradyrhizobiaceae sRNA BjrC68",82
+"RF02366","Cyanobacterial functional RNA 19",82
+"RF02464","Actinobacteria sRNA Ms_AS-4",82
+"RF02467","Mycobacterium sRNA Ms_IGR-2",82
+"RF02631","Hfq-regulated sRNA 13",82
+"RF00206","Small nucleolar RNA U54",81
+"RF00239","mir-124 microRNA precursor family",81
+"RF00254","mir-16 microRNA precursor family",81
+"RF00279","Small nucleolar RNA SNORD45",81
+"RF00315","Small nucleolar RNA J33",81
+"RF00318","Small nucleolar RNA Z175",81
+"RF00326","Small nucleolar RNA Z155",81
+"RF00641","microRNA mir-154",81
+"RF00670","microRNA mir-105",81
+"RF00680","microRNA mir-224",81
+"RF00771","microRNA mir-185",81
+"RF00836","microRNA mir-250",81
+"RF00864","microRNA mir-BART20",81
+"RF00870","microRNA mir-423",81
+"RF00884","microRNA MIR815",81
+"RF00918","microRNA mir-872",81
+"RF00934","microRNA mir-463",81
+"RF00935","microRNA mir-876",81
+"RF00977","microRNA mir-600",81
+"RF01019","microRNA mir-922",81
+"RF01117","Ciona microRNA mir-92",81
+"RF01175","Small nucleolar RNA U83",81
+"RF01281","Small nucleolar RNA snoR35",81
+"RF01560","Dictyostelium snoRNA DdR10",81
+"RF01573","Dictyostelium snoRNA DdR5",81
+"RF02077","Salmonella enterica sRNA STnc220",81
+"RF02095","mir-2985-2 microRNA precursor",81
+"RF02133","HOXB13 antisense RNA 1 conserved region 2",81
+"RF02595","Epstein-Barr virus stable intronic sequence RNA 1",81
+"RF02674","antisense RNA of dnaA mRNA",81
+"RF02732","Aggregatibacter sRNA JA04",81
+"RF02900","Aggregatibacter sRNA 82",81
+"RF03004","Lacto-phage-1 RNA",81
+"RF03078","chrB-a RNA",81
+"RF02930","aspS RNA",80
+"RF02938","COG2827 RNA",80
+"RF03034","nrdJ RNA",80
+"RF00147","Small nucleolar RNA SNORD34",80
+"RF00157","Small nucleolar RNA SNORD55/SNORD39",80
+"RF00172","ctgf/hcs24 CAESAR",80
+"RF00203","Small nucleolar RNA R160",80
+"RF00217","Small nucleolar RNA SNORD20",80
+"RF00284","Small nucleolar RNA SNORD74",80
+"RF00464","mir-92 microRNA precursor family",80
+"RF00494","Small nucleolar RNA U2-19",80
+"RF00535","Small nucleolar RNA Me28S-Am982",80
+"RF00577","Small nucleolar RNA SNORD72",80
+"RF00696","microRNA mir-203",80
+"RF00733","microRNA mir-296",80
+"RF00749","microRNA mir-208",80
+"RF00915","microRNA mir-760",80
+"RF01171","Small nucleolar RNA snoR4",80
+"RF01173","Small nucleolar RNA U105B",80
+"RF01423","small nucleolar RNA snoR117",80
+"RF01563","Dictyostelium snoRNA DdR13",80
+"RF01592","small nucleolar RNA snoR17",80
+"RF01624","Nematode snoRNA ceN27",80
+"RF01844","SmY spliceosomal RNA",80
+"RF02017","microRNA mir-1912",80
+"RF02022","microRNA mir-1275",80
+"RF02037","IMES-4 RNA motif",80
+"RF02213","ZFAT antisense RNA 1 conserved region 3",80
+"RF02395","Staphylococcus sRNA sau-66",80
+"RF02425","Streptococcus sRNA SpF01",80
+"RF02445","Streptococcus sRNA SpR14",80
+"RF02549","Pseudoknot PSK3",80
+"RF00107","FinP",79
+"RF00110","RybB RNA",79
+"RF00119","C0299 RNA",79
+"RF00236","ctRNA",79
+"RF00280","Small nucleolar RNA SNORD51",79
+"RF00362","Pospiviroid RY motif stem loop",79
+"RF00521","SAM riboswitch (alpha-proteobacteria)",79
+"RF00533","Small nucleolar RNA Me18S-Gm1358",79
+"RF00740","microRNA mir-370",79
+"RF00802","microRNA mir-207",79
+"RF00868","microRNA mir-BART15",79
+"RF01003","microRNA mir-563",79
+"RF01006","microRNA mir-601",79
+"RF01035","microRNA mir-887",79
+"RF01042","microRNA mir-891",79
+"RF01174","Small nucleolar RNA U43",79
+"RF01279","Small nucleolar RNA snoR53Y",79
+"RF01838","sobemovirus ribosomal frameshift elemental",79
+"RF02089","CLRN1 antisense RNA 1 conserved region",79
+"RF02183","ST7 overlapping transcript 3 conserved region 1",79
+"RF02207","WT1 antisense RNA conserved region 5",79
+"RF02211","ZFAT antisense RNA 1 conserved region 1",79
+"RF02245","microRNA mir-788",79
+"RF02454","Bacillus sRNA ncr982",79
+"RF02477","Small nucleolar RNA GlsR9",79
+"RF02538","Vibrio ToxT activated RNA TarB",79
+"RF02871","Burkholderia sRNA 54",79
+"RF02944","c4-2 RNA",79
+"RF02701","Photosynthesis regulatory RNA1",78
+"RF02761","sR084 sRNA",78
+"RF02922","RAGATH-32 RNA",78
+"RF02923","HTH-XRE RNA",78
+"RF02934","caiA RNA",78
+"RF02949","Cupriavidus-1 RNA",78
+"RF00116","C0465 RNA",78
+"RF00129","mir-103/107 microRNA precursor",78
+"RF00137","Small nucleolar RNA SNORD83",78
+"RF00268","Small nucleolar RNA snoZ7/snoR77",78
+"RF00325","Small nucleolar RNA SNORD53/SNORD92",78
+"RF00355","Small nucleolar RNA snoR28",78
+"RF00559","Ribosomal protein L21 leader",78
+"RF00622","Mammalian CPEB3 ribozyme",78
+"RF00669","microRNA mir-96",78
+"RF00750","microRNA mir-458",78
+"RF00919","microRNA mir-874",78
+"RF00932","microRNA mir-471",78
+"RF00950","microRNA mir-927",78
+"RF01057","S-adenosyl-L-homocysteine riboswitch",78
+"RF01172","Small nucleolar RNA sn2343",78
+"RF01475","Listeria snRNA rli45",78
+"RF01535","Trypanosomatid snoRNA TB10Cs5H2",78
+"RF01566","Dictyostelium snoRNA DdR16",78
+"RF01604","small nucleolar RNA snoR28",78
+"RF01662","Caenorhabditis snoRNA ceN89",78
+"RF01682","Pseudomonas sRNA P8",78
+"RF01779","AS1726 sRNA",78
+"RF01885","Heat shock gene hsromega conserved region 1",78
+"RF01987","ZEB2 antisense RNA 1 conserved region 4",78
+"RF02096","mir-2973 microRNA precursor",78
+"RF02231","Xanthomonas sRNA sX12",78
+"RF02241","Xanthomonadaceae sRNA Xoo2",78
+"RF02304","Tetrahymena snoRNA TtnuCD29",78
+"RF02362","Cyanobacterial functional RNA 10",78
+"RF02371","PyrG leader",78
+"RF02551","ABC transporter regulator",78
+"RF02565","Y RNA-like",78
+"RF00049","Small nucleolar RNA SNORD36",77
+"RF00085","Small nucleolar RNA SNORD28",77
+"RF00103","mir-1 microRNA precursor family",77
+"RF00136","Small nucleolar RNA SNORD81",77
+"RF00143","mir-6 microRNA precursor",77
+"RF00281","Small nucleolar RNA SNORD47",77
+"RF00519","Makes More Granules Regulator RNA (mmgR)",77
+"RF00520","ybhL leader",77
+"RF00574","Small nucleolar RNA SNORD69",77
+"RF00712","microRNA mir-460",77
+"RF00909","microRNA mir-883",77
+"RF00910","microRNA mir-873",77
+"RF00929","microRNA mir-574",77
+"RF00933","microRNA mir-875",77
+"RF01009","microRNA mir-M7",77
+"RF01163","Small nucleolar RNA snoR64a",77
+"RF01166","Small nucleolar RNA sn3071",77
+"RF01167","Small nucleolar RNA sn2429",77
+"RF01168","Small nucleolar RNA SNORD126",77
+"RF01169","Small nucleolar RNA SNORD112",77
+"RF01301","Small nucleolar RNA snoR4a",77
+"RF01394","isrK Hfq binding RNA",77
+"RF01501","A. fimigatus snoRNA Afu_199",77
+"RF01526","C. elegans snoRNA ceN106",77
+"RF01706","Gut-1 RNA",77
+"RF01809","SymR antitoxin",77
+"RF02074","Enterobacterial sRNA STnc240",77
+"RF02275","Hammerhead ribozyme HH9",77
+"RF02282","Tetrahymena snoRNA TtnuCD5",77
+"RF02298","Tetrahymena snoRNA TtnuCD22",77
+"RF02338","Giardia snoRNA GlsR16//miRNA miR3",77
+"RF02408","Small nucleolar RNA snoR124",77
+"RF02495","Oppression of Hydrophobic ORF by sRNA",77
+"RF02544","Mitochondrion-encoded tmRNA",77
+"RF02564","Nucleoid-associated noncoding RNA 4 (CssrE)",77
+"RF02724","Small nucleolar RNA ZL2",77
+"RF02873","Antisense to traI",77
+"RF02898","Aggregatibacter sRNA 20",77
+"RF02965","CyVA-1 RNA",77
+"RF03097","RAGATH-21 RNA",77
+"RF02952","dfrA-dnaX RNA",76
+"RF02959","DUF3085 RNA",76
+"RF03051","RAGATH-26 RNA",76
+"RF00069","Small nucleolar RNA SNORD24",76
+"RF00076","mir-181 microRNA precursor",76
+"RF00087","Small nucleolar RNA SNORD26",76
+"RF00202","Small nucleolar RNA R66",76
+"RF00241","mir-8/mir-141/mir-200 microRNA precursor family",76
+"RF00245","mir-19 microRNA precursor family",76
+"RF00295","Small nucleolar RNA TBR7",76
+"RF00569","Small nucleolar RNA SNORD19",76
+"RF00572","Small nucleolar RNA SNORD66",76
+"RF00866","microRNA mir-BART3",76
+"RF00899","microRNA mir-235",76
+"RF00922","microRNA mir-673",76
+"RF00931","microRNA mir-879",76
+"RF00945","microRNA mir-1226",76
+"RF01404","PinT (STnc440) Hfq binding RNA",76
+"RF01561","Dictyostelium snoRNA DdR11",76
+"RF01587","small nucleolar RNA snoR10",76
+"RF01622","Nematode snoRNA ceN22",76
+"RF01647","Caenorhabditis snoRNA ceN61",76
+"RF01665","Pseudomonas sRNA P13",76
+"RF01705","Flavo-1 RNA",76
+"RF01708","L17 ribosomal protein downstream element",76
+"RF02031","tpke11",76
+"RF02083","OrzO-P RNA antitoxin family",76
+"RF02107","Deleted in lymphocytic leukemia 2 conserved region 3",76
+"RF02219","ZNRD1 antisense RNA 1 conserved region 2",76
+"RF02228","Xanthomonas sRNA sX9",76
+"RF02255","Adaptive response 33 conserved region 1",76
+"RF02598","Epstein-Barr virus stable intronic sequence RNA 2",76
+"RF00043","R1162-like plasmid antisense RNA",75
+"RF00078","MicA sRNA",75
+"RF00104","mir-10 microRNA precursor family",75
+"RF00181","Small nucleolar RNA SNORD113/SNORD114 family",75
+"RF00253","mir-101 microRNA precursor family",75
+"RF00467","Rous sarcoma virus (RSV) primer binding site (PBS)",75
+"RF00530","Small nucleolar RNA Me28S-Cm2645",75
+"RF00538","Small nucleolar RNA CD11",75
+"RF00642","microRNA mir-23",75
+"RF00707","microRNA mir-197",75
+"RF00813","microRNA mir-11",75
+"RF00891","microRNA mir-671",75
+"RF00976","microRNA mir-583",75
+"RF00986","microRNA mir-920",75
+"RF00996","microRNA mir-631",75
+"RF01066","6C RNA",75
+"RF01393","isrJ Hfq binding RNA",75
+"RF01415","Flavivirus 3'UTR stem loop IV",75
+"RF01562","D. discoideum snoRNA DdR12",75
+"RF01782","ASpks TB sRNA",75
+"RF01924","microRNA mir-2774",75
+"RF02026","microRNA mir-2833",75
+"RF02202","Urothelial cancer associated 1 conserved region",75
+"RF02248","Six3os1 conserved region 3",75
+"RF02386","Staphylococcus sRNA sau-19",75
+"RF02661","icaR 5' UTR",75
+"RF02716","Small nucleolar RNA ncR3",75
+"RF02912","putative aminoglycoside riboswitch / attI site",75
+"RF02974","Fibro-purF RNA",75
+"RF03027","RT-6 RNA",75
+"RF02676","Enterohemorrhagic E. coli sRNA 41",74
+"RF02682","HDV ribozyme from F. prausnitzii",74
+"RF02917","Burkholderiales-2 RNA",74
+"RF02945","Corio-PBP RNA",74
+"RF00244","mir-26 microRNA precursor family",74
+"RF00249","mir-46/mir-47/mir-281 microRNA precursor family",74
+"RF00460","U1A polyadenylation inhibition element (PIE)",74
+"RF00539","Small nucleolar RNA Me28S-Cm788",74
+"RF00606","Small nucleolar RNA SNORD93",74
+"RF00608","Small nucleolar RNA SNORD99",74
+"RF00624","Pseudomonas sRNA P9",74
+"RF00684","mir-122 microRNA precursor",74
+"RF00751","microRNA mir-12",74
+"RF00823","microRNA lsy-6",74
+"RF00953","microRNA mir-1497",74
+"RF01014","microRNA mir-1306",74
+"RF01015","microRNA mir-885",74
+"RF01164","Small nucleolar RNA SNORD107",74
+"RF01541","Trypanosomatid snoRNA TB11Cs4H3",74
+"RF01605","small nucleolar RNA snoR30",74
+"RF01634","Caenorhabditis snoRNA ceN44",74
+"RF01641","Caenorhabditis snoRNA ceN53",74
+"RF02085","Yellow-achaete intergenic RNA conserved region 1",74
+"RF02086","Yellow-achaete intergenic RNA conserved region 2",74
+"RF02288","Tetrahymena snoRNA TtnuCD11",74
+"RF02290","Tetrahymena snoRNA TtnuCD14",74
+"RF02307","Tetrahymena snoRNA TtnuCD33",74
+"RF02373","PyrD leader",74
+"RF02407","Small nucleolar RNA snoR122",74
+"RF02466","Actinobacteria sRNA Ms_AS-8",74
+"RF02628","Hfq-regulated sRNA 1",74
+"RF00093","Small nucleolar RNA SNORD18",73
+"RF00186","Small nucleolar RNA SNORD101",73
+"RF00273","Small nucleolar RNA SNORD59",73
+"RF00316","Small nucleolar RNA R43",73
+"RF00342","Small nucleolar RNA Z40",73
+"RF00344","Small nucleolar RNA Z267",73
+"RF00571","Small nucleolar RNA SNORD65",73
+"RF00699","microRNA mir-134",73
+"RF00701","microRNA mir-126",73
+"RF00715","microRNA mir-383",73
+"RF00716","microRNA mir-3",73
+"RF00897","microRNA mir-675",73
+"RF01524","Trypanosomatid snoRNA TB10cs1H3",73
+"RF01548","Trypanosomatid snoRNA TB6Cs1H4",73
+"RF01626","Caenorhabditis snoRNA ceN30",73
+"RF01697","Chlorobi-RRM RNA",73
+"RF01832","Repression of heat shock gene expression (ROSE) element",73
+"RF01839","eastern equine encephalitis ribosomal frameshift element",73
+"RF02023","microRNA mir-1208",73
+"RF02186","ST7 overlapping transcript 3 conserved region 4",73
+"RF02270","Neisseria sigma-E sRNA",73
+"RF02403","A. fumigatus snoRNA Afu_328",73
+"RF02443","Streptococcus sRNA SpR08",73
+"RF02784","Singlet oxygen resistance RNA X",73
+"RF02811","FHbp 5' UTR thermometer",73
+"RF02814","Sulfolobus sRNA133",73
+"RF02984","DUF3800-X RNA",73
+"RF03091","Clostridium-PBP RNA",73
+"RF02727","Small nucleolar RNA ZL116",72
+"RF02754","ES205 sRNA",72
+"RF02780","PutA 5' UTR thermometer",72
+"RF02992","hya RNA",72
+"RF03032","narK RNA",72
+"RF03036","osmY RNA",72
+"RF03047","RAGATH-16 RNA",72
+"RF03064","RAGATH-18 RNA",72
+"RF00047","mir-2 microRNA precursor",72
+"RF00071","Small nucleolar RNA SNORD73",72
+"RF00145","Small nucleolar RNA Z105",72
+"RF00170","Retron msr RNA",72
+"RF00187","Small nucleolar RNA SNORD102",72
+"RF00270","Small nucleolar RNA SNORD61",72
+"RF00274","Small nucleolar RNA SNORD57",72
+"RF00278","Small nucleolar RNA SNORD50",72
+"RF00339","Small nucleolar RNA snoR60",72
+"RF00525","Flavivirus DB element",72
+"RF00658","microRNA mir-21",72
+"RF00722","microRNA mir-451",72
+"RF00849","microRNA mir-60",72
+"RF00854","microRNA mir-5",72
+"RF01076","Polymerase ribosomal frameshift site",72
+"RF01160","Small nucleolar RNA sn2841",72
+"RF01161","Small nucleolar RNA SNORD5",72
+"RF01538","Trypanosomatid snoRNA TB11Cs3H1",72
+"RF01539","Trypanosomatid snoRNA TB11Cs4H1",72
+"RF01668","Pseudomonas sRNA P10",72
+"RF01714","Ocean-V RNA",72
+"RF01811","Plasmid transferred anti-sense RNA",72
+"RF02068","Enterobacterial sRNA STnc480",72
+"RF02163","Small nucleolar RNA sR-tMet",72
+"RF02181","ST7 antisense RNA 2 conserved region 1",72
+"RF02280","Tetrahymena snoRNA TtnuCD3",72
+"RF02283","Tetrahymena snoRNA TtnuCD6",72
+"RF02299","Tetrahymena snoRNA TtnuCD23",72
+"RF00005","tRNA",71
+"RF00052","lin-4 microRNA precursor",71
+"RF00074","mir-29 microRNA precursor",71
+"RF00086","Small nucleolar RNA SNORD27",71
+"RF00179","GAIT element",71
+"RF00251","mir-219 microRNA precursor family",71
+"RF00266","Small nucleolar RNA Z17",71
+"RF00275","Small nucleolar RNA SNORD56",71
+"RF00277","Small nucleolar RNA SNORD49",71
+"RF00610","Small nucleolar RNA SNORD110",71
+"RF00744","microRNA mir-361",71
+"RF00753","microRNA mir-503",71
+"RF00840","microRNA mir-374",71
+"RF00894","microRNA mir-790",71
+"RF00898","microRNA mir-242",71
+"RF00904","microRNA mir-392",71
+"RF01004","microRNA mir-557",71
+"RF01158","Small nucleolar RNA SNORD108",71
+"RF01159","Small nucleolar RNA U18",71
+"RF01489","Listeria sRNA sbrA",71
+"RF01522","Trypanosomatid snoRNA TB10Cs1H1",71
+"RF01542","Trypanosomatid snoRNA TB11Cs5H1",71
+"RF01558","Trypanosomatid snoRNA TB9Cs4H2",71
+"RF01652","Caenorhabditis snoRNA ceN70",71
+"RF01666","Drosophila rox2 ncRNA",71
+"RF01680","Pseudomonas sRNA P5",71
+"RF01841","venezuelan equine encephalitis virus ribosomal frameshift element",71
+"RF01972","H19 conserved region 1",71
+"RF02064","Enterobacterial sRNA STnc370",71
+"RF02119","FTX transcript, XIST regulator conserved region 1",71
+"RF02172","RFPL3 antisense RNA 1 conserved region 2",71
+"RF02256","Adaptive response 33 conserved region 2",71
+"RF02340","Dengue virus SLA",71
+"RF02517","mir-1017 microRNA precursor family",71
+"RF02522","Pea enation mosaic virus-2 cap-independent translation element",71
+"RF02733","ToxT 5' UTR thermometer",71
+"RF02996","int-alpA RNA",71
+"RF02679","Pistol ribozyme",70
+"RF02796","Pab160 RNA",70
+"RF02853","Yersinia sRNA 201",70
+"RF02910","Coronavirus 5' stem-loops 1-2",70
+"RF02968","DUF3800-IX RNA",70
+"RF00088","Small nucleolar RNA SNORD30",70
+"RF00154","Small nucleolar RNA SNORD63",70
+"RF00158","Small nucleolar RNA SNORD82",70
+"RF00212","Small nucleolar RNA SNORD38",70
+"RF00215","Tombus virus defective interfering (DI) RNA region 3",70
+"RF00240","RNA-OUT",70
+"RF00289","Small nucleolar RNA SNORD104",70
+"RF00363","mir-BART1 microRNA precursor family",70
+"RF00493","Small nucleolar RNA U2-30",70
+"RF00588","Small nucleolar RNA SNORD41",70
+"RF00651","microRNA mir-221",70
+"RF00666","microRNA mir-32",70
+"RF00693","microRNA mir-147",70
+"RF01156","Small nucleolar RNA SNORD123",70
+"RF01165","Small nucleolar RNA sn2317",70
+"RF01299","Small nucleolar RNA SNORD2",70
+"RF01536","Trypanosomatid snoRNA TB10Cs5H3",70
+"RF01537","Trypanosomatid snoRNA TB11Cs2H1",70
+"RF01551","Trypanosomatid snoRNA TB8Cs4H2",70
+"RF01567","D. discoideum snoRNA DdR17",70
+"RF01600","small nucleolar RNA snoR25",70
+"RF01611","Caenorhabditis snoRNA ceN108",70
+"RF01615","Nematode snoRNA ceN111",70
+"RF01751","potC RNA",70
+"RF01759","sucC RNA",70
+"RF01784","bablM sRNA",70
+"RF02057","Salmonella enterica sRNA STnc40",70
+"RF02126","Ghrelin opposite strand RNA conserved region",70
+"RF02295","Tetrahymena snoRNA TtnuCD19",70
+"RF02337","Giardia snoRNA GlsR8/miRNA miR10",70
+"RF02499","Rhizobiales sRNA Atu_C4",70
+"RF02580","S. aureus tsr31 small RNA",70
+"RF00089","Small nucleolar RNA SNORD31",69
+"RF00331","Small nucleolar RNA Z169",69
+"RF00626","Gurken localisation signal",69
+"RF00667","microRNA mir-33",69
+"RF00668","microRNA mir-302",69
+"RF00700","microRNA mir-375",69
+"RF01298","Small nucleolar RNA U25",69
+"RF01532","Trypanosomatid snoRNA TB10Cs3H2",69
+"RF01545","Trypanosomatid snoRNA TB3Cs2H1",69
+"RF01646","Caenorhabditis snoRNA ceN63",69
+"RF01701","Cyano-1 RNA",69
+"RF01905","HOTAIR conserved region 2",69
+"RF01952","SOX2 overlapping transcript exon 2",69
+"RF01973","H19 conserved region 2",69
+"RF02024","microRNA mir-1180",69
+"RF02097","mir-1662 microRNA precursor",69
+"RF02125","JPX transcript, XIST activator conserved region 2",69
+"RF02523","Repression of heat shock gene expression (ROSE) element",69
+"RF02710","TeloSII non coding RNA 45",69
+"RF02847","Enterococcus sRNA 64",69
+"RF02961","DUF3800-II RNA",69
+"RF02985","ftsZ-DE RNA",69
+"RF03015","Transposase-2 RNA",69
+"RF02721","Small Cajal body specific RNA ncR26",68
+"RF02801","Pyrobaculum sRNA 201",68
+"RF02843","Enterococcus sRNA A5",68
+"RF02913","pemK RNA",68
+"RF02993","ilvH RNA",68
+"RF03081","DUF805 RNA",68
+"RF00150","Small nucleolar RNA SNORD42",68
+"RF00178","mir-24 microRNA precursor family",68
+"RF00189","Small nucleolar RNA SNORD95",68
+"RF00194","Rubella virus 3' cis-acting element",68
+"RF00262","sar RNA",68
+"RF00501","Rotavirus cis-acting replication element (CRE)",68
+"RF00591","Small nucleolar RNA SNORD77",68
+"RF00703","microRNA mir-139",68
+"RF00735","microRNA mir-367",68
+"RF00784","microRNA mir-486",68
+"RF00818","microRNA mir-318",68
+"RF00844","microRNA mir-67",68
+"RF00979","microRNA mir-553",68
+"RF01088","Pseudoknot of tRNA-like structure",68
+"RF01543","Trypanosomatid snoRNA TB11Cs5H2",68
+"RF01554","Trypanosomatid snoRNA TB9Cs2H1",68
+"RF01555","Trypanosomatid snoRNA TB9Cs3H1",68
+"RF01642","Caenorhabditis snoRNA ceN54",68
+"RF01781","ASdes TB sRNA",68
+"RF02063","Salmonella enterica sRNA STnc350",68
+"RF02218","ZNRD1 antisense RNA 1 conserved region 1",68
+"RF02266","XIST 3' intron conserved motif",68
+"RF02293","Tetrahymena snoRNA TtnuCD17",68
+"RF02478","Small nucleolar RNA GlsR10",68
+"RF02480","Small nucleolar RNA GlsR14",68
+"RF00057","RyhB RNA",67
+"RF00109","Vimentin 3' UTR protein-binding region",67
+"RF00276","Small nucleolar RNA SNORD52",67
+"RF00490","S-element",67
+"RF00570","Small Nucleolar RNA SNORD64",67
+"RF00752","microRNA mir-14",67
+"RF00783","microRNA mir-484",67
+"RF01022","microRNA mir-611",67
+"RF01137","Small nucleolar RNA sR21",67
+"RF01153","Small nucleolar RNA sn3060",67
+"RF01277","Small nucleolar RNA U54",67
+"RF01278","Small nucleolar RNA SNORD109A",67
+"RF01533","Trypanosomatid snoRNA TB10Cs4H3",67
+"RF01613","Nematode snoRNA ceN109",67
+"RF01690","Bacillaceae-1 RNA",67
+"RF01696","Chlorobi-1 RNA",67
+"RF01763","Guanidine-III riboswitch",67
+"RF01798","G2",67
+"RF01862","Trypanosomatid snoRNA TB10Cs4H2",67
+"RF01863","Trypanosomatid snoRNA TB10Cs2H2",67
+"RF01939","microRNA mir-761",67
+"RF02028","microRNA mir-1827",67
+"RF02087","Yellow-achaete intergenic RNA conserved region 3",67
+"RF02264","MAT2A 3'UTR stem loop E",67
+"RF02276","Hammerhead ribozyme (type II)",67
+"RF02305","Tetrahymena snoRNA TtnuCD31",67
+"RF02419","Streptococcus sRNA Spd-sr37",67
+"RF02548","Oocyte entry signal (OES) from oskar mRNA",67
+"RF03017","RT-13 RNA",67
+"RF03002","lysM-Prevotella RNA",66
+"RF03013","nadA RNA",66
+"RF00365","mir-BHRF1-1 microRNA precursor family",66
+"RF00630","Pseudomonas sRNA P26",66
+"RF00741","microRNA mir-378",66
+"RF00994","microRNA mir-1255",66
+"RF01077","Pseudoknot of tRNA-like structure",66
+"RF01090","Edr gene ribosomal frameshift signal",66
+"RF01155","Small nucleolar RNA snoR101",66
+"RF01157","Small nucleolar RNA sn1185",66
+"RF01525","Trypanosomatid snoRNA TB10Cs2H1",66
+"RF01534","Trypanosomatid snoRNA TB10Cs4H4",66
+"RF01546","Trypanosomatid snoRNA TB6Cs1H1",66
+"RF01559","Dictyostelium snoRNA DdR1",66
+"RF01688","Actino-pnp RNA",66
+"RF01813","rdlD antitoxin",66
+"RF01826","SAM-V riboswitch",66
+"RF01935","Bithoraxoid conserved region 7",66
+"RF01991","Selenocysteine insertion sequence 5",66
+"RF02147","Maternally expressed 8 exon 3",66
+"RF02265","MAT2A 3'UTR stem loop F",66
+"RF02296","Tetrahymena snoRNA TtnuCD20",66
+"RF02389","Staphylococcus sRNA sau-31",66
+"RF00070","Small nucleolar RNA SNORD29",65
+"RF00151","Small nucleolar RNA SNORD58",65
+"RF00227","FIE3 (ftz instability element 3') element",65
+"RF00323","Small nucleolar RNA R79",65
+"RF00366","mir-BHRF1-2 microRNA precursor family",65
+"RF00367","mir-BHRF1-3 microRNA precursor family",65
+"RF00382","DnaX ribosomal frameshifting element",65
+"RF00440","Small nucleolar RNA SNORD37",65
+"RF00468","Hepatitis C virus stem-loop VII",65
+"RF00592","Small nucleolar RNA SNORD78",65
+"RF00607","Small nucleolar RNA SNORD98",65
+"RF00731","microRNA mir-155",65
+"RF01146","Small nucleolar RNA sR15",65
+"RF01162","Small nucleolar RNA sn668",65
+"RF01300","Small nucleolar RNA U49",65
+"RF01403","STnc290 Hfq binding RNA",65
+"RF01516","Human herpesvirus 1 small nucleolar RNA",65
+"RF01544","Trypanosomatid snoRNA TB11Cs5H3",65
+"RF01549","Trypanosomatid snoRNA TB8Cs2H1",65
+"RF01553","Trypanosomatid snoRNA TB9Cs1H3",65
+"RF01564","D. discoideum snoRNA DdR14",65
+"RF01648","Caenorhabditis snoRNA ceN65",65
+"RF01795","FourU thermometer RNA element",65
+"RF02027","microRNA MIR2907",65
+"RF02260","MAT2A 3'UTR stem loop A",65
+"RF02291","Tetrahymena snoRNA TtnuCD15",65
+"RF02297","Tetrahymena snoRNA TtnuCD21",65
+"RF02677","Nitrogen stress-induced RNA 4",65
+"RF02805","Pyrobaculum sRNA 207",65
+"RF02807","Pyrobaculum sRNA 209",65
+"RF02931","Bacilli-1 RNA",65
+"RF02971","emrB-Lactobacillus RNA",65
+"RF02753","ES173 sRNA",64
+"RF02831","Streptomyces RNA 2736",64
+"RF02844","Enterococcus sRNA A9",64
+"RF02948","cow-rumen-4 RNA",64
+"RF02950","D12-methyl RNA",64
+"RF03075","DUF3800-VIII RNA",64
+"RF00031","Selenocysteine insertion sequence 1",64
+"RF00161","Nanos 3' UTR translation control element",64
+"RF00221","Small nucleolar RNA SNORD43",64
+"RF00505","RydC RNA",64
+"RF01307","Small nucleolar RNA sR55",64
+"RF01540","Trypanosomatid snoRNA TB11Cs4H2",64
+"RF01547","Trypanosomatid snoRNA TB6Cs1H3",64
+"RF01686","Acido-1 RNA",64
+"RF02261","MAT2A 3'UTR stem loop B",64
+"RF02278","Betaproteobacteria toxic small RNA",64
+"RF02303","Tetrahymena snoRNA TtnuCD28",64
+"RF02308","Tetrahymena snoRNA TtnuCD34",64
+"RF02388","Staphylococcus sRNA sau-30",64
+"RF00066","U7 small nuclear RNA",63
+"RF00282","Small nucleolar RNA SNORD48",63
+"RF00341","Small nucleolar RNA Z39",63
+"RF00743","microRNA mir-308",63
+"RF00756","microRNA mir-299",63
+"RF01127","Small nucleolar RNA sR42",63
+"RF01142","Small nucleolar RNA sR19",63
+"RF01510","M. florum riboswitch",63
+"RF01523","Trypanosomatid snoRNA TB10Cs1H2",63
+"RF01550","Trypanosomatid snoRNA TB8Cs3H1",63
+"RF01556","Trypanosomatid snoRNA TB9Cs3H2",63
+"RF01618","Nematode snoRNA ceN114",63
+"RF01711","Lnt RNA",63
+"RF01734","Fluoride riboswitch",63
+"RF01861","Trypanosomatid snoRNA TB9Cs1H1",63
+"RF02153","Neighbour of BRCA1 gene 2 converved region",63
+"RF02279","Tetrahymena snoRNA TtnuCD1",63
+"RF02289","Tetrahymena snoRNA TtnuCD13",63
+"RF02418","Streptococcus sRNA Spd-sr07",63
+"RF02451","Bacillus sRNA ncr1241",63
+"RF02470","Mycobacterium sRNA Ms_IGR-8",63
+"RF02592","S. pyogenes antisense RNA 392987",63
+"RF03084","DUF2815 RNA",63
+"RF02702","Anti GcvB sRNA",62
+"RF02885","SAM-VI riboswitch",62
+"RF02979","freshwater-1 RNA",62
+"RF03003","GP20-b RNA",62
+"RF00118","rydB RNA",62
+"RF00237","mir-9/mir-79 microRNA precursor family",62
+"RF00364","mir-BART2 microRNA precursor family",62
+"RF00384","Poxvirus AX element late mRNA cis-regulatory element",62
+"RF00612","Small nucleolar RNA SNORD75",62
+"RF00681","microRNA mir-198",62
+"RF00940","microRNA mir-327",62
+"RF01073","Gag/pol translational readthrough site",62
+"RF01531","Trypanosomatid snoRNA TB10Cs3H1",62
+"RF01557","Trypanosomatid snoRNA TB9Cs4H1",62
+"RF01677","Pseudomonas sRNA P35",62
+"RF01678","Pseudomonas sRNA P37",62
+"RF01768","ribosomal frameshift site",62
+"RF01810","pntA sRNA",62
+"RF00048","Enterovirus cis-acting replication element",61
+"RF00165","Coronavirus 3' UTR pseudoknot",61
+"RF00250","Trans-activation response element (TAR)",61
+"RF00287","Small nucleolar RNA SNORD44",61
+"RF00890","microRNA mir-668",61
+"RF01047","HBV RNA encapsidation signal epsilon",61
+"RF01091","3'-terminal pseudoknot in SPCSV",61
+"RF01092","Gag/pol translational readthrough site",61
+"RF01297","Small nucleolar RNA sR40",61
+"RF01679","Pseudomonas sRNA P36",61
+"RF01691","Bacillus-plasmid RNA",61
+"RF01738","gabT RNA",61
+"RF01739","Glutamine riboswitch",61
+"RF01783","Mycobacterium B11",61
+"RF01962","Rhabdomyosarcoma 2 associated transcript conserved region 1",61
+"RF01985","ZEB2 antisense RNA 1 conserved region 2",61
+"RF02067","Salmonella enterica sRNA STnc310",61
+"RF02473","Small nucleolar RNA GlsR4",61
+"RF02803","Pyrobaculum sRNA 205",61
+"RF02804","Pyrobaculum sRNA 206",61
+"RF02918","MDR-NUDIX RNA",61
+"RF02927","Actino-ugpB RNA",61
+"RF02946","cow-rumen-1 RNA",61
+"RF03042","porB RNA",61
+"RF03054","NMT1 RNA",61
+"RF02806","Pyrobaculum sRNA 208",60
+"RF03067","terC RNA",60
+"RF00131","mir-30 microRNA precursor",60
+"RF00555","Ribosomal protein L13 leader",60
+"RF00847","microRNA mir-62",60
+"RF00955","microRNA mir-1829",60
+"RF01093","Ma3 gene ribosomal frameshift signal",60
+"RF01276","Small nucleolar RNA sR53",60
+"RF01704","Downstream peptide RNA",60
+"RF01722","Pyrobac-1 RNA",60
+"RF01726","SAM-II long loop",60
+"RF01747","msiK RNA",60
+"RF01753","psbNH RNA",60
+"RF01817","RNA Staph. aureus A",60
+"RF02056","Salmonella sRNA STnc390",60
+"RF02136","HTT antisense RNA 1 conserved region 3",60
+"RF02281","Tetrahymena snoRNA TtnuCD4",60
+"RF02399","Nitrogen stress-induced RNA 1",60
+"RF00381","Antizyme RNA frameshifting stimulation element",59
+"RF00454","p27 cis-regulatory element",59
+"RF00465","Japanese encephalitis virus (JEV) hairpin structure",59
+"RF00832","microRNA mir-71",59
+"RF01116","Cyanobacterial functional RNA 1",59
+"RF01121","Small nucleolar RNA sR38",59
+"RF01132","Small nucleolar RNA sR48",59
+"RF01306","Small nucleolar RNA sR52",59
+"RF01571","D. discoideum class II sRNA",59
+"RF01667","Drosophila rox1 ncRNA",59
+"RF01804","Lambda phage CIII thermoregulator element",59
+"RF01977","HOX antisense intergenic RNA myeloid 1 conserved region 3",59
+"RF01989","Selenocysteine insertion sequence 3",59
+"RF02285","Tetrahymena snoRNA TtnuCD8",59
+"RF02396","Staphylococcus sRNA sau-5949",59
+"RF02475","Small nucleolar RNA GlsR6",59
+"RF02476","Small nucleolar RNA GlsR7",59
+"RF02699","Avashort 5' UTR thermometer",59
+"RF02808","Pyrobaculum sRNA 210",59
+"RF03014","Transposase-1 RNA",59
+"RF03024","Rothia-sucC RNA",59
+"RF03055","RAGATH-30 RNA",59
+"RF03093","queA RNA",59
+"RF00008","Hammerhead ribozyme (type III)",58
+"RF00095","Pyrococcus C/D box small nucleolar RNA",58
+"RF01078","3'-terminal pseudoknot in PYVV",58
+"RF01275","Small nucleolar RNA sR22",58
+"RF01310","Small nucleolar RNA sR7",58
+"RF01414","Class I RNA",58
+"RF01519","Caulobacter sRNA CC0196",58
+"RF01709","Lacto-rpoB RNA",58
+"RF01791","F6 TB sRNA",58
+"RF02054","Salmonella enterica sRNA STnc420",58
+"RF02108","Deleted in lymphocytic leukemia 2 conserved region 4",58
+"RF02292","Tetrahymena snoRNA TtnuCD16",58
+"RF02294","Tetrahymena snoRNA TtnuCD18",58
+"RF02300","Tetrahymena snoRNA TtnuCD24",58
+"RF02401","ClpQY promoter",58
+"RF02441","Streptococcus sRNA SpF61",58
+"RF01119","Small nucleolar RNA sR32",57
+"RF01123","Small nucleolar RNA sR35",57
+"RF01128","Small nucleolar RNA sR42",57
+"RF01134","Small nucleolar RNA sR30",57
+"RF01139","Small nucleolar RNA sR2",57
+"RF01150","Small nucleolar RNA sR11",57
+"RF01152","Small nucleolar RNA sR1",57
+"RF01313","Avian HBV RNA encapsidation signal epsilon",57
+"RF01933","Bithoraxoid conserved region 5",57
+"RF02040","HOXA transcript at the distal tip, conserved region 1",57
+"RF02051","Enterobacterial sRNA STnc450",57
+"RF02427","Streptococcus sRNA SpF10",57
+"RF02440","Streptococcus sRNA SpF59 (ldcC RNA)",57
+"RF02793","Pyrobaculum asRNA3",57
+"RF02795","Pab91 RNA",57
+"RF02802","Pyrobaculum sRNA 204",57
+"RF02907","patAB leader",57
+"RF02684","Type-P5 twister ribozyme",56
+"RF03030","salivarius-1 RNA",56
+"RF03057","nhaA-I RNA",56
+"RF03058","sul1 RNA",56
+"RF01020","microRNA mir-572",56
+"RF01095","3'-terminal pseudoknot of CuYV/BPYV",56
+"RF01096","HepA virus 3'-terminal pseudoknot",56
+"RF01122","Small nucleolar RNA sR39",56
+"RF01125","Small nucleolar RNA sR4",56
+"RF01130","Small nucleolar RNA sR46",56
+"RF01140","Small nucleolar RNA sR20",56
+"RF01141","Small nucleolar RNA sR18",56
+"RF01303","Small nucleolar RNA sR49",56
+"RF01305","Small nucleolar RNA sR51",56
+"RF01684","MALAT1-associated small cytoplasmic RNA/MEN beta RNA",56
+"RF01762","Whalefall-1 RNA",56
+"RF02117","FMR1 antisense RNA 1 conserved region 1",56
+"RF02596","Cyanobacteria heterocyst sRNA",56
+"RF00192","Bovine leukaemia virus RNA packaging signal",55
+"RF01120","Small nucleolar RNA sR33",55
+"RF01124","Small nucleolar RNA sR36",55
+"RF01129","Small nucleolar RNA sR44",55
+"RF01131","Small nucleolar RNA sR47",55
+"RF01133","Small nucleolar RNA sR3",55
+"RF01135","Small nucleolar RNA sR24",55
+"RF01136","Small nucleolar RNA sR28",55
+"RF01144","Small nucleolar RNA sR17",55
+"RF01147","Small nucleolar RNA sR12",55
+"RF01151","Small nucleolar RNA U82P",55
+"RF01274","Small nucleolar RNA sR45",55
+"RF01308","Small nucleolar RNA sR58",55
+"RF01309","Small nucleolar RNA sR60",55
+"RF01312","Small nucleolar RNA sR9",55
+"RF01833","ribosomal frameshift site",55
+"RF01988","Selenocysteine insertion sequence 2",55
+"RF02066","Salmonella enterica sRNA STnc320",55
+"RF02286","Tetrahymena snoRNA TtnuCD9",55
+"RF03071","DUF1646 RNA",55
+"RF02838","Enterococcus sRNA 55",54
+"RF02940","COG3860 RNA",54
+"RF03006","M23 RNA",54
+"RF03101","RAGATH-31 RNA",54
+"RF00184","Potato virus X cis-acting regulatory element",54
+"RF00436","UnaL2 LINE 3' element",54
+"RF01138","Small nucleolar RNA sR23",54
+"RF01145","Small nucleolar RNA sR14",54
+"RF01149","Small nucleolar RNA sR10",54
+"RF01273","Small nucleolar RNA sR34",54
+"RF01803","Editing element of GABA-3 exon 9",54
+"RF01840","ribosomal frameshift element",54
+"RF00462","APC internal ribosome entry site (IRES)",53
+"RF00999","microRNA mir-924",53
+"RF01126","Small nucleolar RNA sR41",53
+"RF01143","Small nucleolar RNA sR16",53
+"RF01304","Small nucleolar RNA sR5",53
+"RF01829","sR6 snoRNA",53
+"RF02398","Staphylococcus sRNA sau-6072",53
+"RF02685","RAGATH-5 RNA",53
+"RF02703","Anti stx2 sRNA",53
+"RF02750","ES003 sRNA",53
+"RF03001","leuA-Halobacteria RNA",53
+"RF03012","Mu-gpT-DE RNA",53
+"RF02915","DUF3800-VI RNA",52
+"RF02925","6A RNA",52
+"RF02929","algC RNA",52
+"RF00039","DicF RNA",52
+"RF00173","Hairpin ribozyme",52
+"RF00480","HIV Ribosomal frameshift signal",52
+"RF00517","serC leader",52
+"RF00951","microRNA mir-1302",52
+"RF01097","Gag/pro ribosomal frameshift site",52
+"RF01793","ffh sRNA",52
+"RF01890","LincRNA-p21 conserved region 2",52
+"RF02262","MAT2A 3'UTR stem loop C",52
+"RF02534","Norovirus cis-acting replication element (CRE)",52
+"RF00260","Hepatitis C virus (HCV) cis-acting replication element (CRE)",51
+"RF01388","isrD Hfq binding RNA",51
+"RF02416","Turnip crinkle virus 3'UTR",51
+"RF02433","Streptococcus sRNA SpF36",51
+"RF02888","Bacillus sRNA 1",51
+"RF03010","mcrA RNA",51
+"RF03086","chrB-b RNA",51
+"RF03008","malK-II RNA",50
+"RF03050","RAGATH-25 RNA",50
+"RF03111","Zeta-pan RNA",50
+"RF01098","Gag/pro ribosomal frameshift site",50
+"RF02372","PyrC leader",50
+"RF01727","SAM/SAH riboswitch",49
+"RF02098","DiGeorge syndrome critical region gene 5 conserved region",49
+"RF02224","Xanthomonadaceae sRNA sX5",49
+"RF02358","Hsp17 thermometer",49
+"RF02584","KRAS 3' UTR cis-regulatory element",49
+"RF02926","DUF2693-FD RNA",49
+"RF03070","ssNA-helicase RNA",49
+"RF02975","DUF3800-XI RNA",48
+"RF02990","gut-2 RNA",48
+"RF03031","ssnA RNA",48
+"RF03059","raiA-hairpin RNA",48
+"RF03060","uup RNA",48
+"RF01068","Guanidine-II riboswitch",48
+"RF01099","Pseudoknot of influenza A virus gene",48
+"RF01362","CRISPR RNA direct repeat element",47
+"RF01737","flpD RNA",47
+"RF02182","ST7 antisense RNA 2 conserved region 2",47
+"RF02444","Streptococcus sRNA SpR10",47
+"RF00032","Histone 3' UTR stem-loop",46
+"RF00163","Hammerhead ribozyme (type I)",46
+"RF00489","ctRNA",46
+"RF01232","Small nucleolar RNA R442",46
+"RF01363","CRISPR RNA direct repeat element",46
+"RF01687","Acido-Lenti-1 RNA",46
+"RF01713","Moco-II RNA",46
+"RF02044","CDKN2B antisense RNA 1 convserved region 2",46
+"RF02700","HtrA 5' UTR thermometer",46
+"RF02765","Yersinia sRNA 209",46
+"RF02939","COG2908 RNA",45
+"RF00498","Equine arteritis virus leader TRS hairpin (LTH)",45
+"RF00500","Turnip crinkle virus (TCV) repressor of minus strand synthesis H5",45
+"RF00522","PreQ1 riboswitch",45
+"RF00617","flavivirus capsid hairpin cHP",45
+"RF01835","ribosomal frameshift site",45
+"RF02438","Streptococcus sRNA SpF51",45
+"RF02448","Streptococcus sRNA SpR20",45
+"RF02465","Mycobacterium sRNA Ms_AS-5",45
+"RF00207","K10 transport/localisation element (TLS)",44
+"RF01046","Wingless localisation element 3 (WLE3)",44
+"RF01716","PhotoRC-I RNA",44
+"RF01748","nuoG RNA",44
+"RF02624","Brucella sRNA 150",44
+"RF00164","Coronavirus 3' stem-loop II-like motif (s2m)",43
+"RF01790","ribosomal frameshift site",43
+"RF02726","Small nucleolar RNA ZL63",43
+"RF02751","ES036 (CssrF) sRNA",43
+"RF00385","Infectious bronchitis virus D-RNA",42
+"RF00496","Coronavirus SL-III cis-acting replication element (CRE)",42
+"RF00556","Ribosomal protein L19 leader",42
+"RF02263","MAT2A 3'UTR stem loop D",41
+"RF03092","Ocean-VII RNA",41
+"RF00175","Human immunodeficiency virus type 1 dimerisation initiation site",40
+"RF00523","Prion pseudoknot",40
+"RF01074","Putative RNA-dependent RNA polymerase ribosomal frameshift site",40
+"RF01100","3'-terminal pseudoknot in BYV",40
+"RF01101","Pseudoknot of tRNA-like structure",40
+"RF01843","neiserria ribosomal frameshift element",40
+"RF01079","Putative RNA-dependent RNA polymerase ribosomal frameshift site",39
+"RF02977","folE RNA",39
+"RF01341","CRISPR RNA direct repeat element",38
+"RF01359","CRISPR RNA direct repeat element",38
+"RF01364","CRISPR RNA direct repeat element",38
+"RF01707","JUMPstart RNA",38
+"RF01990","Selenocysteine insertion sequence 4",38
+"RF02129","GNAS antisense RNA 1 conserved region 3",38
+"RF02468","Mycobacterium sRNA Ms_IGR-4",38
+"RF00180","Renin stability regulatory element (REN-SRE)",37
+"RF00469","Hepatitis C stem-loop IV",37
+"RF01102","5'-leader pseudoknot of TEV/CVMV",37
+"RF01318","CRISPR RNA direct repeat element",37
+"RF01320","CRISPR RNA direct repeat element",37
+"RF01321","CRISPR RNA direct repeat element",37
+"RF01322","CRISPR RNA direct repeat element",37
+"RF01323","CRISPR RNA direct repeat element",37
+"RF01329","CRISPR RNA direct repeat element",37
+"RF01330","CRISPR RNA direct repeat element",37
+"RF01331","CRISPR RNA direct repeat element",37
+"RF01332","CRISPR RNA direct repeat element",37
+"RF01334","CRISPR RNA direct repeat element",37
+"RF01340","CRISPR RNA direct repeat element",37
+"RF01342","CRISPR RNA direct repeat element",37
+"RF01343","CRISPR RNA direct repeat element",37
+"RF01357","CRISPR RNA direct repeat element",37
+"RF01360","CRISPR RNA direct repeat element",37
+"RF01361","CRISPR RNA direct repeat element",37
+"RF01365","CRISPR RNA direct repeat element",37
+"RF01366","CRISPR RNA direct repeat element",37
+"RF01367","CRISPR RNA direct repeat element",37
+"RF01368","CRISPR RNA direct repeat element",37
+"RF01369","CRISPR RNA direct repeat element",37
+"RF01370","CRISPR RNA direct repeat element",37
+"RF01371","CRISPR RNA direct repeat element",37
+"RF01373","CRISPR RNA direct repeat element",37
+"RF01374","CRISPR RNA direct repeat element",37
+"RF01375","CRISPR RNA direct repeat element",37
+"RF01376","CRISPR RNA direct repeat element",37
+"RF01377","CRISPR RNA direct repeat element",37
+"RF01378","CRISPR RNA direct repeat element",37
+"RF01379","CRISPR RNA direct repeat element",37
+"RF01904","HOTAIR conserved region 1",37
+"RF02162","XIST RNA A repeat",37
+"RF03085","abiF RNA",37
+"RF02914","DUF805b RNA",36
+"RF00037","Iron response element I",36
+"RF01324","CRISPR RNA direct repeat element",36
+"RF01333","CRISPR RNA direct repeat element",36
+"RF01335","CRISPR RNA direct repeat element",36
+"RF01336","CRISPR RNA direct repeat element",36
+"RF01344","CRISPR RNA direct repeat element",36
+"RF01345","CRISPR RNA direct repeat element",36
+"RF01346","CRISPR RNA direct repeat element",36
+"RF02359","Bacteriophage MS2 operator hairpin",36
+"RF00196","Alfalfa mosaic virus RNA 1 5' UTR stem-loop",35
+"RF01347","CRISPR RNA direct repeat element",35
+"RF01348","CRISPR RNA direct repeat element",35
+"RF01792","ribosomal frameshift site",35
+"RF01834","ribosomal frameshift site",35
+"RF00502","Turnip crinkle virus (TCV) core promoter hairpin (Pr)",34
+"RF02519","ToxI antitoxin",34
+"RF00453","Cardiovirus cis-acting replication element (CRE)",33
+"RF01080","Pseudoknot of upstream pseudoknot domain (UPD) of the 3'UTR",32
+"RF02597","shuA/chuA 5' UTR thermoregulator",32
+"RF01072","Pseudoknot of upstream pseudoknot domain (UPD) of the 3'UTR",31
+"RF01358","CRISPR RNA direct repeat element",31
+"RF02253","Iron response element II",31
+"RF01315","CRISPR RNA direct repeat element",30
+"RF01316","CRISPR RNA direct repeat element",30
+"RF01319","CRISPR RNA direct repeat element",30
+"RF01325","CRISPR RNA direct repeat element",30
+"RF01326","CRISPR RNA direct repeat element",30
+"RF01337","CRISPR RNA direct repeat element",30
+"RF01349","CRISPR RNA direct repeat element",30
+"RF02588","Hepatitis C virus RNA packaging signal 6067",30
+"RF01103","Pseudoknot of upstream pseudoknot domain (UPD) of the 3'UTR",29
+"RF01104","Pseudoknot of upstream pseudoknot domain (UPD) of the 3'UTR",29
+"RF01327","CRISPR RNA direct repeat element",29
+"RF01350","CRISPR RNA direct repeat element",29
+"RF01351","CRISPR RNA direct repeat element",29
+"RF01352","CRISPR RNA direct repeat element",29
+"RF01837","togavirus ribosomal frameshift element",29
+"RF02585","Hepatitis C virus RNA packaging signal",29
+"RF01317","CRISPR RNA direct repeat element",28
+"RF01353","CRISPR RNA direct repeat element",28
+"RF01105","Pseudoknot of upstream pseudoknot domain (UPD) of the 3'UTR",27
+"RF01107","Pseudoknot of upstream pseudoknot domain (UPD) of the 3'UTR",27
+"RF01785","ribosomal frameshift site",27
+"RF01836","ribosomal frameshift site",27
+"RF01081","Pseudoknot of upstream pseudoknot domain (UPD) of the 3'UTR",26
+"RF01108","Pseudoknot of upstream pseudoknot domain (UPD) of the 3'UTR",26
+"RF02586","Hepatitis C virus RNA packaging signal 733",26
+"RF01082","Pseudoknot of upstream pseudoknot domain (UPD) of the 3'UTR",25
+"RF01106","Pseudoknot of upstream pseudoknot domain (UPD) of the 3'UTR",25
+"RF01328","CRISPR RNA direct repeat element",25
+"RF01338","CRISPR RNA direct repeat element",25
+"RF01339","CRISPR RNA direct repeat element",25
+"RF01355","CRISPR RNA direct repeat element",25
+"RF01354","CRISPR RNA direct repeat element",24
+"RF01356","CRISPR RNA direct repeat element",24
+"RF00390","UPSK RNA",23
+"RF01113","Pseudoknot of upstream pseudoknot domain (UPD) of the 3'UTR",23
+"RF01381","HIV-1 stem-loop 3 Psi packaging signal",23
+"RF02587","Hepatitis C virus RNA packaging signal 4629",23
+"RF01114","Pseudoknot of upstream pseudoknot domain (UPD) of the 3'UTR",22
+"RF01083","Pseudoknot of upstream pseudoknot domain (UPD) of the 3'UTR",21
+"RF01109","Pseudoknot of upstream pseudoknot domain (UPD) of the 3'UTR",21
+"RF01111","Pseudoknot of upstream pseudoknot domain (UPD) of the 3'UTR",21
+"RF01382","HIV-1 stem-loop 4 packaging signal",20
+"RF01380","Human immunodeficiency virus type 1 major splice donor",19

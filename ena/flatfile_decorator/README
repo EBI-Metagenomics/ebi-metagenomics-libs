@@ -1,0 +1,64 @@
+EMBLmyGFF3:
+https://github.com/NBISweden/EMBLmyGFF3
+
+Flat file example:
+https://www.ebi.ac.uk/ena/submit/flat-file
+https://www.ebi.ac.uk/ena/submit/entry-upload-templates#ITS
+
+Non coding RNA:
+https://www.ebi.ac.uk/ena/data/view/Non-coding:GQ497714.1:1..54690:ncRNA&display=text
+http://www.insdc.org/rna_vocab.html
+
+---------------------------------------------
+How to install EMBLmyGFF3 using Conda?
+
+Requirement:
+ * Conda installed
+
+// See https://github.com/RcppCore/Rcpp/issues/770
+$ conda install gxx_linux-64
+
+$ conda create -q -n EMBLmyGFF3  python=2.7
+
+$ source activate EMBLmyGFF3
+
+// Check if the right virtual env is selected
+$ conda env list
+
+$ pip install numpy
+
+$ pip install git+https://github.com/NBISweden/EMBLmyGFF3.git
+
+$ EMBLmyGFF3 -h
+
+---------------------------------------------
+How to install UniFire?
+
+$ cd <install-dir>
+
+$ git clone https://maxim:<access_token>@gitlab.ebi.ac.uk/uniprot/aa/UniFIRE.git
+
+$ cd UniFIRE/
+
+Make sure you have got Java >= 1.7 and Maven install
+
+$ mvn -version
+
+$ ./build.sh
+
+$ ./distribution/bin/unifire.sh -h
+
+---------------------------------------------
+How to generate embl flatfiles?
+
+--translate           Include translation in CDS features.
+-o OUTPUT, --output OUTPUT
+
+$ EMBLmyGFF3 transcripts.fasta.transdecoder.gff3 transcripts.fasta -o transcripts.fasta.embl --translate -m 'unassigned RNA' -p XXX -r 1 -s 631057 -t linear -i XXX
+
+organism (-s): 631057
+locus_tag (A default XXX locus_tag will be set up if none provided) (-i): XXX
+molecule_type (-m): unassigned RNA
+project ID (-p): XXX
+topology (-t): linear
+transl_table (-r): 1
