@@ -25,7 +25,8 @@ study_data = {
     'secondary_study_accession': 'ERP001736',
     'study_title': 'Shotgun Sequencing of Tara Oceans DNA samples corresponding to size fractions for  prokaryotes.',
     'first_public': '2018-05-05',
-    'last_updated': '2018-05-05'
+    'last_updated': '2018-05-05',
+    'scientific_name': 'human gut metagenome'
 }
 
 run_data = {
