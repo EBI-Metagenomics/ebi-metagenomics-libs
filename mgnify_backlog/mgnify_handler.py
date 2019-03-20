@@ -21,7 +21,7 @@ import re
 
 import django.db
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Q
+from django.db.models import Q, F
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'backlog_cli.settings'
 
@@ -44,6 +44,8 @@ class MgnifyHandler:
         s = Study(primary_accession=data['study_accession'],
                   secondary_accession=data['secondary_study_accession'],
                   title=sanitise_string(data['study_title']),
+                  scientific_name=sanitise_string(data['scientific_name']),
+                  description=sanitise_string(data.get('study_description') or ''),
                   public=get_date(data, 'first_public') <= datetime.now().date(),
                   ena_last_update=get_date(data, 'last_updated'),
                   )
@@ -349,17 +351,11 @@ class MgnifyHandler:
                 Q(assemblyannotationjob__assembly__study__primary_accession__in=study_accessions) |
                 Q(assemblyannotationjob__assembly__study__secondary_accession__in=study_accessions))
         if experiment_types and len(experiment_types):
-            q_objects = Q()
-            exclude_assembly = list(filter(lambda exp: exp != 'ASSEMBLY', experiment_types))
-            if len(exclude_assembly):
-                q_objects |= Q(runannotationjob__run__library_strategy__in=exclude_assembly)
-
-            if 'ASSEMBLY' in experiment_types:
-                q_objects |= Q(assemblyannotationjob__isnull=False)
-            jobs = jobs.filter(q_objects)
-
+            jobs = jobs.annotate(exp_type=F('runannotationjob__run__library_strategy') or 'ASSEMBLY')
+            jobs = jobs.filter(exp_type__in=experiment_types)
             if 'ASSEMBLY' in experiment_types:
                 jobs = jobs.distinct()
+
         if priority:
             jobs = jobs.filter(priority=priority)
         if status_description:
