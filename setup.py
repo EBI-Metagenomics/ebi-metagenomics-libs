@@ -27,9 +27,9 @@ setup(
     packages=['ena_portal_api', 'mgnify_backlog', 'mgnify_util'],
     install_requires=install_requirements,
     include_package_data=True,
-    install_requirements=['emg-backlog-schema>=0.8.1'],
+    install_requirements=['emg-backlog-schema>=0.8.2'],
     dependency_links=[
-        'https://github.com/EBI-Metagenomics/emg-backlog-schema/tarball/master#egg=emg-backlog-schema-0.8.1'
+        'https://github.com/EBI-Metagenomics/emg-backlog-schema/tarball/master#egg=emg-backlog-schema-0.8.2'
     ],
     entry_points={
         'console_scripts': [
