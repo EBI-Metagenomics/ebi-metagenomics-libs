@@ -48,7 +48,7 @@ class TestEnaHandler(object):
         ena = ena_handler.EnaApiHandler()
         study = ena.get_study(**accession_arg)
         assert isinstance(study, dict)
-        assert len(study.keys()) == 10
+        assert len(study.keys()) == len(ena_handler.STUDY_DEFAULT_FIELDS.split(','))
 
     @pytest.mark.parametrize('accession_arg',
                              ({'secondary_accession': 'ERP001736'},
@@ -129,8 +129,7 @@ class TestEnaHandler(object):
 
     def test_get_study_runs_invalid_accession(self):
         ena = ena_handler.EnaApiHandler()
-        with pytest.raises(ValueError):
-            ena.get_study_runs('Invalid accession')
+        assert [] == ena.get_study_runs('Invalid accession')
 
     def test_get_study_runs_api_unavailable(self):
         ena = ena_handler.EnaApiHandler()
@@ -161,8 +160,7 @@ class TestEnaHandler(object):
 
     def test_get_study_assemblies_invalid_accession(self):
         ena = ena_handler.EnaApiHandler()
-        with pytest.raises(ValueError):
-            ena.get_study_assemblies('Invalid accession')
+        assert [] == ena.get_study_assemblies('Invalid accession')
 
     def test_get_study_assemblies_api_unavailable(self):
         ena = ena_handler.EnaApiHandler()
@@ -207,26 +205,26 @@ class TestEnaHandler(object):
 
         os.chdir(current_dir)
 
-    def test_get_study_run_accessions_should_return_all_accessions(self):
+    def test_get_study_runs_should_return_all_accessions(self):
         ena = ena_handler.EnaApiHandler()
-        assert set(ena.get_study_run_accessions('ERP000339')) == {'ERR019477', 'ERR019478'}
+        assert set([r['run_accession'] for r in ena.get_study_runs('ERP000339')]) == {'ERR019477', 'ERR019478'}
 
-    def test_get_study_run_accessions_should_not_return_amplicons(self):
+    def test_get_study_runs_should_not_return_amplicons(self):
         ena = ena_handler.EnaApiHandler()
-        assert len(ena.get_study_run_accessions('SRP118880')) == 10
+        assert len([r['run_accession'] for r in ena.get_study_runs('SRP118880')]) == 10
 
-    def test_get_study_run_accessions_should_return_all_accessions_including_amplicon(self):
+    def test_get_study_runs_should_return_all_accessions_including_amplicon(self):
         ena = ena_handler.EnaApiHandler()
-        assert len(ena.get_study_run_accessions('SRP118880', filter_assembly_runs=False)) == 390
+        assert len([r['run_accession'] for r in ena.get_study_runs('SRP118880', filter_assembly_runs=False)]) == 390
 
     def test_get_study_assembly_accessions_should_return_all_accessions(self):
         ena = ena_handler.EnaApiHandler()
-        assert set(ena.get_study_assembly_accessions('ERP112609')) == {'ERZ795049'}
+        assert {a['analysis_accession'] for a in ena.get_study_assemblies('ERP112609')} == {'ERZ795049'}
 
-    def test_get_study_assembly_accessions_should_return_empty_list_if_study_contains_no_runs(self):
+    def test_get_study_assembly_accessions_should_return_empty_list_if_study_contains_no_assemblies(self):
         ena = ena_handler.EnaApiHandler()
-        assert len(ena.get_study_assembly_accessions('PRJEB2280')) == 0
+        assert len(ena.get_study_assemblies('PRJEB2280')) == 0
 
-    def test_get_study_run_accessions_should_return_empty_list_if_study_contains_no_runs(self):
+    def test_get_study_runs_should_return_empty_list_if_study_contains_no_runs(self):
         ena = ena_handler.EnaApiHandler()
-        assert len(ena.get_study_run_accessions('ERP105889')) == 0
+        assert len(ena.get_study_runs('ERP105889')) == 0

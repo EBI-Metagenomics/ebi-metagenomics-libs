@@ -25,8 +25,8 @@ from time import sleep
 
 ENA_API_URL = os.environ.get('ENA_API_URL', "https://www.ebi.ac.uk/ena/portal/api/search")
 
-STUDY_DEFAULT_FIELDS = 'study_accession,secondary_study_accession,study_description,study_name,study_title,' \
-                       'tax_id,scientific_name,center_name,last_updated,first_public'
+STUDY_DEFAULT_FIELDS = 'study_accession,secondary_study_accession,description,study_alias,study_title,' \
+                       'tax_id,scientific_name,center_name,first_public'
 
 RUN_DEFAULT_FIELDS = 'study_accession,secondary_study_accession,run_accession,library_source,library_strategy,' \
                      'library_layout,fastq_ftp,fastq_md5,base_count,read_count,instrument_platform,instrument_model,' \
@@ -53,8 +53,8 @@ def get_default_connection_headers():
 
 def get_default_params():
     return {
-        "format": "json",
-        "includeMetagenomes": True,
+        'format': 'json',
+        'includeMetagenomes': True,
         'dataPortal': 'metagenome'
     }
 
@@ -85,9 +85,9 @@ class EnaApiHandler:
         return response
 
     # Supports ENA primary and secondary study accessions
-    def get_study(self, primary_accession=None, secondary_accession=None, fields=None, attempt=0):
+    def get_study(self, primary_accession=None, secondary_accession=None, fields=None, attempt=0, search_params=None):
         data = get_default_params()
-        data['result'] = 'study'
+        data['result'] = 'read_study'
         data['fields'] = fields or STUDY_DEFAULT_FIELDS
 
         if primary_accession and not secondary_accession:
@@ -98,6 +98,9 @@ class EnaApiHandler:
             data['query'] = 'study_accession="{}" AND secondary_study_accession="{}"' \
                 .format(primary_accession, secondary_accession)
 
+        if search_params:
+            data.update(search_params)
+
         response = self.post_request(data)
         if str(response.status_code)[0] != '2':
             logging.debug(data)
@@ -107,14 +110,23 @@ class EnaApiHandler:
             logging.debug('Response: {}'.format(response.text))
             raise ValueError('Could not retrieve runs for study %s %s.', primary_accession, secondary_accession)
         elif response.status_code == 204:
-            if attempt < 5:
+            if attempt < 2:
+                if not search_params:
+                    search_params = {}
+
+                # Try all other result types
+                if search_params.get('result') == 'read_study':
+                    result = 'analysis_study'
+                else:
+                    result = 'read_study'
+                search_params['result'] = result
                 attempt += 1
                 sleep(1)
                 logging.warning('Error 204 when retrieving study {} {}, retrying {}'.format(primary_accession,
                                                                                             secondary_accession,
                                                                                             attempt))
                 return self.get_study(primary_accession=primary_accession, secondary_accession=secondary_accession,
-                                      fields=fields, attempt=attempt)
+                                      fields=fields, attempt=attempt, search_params=search_params)
             else:
                 raise ValueError('Could not find study {} {} in ENA after {} attempts'.format(primary_accession,
                                                                                               secondary_accession,
@@ -128,22 +140,34 @@ class EnaApiHandler:
             raise ValueError('Could not find study {} {} in ENA.'.format(primary_accession, secondary_accession))
         return study
 
-    def get_run(self, run_accession, fields=None, public=True, attempt=0):
+    def get_run(self, run_accession, fields=None, public=True, attempt=0, search_params=None):
         data = get_default_params()
         data['result'] = 'read_run'
         data['fields'] = fields or RUN_DEFAULT_FIELDS
         data['query'] = 'run_accession=\"{}\"'.format(run_accession)
+
+        if search_params:
+            data.update(search_params)
+
         response = self.post_request(data)
         if str(response.status_code)[0] != '2':
             logging.debug('Error retrieving run {}, response code: {}'.format(run_accession, response.status_code))
             logging.debug('Response: {}'.format(response.text))
             raise ValueError('Could not retrieve run with accession %s.', run_accession)
         elif response.status_code == 204:
-            if attempt < 5:
+            if attempt < 2:
                 attempt += 1
                 sleep(1)
-                logging.warning('Error 204 when retrieving run {} , retrying {}'.format(run_accession, attempt))
-                return self.get_run(run_accession=run_accession, fields=fields, public=public, attempt=attempt)
+                logging.warning('Error 204 when retrieving run {} in dataPortal {}, '
+                                'retrying {}'.format(run_accession,
+                                                     data.get('dataPortal'),
+                                                     attempt))
+
+                return self.get_run(run_accession=run_accession, fields=fields, public=public, attempt=attempt,
+                                    search_params=search_params)
+            elif attempt == 2 and data['dataPortal'] != 'ena':
+                return self.get_run(run_accession=run_accession, fields=fields, public=public,
+                                    search_params={'dataPortal': 'ena'})
             else:
                 raise ValueError('Could not find run {} in ENA after {} attempts'.format(run_accession, RETRY_COUNT))
         try:
@@ -170,11 +194,14 @@ class EnaApiHandler:
         return run
 
     def get_study_runs(self, study_sec_acc, fields=None, filter_assembly_runs=True, private=False,
-                       filter_accessions=None):
+                       filter_accessions=None, search_params=None):
         data = get_default_params()
         data['result'] = 'read_run'
         data['fields'] = fields or RUN_DEFAULT_FIELDS
         data['query'] = 'secondary_study_accession=\"{}\"'.format(study_sec_acc)
+
+        if search_params:
+            data.update(search_params)
 
         if filter_assembly_runs and 'library_strategy' not in data['fields']:
             data['fields'] += ',library_strategy'
@@ -184,7 +211,8 @@ class EnaApiHandler:
                 'Error retrieving study runs {}, response code: {}'.format(study_sec_acc, response.status_code))
             logging.debug('Response: {}'.format(response.text))
             raise ValueError('Could not retrieve runs for study %s.', study_sec_acc)
-
+        elif response.status_code == 204:
+            return []
         runs = json.loads(response.text)
         if filter_assembly_runs:
             runs = list(filter(run_filter, runs))
@@ -219,6 +247,8 @@ class EnaApiHandler:
                                                                                  response.status_code))
             logging.debug('Response: {}'.format(response.text))
             raise ValueError('Could not retrieve assemblies for study %s.', study_accession)
+        elif response.status_code == 204:
+            return []
         assemblies = json.loads(response.text)
         if filter_accessions:
             assemblies = list(filter(lambda r: r['analysis_accession'] in filter_accessions, assemblies))
@@ -245,26 +275,20 @@ class EnaApiHandler:
 
         return assembly
 
-    def get_study_assembly_accessions(self, study_prim_acc):
-        try:
-            return [assembly['analysis_accession'] for assembly in
-                    self.get_study_assemblies(study_prim_acc, 'analysis_accession')]
-        except ValueError:
-            return []
-
-    def get_study_run_accessions(self, study_sec_acc, filter_assembly_runs=True, private=False):
-        try:
-            return [run['run_accession'] for run in
-                    self.get_study_runs(study_sec_acc, 'run_accession', filter_assembly_runs, private)]
-        except ValueError:
-            return []
+    # def get_study_assembly_accessions(self, study_prim_acc):
+    #     try:
+    #         return [assembly['analysis_accession'] for assembly in
+    #                 self.get_study_assemblies(study_prim_acc, 'analysis_accession')]
+    #     except ValueError:
+    #         return []
 
     def get_run_raw_size(self, run, field='fastq_ftp'):
         urls = run[field].split(';')
-        return sum([int(requests.head('http://' + url, auth=self.auth).headers['content-length']) for url in urls])
+        return sum([int(requests.head('http://' + url, auth=self.auth).headers.get('content-length') or 0) for url in urls])
 
     def get_updated_studies(self, cutoff_date, fields=None):
         data = get_default_params()
+        data['dataPortal'] = 'metagenome'
         data['result'] = 'study'
         data['fields'] = fields or STUDY_DEFAULT_FIELDS
         data['query'] = 'last_updated>={}'.format(cutoff_date)
@@ -288,6 +312,7 @@ class EnaApiHandler:
     def get_updated_runs(self, cutoff_date, fields=None):
         data = get_default_params()
         data['result'] = 'read_run'
+        data['dataPortal'] = 'metagenome'
         data['fields'] = fields or RUN_DEFAULT_FIELDS
         data['query'] = 'last_updated>={}'.format(cutoff_date)
         response = self.post_request(data)
@@ -308,8 +333,33 @@ class EnaApiHandler:
         return runs
 
     # cutoff_date in format YYYY-MM-DD
+    def get_updated_tpa_assemblies(self, cutoff_date, fields=None):
+        data = get_default_params()
+        data['dataPortal'] = 'metagenome'
+        data['result'] = 'analysis'
+        data['fields'] = fields or ASSEMBLY_DEFAULT_FIELDS
+        data['query'] = 'last_updated>={}'.format(cutoff_date)
+        response = self.post_request(data)
+        status_code = str(response.status_code)
+        if status_code[0] != '2':
+            logging.debug('Error retrieving assemblies, response code: {}'.format(response.status_code))
+            logging.debug('Response: {}'.format(response.text))
+            raise ValueError('Could not retrieve assemblies.')
+        elif status_code == '204':
+            logging.warning('No updated assemblies found since {}'.format(cutoff_date))
+            return []
+        try:
+            assemblies = json.loads(response.text)
+        except (IndexError, TypeError, ValueError) as e:
+            logging.debug(e)
+            logging.debug(response.text)
+            raise ValueError('Could not find any assemblies in ENA updated after {}'.format(cutoff_date))
+        return assemblies
+
+    # cutoff_date in format YYYY-MM-DD
     def get_updated_assemblies(self, cutoff_date, fields=None):
         data = get_default_params()
+        data['dataPortal'] = 'metagenome'
         data['result'] = 'assembly'
         data['fields'] = fields or ASSEMBLY_DEFAULT_FIELDS
         data['query'] = 'last_updated>={}'.format(cutoff_date)
