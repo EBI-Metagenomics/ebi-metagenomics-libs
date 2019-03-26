@@ -31,8 +31,6 @@ from backlog.models import Study, Run, AssemblyJob, RunAssembly, Assembler, Asse
     User, Pipeline, \
     UserRequest, AnnotationJobStatus, Assembly, AnnotationJob, AssemblyAnnotationJob, RunAnnotationJob
 
-from mgnify_util.accession_parsers import is_secondary_study_acc
-
 run_reg = r'([E|S|D]RR\d{5,})_?'
 
 
@@ -44,8 +42,10 @@ class MgnifyHandler:
         s = Study(primary_accession=data['study_accession'],
                   secondary_accession=data['secondary_study_accession'],
                   title=sanitise_string(data['study_title']),
+                  scientific_name=sanitise_string(data.get('scientific_name')),
+                  description=sanitise_string(data.get('description')),
                   public=get_date(data, 'first_public') <= datetime.now().date(),
-                  ena_last_update=get_date(data, 'last_updated'),
+                  ena_last_update=get_date(data, 'last_updated')
                   )
         s.save(using=self.database)
         return s
@@ -53,11 +53,13 @@ class MgnifyHandler:
     def update_study_obj(self, data):
         s = Study.objects.using(self.database).get(primary_accession=data['study_accession'],
                                                    secondary_accession=data['secondary_study_accession'])
-        if 'study_title' in data:
-            s.title = sanitise_string(data['study_title'])
         s.public = get_date(data, 'first_public') <= datetime.now().date()
         if 'last_updated' in data:
             s.ena_last_update = get_date(data, 'last_updated')
+
+        for attr in ['study_title', 'description', 'scientific_name']:
+            if attr in data:
+                setattr(s, attr, sanitise_string(data[attr]))
         s.save(using=self.database)
 
     def create_run_obj(self, study, run, public=True):
@@ -121,7 +123,7 @@ class MgnifyHandler:
         return assembly
 
     def update_assembly_obj(self, assembly_data):
-        assembly = Assembly.objects.using(self.database).get(primary_accession=assembly_data['accession'])
+        assembly = Assembly.objects.using(self.database).get(primary_accession=assembly_data['analysis_accession'])
         if 'last_updated' in assembly_data:
             assembly.ena_last_update = assembly_data['last_updated']
         assembly.clean_fields()
@@ -151,8 +153,7 @@ class MgnifyHandler:
     def get_backlog_assembly(self, assembly_accession):
         return Assembly.objects.using(self.database).get(primary_accession=assembly_accession)
 
-    def get_or_save_study(self, ena_handler, primary_accession=None,
-                          secondary_accession=None, public=True):
+    def get_or_save_study(self, ena_handler, primary_accession=None, secondary_accession=None):
         try:
             return self.get_backlog_study(primary_accession, secondary_accession)
         except ObjectDoesNotExist:
