@@ -417,7 +417,7 @@ class MgnifyHandler:
             logging.info('Updated Run and study privacy...')
 
         if delete:
-            if auto_confirm or input(f'Please confirm you wish to delete {len(jobs)} jobs (yes/no): ') == 'yes':
+            if auto_confirm or input('Please confirm you wish to delete {} jobs (yes/no): '.format(len(jobs))) == 'yes':
                 jobs.delete()
                 logging.info('Deleting annotation jobs')
 
