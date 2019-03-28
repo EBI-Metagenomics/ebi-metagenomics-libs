@@ -148,6 +148,7 @@ class MgnifyHandler:
         return query[0]
 
     def get_backlog_run(self, run_accession):
+        print(run_accession)
         return Run.objects.using(self.database).get(primary_accession=run_accession)
 
     def get_backlog_assembly(self, assembly_accession):
@@ -393,7 +394,8 @@ class MgnifyHandler:
 
     def update_annotation_jobs_from_accessions(self, run_or_assembly_accessions=None, study_accessions=None,
                                                status_description=None, priority=None, pipeline_version=None,
-                                               directory=None, set_public=False, set_private=False):
+                                               directory=None, set_public=False, set_private=False, delete=False,
+                                               auto_confirm=False):
 
         jobs = self.get_annotation_jobs(run_or_assembly_accessions=run_or_assembly_accessions,
                                         study_accessions=study_accessions, pipeline_version=pipeline_version)
@@ -413,6 +415,11 @@ class MgnifyHandler:
         if set_public or set_private:
             self.update_annotation_jobs_privacy(jobs, set_public)
             logging.info('Updated Run and study privacy...')
+
+        if delete:
+            if auto_confirm or input(f'Please confirm you wish to delete {len(jobs)} jobs (yes/no): ') == 'yes':
+                jobs.delete()
+                logging.info('Deleting annotation jobs')
 
 
 def sanitise_string(text):
