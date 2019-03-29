@@ -110,27 +110,36 @@ class EnaApiHandler:
             logging.debug('Response: {}'.format(response.text))
             raise ValueError('Could not retrieve runs for study %s %s.', primary_accession, secondary_accession)
         elif response.status_code == 204:
-            if attempt < 2:
-                if not search_params:
-                    search_params = {}
-
+            if not search_params:
+                search_params = {}
+            if attempt > 1:
                 # Try all other result types
-                if search_params.get('result') == 'read_study':
-                    result = 'analysis_study'
+                if data['result'] == 'read_study':
+                    search_params['result'] = 'analysis_study'
+                elif data['result'] == 'analysis_study':
+                    search_params['result'] = 'study'
+                    fields = data['fields']
+                    if 'description' in data['fields']:
+                        fields = fields.replace('description', 'study_description')
+                    if 'study_alias' in data['fields']:
+                        fields = fields.replace('study_alias', 'study_name')
+                    search_params['fields'] = fields
+                elif data['dataPortal'] == 'ena':
+                    search_params['dataPortal'] = 'metagenome'
                 else:
-                    result = 'read_study'
-                search_params['result'] = result
-                attempt += 1
-                sleep(1)
-                logging.warning('Error 204 when retrieving study {} {}, retrying {}'.format(primary_accession,
-                                                                                            secondary_accession,
-                                                                                            attempt))
-                return self.get_study(primary_accession=primary_accession, secondary_accession=secondary_accession,
-                                      fields=fields, attempt=attempt, search_params=search_params)
-            else:
-                raise ValueError('Could not find study {} {} in ENA after {} attempts'.format(primary_accession,
-                                                                                              secondary_accession,
-                                                                                              RETRY_COUNT))
+                    raise ValueError('Could not find study {} {} in ENA.'.format(primary_accession,
+                                                                                 secondary_accession))
+                attempt = 0
+            attempt += 1
+            sleep(1)
+            logging.warning(
+                'Error 204 when retrieving study {} {} (options {})'.format(primary_accession,
+                                                                            secondary_accession,
+                                                                            search_params,
+                                                                            attempt))
+            return self.get_study(primary_accession=primary_accession, secondary_accession=secondary_accession,
+                                  fields=fields, attempt=attempt, search_params=search_params)
+
         try:
             study = json.loads(response.text)[0]
         except (IndexError, TypeError, ValueError, KeyError) as e:
@@ -138,7 +147,17 @@ class EnaApiHandler:
             logging.error(response.status_code)
             logging.error(response.text)
             raise ValueError('Could not find study {} {} in ENA.'.format(primary_accession, secondary_accession))
+        if data['result'] == 'study':
+            return self.remap_study_fields(study)
         return study
+
+    @staticmethod
+    def remap_study_fields(data):
+        if 'study_description' in data:
+            data['description'] = data.pop('study_description')
+        if 'study_name' in data:
+            data['study_alias'] = data.pop('study_name')
+        return data
 
     def get_run(self, run_accession, fields=None, public=True, attempt=0, search_params=None):
         data = get_default_params()
