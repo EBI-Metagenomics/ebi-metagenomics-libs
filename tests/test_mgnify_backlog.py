@@ -9,7 +9,7 @@ from backlog.models import Study, Run, RunAssembly, AssemblyJob, Assembler, Asse
 from ena_portal_api import ena_handler
 
 from tests.util import user_data, clean_db, assembly_data, study_data, run_data
-
+import copy
 
 class MockResponse:
     def __init__(self, status_code, data=None, text=None):
@@ -141,9 +141,9 @@ class TestBacklogHandler(object):
         assert isinstance(retrieve_assembly, Assembly)
         assert retrieve_assembly.pk == created_assembly.pk
 
-    def test_get_or_save_assembly_should_fetch_from_ena(self):
+    def test_get_or_save_assembly_should_create_assembly(self):
         study = mgnify.create_study_obj(study_data)
-        retrieved_assembly = mgnify.get_or_save_assembly(ena, assembly_data['analysis_accession'], study)
+        retrieved_assembly = mgnify.get_or_save_assembly(ena, assembly_data['analysis_accession'], assembly_data, study)
 
         assert isinstance(retrieved_assembly, Assembly)
         assert retrieved_assembly.ena_last_update == assembly_data['last_updated']
@@ -503,8 +503,11 @@ class TestBacklogHandler(object):
     def test_get_up_to_date_assembly_annotation_jobs_should_retrieve_all_jobs_in_priority_order(self):
         study = mgnify.create_study_obj(study_data)
         accessions = ['ERZ795049', 'ERZ795050']
-
-        assemblies = [mgnify.get_or_save_assembly(ena, accession, study) for accession in accessions]
+        assemblies = []
+        for accession in accessions:
+            data = copy.deepcopy(assembly_data)
+            data['analysis_accession'] = accession
+            assemblies.append(mgnify.get_or_save_assembly(ena, accession, data, study))
         pipeline = Pipeline(version=4.1)
         pipeline.save()
 
