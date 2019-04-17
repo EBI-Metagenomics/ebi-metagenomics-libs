@@ -46,7 +46,8 @@ class FlatfileDecorator:
         return annotations.get(identifier)
 
     def add_func_annotations(self, annotation_map: dict,
-                             i5_version: str):
+                             i5_version: str,
+                             tag_name: str):
         """
             This method call will perform the actual decoration with functional
             annotations.
@@ -62,8 +63,8 @@ class FlatfileDecorator:
             if 'AC *' in aline:
                 acc = parse_accession(aline)
                 annotations = self.lookup_seq_id(acc, annotation_map)
-            if "transl_table" in aline:
-                index = aline.index('transl_table')
+            if tag_name in aline:
+                index = aline.index(tag_name)
                 new_line_start = aline[0:index - 1]
                 if annotations:
                     new_lines = [aline]
@@ -97,6 +98,8 @@ def parse_args(args):
                         help='TSV formatted I5 annotation file')
     parser.add_argument('i5_version', help='Version of InterProScan used at the time of annotation calculation',
                         type=str)
+    parser.add_argument('--tag-name', help='Name of the tag to search for in the CDS feature section.',
+                        default='transl_table')
     parser.add_argument('-o', '--out_flatfile', help='EMBL flatfile output')
     parser.add_argument('-v', '--verbose', action='store_true')
     return parser.parse_args(args)
@@ -110,6 +113,7 @@ def main(argv=None):
     input_file = args.in_flatfile
     annotation_file = args.i5_annotation_file
     i5_version = args.i5_version
+    tag_name = args.tag_name
 
     if not os.path.exists(annotation_file):
         logging.ERROR(f'File {annotation_file} does not exist!')
@@ -139,7 +143,7 @@ def main(argv=None):
     # Step 2: Decorate flaffile with db_xrefs
     flatfile_decorator = FlatfileDecorator(input_file, output_file)
 
-    flatfile_decorator.add_func_annotations(ipro_parser.annotations, i5_version)
+    flatfile_decorator.add_func_annotations(ipro_parser.annotations, i5_version, tag_name)
 
     # TODO: Factor this out into another script
     # flatfile_decorator.add_rna_annotations(ipro_parser.annotations)
