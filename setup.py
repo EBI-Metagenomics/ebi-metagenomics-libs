@@ -24,7 +24,7 @@ setup(
     author='Miguel Boland, Maxim Scheremetjew',
     author_email='mdb@ebi.ac.uk, maxim@ebi.ac.uk',
     version=version,
-    packages=['ena_portal_api', 'mgnify_backlog', 'mgnify_util', 'ena'],
+    packages=['ena_portal_api', 'mgnify_backlog', 'mgnify_util', 'mgnify_util.parser', 'ena.flatfile_decorator'],
     install_requires=install_requirements,
     include_package_data=True,
     install_requirements=['emg-backlog-schema>=0.9.0'],
