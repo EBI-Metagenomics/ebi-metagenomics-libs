@@ -24,7 +24,7 @@ setup(
     author='Miguel Boland, Maxim Scheremetjew',
     author_email='mdb@ebi.ac.uk, maxim@ebi.ac.uk',
     version=version,
-    packages=['ena_portal_api', 'mgnify_backlog', 'mgnify_util'],
+    packages=['ena_portal_api', 'mgnify_backlog', 'mgnify_util', 'ena'],
     install_requires=install_requirements,
     include_package_data=True,
     install_requirements=['emg-backlog-schema>=0.9.0'],
@@ -33,9 +33,6 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'create_request=analysis_request_cli.create_request:main',
-            'complete_request=analysis_request_cli.complete_request:main',
-            'edit_annotation_job=analysis_request_cli.edit_annotation_job:main',
             'flatfile_decorator=ena.flatfile_decorator.flatfile_decorator:main'
         ],
     },
