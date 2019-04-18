@@ -281,7 +281,7 @@ class EnaApiHandler:
         data = get_default_params()
         data['result'] = 'analysis'
         data['fields'] = fields or ASSEMBLY_DEFAULT_FIELDS
-        data['query'] = 'analysis_accession=\"{}\" AND assembly_type=\"primary metagenome\"'.format(assembly_name)
+        data['query'] = 'analysis_accession=\"{}\"'.format(assembly_name)
 
         response = self.post_request(data)
         if str(response.status_code)[0] != '2':
