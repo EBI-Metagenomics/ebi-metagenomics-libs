@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 import os
 import sys
 
-version = "0.5.7"
+version = "0.5.8"
 
 _base = os.path.dirname(os.path.abspath(__file__))
 _requirements = os.path.join(_base, 'requirements.txt')
@@ -24,18 +24,16 @@ setup(
     author='Miguel Boland, Maxim Scheremetjew',
     author_email='mdb@ebi.ac.uk, maxim@ebi.ac.uk',
     version=version,
-    packages=['ena_portal_api', 'mgnify_backlog', 'mgnify_util'],
+    packages=['ena_portal_api', 'mgnify_backlog', 'mgnify_util', 'mgnify_util.parser', 'ena.flatfile_decorator'],
     install_requires=install_requirements,
     include_package_data=True,
-    install_requirements=['emg-backlog-schema>=0.8.2'],
+    install_requirements=['emg-backlog-schema>=0.9.0'],
     dependency_links=[
         'https://github.com/EBI-Metagenomics/emg-backlog-schema/tarball/master#egg=emg-backlog-schema-0.8.2'
     ],
     entry_points={
         'console_scripts': [
-            'create_request=analysis_request_cli.create_request:main',
-            'complete_request=analysis_request_cli.complete_request:main',
-            'edit_annotation_job=analysis_request_cli.edit_annotation_job:main'
+            'flatfile_decorator=ena.flatfile_decorator.flatfile_decorator:main'
         ],
     },
     tests_require=test_requirements,
