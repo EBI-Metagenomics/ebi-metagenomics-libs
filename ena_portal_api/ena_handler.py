@@ -251,14 +251,17 @@ class EnaApiHandler:
                     run[int_param] = int(run[int_param])
         return runs
 
-    def get_study_assemblies(self, study_accession, fields=None, filter_accessions=None):
+    # Specific fo
+    def get_study_assemblies(self, study_accession, fields=None, filter_accessions=None,
+                             allow_non_primary_assembly=False):
         data = get_default_params()
         data['result'] = 'analysis'
         data['fields'] = fields or ASSEMBLY_DEFAULT_FIELDS
-        data['query'] = '(study_accession=\"{study_accession}\" ' \
-                        'OR secondary_study_accession=\"{study_accession}\") ' \
-                        'AND assembly_type = "primary metagenome"'.format(study_accession=study_accession)
-
+        query = '(study_accession=\"{study_accession}\" ' \
+                'OR secondary_study_accession=\"{study_accession}\") '.format(study_accession=study_accession)
+        if not allow_non_primary_assembly:
+            query += ' AND assembly_type=\"primary metagenome\"'
+        data['query'] = query
         response = self.post_request(data)
         if str(response.status_code)[0] != '2':
             logging.debug(
@@ -303,7 +306,8 @@ class EnaApiHandler:
 
     def get_run_raw_size(self, run, field='fastq_ftp'):
         urls = run[field].split(';')
-        return sum([int(requests.head('http://' + url, auth=self.auth).headers.get('content-length') or 0) for url in urls])
+        return sum(
+            [int(requests.head('http://' + url, auth=self.auth).headers.get('content-length') or 0) for url in urls])
 
     def get_updated_studies(self, cutoff_date, fields=None):
         data = get_default_params()
