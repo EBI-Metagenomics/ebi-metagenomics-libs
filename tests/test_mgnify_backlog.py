@@ -1,7 +1,6 @@
 from datetime import datetime
 import pytest
 
-
 from mgnify_backlog import mgnify_handler
 
 from backlog.models import Study, Run, RunAssembly, AssemblyJob, Assembler, AssemblyJobStatus, RunAssemblyJob, \
@@ -10,6 +9,7 @@ from ena_portal_api import ena_handler
 
 from tests.util import user_data, clean_db, assembly_data, study_data, run_data
 import copy
+
 
 class MockResponse:
     def __init__(self, status_code, data=None, text=None):
@@ -26,7 +26,7 @@ mgnify = mgnify_handler.MgnifyHandler('default')
 ena = ena_handler.EnaApiHandler()
 
 
-def create_annotation_jobs(rt_ticket=0, priority=0):
+def create_annotation_jobs_using_ena_services(rt_ticket=0, priority=0):
     study = mgnify.create_study_obj(study_data)
     accessions = ['ERR164407', 'ERR164408', 'ERR164409']
     lineage = 'root:Host-Associated:Human:Digestive System'
@@ -46,6 +46,30 @@ def create_annotation_jobs(rt_ticket=0, priority=0):
     mgnify.create_annotation_job(request, runs[0], priority)
     mgnify.create_annotation_job(request, runs[1], priority)
     mgnify.create_annotation_job(request, runs[2], priority)
+    return study, runs
+
+
+def create_annotation_jobs_without_ena_services(rt_ticket=0, priority=0):
+    study = mgnify.create_study_obj(study_data)
+    run_accessions = ['ERR164407', 'ERR164408', 'ERR164409']
+
+    for run_acc in run_accessions:
+        run_data["run_accession"] = run_acc
+        mgnify.create_run_obj(study, run_data)
+
+    pipeline = Pipeline(version=4.1)
+    pipeline.save()
+
+    user = mgnify.create_user(user_data['webin_id'], user_data['email_address'],
+                              user_data['first_name'],
+                              user_data['surname'])
+    request = mgnify.create_user_request(user, priority, rt_ticket)
+
+    runs = []
+    for run_acc in run_accessions:
+        run = mgnify.get_backlog_run(run_acc)
+        runs.append(run)
+        mgnify.create_annotation_job(request, run, 4)
     return study, runs
 
 
@@ -495,7 +519,7 @@ class TestBacklogHandler(object):
         assert not mgnify.is_valid_lineage('root:Environmen')
 
     def test_get_up_to_date_run_annotation_jobs_should_retrieve_all_jobs_in_priority_order(self):
-        runs = create_annotation_jobs()[1]
+        runs = create_annotation_jobs_using_ena_services()[1]
 
         up_to_date_runs = mgnify.get_up_to_date_run_annotation_jobs(study_data['secondary_study_accession'])
         assert len(up_to_date_runs) == len(runs)
@@ -527,7 +551,7 @@ class TestBacklogHandler(object):
 
     def test_set_annotation_jobs_completed_should_set_all_annotation_jobs_to_completed(self):
         rt_ticket = 1
-        study, _ = create_annotation_jobs(rt_ticket=rt_ticket)
+        study, _ = create_annotation_jobs_using_ena_services(rt_ticket=rt_ticket)
 
         mgnify.set_annotation_jobs_completed(study, rt_ticket)
         for annotation_job in AnnotationJob.objects.all():
@@ -535,7 +559,7 @@ class TestBacklogHandler(object):
 
     def test_set_annotation_jobs_completed_should_not_set_excluded_accessions(self):
         rt_ticket = 1
-        study, runs = create_annotation_jobs(rt_ticket=rt_ticket)
+        study, runs = create_annotation_jobs_using_ena_services(rt_ticket=rt_ticket)
         excluded_accession = [runs[0].primary_accession]
 
         mgnify.set_annotation_jobs_completed(study, rt_ticket, excluded_runs=excluded_accession)
@@ -550,7 +574,7 @@ class TestBacklogHandler(object):
 
     def test_set_annotation_jobs_failed_should_filter_by_accession(self):
         rt_ticket = 1
-        study, runs = create_annotation_jobs(rt_ticket=rt_ticket)
+        study, runs = create_annotation_jobs_using_ena_services(rt_ticket=rt_ticket)
         failed_accession = [runs[0].primary_accession]
 
         mgnify.set_annotation_jobs_failed(study, rt_ticket, failed_accession)
@@ -584,7 +608,7 @@ class TestBacklogHandler(object):
 
         assert len(AnnotationJob.objects.all()) == 0
 
-        study, _ = create_annotation_jobs(rt_ticket, initial_priority)
+        study, _ = create_annotation_jobs_using_ena_services(rt_ticket, initial_priority)
         study_secondary_accession = study.secondary_accession
 
         initial_jobs = AnnotationJob.objects.all()
@@ -614,7 +638,7 @@ class TestBacklogHandler(object):
 
         assert len(AnnotationJob.objects.all()) == 0
 
-        study, _ = create_annotation_jobs(rt_ticket, initial_priority)
+        study, _ = create_annotation_jobs_using_ena_services(rt_ticket, initial_priority)
         study_secondary_accession = study.secondary_accession
 
         initial_jobs = AnnotationJob.objects.all()
@@ -647,7 +671,7 @@ class TestBacklogHandler(object):
 
         assert len(AnnotationJob.objects.all()) == 0
 
-        create_annotation_jobs(rt_ticket, initial_priority)
+        create_annotation_jobs_using_ena_services(rt_ticket, initial_priority)
 
         filtered_run_accession = ['ERR164407']
 
@@ -682,7 +706,7 @@ class TestBacklogHandler(object):
 
         assert len(AnnotationJob.objects.all()) == 0
 
-        create_annotation_jobs(rt_ticket, initial_priority)
+        create_annotation_jobs_using_ena_services(rt_ticket, initial_priority)
         assert len(AnnotationJob.objects.all()) == 3
 
         Pipeline(version=new_pipeline_version).save()
@@ -716,7 +740,7 @@ class TestBacklogHandler(object):
         rt_ticket = 0
         initial_priority = 1
         assert len(AnnotationJob.objects.all()) == 0
-        create_annotation_jobs(rt_ticket, initial_priority)
+        create_annotation_jobs_using_ena_services(rt_ticket, initial_priority)
 
         running_status = mgnify.get_annotation_job_status('RUNNING')
         job = AnnotationJob.objects.first()
@@ -729,3 +753,30 @@ class TestBacklogHandler(object):
 
         for attr, val in new_attr.items():
             assert getattr(modified_job, attr) == val
+
+    def test_get_annotation_jobs_status_descriptions_str(self):
+        assert 0 == len(AnnotationJob.objects.all()) == 0
+
+        create_annotation_jobs_without_ena_services()
+
+        assert 3 == len(AnnotationJob.objects.all())
+        jobs = mgnify.get_annotation_jobs(status_descriptions='SCHEDULED')
+        assert 3 == len(jobs)
+
+    def test_get_annotation_jobs_status_descriptions_list(self):
+        assert 0 == len(AnnotationJob.objects.all()) == 0
+
+        create_annotation_jobs_without_ena_services()
+
+        assert 3 == len(AnnotationJob.objects.all())
+        jobs = mgnify.get_annotation_jobs(status_descriptions=['SCHEDULED', 'RUNNING'])
+        assert 3 == len(jobs)
+
+    def test_get_annotation_jobs_status_descriptions_should_return_no_jobs(self):
+        assert 0 == len(AnnotationJob.objects.all()) == 0
+
+        create_annotation_jobs_without_ena_services()
+
+        assert 3 == len(AnnotationJob.objects.all())
+        jobs = mgnify.get_annotation_jobs(status_descriptions=['RUNNING'])
+        assert 0 == len(jobs)
