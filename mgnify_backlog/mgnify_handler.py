@@ -334,7 +334,7 @@ class MgnifyHandler:
     def get_annotation_job_status(self, description):
         return AnnotationJobStatus.objects.using(self.database).get(description=description)
 
-    def get_annotation_jobs(self, run_or_assembly_accessions=None, study_accessions=None, status_description=None,
+    def get_annotation_jobs(self, run_or_assembly_accessions=None, study_accessions=None, status_descriptions=None,
                             priority=None,
                             pipeline_version=None, experiment_types=None):
         jobs = AnnotationJob.objects.using(self.database)
@@ -361,8 +361,10 @@ class MgnifyHandler:
                 jobs = jobs.distinct()
         if priority:
             jobs = jobs.filter(priority=priority)
-        if status_description:
-            jobs = jobs.filter(status__description=status_description)
+        if status_descriptions:
+            if isinstance(status_descriptions, str):
+                status_descriptions = [status_descriptions]
+            jobs = jobs.filter(status__description__in=status_descriptions)
         if pipeline_version:
             jobs = jobs.filter(pipeline__version=pipeline_version)
         return jobs
