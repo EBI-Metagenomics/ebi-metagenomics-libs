@@ -367,7 +367,7 @@ class EnaApiHandler:
         data['limit'] = 0
         data['result'] = 'analysis'
         data['fields'] = fields or ASSEMBLY_DEFAULT_FIELDS
-        data['query'] = 'last_updated>={}'.format(cutoff_date)
+        data['query'] = 'assembly_type="{}" AND last_updated>={}'.format('primary metagenome', cutoff_date)
         response = self.post_request(data)
         status_code = str(response.status_code)
         if status_code[0] != '2':
