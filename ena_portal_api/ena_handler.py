@@ -30,11 +30,11 @@ STUDY_DEFAULT_FIELDS = 'study_accession,secondary_study_accession,description,st
 
 RUN_DEFAULT_FIELDS = 'study_accession,secondary_study_accession,run_accession,library_source,library_strategy,' \
                      'library_layout,fastq_ftp,fastq_md5,base_count,read_count,instrument_platform,instrument_model,' \
-                     'secondary_sample_accession'
+                     'secondary_sample_accession,library_name,sample_alias,sample_title,sample_description'
 
 ASSEMBLY_DEFAULT_FIELDS = 'analysis_accession,study_accession,secondary_study_accession,sample_accession,' \
                           'secondary_sample_accession,analysis_title,analysis_type,center_name,first_public,' \
-                          'last_updated,study_title,tax_id,scientific_name,analysis_alias,study_alias,' \
+                          'last_updated,study_title,description, tax_id,scientific_name,analysis_alias,study_alias,' \
                           'submitted_bytes,submitted_md5,submitted_ftp,submitted_aspera,submitted_galaxy,' \
                           'sample_alias,broker_name,sample_title,sample_description,pipeline_name,' \
                           'pipeline_version,assembly_type,description'
@@ -248,7 +248,10 @@ class EnaApiHandler:
 
             for int_param in ('read_count', 'base_count'):
                 if int_param in run:
-                    run[int_param] = int(run[int_param])
+                    try:
+                        run[int_param] = int(run[int_param])
+                    except ValueError:
+                        run[int_param] = None
         return runs
 
     # Specific fo
@@ -312,6 +315,7 @@ class EnaApiHandler:
     def get_updated_studies(self, cutoff_date, fields=None):
         data = get_default_params()
         data['dataPortal'] = 'metagenome'
+        data['limit'] = 0
         data['result'] = 'study'
         data['fields'] = fields or STUDY_DEFAULT_FIELDS
         data['query'] = 'last_updated>={}'.format(cutoff_date)
@@ -330,10 +334,11 @@ class EnaApiHandler:
             logging.debug(e)
             logging.debug(response.text)
             raise ValueError('Could not find studies in ENA.')
-        return studies
+        return list(map(self.remap_study_fields, studies))
 
     def get_updated_runs(self, cutoff_date, fields=None):
         data = get_default_params()
+        data['limit'] = 0
         data['result'] = 'read_run'
         data['dataPortal'] = 'metagenome'
         data['fields'] = fields or RUN_DEFAULT_FIELDS
@@ -359,9 +364,10 @@ class EnaApiHandler:
     def get_updated_tpa_assemblies(self, cutoff_date, fields=None):
         data = get_default_params()
         data['dataPortal'] = 'metagenome'
+        data['limit'] = 0
         data['result'] = 'analysis'
         data['fields'] = fields or ASSEMBLY_DEFAULT_FIELDS
-        data['query'] = 'last_updated>={}'.format(cutoff_date)
+        data['query'] = 'assembly_type="{}" AND last_updated>={}'.format('primary metagenome', cutoff_date)
         response = self.post_request(data)
         status_code = str(response.status_code)
         if status_code[0] != '2':
@@ -383,6 +389,7 @@ class EnaApiHandler:
     def get_updated_assemblies(self, cutoff_date, fields=None):
         data = get_default_params()
         data['dataPortal'] = 'metagenome'
+        data['limit'] = 0
         data['result'] = 'assembly'
         data['fields'] = fields or ASSEMBLY_DEFAULT_FIELDS
         data['query'] = 'last_updated>={}'.format(cutoff_date)

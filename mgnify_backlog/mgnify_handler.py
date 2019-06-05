@@ -38,12 +38,26 @@ class MgnifyHandler:
     def __init__(self, database):
         self.database = database
 
+    def set_biome(self, obj_data, obj):
+        if 'inferred_lineage' in obj_data:
+            biome = Biome.objects.using(self.database).get(lineage=obj_data['inferred_lineage'])
+            obj.inferred_biome = biome
+        if 'lineage' in obj_data:
+            biome = Biome.objects.using(self.database).get(lineage=obj_data['lineage'])
+            obj.biome = biome
+
     def create_study_obj(self, data):
+        print(data)
+        fmt_description = sanitise_string(data.get('description'))
+        max_desc_length = Study._meta.get_field('description').max_length
+        if len(fmt_description) > max_desc_length:
+            fmt_description = fmt_description[0:max_desc_length-4] + '...'
+
         s = Study(primary_accession=data['study_accession'],
                   secondary_accession=data['secondary_study_accession'],
                   title=sanitise_string(data['study_title']),
                   scientific_name=sanitise_string(data.get('scientific_name')),
-                  description=sanitise_string(data.get('description')),
+                  description=fmt_description,
                   public=get_date(data, 'first_public') <= datetime.now().date(),
                   ena_last_update=get_date(data, 'last_updated')
                   )
@@ -76,32 +90,28 @@ class MgnifyHandler:
                 compressed_data_size=run['raw_data_size'] if 'raw_data_size' in run else 0,
                 sample_primary_accession=run[
                     'secondary_sample_accession'] if 'secondary_sample_accession' in run else None,
-                biome_validated='lineage' in run,
                 public=public
                 )
-        if 'lineage' in run:
-            biome = Biome.objects.using(self.database).get(lineage=run['lineage'])
-            r.biome = biome
+        self.set_biome(run, r)
         r.clean_fields()
         r.save(using=self.database)
         return r
 
-    def update_run_obj(self, data):
-        r = Run.objects.using(self.database).get(primary_accession=data['run_accession'])
+    def update_run_obj(self, run_data):
+        r = Run.objects.using(self.database).get(primary_accession=run_data['run_accession'])
         int_fields = ['base_count', 'read_count']
-        [setattr(r, int_field, data[int_field]) for int_field in int_fields if int_field in data]
+        [setattr(r, int_field, run_data[int_field]) for int_field in int_fields if int_field in run_data]
         string_fields = ['instrument_platform', 'instrument_model', 'instrument_strategy', 'instrument_']
-        [setattr(r, string_field, sanitise_string(data[string_field])) for string_field in string_fields if
-         string_field in data]
-        if 'last_updated' in data:
-            r.ena_last_update = data['last_updated']
-        if 'raw_data_size' in data:
-            r.compressed_data_size = data['raw_data_size']
-        if 'secondary_sample_accession' in data:
-            r.secondary_sample_accession = data['secondary_sample_accession']
-        if 'lineage' in data:
-            biome = Biome.objects.using(self.database).get(lineage=data['lineage'])
-            r.biome = biome
+        [setattr(r, string_field, sanitise_string(run_data[string_field])) for string_field in string_fields if
+         string_field in run_data]
+        if 'last_updated' in run_data:
+            r.ena_last_update = run_data['last_updated']
+        if 'raw_data_size' in run_data:
+            r.compressed_data_size = run_data['raw_data_size']
+        if 'secondary_sample_accession' in run_data:
+            r.secondary_sample_accession = run_data['secondary_sample_accession']
+
+        self.set_biome(run_data, r)
 
         r.clean_fields()
         r.save(using=self.database)
@@ -109,10 +119,12 @@ class MgnifyHandler:
         return r
 
     def create_assembly_obj(self, ena_handler, study, assembly_data, public):
+
         assembly = Assembly(study=study,
                             primary_accession=assembly_data['analysis_accession'],
                             ena_last_update=assembly_data['last_updated'],
                             public=public)
+        self.set_biome(assembly_data, assembly)
         assembly.save(using=self.database)
         alias = assembly_data['analysis_alias']
         if re.match(run_reg, alias):
