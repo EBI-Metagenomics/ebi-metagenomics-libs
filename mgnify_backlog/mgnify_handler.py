@@ -410,6 +410,7 @@ class MgnifyHandler:
 
     def update_annotation_jobs_privacy(self, annotation_jobs, is_public):
         Run.objects.using(self.database).filter(annotationjobs__in=annotation_jobs).update(public=is_public)
+        Assembly.objects.using(self.database).filter(assemblyannotationjob__annotation_job__in=annotation_jobs).update(public=is_public)
         Study.objects.using(self.database).filter(run__annotationjobs__in=annotation_jobs).update(public=is_public)
 
     def update_annotation_jobs_from_accessions(self, run_or_assembly_accessions=None, study_accessions=None,
