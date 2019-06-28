@@ -34,6 +34,14 @@ from backlog.models import Study, Run, AssemblyJob, RunAssembly, Assembler, Asse
 run_reg = r'([E|S|D]RR\d{5,})_?'
 
 
+def summarise_description(description):
+    fmt_description = sanitise_string(description)
+    max_desc_length = Study._meta.get_field('description').max_length
+    if len(fmt_description) > max_desc_length:
+        fmt_description = fmt_description[0:max_desc_length - 5] + '...'
+    return fmt_description
+
+
 class MgnifyHandler:
     def __init__(self, database):
         self.database = database
@@ -47,11 +55,7 @@ class MgnifyHandler:
             obj.biome = biome
 
     def create_study_obj(self, data):
-        print(data)
-        fmt_description = sanitise_string(data.get('description'))
-        max_desc_length = Study._meta.get_field('description').max_length
-        if len(fmt_description) > max_desc_length:
-            fmt_description = fmt_description[0:max_desc_length-4] + '...'
+        fmt_description = summarise_description(data.get('description'))
 
         s = Study(primary_accession=data['study_accession'],
                   secondary_accession=data['secondary_study_accession'],
@@ -71,9 +75,13 @@ class MgnifyHandler:
         if 'last_updated' in data:
             s.ena_last_update = get_date(data, 'last_updated')
 
-        for attr in ['study_title', 'description', 'scientific_name']:
+        for attr in ['study_title', 'scientific_name']:
             if attr in data:
                 setattr(s, attr, sanitise_string(data[attr]))
+
+        if 'description' in data:
+            fmt_description = summarise_description(data.get('description'))
+            setattr(s, 'description', fmt_description)
         s.save(using=self.database)
 
     def create_run_obj(self, study, run, public=True):
@@ -402,6 +410,7 @@ class MgnifyHandler:
 
     def update_annotation_jobs_privacy(self, annotation_jobs, is_public):
         Run.objects.using(self.database).filter(annotationjobs__in=annotation_jobs).update(public=is_public)
+        Assembly.objects.using(self.database).filter(assemblyannotationjob__annotation_job__in=annotation_jobs).update(public=is_public)
         Study.objects.using(self.database).filter(run__annotationjobs__in=annotation_jobs).update(public=is_public)
 
     def update_annotation_jobs_from_accessions(self, run_or_assembly_accessions=None, study_accessions=None,

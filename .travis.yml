@@ -3,6 +3,9 @@ python:
   - "3.5"
   - "3.6"
 
+services:
+  - mysql
+
 env:
   - BACKLOG_CONFIG=$TRAVIS_BUILD_DIR/travis/config.yaml
 
@@ -11,7 +14,7 @@ install:
   - pip install 'pytest==3.7.4'
   # Project dependencies
   - pip install -U git+git://github.com/EBI-Metagenomics/emg-backlog-schema.git@master
-  - pip install -U --process-dependency-links .
+  - pip install -U  .
 
   # Setup database
   - mysql -e 'CREATE DATABASE emg_backlog_2;'
