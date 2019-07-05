@@ -11,7 +11,7 @@ env:
 
 install:
   # Test dependencies
-  - pip install 'pytest==3.7.4'
+  - pip install -r requirements-test.txt
   # Project dependencies
   - pip install -U git+git://github.com/EBI-Metagenomics/emg-backlog-schema.git
   - pip install -U git+git://github.com/EBI-Metagenomics/ena-api-handler.git
