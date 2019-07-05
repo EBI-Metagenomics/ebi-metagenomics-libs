@@ -23,7 +23,7 @@ install:
   - mysql -u root --password="" --database=emg_backlog_2 < travis/biomes.sql
 
 script:
-  - python setup.py test
+  - pytest --reruns 3 --reruns-delay 1
 
 after_success:
   - pip install codacy-coverage
