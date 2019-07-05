@@ -11,9 +11,10 @@ env:
 
 install:
   # Test dependencies
-  - pip install 'pytest==3.7.4'
+  - pip install -r requirements-test.txt
   # Project dependencies
-  - pip install -U git+git://github.com/EBI-Metagenomics/emg-backlog-schema.git@master
+  - pip install -U git+git://github.com/EBI-Metagenomics/emg-backlog-schema.git
+  - pip install -U git+git://github.com/EBI-Metagenomics/ena-api-handler.git
   - pip install -U  .
 
   # Setup database
@@ -22,7 +23,7 @@ install:
   - mysql -u root --password="" --database=emg_backlog_2 < travis/biomes.sql
 
 script:
-  - python setup.py test
+  - pytest --reruns 3 --reruns-delay 1
 
 after_success:
   - pip install codacy-coverage

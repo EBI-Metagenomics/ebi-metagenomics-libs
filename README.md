@@ -6,6 +6,7 @@ This repository contains internal tools and libs used by the MGnify team at EMBL
 
 ## Installation
 ```bash
+pip install -U git+git://github.com/EBI-Metagenomics/ena-api-handler.git
 pip install -U git+git://github.com/EBI-Metagenomics/emg-backlog-schema.git
 pip install -U git+git://github.com/EBI-Metagenomics/ebi-metagenomics-libs.git
 ```
