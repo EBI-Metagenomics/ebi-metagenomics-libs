@@ -13,7 +13,8 @@ install:
   # Test dependencies
   - pip install 'pytest==3.7.4'
   # Project dependencies
-  - pip install -U git+git://github.com/EBI-Metagenomics/emg-backlog-schema.git@master
+  - pip install -U git+git://github.com/EBI-Metagenomics/emg-backlog-schema.git
+  - pip install -U git+git://github.com/EBI-Metagenomics/ena-api-handler.git
   - pip install -U  .
 
   # Setup database
