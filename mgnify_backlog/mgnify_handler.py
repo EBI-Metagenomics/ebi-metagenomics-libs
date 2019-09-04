@@ -325,7 +325,7 @@ class MgnifyHandler:
     def get_up_to_date_assembly_annotation_jobs(self, study_accession):
         latest_pipeline = self.get_latest_pipeline()
         return Assembly.objects.using(self.database).filter(study__secondary_accession=study_accession,
-                                                            assemblyannotationjob__annotation_job__pipeline=latest_pipeline)
+                                                            assemblyannotationjobs__annotation_job__pipeline=latest_pipeline)
 
     def set_annotation_jobs_completed(self, study, rt_ticket, excluded_runs=None):
         if not excluded_runs:
