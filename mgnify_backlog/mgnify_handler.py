@@ -355,8 +355,7 @@ class MgnifyHandler:
         return AnnotationJobStatus.objects.using(self.database).get(description=description)
 
     def get_annotation_jobs(self, run_or_assembly_accessions=None, study_accessions=None, status_descriptions=None,
-                            priority=None,
-                            pipeline_version=None, experiment_types=None):
+                            priority=None, pipeline_version=None, experiment_types=None, biome_assigned_only=False):
         jobs = AnnotationJob.objects.using(self.database)
         if run_or_assembly_accessions:
             jobs = jobs.filter(
@@ -368,6 +367,10 @@ class MgnifyHandler:
                 Q(runannotationjob__run__study__secondary_accession__in=study_accessions) |
                 Q(assemblyannotationjob__assembly__study__primary_accession__in=study_accessions) |
                 Q(assemblyannotationjob__assembly__study__secondary_accession__in=study_accessions))
+        if biome_assigned_only:
+            jobs = jobs.filter(
+                Q(runannotationjob__run__biome_id__isnull=False) |
+                Q(assemblyannotationjob__assembly__biome_id__isnull=False))
         if experiment_types and len(experiment_types):
             q_objects = Q()
             no_assembly = list(filter(lambda exp: exp != 'ASSEMBLY', experiment_types))
