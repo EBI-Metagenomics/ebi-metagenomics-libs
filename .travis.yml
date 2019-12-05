@@ -13,7 +13,7 @@ install:
   # Test dependencies
   - pip install -r requirements-test.txt
   # Project dependencies
-  - pip install -U git+git://github.com/EBI-Metagenomics/emg-backlog-schema.git
+  - pip install -U git+git://github.com/EBI-Metagenomics/emg-backlog-schema.git@develop
   - pip install -U git+git://github.com/EBI-Metagenomics/ena-api-handler.git
   - pip install -U  .
 
