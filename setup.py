@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 import os
 import sys
 
-version = "0.5.14"
+version = "0.5.15"
 
 _base = os.path.dirname(os.path.abspath(__file__))
 _requirements = os.path.join(_base, 'requirements.txt')
@@ -27,10 +27,7 @@ setup(
     packages=['mgnify_backlog', 'mgnify_util', 'mgnify_util.parser', 'ena.flatfile_decorator'],
     install_requires=install_requirements,
     include_package_data=True,
-    install_requirements=['emg-backlog-schema>=0.9.0'],
-    dependency_links=[
-        'https://github.com/EBI-Metagenomics/emg-backlog-schema/tarball/master#egg=emg-backlog-schema-0.8.2'
-    ],
+    install_requirements=['emg-backlog-schema>=0.12.3'],
     entry_points={
         'console_scripts': [
             'flatfile_decorator=ena.flatfile_decorator.flatfile_decorator:main'
