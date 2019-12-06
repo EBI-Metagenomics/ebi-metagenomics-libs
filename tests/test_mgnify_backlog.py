@@ -26,15 +26,16 @@ mgnify = mgnify_handler.MgnifyHandler('default')
 ena = ena_handler.EnaApiHandler()
 
 
-def create_annotation_jobs_using_ena_services(rt_ticket=0, priority=0):
+def create_annotation_jobs_using_ena_services(rt_ticket=0, priority=0, version=4.1):
     study = mgnify.create_study_obj(study_data)
     accessions = ['ERR164407', 'ERR164408', 'ERR164409']
     lineage = 'root:Host-Associated:Human:Digestive System'
 
     runs = [mgnify.get_or_save_run(ena, accession, study=study, lineage=lineage) for accession in
             accessions]
-    pipeline = Pipeline(version=4.1)
-    pipeline.save()
+    versions = [1.0, 2.0, 3.0, 4.0, 4.1, 5.0]
+    for version in versions:
+        Pipeline(version=version).save()
 
     user = mgnify.create_user(user_data['webin_id'], user_data['email_address'],
                               user_data['first_name'],
@@ -43,9 +44,9 @@ def create_annotation_jobs_using_ena_services(rt_ticket=0, priority=0):
 
     assert len(AnnotationJob.objects.all()) == 0
 
-    mgnify.create_annotation_job(request, runs[0], priority)
-    mgnify.create_annotation_job(request, runs[1], priority)
-    mgnify.create_annotation_job(request, runs[2], priority)
+    mgnify.create_annotation_job(request, runs[0], priority, version)
+    mgnify.create_annotation_job(request, runs[1], priority)  # latest pipeline version
+    mgnify.create_annotation_job(request, runs[2], priority)  # latest pipeline version
     return study, runs
 
 
@@ -318,6 +319,12 @@ class TestBacklogHandler(object):
             Pipeline(version=version).save()
         assert mgnify.get_latest_pipeline().version == max(versions)
 
+    def test_get_pipeline_by_version_should_return_correct_pipeline(self):
+        versions = [1.0, 2.0, 3.0, 4.0, 4.1, 5.0]
+        for version in versions:
+            Pipeline(version=version).save()
+        assert mgnify.get_pipeline_by_version(5.0).version == 5.0
+
     def test_create_annotation_job_should_create_annotationjob_for_run(self):
         study = mgnify.create_study_obj(study_data)
         run = mgnify.create_run_obj(study, run_data)
@@ -548,6 +555,20 @@ class TestBacklogHandler(object):
         up_to_date_assemblies = mgnify.get_up_to_date_assembly_annotation_jobs(
             study_data['secondary_study_accession'])
         assert len(up_to_date_assemblies) == len(assemblies)
+
+    def test_create_annotation_job_with_pipeline_version(self):
+        """
+            Test should prove that annotation jobs with the correct pipeline version have
+            been created.
+        :return:
+        """
+        rt_ticket = 1
+        study, _ = create_annotation_jobs_using_ena_services(rt_ticket=rt_ticket, version=3.0)
+        latest_version = mgnify.get_latest_pipeline().version
+
+        for annotation_job in AnnotationJob.objects.all():
+            assert annotation_job.pipeline.version in [3.0, latest_version]
+            assert annotation_job.pipeline.version not in [1.0, 2.0, 4.0, 4.1]
 
     def test_set_annotation_jobs_completed_should_set_all_annotation_jobs_to_completed(self):
         rt_ticket = 1
