@@ -232,10 +232,22 @@ class MgnifyHandler:
     def get_latest_pipeline(self):
         return Pipeline.objects.using(self.database).order_by('-version').first()
 
-    def create_annotation_job(self, request, assembly_or_run, priority):
-        latest_pipeline = self.get_latest_pipeline()
+    def get_pipeline_by_version(self, version):
+        return Pipeline.objects.using(self.database).get(version=version)
+
+    def create_annotation_job(self, request, assembly_or_run, priority, pipeline_version=None):
+        """
+
+        :param pipeline_version:
+        :type pipeline_version: float
+        :return:
+        """
+        if pipeline_version:
+            pipeline = self.get_pipeline_by_version(pipeline_version)
+        else:
+            pipeline = self.get_latest_pipeline()
         status = AnnotationJobStatus.objects.using(self.database).get(description='SCHEDULED')
-        job = AnnotationJob(request=request, pipeline=latest_pipeline, priority=priority)
+        job = AnnotationJob(request=request, pipeline=pipeline, priority=priority)
         job.status = status
         job.save(using=self.database)
 
