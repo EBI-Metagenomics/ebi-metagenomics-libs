@@ -22,6 +22,14 @@ $ conda create -q -n EMBLmyGFF3  python=2.7
 
 $ source activate EMBLmyGFF3
 
+$ pip freeze
+bcbio-gff==0.6.4
+biopython==1.67
+certifi==2018.11.29
+EMBLmyGFF3==1.2.4
+numpy==1.16.1
+six==1.12.0
+
 // Check if the right virtual env is selected
 $ conda env list
 
@@ -62,3 +70,19 @@ molecule_type (-m): unassigned RNA
 project ID (-p): XXX
 topology (-t): linear
 transl_table (-r): 1
+
+---------------------------------------------
+Processing real transcriptome assemblies
+
+// Copy over the results files (annotation files and FASTA input sequences) into your working area
+$ cd <working-directory>
+
+$ scp noah-login-01:/nfs/production/metagenomics/pipelines/transcriptomics/assemblies/results/MMETSP/single/MMETSP1057_results.tar.gz .
+
+$ tar xvzf MMETSP1057_results.tar.gz
+
+$ cd MMETSP1057_results/
+
+$ EMBLmyGFF3 MMETSP1057.trinity_out_2.2.0.Trinity.cut.cleaned.fasta.transdecoder.gff3 MMETSP1057.trinity_out_2.2.0.Trinity.cut.cleaned.fasta -o MMETSP1057.trinity_out_2.2.0.Trinity.fasta.embl --translate -m 'unassigned RNA' -p XXX -r 1 -s 631057 -t linear -i XXX
+
+$ flatfile_decorator.py /home/maxim/software-projects/ebi-metagenomics-libs/ena/flatfile_decorator/test-inputs/temp/MMETSP1057_results/MMETSP1057.trinity_out_2.2.0.Trinity.fasta.embl /home/maxim/software-projects/ebi-metagenomics-libs/ena/flatfile_decorator/test-inputs/temp/MMETSP1057_results/full_i5_annotations 5.28-67.0 --tag-name

@@ -329,15 +329,22 @@ class MgnifyHandler:
             return False
 
     # Get a list of runs in study which have been annotated with latest pipeline
-    def get_up_to_date_run_annotation_jobs(self, study_accession):
-        latest_pipeline = self.get_latest_pipeline()
+    def get_up_to_date_run_annotation_jobs(self, study_accession, pipeline_version=None):
+        if pipeline_version:
+            pipeline = self.get_pipeline_by_version(pipeline_version)
+        else:
+            pipeline = self.get_latest_pipeline()
         return Run.objects.using(self.database).filter(study__secondary_accession=study_accession,
-                                                       runannotationjob__annotation_job__pipeline=latest_pipeline)
+                                                       runannotationjob__annotation_job__pipeline=pipeline)
 
-    def get_up_to_date_assembly_annotation_jobs(self, study_accession):
-        latest_pipeline = self.get_latest_pipeline()
+    def get_up_to_date_assembly_annotation_jobs(self, study_accession, pipeline_version=None):
+        if pipeline_version:
+            pipeline = self.get_pipeline_by_version(pipeline_version)
+        else:
+            pipeline = self.get_latest_pipeline()
+
         return Assembly.objects.using(self.database).filter(study__secondary_accession=study_accession,
-                                                            assemblyannotationjobs__annotation_job__pipeline=latest_pipeline)
+                                                            assemblyannotationjobs__annotation_job__pipeline=pipeline)
 
     def set_annotation_jobs_completed(self, study, rt_ticket, excluded_runs=None):
         if not excluded_runs:
