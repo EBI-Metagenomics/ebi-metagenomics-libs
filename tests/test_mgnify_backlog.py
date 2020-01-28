@@ -547,13 +547,15 @@ class TestBacklogHandler(object):
             assemblies.append(mgnify.get_or_save_assembly(ena, accession, data, study))
         pipeline = Pipeline(version=4.1)
         pipeline.save()
+        pipeline = Pipeline(version=5.0)
+        pipeline.save()
 
         user = mgnify.create_user(user_data['webin_id'], user_data['email_address'],
                                   user_data['first_name'],
                                   user_data['surname'])
         request = mgnify.create_user_request(user, 0, 1)
 
-        assert len(AnnotationJob.objects.all()) == 0
+        assert 0 == len(AnnotationJob.objects.all())
 
         mgnify.create_annotation_job(request, assemblies[0], 0, 4.1)
         mgnify.create_annotation_job(request, assemblies[1], 1)
@@ -577,7 +579,7 @@ class TestBacklogHandler(object):
         :return:
         """
         rt_ticket = 1
-        study, _ = create_annotation_jobs_using_ena_services(rt_ticket=rt_ticket, _version=3.0)
+        study, _ = create_annotation_jobs_using_ena_services(rt_ticket=rt_ticket, version=3.0)
         latest_version = mgnify.get_latest_pipeline().version
 
         for annotation_job in AnnotationJob.objects.all():
