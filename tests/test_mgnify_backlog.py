@@ -529,7 +529,13 @@ class TestBacklogHandler(object):
         runs = create_annotation_jobs_using_ena_services()[1]
 
         up_to_date_runs = mgnify.get_up_to_date_run_annotation_jobs(study_data['secondary_study_accession'])
-        assert len(up_to_date_runs) == len(runs)
+        assert len(runs) == len(up_to_date_runs)
+
+        up_to_date_runs_v4 = mgnify.get_up_to_date_run_annotation_jobs(study_data['secondary_study_accession'], 4.1)
+        assert len(runs) == len(up_to_date_runs_v4)
+
+        up_to_date_runs_v5 = mgnify.get_up_to_date_run_annotation_jobs(study_data['secondary_study_accession'], 5.0)
+        assert 0 == len(up_to_date_runs_v5)
 
     def test_get_up_to_date_assembly_annotation_jobs_should_retrieve_all_jobs_in_priority_order(self):
         study = mgnify.create_study_obj(study_data)
@@ -552,9 +558,17 @@ class TestBacklogHandler(object):
         mgnify.create_annotation_job(request, assemblies[0], 0)
         mgnify.create_annotation_job(request, assemblies[1], 1)
 
-        up_to_date_assemblies = mgnify.get_up_to_date_assembly_annotation_jobs(
+        up_to_date_assemblies_v4 = mgnify.get_up_to_date_assembly_annotation_jobs(
             study_data['secondary_study_accession'])
-        assert len(up_to_date_assemblies) == len(assemblies)
+        assert len(up_to_date_assemblies_v4) == len(assemblies)
+
+        up_to_date_assemblies_v4 = mgnify.get_up_to_date_assembly_annotation_jobs(
+            study_data['secondary_study_accession'], 4.1)
+        assert len(up_to_date_assemblies_v4) == len(assemblies)
+
+        up_to_date_assemblies_v5 = mgnify.get_up_to_date_assembly_annotation_jobs(
+            study_data['secondary_study_accession'], 5)
+        assert 0 == len(up_to_date_assemblies_v5)
 
     def test_create_annotation_job_with_pipeline_version(self):
         """
