@@ -1,0 +1,31 @@
+RF00002	5.8S ribosomal RNA	rRNA
+RF00177	Bacterial small subunit ribosomal RNA	rRNA
+RF01959	Archaeal small subunit ribosomal RNA	rRNA
+RF01960	Eukaryotic small subunit ribosomal RNA	rRNA
+RF02540	Archaeal large subunit ribosomal RNA	rRNA
+RF02541	Bacterial large subunit ribosomal RNA	rRNA
+RF02542	Microsporidia small subunit ribosomal RNA	rRNA
+RF02543	Eukaryotic large subunit ribosomal RNA	rRNA
+RF02546	Trypanosomatid mitochondrial large subunit ribosomal RNA rRNA
+RF02547	Permuted mitochondrial genome encoded 5S rRNA	rRNA
+RF01849	Alphaproteobacteria transfer-messenger RNA	tmRNA
+RF01854	Bacterial large signal recognition particle RNA	ncRNA_class="SRP_RNA"
+RF01850	Betaproteobacteria transfer-messenger RNA	tmRNA
+RF01570	Dictyostelium signal recognition particle	ncRNA_class="snRNA"
+RF00017	Metazoan signal recognition particle RNA	ncRNA_class="SRP_RNA"
+RF01855	Plant signal recognition particle RNA	ncRNA_class="SRP_RNA"
+RF00030	RNase MRP	ncRNA_class="RNase_MRP_RNA"
+RF00010	Bacterial RNase P class A	ncRNA_class="RNase_P_RNA"
+RF01577	Plasmodium RNase_P	ncRNA_class="RNase_P_RNA"
+RF00023	transfer-messenger RNA	tmRNA
+RF01852	Selenocysteine transfer RNA	tRNA
+RF01857	Archaeal signal recognition particle RNA	ncRNA_class="SRP_RNA"
+RF00169	Bacterial small signal recognition particle RNA	ncRNA_class="SRP_RNA"
+RF01851	Cyanobacteria transfer-messenger RNA	tmRNA
+RF01502	Fungal signal recognition particle RNA	ncRNA_class="SRP_RNA"
+RF02544	Mitochondrion-encoded tmRNA	tmRNA
+RF01856	Protozoan signal recognition particle RNA	ncRNA_class="SRP_RNA"
+RF00373	Archaeal RNase P	ncRNA_class="RNase_P_RNA"
+RF00011	Bacterial RNase P class B	ncRNA_class="RNase_P_RNA"
+RF00009	Nuclear RNase P	ncRNA_class="RNase_P_RNA"
+RF00005	tRNA	tRNA

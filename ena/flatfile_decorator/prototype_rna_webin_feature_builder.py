@@ -206,8 +206,16 @@ def main(argv=None):
     for match in parse_matches(args.input_file):
         seq_id = match.target_name
         if seq_id in sequence_feature_dict:
+            logging.info("Sequence {} has already a feature assigned.".format(seq_id))
             features = sequence_feature_dict.get(seq_id)
-            create_webin_feature(match, model_lengths)
+        else:
+            features = set()
+            sequence_feature_dict[seq_id] = features
+
+        new_feature = create_webin_feature(match, model_lengths)
+        features.add(new_feature)
+
+    print()
     # TODO: Continue
 
 
