@@ -1,7 +1,9 @@
 import argparse
+import csv
 import logging
 import re
 import sys
+from enum import Enum
 
 
 def parse_args(args):
@@ -9,11 +11,47 @@ def parse_args(args):
         description='Tool to create decorate embl flatfile.')
     parser.add_argument('input_file',
                         help='tbl formatted deoverlapped output file')
-    parser.add_argument('model_lengths',
-                        help='tsv formatted file mapping rfams to model length')
+    parser.add_argument('--rfam_lookup_file',
+                        help='tsv formatted file mapping RFAMs accessions to name, description, '
+                             'RNA type and model length',
+                        default='rfam_family_lookup.tsv')
     parser.add_argument('-o', '--output-file', help='report')
     parser.add_argument('-v', '--verbose', action='store_true')
     return parser.parse_args(args)
+
+class RNAType(Enum):
+    R_RNA = 'rRNA'
+    T_RNA = 'tRNA'
+    M_RNA = 'mRNA'
+    TM_RNA = 'tmRNA'
+    NC_RNA = 'ncRNA'
+    MISC_RNA = 'misc_RNA'
+    SN_RNA = 'snRNA'
+    SRP_RNA = 'ncRNA'
+
+UNRESOLVED_RFAM_LOOKUP = {
+    'RF01849': RNAType.TM_RNA,
+    'RF01854': RNAType.SRP_RNA,
+    'RF01850': RNAType.TM_RNA,
+    'RF00017': RNAType.SRP_RNA,
+    'RF01855': RNAType.SRP_RNA,
+    '': '',
+    '': ''
+}
+
+class RfamEntry:
+    """
+        Describes an RFAM entry.
+        e.g.
+        RF00001	5S_rRNA	5S ribosomal RNA	Gene; rRNA;	119
+    """
+
+    def __init__(self, accession, name, desc, type, model_length):
+        self.accession = accession
+        self.name = name
+        self.desc = desc
+        self.type = type
+        self.model_length = model_length
 
 
 class Inference:
@@ -124,19 +162,53 @@ def parse_matches(input_file):
     return matches
 
 
-def parse_model_lengths(input_file):
-    model_lengths = {}
-    with open(input_file, "r") as fp:
+def __process_rna_type(accession, rna_type):
+    """
+        Possible RNA type values are:
+            - Gene;
+            - Gene; rRNA;
+            - Gene; snRNA; splicing;
+            - Cis-reg; riboswitch;
+
+    :param param:
+    :return:
+    """
+    if rna_type == 'Gene;':
+        pass
+    elif 'snRNA' in rna_type:
+        return RNAType.SN_RNA
+    elif 'tRNA' in rna_type:
+        return RNAType.T_RNA
+    elif 'rRNA' in rna_type:
+        return RNAType.R_RNA
+    else:
+        return RNAType.MISC_RNA
+
+
+def parse_rfam_lookup_file(input_file):
+    """
+        Maps RFAMs accessions to name, description, RNA type and model length
+
+    :param input_file:
+    :return:
+    """
+    rfam_lookup = {}
+    with open(input_file, "r") as tsv_file:
+        reader = csv.reader(tsv_file, delimiter='\t')
         cnt = 0
-        for line in fp:
-            line = line.rstrip("\n\r")
-            chunks = re.findall(r'(\S+)', line)
-            if len(chunks) != 2:
-                raise ValueError("Unexpected number of chunks: {}".format(len(chunks)))
-            model_lengths[chunks[0]] = int(chunks[1])
+        for row in reader:
+            if len(row) != 5:
+                raise ValueError("Unexpected number of chunks: {}".format(len(row)))
+            accession = row[0]
+            name = row[1]
+            desc = row[2]
+            type = __process_rna_type(accession, row[3])
+            clength = row[4]
+            new_entry = RfamEntry(accession, name, desc, type, clength)
+            rfam_lookup[accession] = new_entry
             cnt += 1
         logging.info("Processed {} models.".format(cnt))
-    return model_lengths
+    return rfam_lookup
 
 
 def calculate_model_coverage(matches, model_lengths):
@@ -152,7 +224,7 @@ def calculate_model_coverage(matches, model_lengths):
         else:
             partial += 1
 
-        # print("{}: {}%".format(match.target_name, coverage))
+            # print("{}: {}%".format(match.target_name, coverage))
 
     print("Complete matches: {}".format(complete))
     print("Partial matches: {}".format(partial))
@@ -195,12 +267,16 @@ def create_webin_feature(match, model_lengths):
     return new_feature
 
 
+def build_rfam_lookup(infile):
+    return parse_rfam_lookup_file(infile)
+
+
 def main(argv=None):
     args = parse_args(argv)
 
     logging.basicConfig(level=logging.DEBUG if args.verbose else logging.INFO)
 
-    model_lengths = parse_model_lengths(args.model_lengths)
+    rfam_dict = build_rfam_lookup(args.rfam_lookup_file)
 
     sequence_feature_dict = {}  # seq -> set of features
     for match in parse_matches(args.input_file):
