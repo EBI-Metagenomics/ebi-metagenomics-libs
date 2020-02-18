@@ -19,6 +19,7 @@ def parse_args(args):
     parser.add_argument('-v', '--verbose', action='store_true')
     return parser.parse_args(args)
 
+
 class RNAType(Enum):
     R_RNA = 'rRNA'
     T_RNA = 'tRNA'
@@ -29,15 +30,15 @@ class RNAType(Enum):
     SN_RNA = 'snRNA'
     SRP_RNA = 'ncRNA'
 
+
 UNRESOLVED_RFAM_LOOKUP = {
     'RF01849': RNAType.TM_RNA,
     'RF01854': RNAType.SRP_RNA,
     'RF01850': RNAType.TM_RNA,
     'RF00017': RNAType.SRP_RNA,
     'RF01855': RNAType.SRP_RNA,
-    '': '',
-    '': ''
 }
+
 
 class RfamEntry:
     """
@@ -46,12 +47,13 @@ class RfamEntry:
         RF00001	5S_rRNA	5S ribosomal RNA	Gene; rRNA;	119
     """
 
-    def __init__(self, accession, name, desc, type, model_length):
+    def __init__(self, accession, name, desc, rna_type, model_length, nc_rna_class=None):
         self.accession = accession
         self.name = name
         self.desc = desc
-        self.type = type
+        self.rna_type = rna_type
         self.model_length = model_length
+        self.nc_rna_class = nc_rna_class
 
 
 class Inference:
@@ -162,7 +164,7 @@ def parse_matches(input_file):
     return matches
 
 
-def __process_rna_type(accession, rna_type):
+def __process_rna_type(rfam_name, rna_type):
     """
         Possible RNA type values are:
             - Gene;
@@ -170,19 +172,53 @@ def __process_rna_type(accession, rna_type):
             - Gene; snRNA; splicing;
             - Cis-reg; riboswitch;
 
+        Ribosomal RNA will go in as rRNA and transfer RNA will go in as tRNA. All remaining will go in as ncRNA.
+
+        Controlled vocabulary for ncRNA classes:
+        http://www.insdc.org/documents/ncrna-vocabulary
+
     :param param:
     :return:
     """
-    if rna_type == 'Gene;':
-        pass
-    elif 'snRNA' in rna_type:
-        return RNAType.SN_RNA
-    elif 'tRNA' in rna_type:
-        return RNAType.T_RNA
+    non_coding_rna_class = None
+    rna_type_result = None
+    if 'tRNA' in rna_type:
+        rna_type_result = RNAType.T_RNA
     elif 'rRNA' in rna_type:
-        return RNAType.R_RNA
+        rna_type_result = RNAType.R_RNA
     else:
-        return RNAType.MISC_RNA
+        rna_type_result = RNAType.NC_RNA
+        if 'antisense' in rna_type:
+            non_coding_rna_class = 'antisense_RNA'
+        elif rna_type.startswith('Intron;'):
+            non_coding_rna_class = 'autocatalytically_spliced_intron'
+        elif 'ribozyme' in rna_type:
+            if 'Hammerhead' in rfam_name:
+                non_coding_rna_class = 'hammerhead_ribozyme'
+            elif 'RNase_MRP' in rfam_name:
+                non_coding_rna_class = 'RNase_MRP_RNA'
+            else:
+                non_coding_rna_class = 'ribozyme'
+        elif 'lncRNA' in rna_type:
+            non_coding_rna_class = 'lncRNA'
+        elif 'RNase' in rfam_name:
+            non_coding_rna_class = 'RNase_P_RNA'
+        elif 'Telomerase' in rfam_name:
+            non_coding_rna_class = 'telomerase_RNA'
+        elif 'miRNA' in rna_type:
+            non_coding_rna_class = 'miRNA'
+        elif rna_type.startswith('Gene; snRNA'):
+            non_coding_rna_class = 'snRNA'
+        elif 'Vault' in rfam_name:
+            non_coding_rna_class = 'vault_RNA'
+        elif 'Y_RNA' in rfam_name:
+            non_coding_rna_class = 'Y_RNA'
+        elif '_SRP' in rfam_name:
+            non_coding_rna_class = 'SRP_RNA'
+        else:
+            non_coding_rna_class = 'other'
+
+    return rna_type_result, non_coding_rna_class
 
 
 def parse_rfam_lookup_file(input_file):
@@ -202,9 +238,9 @@ def parse_rfam_lookup_file(input_file):
             accession = row[0]
             name = row[1]
             desc = row[2]
-            type = __process_rna_type(accession, row[3])
+            rna_type, non_coding_rna_class = __process_rna_type(name, row[3])
             clength = row[4]
-            new_entry = RfamEntry(accession, name, desc, type, clength)
+            new_entry = RfamEntry(accession, name, desc, rna_type, clength, non_coding_rna_class)
             rfam_lookup[accession] = new_entry
             cnt += 1
         logging.info("Processed {} models.".format(cnt))
