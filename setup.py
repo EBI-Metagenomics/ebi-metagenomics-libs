@@ -27,7 +27,7 @@ setup(
     packages=['mgnify_backlog', 'mgnify_util', 'mgnify_util.parser', 'ena.flatfile_decorator'],
     install_requires=install_requirements,
     include_package_data=True,
-    install_requirements=['emg-backlog-schema>=0.12.3'],
+    install_requirements=['emg-backlog-schema>=1.0.0'],
     entry_points={
         'console_scripts': [
             'flatfile_decorator=ena.flatfile_decorator.flatfile_decorator:main'

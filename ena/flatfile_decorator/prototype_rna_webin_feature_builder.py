@@ -44,7 +44,7 @@ class RfamEntry:
     """
         Describes an RFAM entry.
         e.g.
-        RF00001	5S_rRNA	5S ribosomal RNA	Gene; rRNA;	119
+        RF00001    5S_rRNA    5S ribosomal RNA   Gene; rRNA;    119
     """
 
     def __init__(self, accession, name, desc, rna_type, model_length, nc_rna_class=None):
@@ -94,7 +94,7 @@ class WebinFeature:
     """
 
     def __init__(self, feature, start_pos, end_pos, gene, product, inference, start_complete=True, end_complete=True,
-                 complement=False):
+                 complement=False, ncrna=None):
         """
 
         :param feature: Webin feature name, e.g. rRNA or ncRNA.
@@ -127,6 +127,7 @@ class WebinFeature:
         self.start_complete = start_complete
         self.end_complete = end_complete
         self.complement = complement
+        self.ncrna = ncrna
 
 
 class CMSearchMatch:
@@ -247,25 +248,6 @@ def parse_rfam_lookup_file(input_file):
     return rfam_lookup
 
 
-def calculate_model_coverage(matches, model_lengths):
-    print("<=== Model coverage approach ===>")
-    partial = 0
-    complete = 0
-    for match in matches:
-        rfam_accession = match.accession
-        model_length = model_lengths.get(rfam_accession)
-        coverage = (match.model_to - match.model_from) / model_length
-        if coverage >= 0.9:
-            complete += 1
-        else:
-            partial += 1
-
-            # print("{}: {}%".format(match.target_name, coverage))
-
-    print("Complete matches: {}".format(complete))
-    print("Partial matches: {}".format(partial))
-
-
 def calculate_missing_n(matches, model_lengths):
     print("<=== Missing N approach ===>")
     partial = 0
@@ -273,12 +255,10 @@ def calculate_missing_n(matches, model_lengths):
     for match in matches:
         rfam_accession = match.accession
         model_length = model_lengths.get(rfam_accession)
-        left_end_ok = match.model_from < 6
-        right_end_ok = model_length - match.model_to < 6
-        if left_end_ok and right_end_ok:
-            complete += 1
-        else:
-            partial += 1
+        left_end_ok = match.model_from < 11
+        right_end_ok = model_length - match.model_to < 11
+        match.right_end_ok = right_end_ok
+        match.left_end_ok = left_end_ok
 
     print("Complete matches: {}".format(complete))
     print("Partial matches: {}".format(partial))
@@ -286,50 +266,60 @@ def calculate_missing_n(matches, model_lengths):
 
 def create_webin_feature(match, model_lengths):
     rfam_accession = match.accession
-    model_length = model_lengths.get(rfam_accession)
+    model_length = model_lengths.get(rfam_accession).model_length
+    ncrna_class = model_lengths.get(rfam_accession).nc_rna_class
     #
-    feature = ""  # feature needs to be look up from a dictionary
+    feature = model_lengths.get(rfam_accession).rna_type.value  # feature needs to be look up from a dictionary
     start_pos = match.seq_from if match.forward else match.seq_to
     end_pos = match.seq_to if match.forward else match.seq_from
-    gene = match.query_name
-    product = ""  # feature needs to be look up from a dictionary
-    inference_prediction = "similar to RNA sequence, rRNA:RFAM:{}".format(rfam_accession)
-    inference = Inference(inference_prediction, "ab initio prediction:Infernal cmsearch:1.1.2")
-    start_complete = True if match.model_from < 6 else False
-    end_complete = True if model_length - match.model_to < 6 else False
+    gene = match.query_name.replace("_", " ")
+    product = model_lengths.get(rfam_accession).desc  # feature needs to be look up from a dictionary
+    inference_prediction = model_lengths.get(rfam_accession).desc, rfam_accession
+    inference = Inference(inference_prediction, "ab initio prediction:Infernal cmsearch:1.1.2:Rfam 14.0")
+    start_complete = True if match.model_from < 11 else False
+    end_complete = True if int(model_length) - int(match.model_to) < 11 else False
+    ncrna = ncrna_class if ncrna_class else None
     complement = True if not match.forward else False
     new_feature = WebinFeature(feature, start_pos, end_pos, gene, product, inference, start_complete, end_complete,
-                               complement)
+                               complement, ncrna)
     return new_feature
 
 
-def build_rfam_lookup(infile):
-    return parse_rfam_lookup_file(infile)
+def RNA(rfam_lookup_file, input_file):
 
-
-def main(argv=None):
-    args = parse_args(argv)
-
-    logging.basicConfig(level=logging.DEBUG if args.verbose else logging.INFO)
-
-    rfam_dict = build_rfam_lookup(args.rfam_lookup_file)
+    rfam_dict = parse_rfam_lookup_file(rfam_lookup_file)
 
     sequence_feature_dict = {}  # seq -> set of features
-    for match in parse_matches(args.input_file):
+    first_line_start = 'FT   '
+    other_lines_start = 'FT                   '
+    for match in parse_matches(input_file):
         seq_id = match.target_name
-        if seq_id in sequence_feature_dict:
-            logging.info("Sequence {} has already a feature assigned.".format(seq_id))
-            features = sequence_feature_dict.get(seq_id)
+        rna = create_webin_feature(match, rfam_dict)
+        feature_type = rna.feature
+        if rna.start_complete and rna.end_complete:
+            position = '{}..{}'.format(str(rna.start_pos), str(rna.end_pos))
+        elif rna.start_complete and not rna.end_complete:
+            position = '{}..>{}'.format(str(rna.start_pos), str(rna.end_pos))
+        elif not rna.start_complete and rna.end_complete:
+            position = '<{}..{}'.format(str(rna.start_pos), str(rna.end_pos))
         else:
-            features = set()
-            sequence_feature_dict[seq_id] = features
+            position = '<{}..>{}'.format(str(rna.start_pos), str(rna.end_pos))
+        position_strand = 'complement({})'.format(position) if rna.complement else position
+        feature_line = '{}{}            {}'.format(first_line_start, feature_type, position_strand)
+        locus_line = 'FT                   /locus_tag='
+        gene_line = '{}/gene="{}"'.format(other_lines_start, rna.gene)
+        product_line = '{}/product="{}"'.format(other_lines_start, rna.product)  # feature needs to be look up from a dictionary
+        model_line = '{}/inference="similar to RNA sequence, {}:RFAM:{}"'.format(other_lines_start, rna.inference.prediction[0], rna.inference.prediction[1])
+        db_line = '{}/inference="{}"'.format(other_lines_start, rna.inference.software)
+        ncrna = '{}/ncRNA_class="{}"'.format(other_lines_start, rna.ncrna) if rna.ncrna else None
+        rna_features_list = [feature_line, locus_line, gene_line, product_line, model_line, db_line]
+        if ncrna:
+            rna_features_list.append(ncrna)
+        if seq_id not in sequence_feature_dict:
+            sequence_feature_dict[seq_id] = rna_features_list
+        else:
+            for x in rna_features_list:
+                sequence_feature_dict[seq_id].append(x)
+    return sequence_feature_dict
 
-        new_feature = create_webin_feature(match, model_lengths)
-        features.add(new_feature)
 
-    print()
-    # TODO: Continue
-
-
-if __name__ == '__main__':
-    main(sys.argv[1:])
