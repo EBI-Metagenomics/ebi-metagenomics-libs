@@ -285,13 +285,13 @@ def create_webin_feature(match, model_lengths):
     return new_feature
 
 
-def RNA(rfam_lookup_file, input_file):
+def RNA(rfam_lookup_file, input_file, tag):
 
     rfam_dict = parse_rfam_lookup_file(rfam_lookup_file)
-
     sequence_feature_dict = {}  # seq -> set of features
     first_line_start = 'FT   '
     other_lines_start = 'FT                   '
+    tag_dict = {'rRNA': 'r', 'tRNA': 't', 'mRNA': 'm', 'tmRNA': 'tm', 'ncRNA': 'nc', 'misc_RNA': 'misc', 'snRNA': 'sn'}
     for match in parse_matches(input_file):
         seq_id = match.target_name
         rna = create_webin_feature(match, rfam_dict)
@@ -306,7 +306,7 @@ def RNA(rfam_lookup_file, input_file):
             position = '<{}..>{}'.format(str(rna.start_pos), str(rna.end_pos))
         position_strand = 'complement({})'.format(position) if rna.complement else position
         feature_line = '{}{}            {}'.format(first_line_start, feature_type, position_strand)
-        locus_line = 'FT                   /locus_tag='
+        locus_line = 'FT                   /locus_tag={}_LOCUS{}'.format(tag, tag_dict[feature_type])
         gene_line = '{}/gene="{}"'.format(other_lines_start, rna.gene)
         product_line = '{}/product="{}"'.format(other_lines_start, rna.product)  # feature needs to be look up from a dictionary
         model_line = '{}/inference="similar to RNA sequence, {}:RFAM:{}"'.format(other_lines_start, rna.inference.prediction[0], rna.inference.prediction[1])
