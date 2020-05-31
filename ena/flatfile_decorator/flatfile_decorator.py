@@ -53,11 +53,13 @@ def count_features(block: list):
     return count
 
 
-def add_rna_annotations(accession: str, rna_dict: dict, block: list):
+def add_rna_annotations(accession: str, rna_dict: dict, block: list, tag_number: int):
     rna_index = get_rna_index(block)
     if accession in rna_dict:
         rna_list = rna_dict[accession]
-        block.insert(rna_index, '\n'.join(rna_list) + '\n')
+        new_locus = [i+str(tag_number) if '/locus_tag' in i else i for i in rna_list]
+        print(new_locus)
+        block.insert(rna_index, '\n'.join(new_locus) + '\n')
     return block
 
 
@@ -166,7 +168,7 @@ def main(argv=None):
     ipro_parser = InterProScanTSVResultParser(annotation_file)
     ipro_parser.parse_file()
 
-    rna_dict = RNA(rna_lookup_file, rna_file)
+   rna_dict = RNA(rna_lookup_file, rna_file, tag_name)
     #get annotation blocks
     flatfile_decorator = FlatfileDecorator(input_file, output_file, rna_file, rna_lookup_file)
     all_blocks = flatfile_decorator.get_block()
@@ -178,11 +180,14 @@ def main(argv=None):
             if 'AC *' in line:
                 accession = parse_accession(line)
         block_with_func = flatfile_decorator.add_func_annotations(ipro_parser.annotations, i5_version, accession, parse_block)
-        block_with_rna = add_rna_annotations(accession, rna_dict, block_with_func)
+        final_block_with_func = []
+        for item in block_with_func:
+            item = re.sub(r'FT\s+/locus_tag=.*', f'{locus_prefix}"{tag_name}_LOCUS{str(locus_tag)}"', item)
+            final_block_with_func.append(item)
+        block_with_rna = add_rna_annotations(accession, rna_dict, final_block_with_func, locus_tag)
         final_block = []
         if count_features(block_with_rna) > 3:
             for item in block_with_rna:
-                item = re.sub(r'FT\s+/locus_tag=.*', f'{locus_prefix}"{tag_name}_LOCUS{str(locus_tag)}"', item)
                 item = re.sub(r'OS {3}.*\n|OC {3}.*\n|PR {3}.*\n', '', item)
                 #item = re.sub(r'PR {3}.*', 'PR   Project:XXX;', item)
                 final_block.append(item)
