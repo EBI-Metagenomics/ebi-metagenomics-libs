@@ -58,7 +58,6 @@ def add_rna_annotations(accession: str, rna_dict: dict, block: list, tag_number:
     if accession in rna_dict:
         rna_list = rna_dict[accession]
         new_locus = [i+str(tag_number) if '/locus_tag' in i else i for i in rna_list]
-        print(new_locus)
         block.insert(rna_index, '\n'.join(new_locus) + '\n')
     return block
 
@@ -131,6 +130,7 @@ def parse_args(args):
                         help='TSV formatted I5 annotation file')
     parser.add_argument('rna_file', help='RNA deoverlapped annotations')
     parser.add_argument('rna_lookup_file')
+    parser.add_argument('project', help='destination project ID PRJEB...')
     parser.add_argument('i5_version', help='Version of InterProScan used at the time of annotation calculation',
                         type=str)
     parser.add_argument('--tag-name', help='Name of the tag to search for in the CDS feature section.',
@@ -151,6 +151,7 @@ def main(argv=None):
     tag_name = args.tag_name
     rna_file = args.rna_file
     rna_lookup_file = args.rna_lookup_file
+    project_id = args.project
     accession = ''
 
     if not os.path.exists(annotation_file):
@@ -188,8 +189,8 @@ def main(argv=None):
         final_block = []
         if count_features(block_with_rna) > 3:
             for item in block_with_rna:
-                item = re.sub(r'OS {3}.*\n|OC {3}.*\n|PR {3}.*\n', '', item)
-                #item = re.sub(r'PR {3}.*', 'PR   Project:XXX;', item)
+                item = re.sub(r'OS {3}.*\n|OC {3}.*\n, '', item)
+                item = re.sub(r'PR {3}.*', f'PR   Project:{project_id};', item)
                 final_block.append(item)
             output_file.write(''.join(final_block))
             locus_tag += 1
