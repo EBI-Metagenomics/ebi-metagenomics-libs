@@ -169,7 +169,7 @@ def main(argv=None):
     ipro_parser = InterProScanTSVResultParser(annotation_file)
     ipro_parser.parse_file()
 
-   rna_dict = RNA(rna_lookup_file, rna_file, tag_name)
+    rna_dict = RNA(rna_lookup_file, rna_file, tag_name)
     #get annotation blocks
     flatfile_decorator = FlatfileDecorator(input_file, output_file, rna_file, rna_lookup_file)
     all_blocks = flatfile_decorator.get_block()
