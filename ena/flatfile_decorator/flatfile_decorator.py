@@ -189,7 +189,7 @@ def main(argv=None):
         final_block = []
         if count_features(block_with_rna) > 3:
             for item in block_with_rna:
-                item = re.sub(r'OS {3}.*\n|OC {3}.*\n, '', item)
+                item = re.sub(r'OS {3}.*\n|OC {3}.*\n', '', item)
                 item = re.sub(r'PR {3}.*', f'PR   Project:{project_id};', item)
                 final_block.append(item)
             output_file.write(''.join(final_block))
