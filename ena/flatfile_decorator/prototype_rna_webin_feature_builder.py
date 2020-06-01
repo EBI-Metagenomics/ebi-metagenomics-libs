@@ -294,6 +294,7 @@ def RNA(rfam_lookup_file, input_file, tag):
     tag_dict = {'rRNA': 'r', 'tRNA': 't', 'mRNA': 'm', 'tmRNA': 'tm', 'ncRNA': 'nc', 'misc_RNA': 'misc', 'snRNA': 'sn'}
     for match in parse_matches(input_file):
         seq_id = match.target_name
+        feature_id = match.accession
         rna = create_webin_feature(match, rfam_dict)
         feature_type = rna.feature
         if rna.start_complete and rna.end_complete:
@@ -306,7 +307,7 @@ def RNA(rfam_lookup_file, input_file, tag):
             position = '<{}..>{}'.format(str(rna.start_pos), str(rna.end_pos))
         position_strand = 'complement({})'.format(position) if rna.complement else position
         feature_line = '{}{}            {}'.format(first_line_start, feature_type, position_strand)
-        locus_line = 'FT                   /locus_tag={}_LOCUS{}'.format(tag, tag_dict[feature_type])
+        locus_line = 'FT                   /locus_tag={}_{}{}'.format(tag, feature_id.lower(), tag_dict[feature_type])
         gene_line = '{}/gene="{}"'.format(other_lines_start, rna.gene)
         product_line = '{}/product="{}"'.format(other_lines_start, rna.product)  # feature needs to be look up from a dictionary
         model_line = '{}/inference="similar to RNA sequence, {}:RFAM:{}"'.format(other_lines_start, rna.inference.prediction[0], rna.inference.prediction[1])
@@ -321,5 +322,6 @@ def RNA(rfam_lookup_file, input_file, tag):
             for x in rna_features_list:
                 sequence_feature_dict[seq_id].append(x)
     return sequence_feature_dict
+
 
 
