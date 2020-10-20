@@ -419,15 +419,6 @@ class MgnifyHandler:
             statuses = ','.join(AnnotationJobStatus.objects.using(self.database).values_list('description', flat=True))
             raise ValueError('Status {} is invalid. Valid choices are: {}'.format(status_description, statuses))
 
-    def update_annotation_jobs_result_status(self, annotation_jobs, result_status):
-        annotation_jobs.update(result_status=result_status)
-
-    def update_annotation_jobs_priority(self, annotation_jobs, priority):
-        annotation_jobs.update(priority=priority)
-
-    def update_annotation_jobs_directory(self, annotation_jobs, directory):
-        annotation_jobs.update(directory=directory)
-
     def update_annotation_job(self, job, field_dict):
         for k, v in field_dict.items():
             setattr(job, k, v)
@@ -452,14 +443,17 @@ class MgnifyHandler:
 
         if result_status:
             self.update_annotation_jobs_result_status(jobs, result_status)
+            jobs.update(result_status=result_status)
             logging.info('Updated AnnotationJob result_status...')
 
         if priority:
             self.update_annotation_jobs_priority(jobs, priority)
+            jobs.update(priority=priority)
             logging.info('Updated AnnotationJob priority...')
 
         if directory and status_description == 'RUNNING':
             self.update_annotation_jobs_directory(jobs, directory)
+            jobs.update(directory=directory)
             logging.info('Setting directory for launched jobs...')
 
         if set_public or set_private:
