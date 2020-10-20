@@ -442,17 +442,14 @@ class MgnifyHandler:
             logging.info('Updated AnnotationJob status...')
 
         if result_status:
-            self.update_annotation_jobs_result_status(jobs, result_status)
             jobs.update(result_status=result_status)
             logging.info('Updated AnnotationJob result_status...')
 
         if priority:
-            self.update_annotation_jobs_priority(jobs, priority)
             jobs.update(priority=priority)
             logging.info('Updated AnnotationJob priority...')
 
         if directory and status_description == 'RUNNING':
-            self.update_annotation_jobs_directory(jobs, directory)
             jobs.update(directory=directory)
             logging.info('Setting directory for launched jobs...')
 
