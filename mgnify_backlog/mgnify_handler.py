@@ -419,12 +419,6 @@ class MgnifyHandler:
             statuses = ','.join(AnnotationJobStatus.objects.using(self.database).values_list('description', flat=True))
             raise ValueError('Status {} is invalid. Valid choices are: {}'.format(status_description, statuses))
 
-    def update_annotation_jobs_priority(self, annotation_jobs, priority):
-        annotation_jobs.update(priority=priority)
-
-    def update_annotation_jobs_directory(self, annotation_jobs, directory):
-        annotation_jobs.update(directory=directory)
-
     def update_annotation_job(self, job, field_dict):
         for k, v in field_dict.items():
             setattr(job, k, v)
@@ -438,7 +432,7 @@ class MgnifyHandler:
     def update_annotation_jobs_from_accessions(self, run_or_assembly_accessions=None, study_accessions=None,
                                                status_description=None, priority=None, pipeline_version=None,
                                                directory=None, set_public=False, set_private=False, delete=False,
-                                               auto_confirm=False):
+                                               auto_confirm=False, result_status=None):
 
         jobs = self.get_annotation_jobs(run_or_assembly_accessions=run_or_assembly_accessions,
                                         study_accessions=study_accessions, pipeline_version=pipeline_version)
@@ -447,12 +441,16 @@ class MgnifyHandler:
             self.update_annotation_jobs_status(jobs, status_description)
             logging.info('Updated AnnotationJob status...')
 
+        if result_status:
+            jobs.update(result_status=result_status)
+            logging.info('Updated AnnotationJob result_status...')
+
         if priority:
-            self.update_annotation_jobs_priority(jobs, priority)
+            jobs.update(priority=priority)
             logging.info('Updated AnnotationJob priority...')
 
         if directory and status_description == 'RUNNING':
-            self.update_annotation_jobs_directory(jobs, directory)
+            jobs.update(directory=directory)
             logging.info('Setting directory for launched jobs...')
 
         if set_public or set_private:
