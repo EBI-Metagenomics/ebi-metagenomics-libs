@@ -462,6 +462,17 @@ class MgnifyHandler:
                 jobs.delete()
                 logging.info('Deleting annotation jobs')
 
+    def update_runs_from_accessions(self, run_accessions=None, study_accessions=None, library_strategy=None):
+        jobs = Run.objects.using(self.database)
+        if run_accessions and study_accessions:
+            runs = jobs.filter(study__secondary_accession__in=study_accessions, primary_accession__in=run_accessions)
+        elif run_accessions and not study_accessions:
+            runs = jobs.filter(primary_accession__in=run_accessions)
+        elif study_accessions and not run_accessions:
+            runs = jobs.filter(study__secondary_accession__in=study_accessions)
+        logging.info('Matched {} run(s)'.format(len(runs)))
+        runs.update(library_strategy=library_strategy)
+
 
 def sanitise_string(text):
     return ''.join([i if ord(i) < 128 else ' ' for i in text])
