@@ -424,19 +424,15 @@ class MgnifyHandler:
             setattr(job, k, v)
         job.save()
 
-    def update_annotation_jobs_privacy(self, annotation_jobs, is_public):
-        Run.objects.using(self.database).filter(annotationjobs__in=annotation_jobs).update(public=is_public)
-        Assembly.objects.using(self.database).filter(assemblyannotationjob__annotation_job__in=annotation_jobs).update(public=is_public)
-        Study.objects.using(self.database).filter(run__annotationjobs__in=annotation_jobs).update(public=is_public)
-
     def update_annotation_jobs_from_accessions(self, run_or_assembly_accessions=None, study_accessions=None,
                                                status_description=None, priority=None, pipeline_version=None,
-                                               directory=None, set_public=False, set_private=False, delete=False,
-                                               auto_confirm=False, result_status=None):
-
+                                               directory=None, delete=False, auto_confirm=False, result_status=None,
+                                               library_strategy=None):
         jobs = self.get_annotation_jobs(run_or_assembly_accessions=run_or_assembly_accessions,
                                         study_accessions=study_accessions, pipeline_version=pipeline_version)
+
         logging.info('Matched {} annotation job(s)'.format(len(jobs)))
+
         if status_description:
             self.update_annotation_jobs_status(jobs, status_description)
             logging.info('Updated AnnotationJob status...')
@@ -453,25 +449,16 @@ class MgnifyHandler:
             jobs.update(directory=directory)
             logging.info('Setting directory for launched jobs...')
 
-        if set_public or set_private:
-            self.update_annotation_jobs_privacy(jobs, set_public)
-            logging.info('Updated Run and study privacy...')
-
         if delete:
             if auto_confirm or input('Please confirm you wish to delete {} jobs (yes/no): '.format(len(jobs))) == 'yes':
                 jobs.delete()
                 logging.info('Deleting annotation jobs')
 
-    def update_runs_from_accessions(self, run_accessions=None, study_accessions=None, library_strategy=None):
-        jobs = Run.objects.using(self.database)
-        if run_accessions and study_accessions:
-            runs = jobs.filter(study__secondary_accession__in=study_accessions, primary_accession__in=run_accessions)
-        elif run_accessions and not study_accessions:
-            runs = jobs.filter(primary_accession__in=run_accessions)
-        elif study_accessions and not run_accessions:
-            runs = jobs.filter(study__secondary_accession__in=study_accessions)
-        logging.info('Matched {} run(s)'.format(len(runs)))
-        runs.update(library_strategy=library_strategy)
+        if library_strategy:
+            runs = Run.objects.using(self.database).filter(annotationjobs__in=jobs)
+            runs.update(library_strategy=library_strategy)
+            # filtered out assembly accessions (no library strategy)
+            logging.info('Updated library strategy for {} runs'.format(len(runs)))
 
 
 def sanitise_string(text):
