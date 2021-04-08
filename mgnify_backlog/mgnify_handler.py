@@ -173,6 +173,24 @@ class MgnifyHandler:
     def get_backlog_assembly(self, assembly_accession):
         return Assembly.objects.using(self.database).get(primary_accession=assembly_accession)
 
+    def get_backlog_assemblyJobId_from_assemblyAcc(self, new_ena_assembly):
+        assembly_job = AssemblyJob.objects.using(self.database).get(new_ena_assembly=new_ena_assembly)
+        return assembly_job["id"]
+
+    def get_backlog_runAssemblyJob_RunId_from_assemblyJobId(self, assembly_job_id):
+        run_assembly_job = RunAssemblyJob.objects.using(self.database).get(assembly_job_id=assembly_job_id)
+        return run_assembly_job["run_id"]
+
+    def get_backlog_runPlatform_from_runId(self, run_id):
+        run = Run.objects.using(self.database).get(run_id=run_id)
+        return run["instrument_platform"]
+
+    def is_long_reads(self, instrument_platform):
+        if instrument_platform == "OXFORD_NANOPORE" or instrument_platform == "PACBIO_SMRT":
+            return True
+        else:
+            return False
+
     def get_or_save_study(self, ena_handler, primary_accession=None, secondary_accession=None):
         try:
             return self.get_backlog_study(primary_accession, secondary_accession)
@@ -460,6 +478,12 @@ class MgnifyHandler:
             # filtered out assembly accessions (no library strategy)
             logging.info('Updated library strategy for {} runs'.format(len(runs)))
 
+    # Check for long-reads assemblies
+    def check_run_platform(self, assembly_accession):
+        assembly_job_id = get_backlog_assemblyJobId_from_assemblyAcc(assembly_accession)
+        run_id = get_backlog_runAssemblyJob_RunId_from_assemblyJobId(assembly_job_id)
+        run_platform = get_backlog_runPlatform_from_runId(run_id)
+        return is_long_reads(run_platform)
 
 def sanitise_string(text):
     return ''.join([i if ord(i) < 128 else ' ' for i in text])
