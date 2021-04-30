@@ -380,7 +380,7 @@ class MgnifyHandler:
 
     def get_annotation_jobs(self, run_or_assembly_accessions=None, study_accessions=None, status_descriptions=None,
                             priority=None, pipeline_version=None, experiment_types=None, biome_assigned_only=False,
-                            not_in_protein_db=False):
+                            in_protein_db=None):
         jobs = AnnotationJob.objects.using(self.database)
         if run_or_assembly_accessions:
             jobs = jobs.filter(
@@ -396,10 +396,9 @@ class MgnifyHandler:
             jobs = jobs.filter(
                 Q(runannotationjob__run__biome_id__isnull=False) |
                 Q(assemblyannotationjob__assembly__biome_id__isnull=False))
-        if not_in_protein_db:
+        if in_protein_db is not None:
             # filter by field protein_db from AssemblyAnnotationJob.
-            # Return all fields for value 0(False) (that means assembly WASN'T add to protein DB)
-            jobs = jobs.filter(Q(assemblyannotationjob__protein_db=False))
+            jobs = jobs.filter(Q(assemblyannotationjob__protein_db=in_protein_db))
         if experiment_types and len(experiment_types):
             q_objects = Q()
             no_assembly = list(filter(lambda exp: exp != 'ASSEMBLY', experiment_types))
