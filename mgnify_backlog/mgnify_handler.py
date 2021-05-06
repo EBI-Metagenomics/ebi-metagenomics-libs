@@ -380,7 +380,7 @@ class MgnifyHandler:
 
     def get_annotation_jobs(self, run_or_assembly_accessions=None, study_accessions=None, status_descriptions=None,
                             priority=None, pipeline_version=None, experiment_types=None, biome_assigned_only=False,
-                            in_protein_db=None):
+                            in_protein_db=None, public=None, private=None):
         jobs = AnnotationJob.objects.using(self.database)
         if run_or_assembly_accessions:
             jobs = jobs.filter(
@@ -418,6 +418,14 @@ class MgnifyHandler:
             jobs = jobs.filter(status__description__in=status_descriptions)
         if pipeline_version:
             jobs = jobs.filter(pipeline__version=pipeline_version)
+        if public:
+            jobs = jobs.filter(
+                Q(runannotationjob__run__study__public=1) |
+                Q(assemblyannotationjob__assembly__study__public=1))
+        if private:
+            jobs = jobs.filter(
+                Q(runannotationjob__run__study__public=0) |
+                Q(assemblyannotationjob__assembly__study__public=0))
         return jobs
 
     def update_annotation_jobs_status(self, annotation_jobs, status_description):
