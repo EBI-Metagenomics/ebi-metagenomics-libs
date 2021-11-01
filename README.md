@@ -1,6 +1,10 @@
 [![Build Status](https://travis-ci.org/EBI-Metagenomics/ebi-metagenomics-libs.svg?branch=master)](https://travis-ci.org/EBI-Metagenomics/ebi-metagenomics-libs)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b2c48cc9e87c48e8aa28ed9062387643)](https://www.codacy.com/app/mb1069/ebi-metagenomics-libs?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=EBI-Metagenomics/ebi-metagenomics-libs&amp;utm_campaign=Badge_Grade)
 
+:warning: **THIS PROJECT HAS BEEN ARCHIVED** :warning: 
+
+The funcionality has been merged into https://github.com/EBI-Metagenomics/mi-automation
+
 # ebi-metagenomics-libs
 This repository contains internal tools and libs used by the MGnify team at EMBL-EBI.
 
